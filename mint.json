@@ -38,9 +38,17 @@
     {
       "group": "Get Started",
       "pages": [
-        "introduction",
-        "quickstart",
-        "development"
+        "guide/introduction",
+        "guide/explore-vayu",
+        {
+          "group": "Plans & pricing",
+          "pages": [
+            "guide/plans-and-pricing/create-plan",
+            "guide/plans-and-pricing/contract-processing",
+            "guide/plans-and-pricing/plan-templates-and-contracts",
+            "guide/plans-and-pricing/base-amount-and-commitment"
+          ]
+        }
       ]
     },
     {
