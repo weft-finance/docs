@@ -1,0 +1,33 @@
+---
+title: 'Sending events'
+description: 'Sending events to Vayu'
+---
+
+When you send events to Vayu, our system is designed with robustness in mind. One of the key features of our event sending mechanism is its ability to process multiple events without letting the invalidity of one or more events affect the entire request. This means that if you send a batch of events and some of them are not valid, Vayu will only discard the invalid ones, ensuring that your valid events are still processed and stored.
+
+
+## Immediate Availability
+Upon successful submission, events will be immediately available for viewing and management both through our API and the UI. This real-time availability is crucial for monitoring and analysis purposes, allowing you to act swiftly on the incoming data. For more details on browsing these events, visit our Browse Section.
+
+Request Body
+The request body must include an array of events. Each event should comply with the EventInput schema.
+
+- **Minimum Events:** 1 <br/>
+-  **Maximum Events:** 1000 <br/>
+-  **Total Payload Size:** Up to 256KB <br/>
+
+## Response Structure 
+The response from the server will include two arrays:
+
+**validEvents:** Contains all the events that were successfully processed. <br/>
+**invalidEvents:** Contains details of the events that failed validation, including the error message for each invalid event.
+
+
+<Note>
+    ## Important Notes
+    Ensure each event in your request adheres to the EventInput schema. <br/>
+    The system can process up to 1000 events in a single request, with a total payload size limit of 256KB. <br/>
+    Invalid events **will not** cause the entire request to fail. Instead, they will be returned in the invalidEvents array of the response.
+</Note>
+
+For detailed information on how to structure your events and manage responses, please refer to our API documentation.

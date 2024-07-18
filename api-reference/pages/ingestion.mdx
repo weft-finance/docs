@@ -1,0 +1,57 @@
+---
+title: 'Dry run ingestion'
+---
+
+## Introduction
+Dry run ingestion is a feature that allows you to send events to Vayu without actually storing them. This is useful for testing purposes, as it allows you to verify that the events are being sent correctly and that they are being processed as expected.
+
+<Info>
+ How it works? <br/>
+ When you send events to Vayu using the Submit a batch of events for testing endpoint, <br/>
+ Vayu will process the events as it normally would, but it will not store them in the database. Instead, it will return a response that indicates whether the events were processed successfully or not, which customers the events will be matched to and how the events would be counted.
+</Info>
+
+## Example
+Here is an example of how you can use the dry run ingestion feature to send events to Vayu:
+
+
+```mdx-code-block
+curl -X POST "https://api.vayu.mparticle.com/v1/events/dry-run
+-H "Content-Type: application/json"
+-H "Authorization: Bearer $REFRESH_TOKEN"
+-d '{
+  "events": [
+    {
+      "name": "test_event",
+      "ref": "your_idempotency_key",
+      "customerAlias": "the value by which customer matching will be done",
+      "timestamp": "2021-01-01T00:00:00Z",
+      "data": {
+        "key1": "value1",
+        "key2": "value2"
+      }
+    }
+  ]
+}'
+```
+## Response
+The response will be a JSON array that contains objects with the following properties:
+
+event: The events that was created by the ingestion process and the event id.
+matchedCustomer: The customer that the event was matched to, if any.
+meterWithValues: The meters that the event was counted towards.
+value: The value the event contributed to the eventual meter value.
+instanceValue: (Applicable only for instance based meters) The instance identifier for which the event was counted for.
+
+## Response Structure
+
+The response will be a JSON array that contains objects with the following properties:
+- event: <br/> The events that was created by the ingestion process and the event id.
+- matchedCustomer: <br/>
+ The customer that the event was matched to, if any.
+- meterWithValues: <br/>
+ The meters that the event was counted towards.
+  - value: <br/>  The value the event contributed to the eventual meter value.
+  - instanceValue: <br/>
+   Applicable only for instance based meters
+   The instance identifier for which the event was counted for.
