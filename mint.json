@@ -1,6 +1,6 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Starter Kit",
+  "name": "Vayu docs",
   "logo": {
     "dark": "/logo/dark.svg",
     "light": "/logo/light.svg"
@@ -18,13 +18,9 @@
   "topbarLinks": [
     {
       "name": "Support",
-      "url": "mailto:hi@mintlify.com"
+      "url": "shai@withvayu.com"
     }
   ],
-  "topbarCtaButton": {
-    "name": "Dashboard",
-    "url": "https://dashboard.mintlify.com"
-  },
   "tabs": [
     {
       "name": "API Reference",
@@ -36,16 +32,6 @@
       "name": "Documentation",
       "icon": "book-open-cover",
       "url": "https://mintlify.com/docs"
-    },
-    {
-      "name": "Community",
-      "icon": "slack",
-      "url": "https://mintlify.com/community"
-    },
-    {
-      "name": "Blog",
-      "icon": "newspaper",
-      "url": "https://mintlify.com/blog"
     }
   ],
   "navigation": [
@@ -71,21 +57,80 @@
     {
       "group": "API Documentation",
       "pages": [
-        "api-reference/introduction"
+        "api-reference/pages/introduction",
+        "api-reference/pages/sdk",
+        "api-reference/pages/pagination",
+        "api-reference/pages/ingestion",
+        "api-reference/pages/sending-events",
+        "api-reference/pages/browsing-events"
       ]
     },
     {
-      "group": "Endpoint Examples",
+      "group": "Api Reference",
       "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
+        {
+          "group": "Auth",
+          "pages": [
+            "api-reference/endpoints/auth/login-by-obtaining-a-new-access-token"
+          ]
+        },
+        {
+          "group": "Events",
+          "pages": [
+            "api-reference/endpoints/events/get-event-by-refid",
+            "api-reference/endpoints/events/query-events-by-timestamp-period-and-optional-event-name",
+            "api-reference/endpoints/events/submit-a-batch-of-events-for-ingestion",
+            "api-reference/endpoints/events/submit-a-batch-of-events-for-testing",
+            "api-reference/endpoints/events/delete-an-event-by-refid"
+          ]
+        },
+        {
+          "group": "Customers",
+          "pages": [
+            "api-reference/endpoints/customers/get-customer",
+            "api-reference/endpoints/customers/list-customers",
+            "api-reference/endpoints/customers/create-customer",
+            "api-reference/endpoints/customers/update-customer",
+            "api-reference/endpoints/customers/delete-customer"
+          ]
+        },
+        {
+          "group": "Meters",
+          "pages": [
+            "api-reference/endpoints/meters/get-meter",
+            "api-reference/endpoints/meters/list-meters",
+            "api-reference/endpoints/meters/update-meter",
+            "api-reference/endpoints/meters/delete-meter"
+          ]
+        },
+        {
+          "group": "Plans",
+          "pages": [
+            "api-reference/endpoints/plans/get-plan",
+            "api-reference/endpoints/plans/list-plans",
+            "api-reference/endpoints/plans/delete-plan"
+          ]
+        },
+        {
+          "group": "Contracts",
+          "pages": [
+            "api-reference/endpoints/contracts/get-contract",
+            "api-reference/endpoints/contracts/list-contracts",
+            "api-reference/endpoints/contracts/create-contract",
+            "api-reference/endpoints/contracts/delete-contract"
+          ]
+        },
+        {
+          "group": "Invoices",
+          "pages": [
+            "api-reference/endpoints/invoices/get-invoice",
+            "api-reference/endpoints/invoices/list-invoices"
+          ]
+        }
       ]
     }
   ],
   "footerSocials": {
-    "x": "https://x.com/mintlify",
-    "github": "https://github.com/mintlify",
-    "linkedin": "https://www.linkedin.com/company/mintsearch"
+    "linkedin": "https://www.linkedin.com/company/withvayu"
   }
 }
