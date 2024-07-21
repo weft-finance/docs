@@ -2,18 +2,23 @@
   "$schema": "https://mintlify.com/schema.json",
   "name": "Vayu docs",
   "logo": {
-    "dark": "/logo/dark.svg",
-    "light": "/logo/light.svg"
+    "dark": "/assets/logo/dark.svg",
+    "light": "/assets/logo/light.svg"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "/assets/favicon.png",
   "colors": {
-    "primary": "#0D9373",
-    "light": "#07C983",
-    "dark": "#0D9373",
+    "primary": "#57b4ac",
+    "light": "#48EEDF",
+    "dark": "#57b4ac",
     "anchors": {
       "from": "#0D9373",
       "to": "#07C983"
     }
+  },
+  "topbarCtaButton": {
+  "type": "link",
+  "url": "https://www.withvayu.com/#FAQ",
+  "name": "Get Started Now"
   },
   "topbarLinks": [
     {
@@ -29,39 +34,63 @@
   ],
   "anchors": [
     {
-      "name": "Documentation",
-      "icon": "book-open-cover",
-      "url": "https://mintlify.com/docs"
+      "name": "Join our Slack",
+      "icon": "slack",
+      "url": "https://blog.withvayu.com/"
+    },
+    {
+      "name": "Explore Demo",
+      "icon": "star",
+      "url": "https://demo-app.dev.withvayu.com/"
+    },
+    {
+      "name": "Website",
+      "icon": "link",
+      "url": "https://withvayu.com/"
+    },
+    {
+      "name": "Blog",
+      "icon": "blog",
+      "url": "https://blog.withvayu.com/"
     }
   ],
   "navigation": [
     {
       "group": "Get Started",
       "pages": [
-        "guide/introduction",
-        "guide/explore-vayu",
+        "documentation/get-started/introduction",
+        "documentation/get-started/quickstart"
+      ]
+    },{
+      "group": "Guides",
+      "pages": [
         {
           "group": "Plans & pricing",
           "pages": [
-            "guide/plans-and-pricing/create-plan",
-            "guide/plans-and-pricing/contract-processing",
-            "guide/plans-and-pricing/plan-templates-and-contracts",
-            "guide/plans-and-pricing/pricing-and-product-line-items",
-            "guide/plans-and-pricing/base-amount-and-commitment",
-            "guide/plans-and-pricing/assign-plan-to-customer"
+            "documentation/guides/plans-and-pricing/create-plan",
+            "documentation/guides/plans-and-pricing/contract-processing",
+            "documentation/guides/plans-and-pricing/plan-templates-and-contracts",
+            "documentation/guides/plans-and-pricing/pricing-and-product-line-items",
+            "documentation/guides/plans-and-pricing/base-amount-and-commitment",
+            "documentation/guides/plans-and-pricing/assign-plan-to-customer"
           ]
-        }
-      ]
-    },
-    {
-      "group": "Essentials",
-      "pages": [
-        "essentials/markdown",
-        "essentials/code",
-        "essentials/images",
-        "essentials/settings",
-        "essentials/navigation",
-        "essentials/reusable-snippets"
+        },
+        {
+          "group": "Invoices",
+          "pages": [
+            "documentation/guides/invoices/real-time-invoice",
+            "documentation/guides/invoices/billing-and-invoice-automation"
+          ]
+        },
+        {
+          "group": "Customers",
+          "pages": [
+            "documentation/guides/customers/adding-a-customer",
+            "documentation/guides/customers/customer-overview",
+            "documentation/guides/customers/subsidiaries-and-related-entities"  
+          ]
+        },
+        "documentation/guides/data-metering/introduction"
       ]
     },
     {
