@@ -1,30 +1,31 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Starter Kit",
+  "name": "Vayu docs",
   "logo": {
-    "dark": "/logo/dark.svg",
-    "light": "/logo/light.svg"
+    "dark": "/assets/logo/dark.svg",
+    "light": "/assets/logo/light.svg"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "/assets/favicon.png",
   "colors": {
-    "primary": "#0D9373",
-    "light": "#07C983",
-    "dark": "#0D9373",
+    "primary": "#57b4ac",
+    "light": "#48EEDF",
+    "dark": "#57b4ac",
     "anchors": {
       "from": "#0D9373",
       "to": "#07C983"
     }
   },
+  "topbarCtaButton": {
+  "type": "link",
+  "url": "https://www.withvayu.com/#FAQ",
+  "name": "Get Started Now"
+  },
   "topbarLinks": [
     {
       "name": "Support",
-      "url": "mailto:hi@mintlify.com"
+      "url": "shai@withvayu.com"
     }
   ],
-  "topbarCtaButton": {
-    "name": "Dashboard",
-    "url": "https://dashboard.mintlify.com"
-  },
   "tabs": [
     {
       "name": "API Reference",
@@ -33,59 +34,142 @@
   ],
   "anchors": [
     {
-      "name": "Documentation",
-      "icon": "book-open-cover",
-      "url": "https://mintlify.com/docs"
+      "name": "Join our Slack",
+      "icon": "slack",
+      "url": "https://blog.withvayu.com/"
     },
     {
-      "name": "Community",
-      "icon": "slack",
-      "url": "https://mintlify.com/community"
+      "name": "Explore Demo",
+      "icon": "star",
+      "url": "https://demo-app.dev.withvayu.com/"
+    },
+    {
+      "name": "Website",
+      "icon": "link",
+      "url": "https://withvayu.com/"
     },
     {
       "name": "Blog",
-      "icon": "newspaper",
-      "url": "https://mintlify.com/blog"
+      "icon": "blog",
+      "url": "https://blog.withvayu.com/"
     }
   ],
   "navigation": [
     {
       "group": "Get Started",
       "pages": [
-        "introduction",
-        "quickstart",
-        "development"
+        "documentation/get-started/introduction",
+        "documentation/get-started/quickstart"
       ]
-    },
-    {
-      "group": "Essentials",
+    },{
+      "group": "Guides",
       "pages": [
-        "essentials/markdown",
-        "essentials/code",
-        "essentials/images",
-        "essentials/settings",
-        "essentials/navigation",
-        "essentials/reusable-snippets"
+        {
+          "group": "Plans & pricing",
+          "pages": [
+            "documentation/guides/plans-and-pricing/create-plan",
+            "documentation/guides/plans-and-pricing/contract-processing",
+            "documentation/guides/plans-and-pricing/plan-templates-and-contracts",
+            "documentation/guides/plans-and-pricing/pricing-and-product-line-items",
+            "documentation/guides/plans-and-pricing/base-amount-and-commitment",
+            "documentation/guides/plans-and-pricing/assign-plan-to-customer"
+          ]
+        },
+        {
+          "group": "Invoices",
+          "pages": [
+            "documentation/guides/invoices/real-time-invoice",
+            "documentation/guides/invoices/billing-and-invoice-automation"
+          ]
+        },
+        {
+          "group": "Customers",
+          "pages": [
+            "documentation/guides/customers/adding-a-customer",
+            "documentation/guides/customers/customer-overview",
+            "documentation/guides/customers/subsidiaries-and-related-entities"  
+          ]
+        },
+        "documentation/guides/data-metering/introduction"
       ]
     },
     {
       "group": "API Documentation",
       "pages": [
-        "api-reference/introduction"
+        "api-reference/pages/introduction",
+        "api-reference/pages/sdk",
+        "api-reference/pages/pagination",
+        "api-reference/pages/ingestion",
+        "api-reference/pages/sending-events",
+        "api-reference/pages/browsing-events"
       ]
     },
     {
-      "group": "Endpoint Examples",
+      "group": "Api Reference",
       "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
+        {
+          "group": "Auth",
+          "pages": [
+            "api-reference/endpoints/auth/login-by-obtaining-a-new-access-token"
+          ]
+        },
+        {
+          "group": "Events",
+          "pages": [
+            "api-reference/endpoints/events/get-event-by-refid",
+            "api-reference/endpoints/events/query-events-by-timestamp-period-and-optional-event-name",
+            "api-reference/endpoints/events/submit-a-batch-of-events-for-ingestion",
+            "api-reference/endpoints/events/submit-a-batch-of-events-for-testing",
+            "api-reference/endpoints/events/delete-an-event-by-refid"
+          ]
+        },
+        {
+          "group": "Customers",
+          "pages": [
+            "api-reference/endpoints/customers/get-customer",
+            "api-reference/endpoints/customers/list-customers",
+            "api-reference/endpoints/customers/create-customer",
+            "api-reference/endpoints/customers/update-customer",
+            "api-reference/endpoints/customers/delete-customer"
+          ]
+        },
+        {
+          "group": "Meters",
+          "pages": [
+            "api-reference/endpoints/meters/get-meter",
+            "api-reference/endpoints/meters/list-meters",
+            "api-reference/endpoints/meters/update-meter",
+            "api-reference/endpoints/meters/delete-meter"
+          ]
+        },
+        {
+          "group": "Plans",
+          "pages": [
+            "api-reference/endpoints/plans/get-plan",
+            "api-reference/endpoints/plans/list-plans",
+            "api-reference/endpoints/plans/delete-plan"
+          ]
+        },
+        {
+          "group": "Contracts",
+          "pages": [
+            "api-reference/endpoints/contracts/get-contract",
+            "api-reference/endpoints/contracts/list-contracts",
+            "api-reference/endpoints/contracts/create-contract",
+            "api-reference/endpoints/contracts/delete-contract"
+          ]
+        },
+        {
+          "group": "Invoices",
+          "pages": [
+            "api-reference/endpoints/invoices/get-invoice",
+            "api-reference/endpoints/invoices/list-invoices"
+          ]
+        }
       ]
     }
   ],
   "footerSocials": {
-    "x": "https://x.com/mintlify",
-    "github": "https://github.com/mintlify",
-    "linkedin": "https://www.linkedin.com/company/mintsearch"
+    "linkedin": "https://www.linkedin.com/company/withvayu"
   }
 }

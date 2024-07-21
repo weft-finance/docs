@@ -1,0 +1,40 @@
+---
+title: 'Pagination'
+icon: 'list'
+description: 'Vayu API Paginated Responses'
+---
+
+List endpoints utilize a standardized format that contains the requested list in a data response object, as well as some metadata that's useful for pagination in the pagination_metadata response object.
+
+Generically, the response format is:
+
+```mdx-code-block
+{
+    "entities": [
+       ...
+    ],
+    "hasMore": true,
+    "nextCursor": "..."
+    "total": 2,783    
+}
+```
+
+## Pagination response fields
+### entities
+The entities array contains the requested list of items (e.g. customers, invoices, plans, etc....).
+
+### total
+total is the number of items that exist in the collection. This value is not affected by the limit query parameter, and is useful for calculating the number of pages in a paginated response.
+
+### hasMore
+hasMore is a boolean value that will be true if there are more results to fetch. If hasMore is false, then the nextCursor not be present in the response.
+
+### nextCursor
+nextCursor is a string that can be used to fetch the next page of results. Paginated resources are sorted by their createdAT values in ascending order.
+
+## Pagination request fields
+### limit
+limit is the number of items to return in the response. When limit is not present in the request, the default value is 10. and the maximum value possible is 1,000.
+
+### cursor
+cursor is a string that can be used to fetch the next page of results. When cursor is not present in the request, the first page of results will be returned.
