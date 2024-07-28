@@ -65,6 +65,15 @@
       "group": "Guides",
       "pages": [
         {
+          "group": "Customers",
+          "pages": [
+            "documentation/guides/customers/adding-a-customer",
+            "documentation/guides/customers/customer-overview",
+            "documentation/guides/customers/subsidiaries-and-related-entities"  
+          ]
+        },
+
+        {
           "group": "Plans & pricing",
           "pages": [
             "documentation/guides/plans-and-pricing/create-plan",
@@ -82,16 +91,7 @@
             "documentation/guides/invoices/billing-and-invoice-automation"
           ]
         },
-        {
-          "group": "Customers",
-          "pages": [
-            "documentation/guides/customers/adding-a-customer",
-            "documentation/guides/customers/customer-overview",
-            "documentation/guides/customers/subsidiaries-and-related-entities"  
-          ]
-        },
-        "documentation/guides/data-metering/introduction"
-      ]
+
     },
     {
       "group": "API Documentation",
