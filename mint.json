@@ -148,7 +148,7 @@
             "api-reference/endpoints/contracts/list-contracts",
             "api-reference/endpoints/contracts/create-contract",
             "api-reference/endpoints/contracts/delete-contract"
-          ]
+          ] 
         },
         {
           "group": "Invoices",
