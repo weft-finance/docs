@@ -37,11 +37,6 @@
       "name": "Website",
       "icon": "link",
       "url": "https://withvayu.com/"
-    },
-    {
-      "name": "Blog",
-      "icon": "blog",
-      "url": "https://blog.withvayu.com/"
     }
   ],
   "navigation": [
