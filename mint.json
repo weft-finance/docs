@@ -34,16 +34,6 @@
   ],
   "anchors": [
     {
-      "name": "Join our Slack",
-      "icon": "slack",
-      "url": "https://blog.withvayu.com/"
-    },
-    {
-      "name": "Explore Demo",
-      "icon": "star",
-      "url": "https://demo-app.dev.withvayu.com/"
-    },
-    {
       "name": "Website",
       "icon": "link",
       "url": "https://withvayu.com/"
