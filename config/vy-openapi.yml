@@ -1489,7 +1489,7 @@ components:
                   to each customer.
                 example: customer_12345
               ref:
-                type: string
+                type: 'string'
                 description: A universally unique identifier (UUID) or other form of
                   high-entropy string serving as an immutable reference for each
                   event entry.
