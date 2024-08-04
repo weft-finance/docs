@@ -16,3 +16,5 @@ mintlify dev --port 8080
 
 To generate the endpoint definitions from your OpenAPI YAML file- 
 npx @mintlify/scraping@latest openapi-file ./config/vy-openapi.yml -o api-reference/endpoints
+
+
