@@ -18,7 +18,7 @@
   "topbarCtaButton": {
     "type": "link",
     "url": "https://www.withvayu.com/#FAQ",
-    "name": "Get Started Now"
+    "name": "Get started now"
   },
   "topbarLinks": [
     {
@@ -149,6 +149,20 @@
             "pages": [
               "api-reference/endpoints/invoices/get-invoice",
               "api-reference/endpoints/invoices/list-invoices"
+            ]
+          },
+          {
+            "group": "Credits",
+            "pages": [
+              "api-reference/endpoints/credits/grant-credits-to-a-customer-credit-ledger",
+              "api-reference/endpoints/credits/deduct-credits-from-customer-credit-ledger",
+              "api-reference/endpoints/credits/retrieve-credit-ledger-entries-for-customer"
+            ]
+          },
+          {
+            "group": "Webhooks",
+            "pages": [
+              "api-reference/endpoints/webhooks/subscribe-to-webhooks"
             ]
           }
         ]

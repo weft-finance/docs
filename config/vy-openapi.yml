@@ -14,6 +14,8 @@ openapi: 3.0.0
 servers:
   - url: https://connect.withvayu.com
     description: Production server
+  - url: https://staging-connect.withvayu.com
+    description: Sandbox server
 tags:
   - name: auth
     description: The auth tag is used for endpoints related to authentication and
@@ -30,6 +32,18 @@ tags:
     description: The contracts tag is used for endpoints related to contract management.
   - name: invoices
     description: The invoices tag is used for endpoints related to invoice management.
+  - name: billing-cycles
+    description: The billing-cycles tag is used for endpoints related to billing
+      cycle management.
+  - name: reports
+    description: The reports tag is used for endpoints related to report generation
+  - name: integrations
+    description: The integrations tag is used for endpoints related to integrations
+      with external systems
+  - name: credits
+    description: The credits tag is used for endpoints related to credit management.
+  - name: webhooks
+    description: The webhooks tag is used for endpoints related to webhook management.
 components:
   securitySchemes:
     BearerAuthorizer:
@@ -37,16 +51,36 @@ components:
       scheme: bearer
       bearerFormat: JWT
   requestBodies:
-    SendEventsRequest:
+    CreateCustomerRequest:
       required: true
-      description: >-
-        An array of events following the EventInput schema. This request body
-        should be included in the PUT request to '/events'
-              Up to 1000 events or a total payload max size of 256KB
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/SendEventsRequestSchema"
+            $ref: "#/components/schemas/CreateCustomerRequest"
+    UpdateCustomerRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/UpdateCustomerRequest"
+    UpdateMeterRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/UpdateMeterRequest"
+    CreateContractRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/CreateContractRequest"
+    LoginRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/LoginRequest"
     EventsDryRunRequest:
       required: true
       description: >-
@@ -56,438 +90,250 @@ components:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/EventsDryRunRequestSchema"
-    LoginRequest:
+            $ref: "#/components/schemas/EventsDryRunRequest"
+    SendEventsRequest:
+      required: true
+      description: >-
+        An array of events following the EventInput schema. This request body
+        should be included in the PUT request to '/events'
+              Up to 1000 events or a total payload max size of 256KB
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/SendEventsRequest"
+    NetSuiteSyncInvoicesRequest:
       required: true
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/LoginRequestSchema"
-    CreateCustomerRequest:
+            $ref: "#/components/schemas/NetSuiteSyncInvoicesRequest"
+    NetSuiteExportSalesOrderRequest:
       required: true
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/CreateCustomerRequestSchema"
-    UpdateCustomerRequest:
+            $ref: "#/components/schemas/NetSuiteExportSalesOrderRequest"
+    GrantCreditsRequest:
       required: true
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/UpdateCustomerRequestSchema"
-    UpdateMeterRequest:
+            $ref: "#/components/schemas/GrantCreditsRequest"
+    DeductCreditsRequest:
       required: true
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/UpdateMeterRequestSchema"
-    CreateContractRequest:
+            $ref: "#/components/schemas/DeductCreditsRequest"
+    WebhookSubscribeRequest:
       required: true
+      description: Subscribe to webhooks and receive event notifications.
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/CreateContractRequestSchema"
+            $ref: "#/components/schemas/WebhookSubscribeRequest"
   responses:
-    SendEventsResponse:
-      description: RequestSuccess
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/SendEventsResponseSchema"
-    QueryEventsResponse:
-      description: response contains an array of events
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/QueryEventsResponseSchema"
-    GetEventByRefIdResponse:
-      description: response contains the event matching the provided refId
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/GetEventByRefIdResponseSchema"
-    DeleteEventByRefIdResponse:
-      description: Contains the event that was deleted
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/DeleteEventByRefIdResponseSchema"
-    EventsDryRunResponse:
-      description: Events with their corresponding meter and customer data.
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/EventsDryRunResponseSchema"
-    LoginResponse:
-      description: RequestSuccess
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/LoginResponseSchema"
     CreateCustomerResponse:
       description: RequestSuccess
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/CreateCustomerResponseSchema"
-    GetCustomerResponse:
-      description: RequestSuccess
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/GetCustomerResponseSchema"
+            $ref: "#/components/schemas/CreateCustomerResponse"
     ListCustomersResponse:
       description: RequestSuccess
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/ListCustomersResponseSchema"
+            $ref: "#/components/schemas/ListCustomersResponse"
+    GetCustomerResponse:
+      description: RequestSuccess
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/GetCustomerResponse"
     UpdateCustomerResponse:
       description: RequestSuccess
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/UpdateCustomerResponseSchema"
+            $ref: "#/components/schemas/UpdateCustomerResponse"
     DeleteCustomerResponse:
       description: RequestSuccess
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/DeleteCustomerResponseSchema"
+            $ref: "#/components/schemas/DeleteCustomerResponse"
     GetMeterResponse:
       description: RequestSuccess
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/GetMeterResponseSchema"
-    ListMetersResponse:
-      description: RequestSuccess
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/ListMetersResponseSchema"
+            $ref: "#/components/schemas/GetMeterResponse"
     UpdateMeterResponse:
       description: RequestSuccess
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/UpdateMeterResponseSchema"
+            $ref: "#/components/schemas/UpdateMeterResponse"
     DeleteMeterResponse:
       description: RequestSuccess
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/DeleteMeterResponseSchema"
+            $ref: "#/components/schemas/DeleteMeterResponse"
+    ListMetersResponse:
+      description: RequestSuccess
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ListMetersResponse"
     GetPlanResponse:
       description: RequestSuccess
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/GetPlanResponseSchema"
-    ListPlansResponse:
-      description: RequestSuccess
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/ListPlansResponseSchema"
+            $ref: "#/components/schemas/GetPlanResponse"
     DeletePlanResponse:
       description: RequestSuccess
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/DeletePlanResponseSchema"
+            $ref: "#/components/schemas/DeletePlanResponse"
+    ListPlansResponse:
+      description: RequestSuccess
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ListPlansResponse"
     GetContractResponse:
       description: RequestSuccess
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/GetContractResponseSchema"
-    ListContractsResponse:
-      description: RequestSuccess
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/ListContractsResponseSchema"
-    CreateContractResponse:
-      description: RequestSuccess
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/CreateContractResponseSchema"
+            $ref: "#/components/schemas/GetContractResponse"
     DeleteContractResponse:
       description: RequestSuccess
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/DeleteContractResponseSchema"
+            $ref: "#/components/schemas/DeleteContractResponse"
+    ListContractsResponse:
+      description: RequestSuccess
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ListContractsResponse"
+    CreateContractResponse:
+      description: RequestSuccess
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/CreateContractResponse"
     GetInvoiceResponse:
       description: RequestSuccess
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/GetInvoiceResponseSchema"
+            $ref: "#/components/schemas/GetInvoiceResponse"
     ListInvoicesResponse:
       description: RequestSuccess
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/ListInvoicesResponseSchema"
+            $ref: "#/components/schemas/ListInvoicesResponse"
+    LoginResponse:
+      description: RequestSuccess
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/LoginResponse"
+    EventsDryRunResponse:
+      description: Events with their corresponding meter and customer data.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/EventsDryRunResponse"
+    QueryEventsResponse:
+      description: response contains an array of events
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/QueryEventsResponse"
+    SendEventsResponse:
+      description: RequestSuccess
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/SendEventsResponse"
+    GetEventByRefIdResponse:
+      description: response contains the event matching the provided refId
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/GetEventByRefIdResponse"
+    DeleteEventByRefIdResponse:
+      description: Contains the event that was deleted
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/DeleteEventByRefIdResponse"
+    GetProductsUsageReportResponse:
+      description: response contains the products usage report
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/GetProductsUsageReportResponse"
+    GetCommitmentReportResponse:
+      description: response contains the commitment report
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/GetCommitmentReportResponse"
+    NetSuiteSyncInvoicesResponse:
+      description: RequestSuccess
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/NetSuiteSyncInvoicesResponse"
+    RequestSuccess:
+      description: RequestSuccess
+    ListCreditLedgerEntriesResponse:
+      description: RequestSuccess
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ListCreditLedgerEntriesResponse"
   parameters: {}
   schemas:
-    Event:
+    CreateCustomerRequest:
       type: object
       properties:
         name:
           type: string
-          description: The distinctive label assigned to an event, serving as a critical
-            identifier for categorizing and pricing events within the system's
-            backend infrastructure.
-          example: api_call
-        timestamp:
-          type: string
-          description: The temporal marker denoting the exact moment of event occurrence.
-            The timestamp is formatted as an ISO 8601 string and is expressed in
-            Coordinated Universal Time (UTC). i.e. YYYY-MM-DDTHH:MM:SS.SSSZ
-          format: date-time
-          example: 2023-09-13T18:25:43.511Z
-        customerAlias:
+          minLength: 1
+          description: The name of the customer
+        alias:
           type: string
           minLength: 1
-          description: A pseudonymous or otherwise obfuscated identifier uniquely assigned
-            to each customer.
-          example: customer_12345
-        ref:
-          type: string
-          description: A universally unique identifier (UUID) or other form of
-            high-entropy string serving as an immutable reference for each event
-            entry.
-          example: 4f6cf35x-2c4y-483z-a0a9-158621f77a21
-        data:
-          type: object
-          nullable: true
-          additionalProperties:
-            nullable: true
-          description: A schema-less JSON object encapsulating miscellaneous attributes
-            and metrics associated with the event.
-          example:
-            key1: processing_duration
-            key2: api_url
+          description: The alias of the customer used to match events to the customer.
       required:
         - name
-        - timestamp
-        - customerAlias
-        - ref
-    SendEventsRequestSchema:
+    CreateCustomerResponse:
       type: object
       properties:
-        events:
-          type: array
-          items:
-            $ref: "#/components/schemas/Event"
-          minItems: 1
-          maxItems: 1000
-      required:
-        - events
-    SendEventsResponseSchema:
-      type: object
-      properties:
-        validEvents:
-          type: array
-          items:
-            $ref: "#/components/schemas/Event"
-          description: An array of events that were successfully processed and sent to the
-            queue.
-        invalidEvents:
-          type: array
-          items:
-            type: object
-            properties:
-              event:
-                $ref: "#/components/schemas/Event"
-              error:
-                type: string
-                description: The error message indicating the reason the event failed
-                  validation.
-                example: Event ref already exists.
-            required:
-              - event
-              - error
-          description: An array of events that failed validation and were not sent to the
-            queue. Each object contains the event and the error message.
-      required:
-        - validEvents
-        - invalidEvents
-    QueryEventsResponseSchema:
-      type: object
-      properties:
-        events:
-          type: array
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-                description: The distinctive label assigned to an event, serving as a critical
-                  identifier for categorizing and pricing events within the
-                  system's backend infrastructure.
-                example: api_call
-              timestamp:
-                type: string
-                description: The temporal marker denoting the exact moment of event occurrence.
-                  The timestamp is formatted as an ISO 8601 string and is
-                  expressed in Coordinated Universal Time (UTC). i.e.
-                  YYYY-MM-DDTHH:MM:SS.SSSZ
-                format: date-time
-                example: 2023-09-13T18:25:43.511Z
-              customerAlias:
-                type: string
-                minLength: 1
-                description: A pseudonymous or otherwise obfuscated identifier uniquely assigned
-                  to each customer.
-                example: customer_12345
-              ref:
-                type: string
-                description: A universally unique identifier (UUID) or other form of
-                  high-entropy string serving as an immutable reference for each
-                  event entry.
-                example: 4f6cf35x-2c4y-483z-a0a9-158621f77a21
-              data:
-                type: object
-                nullable: true
-                additionalProperties:
-                  nullable: true
-                description: A schema-less JSON object encapsulating miscellaneous attributes
-                  and metrics associated with the event.
-                example:
-                  key1: processing_duration
-                  key2: api_url
-              id:
-                type: string
-                pattern: ^[0-9a-fA-F]{24}$
-              createdAt:
-                type: string
-                format: date-time
-              updatedAt:
-                type: string
-                format: date-time
-            required:
-              - name
-              - timestamp
-              - customerAlias
-              - ref
-              - id
-              - createdAt
-              - updatedAt
-          description: An array of events matching the query criteria
-      required:
-        - events
-    GetEventByRefIdResponseSchema:
-      type: object
-      properties:
-        event:
+        customer:
           type: object
           properties:
             name:
               type: string
-              description: The distinctive label assigned to an event, serving as a critical
-                identifier for categorizing and pricing events within the
-                system's backend infrastructure.
-              example: api_call
-            timestamp:
-              type: string
-              description: The temporal marker denoting the exact moment of event occurrence.
-                The timestamp is formatted as an ISO 8601 string and is
-                expressed in Coordinated Universal Time (UTC). i.e.
-                YYYY-MM-DDTHH:MM:SS.SSSZ
-              format: date-time
-              example: 2023-09-13T18:25:43.511Z
-            customerAlias:
+              minLength: 1
+              description: The name of the customer
+            alias:
               type: string
               minLength: 1
-              description: A pseudonymous or otherwise obfuscated identifier uniquely assigned
-                to each customer.
-              example: customer_12345
-            ref:
-              type: string
-              description: A universally unique identifier (UUID) or other form of
-                high-entropy string serving as an immutable reference for each
-                event entry.
-              example: 4f6cf35x-2c4y-483z-a0a9-158621f77a21
-            data:
-              type: object
-              nullable: true
-              additionalProperties:
-                nullable: true
-              description: A schema-less JSON object encapsulating miscellaneous attributes
-                and metrics associated with the event.
-              example:
-                key1: processing_duration
-                key2: api_url
+              description: The alias of the customer used to match events to the customer.
             id:
               type: string
-              pattern: ^[0-9a-fA-F]{24}$
-            createdAt:
-              type: string
-              format: date-time
-            updatedAt:
-              type: string
-              format: date-time
-          required:
-            - name
-            - timestamp
-            - customerAlias
-            - ref
-            - id
-            - createdAt
-            - updatedAt
-          description: The event matching the provided refId
-      required:
-        - event
-    DeleteEventByRefIdResponseSchema:
-      type: object
-      properties:
-        event:
-          type: object
-          properties:
-            name:
-              type: string
-              description: The distinctive label assigned to an event, serving as a critical
-                identifier for categorizing and pricing events within the
-                system's backend infrastructure.
-              example: api_call
-            timestamp:
-              type: string
-              description: The temporal marker denoting the exact moment of event occurrence.
-                The timestamp is formatted as an ISO 8601 string and is
-                expressed in Coordinated Universal Time (UTC). i.e.
-                YYYY-MM-DDTHH:MM:SS.SSSZ
-              format: date-time
-              example: 2023-09-13T18:25:43.511Z
-            customerAlias:
-              type: string
-              minLength: 1
-              description: A pseudonymous or otherwise obfuscated identifier uniquely assigned
-                to each customer.
-              example: customer_12345
-            ref:
-              type: string
-              description: A universally unique identifier (UUID) or other form of
-                high-entropy string serving as an immutable reference for each
-                event entry.
-              example: 4f6cf35x-2c4y-483z-a0a9-158621f77a21
-            data:
-              type: object
-              nullable: true
-              additionalProperties:
-                nullable: true
-              description: A schema-less JSON object encapsulating miscellaneous attributes
-                and metrics associated with the event.
-              example:
-                key1: processing_duration
-                key2: api_url
-            id:
-              type: string
-              pattern: ^[0-9a-fA-F]{24}$
             createdAt:
               type: string
               format: date-time
@@ -498,27 +344,159 @@ components:
               type: string
           required:
             - name
-            - timestamp
-            - customerAlias
-            - ref
             - id
             - createdAt
             - updatedAt
             - deletedAt
-          description: The event matching the provided refId
       required:
-        - event
-    EventsDryRunRequestSchema:
+        - customer
+    ListCustomersResponse:
       type: object
       properties:
-        events:
+        customers:
           type: array
           items:
-            $ref: "#/components/schemas/Event"
-          minItems: 1
-          maxItems: 1000
+            type: object
+            properties:
+              name:
+                type: string
+                minLength: 1
+                description: The name of the customer
+              alias:
+                type: string
+                minLength: 1
+                description: The alias of the customer used to match events to the customer.
+              id:
+                type: string
+              createdAt:
+                type: string
+                format: date-time
+              updatedAt:
+                type: string
+                format: date-time
+            required:
+              - name
+              - id
+              - createdAt
+              - updatedAt
+        total:
+          type: number
+        hasMore:
+          type: boolean
+        nextCursor:
+          type: string
       required:
-        - events
+        - customers
+        - total
+        - hasMore
+    GetCustomerResponse:
+      type: object
+      properties:
+        customer:
+          type: object
+          properties:
+            name:
+              type: string
+              minLength: 1
+              description: The name of the customer
+            alias:
+              type: string
+              minLength: 1
+              description: The alias of the customer used to match events to the customer.
+            id:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+            updatedAt:
+              type: string
+              format: date-time
+            deletedAt:
+              type: string
+          required:
+            - name
+            - id
+            - createdAt
+            - updatedAt
+            - deletedAt
+      required:
+        - customer
+    UpdateCustomerRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          description: The name of the customer
+        alias:
+          type: string
+          minLength: 1
+          description: The alias of the customer used to match events to the customer.
+      additionalProperties: false
+    UpdateCustomerResponse:
+      type: object
+      properties:
+        customer:
+          type: object
+          properties:
+            name:
+              type: string
+              minLength: 1
+              description: The name of the customer
+            alias:
+              type: string
+              minLength: 1
+              description: The alias of the customer used to match events to the customer.
+            id:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+            updatedAt:
+              type: string
+              format: date-time
+            deletedAt:
+              type: string
+          required:
+            - name
+            - id
+            - createdAt
+            - updatedAt
+            - deletedAt
+      required:
+        - customer
+    DeleteCustomerResponse:
+      type: object
+      properties:
+        customer:
+          type: object
+          properties:
+            name:
+              type: string
+              minLength: 1
+              description: The name of the customer
+            alias:
+              type: string
+              minLength: 1
+              description: The alias of the customer used to match events to the customer.
+            id:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+            updatedAt:
+              type: string
+              format: date-time
+            deletedAt:
+              type: string
+          required:
+            - name
+            - id
+            - createdAt
+            - updatedAt
+            - deletedAt
+      required:
+        - customer
     AggregationOperator:
       type: string
       enum:
@@ -530,23 +508,6 @@ components:
         - Average
         - First
         - Last
-      description: The aggregation method defines how the events should be summed to
-        represent a usage value.
-    AggregationMethod:
-      type: object
-      properties:
-        operator:
-          $ref: "#/components/schemas/AggregationOperator"
-        field:
-          type: string
-          description: The field inside the "data" property to apply the aggregation
-            method to.
-        instanceKey:
-          type: string
-          description: The fields that is used to group different events together when
-            measuring the usage.
-      required:
-        - operator
       description: The aggregation method defines how the events should be summed to
         represent a usage value.
     CriterionOperator:
@@ -601,7 +562,826 @@ components:
         The filter to apply to the events to be included in the meter.
             The filter object contains an array of Conditions, each condition represents a logical OR statement.
             Each condition contains an array of Criteria (criterions), each criterion represents a logical AND statement.
-    EventsDryRunResponseSchema:
+    GetMeterResponse:
+      type: object
+      properties:
+        meter:
+          type: object
+          properties:
+            name:
+              type: string
+              minLength: 1
+              description: The name of the meter
+            eventName:
+              type: string
+              minLength: 1
+              description: The name of the event that the meter is tracking.
+            aggregationMethod:
+              type: object
+              properties:
+                operator:
+                  $ref: "#/components/schemas/AggregationOperator"
+                field:
+                  type: string
+                  description: The field inside the "data" property to apply the aggregation
+                    method to.
+                instanceKey:
+                  type: string
+                  description: The fields that is used to group different events together when
+                    measuring the usage.
+              required:
+                - operator
+              description: The aggregation method defines how the events should be summed to
+                represent a usage value.
+            filter:
+              $ref: "#/components/schemas/Filter"
+            id:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+            updatedAt:
+              type: string
+              format: date-time
+            deletedAt:
+              type: string
+          required:
+            - name
+            - eventName
+            - aggregationMethod
+            - id
+            - createdAt
+            - updatedAt
+            - deletedAt
+      required:
+        - meter
+    UpdateMeterRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          description: The name of the meter
+        eventName:
+          type: string
+          minLength: 1
+          description: The name of the event that the meter is tracking.
+        aggregationMethod:
+          type: object
+          properties:
+            operator:
+              $ref: "#/components/schemas/AggregationOperator"
+            field:
+              type: string
+              description: The field inside the "data" property to apply the aggregation
+                method to.
+            instanceKey:
+              type: string
+              description: The fields that is used to group different events together when
+                measuring the usage.
+          required:
+            - operator
+          description: The aggregation method defines how the events should be summed to
+            represent a usage value.
+        filter:
+          $ref: "#/components/schemas/Filter"
+      additionalProperties: false
+    UpdateMeterResponse:
+      type: object
+      properties:
+        meter:
+          type: object
+          properties:
+            name:
+              type: string
+              minLength: 1
+              description: The name of the meter
+            eventName:
+              type: string
+              minLength: 1
+              description: The name of the event that the meter is tracking.
+            aggregationMethod:
+              type: object
+              properties:
+                operator:
+                  $ref: "#/components/schemas/AggregationOperator"
+                field:
+                  type: string
+                  description: The field inside the "data" property to apply the aggregation
+                    method to.
+                instanceKey:
+                  type: string
+                  description: The fields that is used to group different events together when
+                    measuring the usage.
+              required:
+                - operator
+              description: The aggregation method defines how the events should be summed to
+                represent a usage value.
+            filter:
+              $ref: "#/components/schemas/Filter"
+            id:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+            updatedAt:
+              type: string
+              format: date-time
+            deletedAt:
+              type: string
+          required:
+            - name
+            - eventName
+            - aggregationMethod
+            - id
+            - createdAt
+            - updatedAt
+            - deletedAt
+      required:
+        - meter
+    DeleteMeterResponse:
+      type: object
+      properties:
+        meter:
+          type: object
+          properties:
+            name:
+              type: string
+              minLength: 1
+              description: The name of the meter
+            eventName:
+              type: string
+              minLength: 1
+              description: The name of the event that the meter is tracking.
+            aggregationMethod:
+              type: object
+              properties:
+                operator:
+                  $ref: "#/components/schemas/AggregationOperator"
+                field:
+                  type: string
+                  description: The field inside the "data" property to apply the aggregation
+                    method to.
+                instanceKey:
+                  type: string
+                  description: The fields that is used to group different events together when
+                    measuring the usage.
+              required:
+                - operator
+              description: The aggregation method defines how the events should be summed to
+                represent a usage value.
+            filter:
+              $ref: "#/components/schemas/Filter"
+            id:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+            updatedAt:
+              type: string
+              format: date-time
+            deletedAt:
+              type: string
+          required:
+            - name
+            - eventName
+            - aggregationMethod
+            - id
+            - createdAt
+            - updatedAt
+            - deletedAt
+      required:
+        - meter
+    ListMetersResponse:
+      type: object
+      properties:
+        meters:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                minLength: 1
+                description: The name of the meter
+              eventName:
+                type: string
+                minLength: 1
+                description: The name of the event that the meter is tracking.
+              aggregationMethod:
+                type: object
+                properties:
+                  operator:
+                    $ref: "#/components/schemas/AggregationOperator"
+                  field:
+                    type: string
+                    description: The field inside the "data" property to apply the aggregation
+                      method to.
+                  instanceKey:
+                    type: string
+                    description: The fields that is used to group different events together when
+                      measuring the usage.
+                required:
+                  - operator
+                description: The aggregation method defines how the events should be summed to
+                  represent a usage value.
+              filter:
+                $ref: "#/components/schemas/Filter"
+              id:
+                type: string
+              createdAt:
+                type: string
+                format: date-time
+              updatedAt:
+                type: string
+                format: date-time
+            required:
+              - name
+              - eventName
+              - aggregationMethod
+              - id
+              - createdAt
+              - updatedAt
+        total:
+          type: number
+        hasMore:
+          type: boolean
+        nextCursor:
+          type: string
+      required:
+        - meters
+        - total
+        - hasMore
+    PlanStatus:
+      type: string
+      enum:
+        - Active
+        - Inactive
+        - Error
+      description: The status of the plan. plan statuses are active, inactive
+    BillingInterval:
+      type: string
+      enum:
+        - Monthly
+        - BiMonthly
+        - Quarterly
+        - SixMonths
+        - Yearly
+    PaymentTerm:
+      type: string
+      enum:
+        - Prepayment
+        - Postpayment
+      default: Postpayment
+    PlanBillingData:
+      type: object
+      properties:
+        billingInterval:
+          $ref: "#/components/schemas/BillingInterval"
+        duration:
+          type: number
+          minimum: 0
+          exclusiveMinimum: true
+        paymentTerm:
+          $ref: "#/components/schemas/PaymentTerm"
+        autoRenewal:
+          type: boolean
+          default: false
+        proRated:
+          type: boolean
+          default: true
+      required:
+        - billingInterval
+        - duration
+        - paymentTerm
+        - autoRenewal
+        - proRated
+      description: The billing data of the plan. The billing data contains the billing
+        interval, the plan duration the payment terms and auto renewal, and the
+        billing method.
+    GetPlanResponse:
+      type: object
+      properties:
+        plan:
+          type: object
+          properties:
+            name:
+              type: string
+              minLength: 1
+              description: The name of the plan
+            status:
+              $ref: "#/components/schemas/PlanStatus"
+            billingData:
+              $ref: "#/components/schemas/PlanBillingData"
+            id:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+            updatedAt:
+              type: string
+              format: date-time
+            deletedAt:
+              type: string
+          required:
+            - name
+            - status
+            - billingData
+            - id
+            - createdAt
+            - updatedAt
+            - deletedAt
+      required:
+        - plan
+    DeletePlanResponse:
+      type: object
+      properties:
+        plan:
+          type: object
+          properties:
+            name:
+              type: string
+              minLength: 1
+              description: The name of the plan
+            status:
+              $ref: "#/components/schemas/PlanStatus"
+            billingData:
+              $ref: "#/components/schemas/PlanBillingData"
+            id:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+            updatedAt:
+              type: string
+              format: date-time
+            deletedAt:
+              type: string
+          required:
+            - name
+            - status
+            - billingData
+            - id
+            - createdAt
+            - updatedAt
+            - deletedAt
+      required:
+        - plan
+    ListPlansResponse:
+      type: object
+      properties:
+        plans:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                minLength: 1
+                description: The name of the plan
+              status:
+                $ref: "#/components/schemas/PlanStatus"
+              billingData:
+                $ref: "#/components/schemas/PlanBillingData"
+              id:
+                type: string
+              createdAt:
+                type: string
+                format: date-time
+              updatedAt:
+                type: string
+                format: date-time
+            required:
+              - name
+              - status
+              - billingData
+              - id
+              - createdAt
+              - updatedAt
+        total:
+          type: number
+        hasMore:
+          type: boolean
+        nextCursor:
+          type: string
+      required:
+        - plans
+        - total
+        - hasMore
+    GetContractResponse:
+      type: object
+      properties:
+        contract:
+          type: object
+          properties:
+            startDate:
+              type: string
+              description: The start date of the contract
+              format: date-time
+            endDate:
+              type: string
+              description: The end date of the contract
+              format: date-time
+            customerId:
+              type: string
+              pattern: ^[0-9a-fA-F]{24}$
+              description: The id of the customer that the contract is associated with
+            planId:
+              type: string
+              pattern: ^[0-9a-fA-F]{24}$
+              description: The id of the plan that the contract is associated with
+            id:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+            updatedAt:
+              type: string
+              format: date-time
+            deletedAt:
+              type: string
+          required:
+            - startDate
+            - customerId
+            - planId
+            - id
+            - createdAt
+            - updatedAt
+            - deletedAt
+      required:
+        - contract
+    DeleteContractResponse:
+      type: object
+      properties:
+        contract:
+          type: object
+          properties:
+            startDate:
+              type: string
+              description: The start date of the contract
+              format: date-time
+            endDate:
+              type: string
+              description: The end date of the contract
+              format: date-time
+            customerId:
+              type: string
+              pattern: ^[0-9a-fA-F]{24}$
+              description: The id of the customer that the contract is associated with
+            planId:
+              type: string
+              pattern: ^[0-9a-fA-F]{24}$
+              description: The id of the plan that the contract is associated with
+            id:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+            updatedAt:
+              type: string
+              format: date-time
+            deletedAt:
+              type: string
+          required:
+            - startDate
+            - customerId
+            - planId
+            - id
+            - createdAt
+            - updatedAt
+            - deletedAt
+      required:
+        - contract
+    ListContractsResponse:
+      type: object
+      properties:
+        contracts:
+          type: array
+          items:
+            type: object
+            properties:
+              startDate:
+                type: string
+                description: The start date of the contract
+                format: date-time
+              endDate:
+                type: string
+                description: The end date of the contract
+                format: date-time
+              customerId:
+                type: string
+                pattern: ^[0-9a-fA-F]{24}$
+                description: The id of the customer that the contract is associated with
+              planId:
+                type: string
+                pattern: ^[0-9a-fA-F]{24}$
+                description: The id of the plan that the contract is associated with
+              id:
+                type: string
+              createdAt:
+                type: string
+                format: date-time
+              updatedAt:
+                type: string
+                format: date-time
+            required:
+              - startDate
+              - customerId
+              - planId
+              - id
+              - createdAt
+              - updatedAt
+        total:
+          type: number
+        hasMore:
+          type: boolean
+        nextCursor:
+          type: string
+      required:
+        - contracts
+        - total
+        - hasMore
+    CreateContractRequest:
+      type: object
+      properties:
+        startDate:
+          type: string
+          description: The start date of the contract
+          format: date-time
+        endDate:
+          type: string
+          description: The end date of the contract
+          format: date-time
+        customerId:
+          type: string
+          pattern: ^[0-9a-fA-F]{24}$
+          description: The id of the customer that the contract is associated with
+        planId:
+          type: string
+          pattern: ^[0-9a-fA-F]{24}$
+          description: The id of the plan that the contract is associated with
+      required:
+        - startDate
+        - customerId
+        - planId
+    CreateContractResponse:
+      type: object
+      properties:
+        contract:
+          type: object
+          properties:
+            startDate:
+              type: string
+              description: The start date of the contract
+              format: date-time
+            endDate:
+              type: string
+              description: The end date of the contract
+              format: date-time
+            customerId:
+              type: string
+              pattern: ^[0-9a-fA-F]{24}$
+              description: The id of the customer that the contract is associated with
+            planId:
+              type: string
+              pattern: ^[0-9a-fA-F]{24}$
+              description: The id of the plan that the contract is associated with
+            id:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+            updatedAt:
+              type: string
+              format: date-time
+            deletedAt:
+              type: string
+          required:
+            - startDate
+            - customerId
+            - planId
+            - id
+            - createdAt
+            - updatedAt
+            - deletedAt
+      required:
+        - contract
+    Period:
+      type: object
+      properties:
+        startTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
+      required:
+        - startTime
+        - endTime
+      description: The billing cycle of the invoice, consists of a start and end date
+    GetInvoiceResponse:
+      type: object
+      properties:
+        invoice:
+          type: object
+          properties:
+            customerId:
+              type: string
+              pattern: ^[0-9a-fA-F]{24}$
+              description: The id of the customer that the invoice is associated with
+            contractId:
+              type: string
+              pattern: ^[0-9a-fA-F]{24}$
+              description: The id of the contract that the invoice is associated with
+            name:
+              type: string
+              minLength: 1
+              description: The name of the invoice, usually a description of the billing
+                period
+            billingCycle:
+              $ref: "#/components/schemas/Period"
+            lineItems:
+              type: array
+              items:
+                type: object
+                properties:
+                  invoiceId:
+                    type: string
+                    pattern: ^[0-9a-fA-F]{24}$
+                    description: The id of the invoice that the line item is a part of
+                  price:
+                    type: number
+                    minimum: 0
+                    description: The price of the line item
+                required:
+                  - invoiceId
+                  - price
+            amount:
+              type: number
+              description: The total amount of the invoice
+            id:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+            updatedAt:
+              type: string
+              format: date-time
+            deletedAt:
+              type: string
+          required:
+            - customerId
+            - name
+            - billingCycle
+            - lineItems
+            - amount
+            - id
+            - createdAt
+            - updatedAt
+            - deletedAt
+      required:
+        - invoice
+    ListInvoicesResponse:
+      type: object
+      properties:
+        invoices:
+          type: array
+          items:
+            type: object
+            properties:
+              customerId:
+                type: string
+                pattern: ^[0-9a-fA-F]{24}$
+                description: The id of the customer that the invoice is associated with
+              contractId:
+                type: string
+                pattern: ^[0-9a-fA-F]{24}$
+                description: The id of the contract that the invoice is associated with
+              name:
+                type: string
+                minLength: 1
+                description: The name of the invoice, usually a description of the billing
+                  period
+              billingCycle:
+                $ref: "#/components/schemas/Period"
+              lineItems:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    invoiceId:
+                      type: string
+                      pattern: ^[0-9a-fA-F]{24}$
+                      description: The id of the invoice that the line item is a part of
+                    price:
+                      type: number
+                      minimum: 0
+                      description: The price of the line item
+                  required:
+                    - invoiceId
+                    - price
+              amount:
+                type: number
+                description: The total amount of the invoice
+              id:
+                type: string
+              createdAt:
+                type: string
+                format: date-time
+              updatedAt:
+                type: string
+                format: date-time
+            required:
+              - customerId
+              - name
+              - billingCycle
+              - lineItems
+              - amount
+              - id
+              - createdAt
+              - updatedAt
+        total:
+          type: number
+        hasMore:
+          type: boolean
+        nextCursor:
+          type: string
+      required:
+        - invoices
+        - total
+        - hasMore
+    LoginRequest:
+      type: object
+      properties:
+        refreshToken:
+          type: string
+          description: The refresh token issued for the authentication process. It is
+            required to obtain a new access token.
+      required:
+        - refreshToken
+    LoginResponse:
+      type: object
+      properties:
+        accessToken:
+          type: string
+          description: The new access token to be used for subsequent API calls. It is set
+            to expire every hour.
+      required:
+        - accessToken
+    EventsDryRunRequest:
+      type: object
+      properties:
+        events:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: The distinctive label assigned to an event, serving as a critical
+                  identifier for categorizing and pricing events within the
+                  system's backend infrastructure.
+                example: api_call
+              timestamp:
+                type: string
+                description: The temporal marker denoting the exact moment of event occurrence.
+                  The timestamp is formatted as an ISO 8601 string and is
+                  expressed in Coordinated Universal Time (UTC). i.e.
+                  YYYY-MM-DDTHH:MM:SS.SSSZ
+                format: date-time
+                example: 2023-09-13T18:25:43.511Z
+              customerAlias:
+                type: string
+                minLength: 1
+                description: A pseudonymous or otherwise obfuscated identifier uniquely assigned
+                  to each customer.
+                example: customer_12345
+              ref:
+                type: string
+                description: A universally unique identifier (UUID) or other form of
+                  high-entropy string serving as an immutable reference for each
+                  event entry.
+                example: 4f6cf35x-2c4y-483z-a0a9-158621f77a21
+              data:
+                type: object
+                nullable: true
+                additionalProperties:
+                  nullable: true
+                description: A schema-less JSON object encapsulating miscellaneous attributes
+                  and metrics associated with the event.
+                example:
+                  key1: processing_duration
+                  key2: api_url
+            required:
+              - name
+              - timestamp
+              - customerAlias
+              - ref
+          minItems: 1
+          maxItems: 1000
+      required:
+        - events
+    EventsDryRunResponse:
       type: array
       items:
         type: object
@@ -650,7 +1430,22 @@ components:
                   minLength: 1
                   description: The name of the event that the meter is tracking.
                 aggregationMethod:
-                  $ref: "#/components/schemas/AggregationMethod"
+                  type: object
+                  properties:
+                    operator:
+                      $ref: "#/components/schemas/AggregationOperator"
+                    field:
+                      type: string
+                      description: The field inside the "data" property to apply the aggregation
+                        method to.
+                    instanceKey:
+                      type: string
+                      description: The fields that is used to group different events together when
+                        measuring the usage.
+                  required:
+                    - operator
+                  description: The aggregation method defines how the events should be summed to
+                    represent a usage value.
                 filter:
                   $ref: "#/components/schemas/Filter"
                 value:
@@ -665,116 +1460,52 @@ components:
         required:
           - event
           - meterWithValues
-    LoginRequestSchema:
+    QueryEventsResponse:
       type: object
       properties:
-        refreshToken:
-          type: string
-          description: The refresh token issued for the authentication process. It is
-            required to obtain a new access token.
-      required:
-        - refreshToken
-    LoginResponseSchema:
-      type: object
-      properties:
-        accessToken:
-          type: string
-          description: The new access token to be used for subsequent API calls. It is set
-            to expire every hour.
-      required:
-        - accessToken
-    CreateCustomerRequestSchema:
-      type: object
-      properties:
-        name:
-          type: string
-          minLength: 1
-          description: The name of the customer
-        alias:
-          type: string
-          minLength: 1
-          description: The alias of the customer used to match events to the customer.
-      required:
-        - name
-    CreateCustomerResponseSchema:
-      type: object
-      properties:
-        customer:
-          type: object
-          properties:
-            name:
-              type: string
-              minLength: 1
-              description: The name of the customer
-            alias:
-              type: string
-              minLength: 1
-              description: The alias of the customer used to match events to the customer.
-            id:
-              type: string
-              pattern: ^[0-9a-fA-F]{24}$
-            createdAt:
-              type: string
-              format: date-time
-            updatedAt:
-              type: string
-              format: date-time
-          required:
-            - name
-            - id
-            - createdAt
-            - updatedAt
-      required:
-        - customer
-    GetCustomerResponseSchema:
-      type: object
-      properties:
-        customer:
-          type: object
-          properties:
-            name:
-              type: string
-              minLength: 1
-              description: The name of the customer
-            alias:
-              type: string
-              minLength: 1
-              description: The alias of the customer used to match events to the customer.
-            id:
-              type: string
-              pattern: ^[0-9a-fA-F]{24}$
-            createdAt:
-              type: string
-              format: date-time
-            updatedAt:
-              type: string
-              format: date-time
-          required:
-            - name
-            - id
-            - createdAt
-            - updatedAt
-      required:
-        - customer
-    ListCustomersResponseSchema:
-      type: object
-      properties:
-        customers:
+        events:
           type: array
           items:
             type: object
             properties:
               name:
                 type: string
-                minLength: 1
-                description: The name of the customer
-              alias:
+                description: The distinctive label assigned to an event, serving as a critical
+                  identifier for categorizing and pricing events within the
+                  system's backend infrastructure.
+                example: api_call
+              timestamp:
+                type: string
+                description: The temporal marker denoting the exact moment of event occurrence.
+                  The timestamp is formatted as an ISO 8601 string and is
+                  expressed in Coordinated Universal Time (UTC). i.e.
+                  YYYY-MM-DDTHH:MM:SS.SSSZ
+                format: date-time
+                example: 2023-09-13T18:25:43.511Z
+              customerAlias:
                 type: string
                 minLength: 1
-                description: The alias of the customer used to match events to the customer.
+                description: A pseudonymous or otherwise obfuscated identifier uniquely assigned
+                  to each customer.
+                example: customer_12345
+              ref:
+                type: 'string'
+                description: A universally unique identifier (UUID) or other form of
+                  high-entropy string serving as an immutable reference for each
+                  event entry.
+                example: 4f6cf35x-2c4y-483z-a0a9-158621f77a21
+              data:
+                type: object
+                nullable: true
+                additionalProperties:
+                  nullable: true
+                description: A schema-less JSON object encapsulating miscellaneous attributes
+                  and metrics associated with the event.
+                example:
+                  key1: processing_duration
+                  key2: api_url
               id:
                 type: string
-                pattern: ^[0-9a-fA-F]{24}$
               createdAt:
                 type: string
                 format: date-time
@@ -783,48 +1514,225 @@ components:
                 format: date-time
             required:
               - name
+              - timestamp
+              - customerAlias
+              - ref
               - id
               - createdAt
               - updatedAt
-        total:
-          type: number
-        hasMore:
-          type: boolean
-        nextCursor:
-          type: string
+          description: An array of events matching the query criteria
       required:
-        - customers
-        - total
-        - hasMore
-    UpdateCustomerRequestSchema:
+        - events
+    SendEventsRequest:
       type: object
       properties:
-        name:
-          type: string
-          minLength: 1
-          description: The name of the customer
-        alias:
-          type: string
-          minLength: 1
-          description: The alias of the customer used to match events to the customer.
-      additionalProperties: false
-    UpdateCustomerResponseSchema:
+        events:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: The distinctive label assigned to an event, serving as a critical
+                  identifier for categorizing and pricing events within the
+                  system's backend infrastructure.
+                example: api_call
+              timestamp:
+                type: string
+                description: The temporal marker denoting the exact moment of event occurrence.
+                  The timestamp is formatted as an ISO 8601 string and is
+                  expressed in Coordinated Universal Time (UTC). i.e.
+                  YYYY-MM-DDTHH:MM:SS.SSSZ
+                format: date-time
+                example: 2023-09-13T18:25:43.511Z
+              customerAlias:
+                type: string
+                minLength: 1
+                description: A pseudonymous or otherwise obfuscated identifier uniquely assigned
+                  to each customer.
+                example: customer_12345
+              ref:
+                type: string
+                description: A universally unique identifier (UUID) or other form of
+                  high-entropy string serving as an immutable reference for each
+                  event entry.
+                example: 4f6cf35x-2c4y-483z-a0a9-158621f77a21
+              data:
+                type: object
+                nullable: true
+                additionalProperties:
+                  nullable: true
+                description: A schema-less JSON object encapsulating miscellaneous attributes
+                  and metrics associated with the event.
+                example:
+                  key1: processing_duration
+                  key2: api_url
+            required:
+              - name
+              - timestamp
+              - customerAlias
+              - ref
+          minItems: 1
+          maxItems: 1000
+      required:
+        - events
+    SendEventsResponse:
       type: object
       properties:
-        customer:
+        validEvents:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: The distinctive label assigned to an event, serving as a critical
+                  identifier for categorizing and pricing events within the
+                  system's backend infrastructure.
+                example: api_call
+              timestamp:
+                type: string
+                description: The temporal marker denoting the exact moment of event occurrence.
+                  The timestamp is formatted as an ISO 8601 string and is
+                  expressed in Coordinated Universal Time (UTC). i.e.
+                  YYYY-MM-DDTHH:MM:SS.SSSZ
+                format: date-time
+                example: 2023-09-13T18:25:43.511Z
+              customerAlias:
+                type: string
+                minLength: 1
+                description: A pseudonymous or otherwise obfuscated identifier uniquely assigned
+                  to each customer.
+                example: customer_12345
+              ref:
+                type: string
+                description: A universally unique identifier (UUID) or other form of
+                  high-entropy string serving as an immutable reference for each
+                  event entry.
+                example: 4f6cf35x-2c4y-483z-a0a9-158621f77a21
+              data:
+                type: object
+                nullable: true
+                additionalProperties:
+                  nullable: true
+                description: A schema-less JSON object encapsulating miscellaneous attributes
+                  and metrics associated with the event.
+                example:
+                  key1: processing_duration
+                  key2: api_url
+            required:
+              - name
+              - timestamp
+              - customerAlias
+              - ref
+          description: An array of events that were successfully processed and sent to the
+            queue.
+        invalidEvents:
+          type: array
+          items:
+            type: object
+            properties:
+              event:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    description: The distinctive label assigned to an event, serving as a critical
+                      identifier for categorizing and pricing events within the
+                      system's backend infrastructure.
+                    example: api_call
+                  timestamp:
+                    type: string
+                    description: The temporal marker denoting the exact moment of event occurrence.
+                      The timestamp is formatted as an ISO 8601 string and is
+                      expressed in Coordinated Universal Time (UTC). i.e.
+                      YYYY-MM-DDTHH:MM:SS.SSSZ
+                    format: date-time
+                    example: 2023-09-13T18:25:43.511Z
+                  customerAlias:
+                    type: string
+                    minLength: 1
+                    description: A pseudonymous or otherwise obfuscated identifier uniquely assigned
+                      to each customer.
+                    example: customer_12345
+                  ref:
+                    type: string
+                    description: A universally unique identifier (UUID) or other form of
+                      high-entropy string serving as an immutable reference for
+                      each event entry.
+                    example: 4f6cf35x-2c4y-483z-a0a9-158621f77a21
+                  data:
+                    type: object
+                    nullable: true
+                    additionalProperties:
+                      nullable: true
+                    description: A schema-less JSON object encapsulating miscellaneous attributes
+                      and metrics associated with the event.
+                    example:
+                      key1: processing_duration
+                      key2: api_url
+                required:
+                  - name
+                  - timestamp
+                  - customerAlias
+                  - ref
+              error:
+                type: string
+                description: The error message indicating the reason the event failed
+                  validation.
+                example: Event ref already exists.
+            required:
+              - event
+              - error
+          description: An array of events that failed validation and were not sent to the
+            queue. Each object contains the event and the error message.
+      required:
+        - validEvents
+        - invalidEvents
+    GetEventByRefIdResponse:
+      type: object
+      properties:
+        event:
           type: object
           properties:
             name:
               type: string
-              minLength: 1
-              description: The name of the customer
-            alias:
+              description: The distinctive label assigned to an event, serving as a critical
+                identifier for categorizing and pricing events within the
+                system's backend infrastructure.
+              example: api_call
+            timestamp:
+              type: string
+              description: The temporal marker denoting the exact moment of event occurrence.
+                The timestamp is formatted as an ISO 8601 string and is
+                expressed in Coordinated Universal Time (UTC). i.e.
+                YYYY-MM-DDTHH:MM:SS.SSSZ
+              format: date-time
+              example: 2023-09-13T18:25:43.511Z
+            customerAlias:
               type: string
               minLength: 1
-              description: The alias of the customer used to match events to the customer.
+              description: A pseudonymous or otherwise obfuscated identifier uniquely assigned
+                to each customer.
+              example: customer_12345
+            ref:
+              type: string
+              description: A universally unique identifier (UUID) or other form of
+                high-entropy string serving as an immutable reference for each
+                event entry.
+              example: 4f6cf35x-2c4y-483z-a0a9-158621f77a21
+            data:
+              type: object
+              nullable: true
+              additionalProperties:
+                nullable: true
+              description: A schema-less JSON object encapsulating miscellaneous attributes
+                and metrics associated with the event.
+              example:
+                key1: processing_duration
+                key2: api_url
             id:
               type: string
-              pattern: ^[0-9a-fA-F]{24}$
             createdAt:
               type: string
               format: date-time
@@ -833,28 +1741,59 @@ components:
               format: date-time
           required:
             - name
+            - timestamp
+            - customerAlias
+            - ref
             - id
             - createdAt
             - updatedAt
+          description: The event matching the provided refId
       required:
-        - customer
-    DeleteCustomerResponseSchema:
+        - event
+    DeleteEventByRefIdResponse:
       type: object
       properties:
-        customer:
+        event:
           type: object
           properties:
             name:
               type: string
-              minLength: 1
-              description: The name of the customer
-            alias:
+              description: The distinctive label assigned to an event, serving as a critical
+                identifier for categorizing and pricing events within the
+                system's backend infrastructure.
+              example: api_call
+            timestamp:
+              type: string
+              description: The temporal marker denoting the exact moment of event occurrence.
+                The timestamp is formatted as an ISO 8601 string and is
+                expressed in Coordinated Universal Time (UTC). i.e.
+                YYYY-MM-DDTHH:MM:SS.SSSZ
+              format: date-time
+              example: 2023-09-13T18:25:43.511Z
+            customerAlias:
               type: string
               minLength: 1
-              description: The alias of the customer used to match events to the customer.
+              description: A pseudonymous or otherwise obfuscated identifier uniquely assigned
+                to each customer.
+              example: customer_12345
+            ref:
+              type: string
+              description: A universally unique identifier (UUID) or other form of
+                high-entropy string serving as an immutable reference for each
+                event entry.
+              example: 4f6cf35x-2c4y-483z-a0a9-158621f77a21
+            data:
+              type: object
+              nullable: true
+              additionalProperties:
+                nullable: true
+              description: A schema-less JSON object encapsulating miscellaneous attributes
+                and metrics associated with the event.
+              example:
+                key1: processing_duration
+                key2: api_url
             id:
               type: string
-              pattern: ^[0-9a-fA-F]{24}$
             createdAt:
               type: string
               format: date-time
@@ -865,884 +1804,349 @@ components:
               type: string
           required:
             - name
+            - timestamp
+            - customerAlias
+            - ref
             - id
             - createdAt
             - updatedAt
             - deletedAt
+          description: The event matching the provided refId
       required:
-        - customer
-    GetMeterResponseSchema:
-      type: object
-      properties:
-        meter:
-          type: object
-          properties:
-            name:
-              type: string
-              minLength: 1
-              description: The name of the meter
-            eventName:
-              type: string
-              minLength: 1
-              description: The name of the event that the meter is tracking.
-            aggregationMethod:
-              $ref: "#/components/schemas/AggregationMethod"
-            filter:
-              $ref: "#/components/schemas/Filter"
-            id:
-              type: string
-              pattern: ^[0-9a-fA-F]{24}$
-            createdAt:
-              type: string
-              format: date-time
-            updatedAt:
-              type: string
-              format: date-time
-          required:
-            - name
-            - eventName
-            - aggregationMethod
-            - id
-            - createdAt
-            - updatedAt
-      required:
-        - meter
-    ListMetersResponseSchema:
-      type: object
-      properties:
-        meters:
-          type: array
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-                minLength: 1
-                description: The name of the meter
-              eventName:
-                type: string
-                minLength: 1
-                description: The name of the event that the meter is tracking.
-              aggregationMethod:
-                $ref: "#/components/schemas/AggregationMethod"
-              filter:
-                $ref: "#/components/schemas/Filter"
-              id:
-                type: string
-                pattern: ^[0-9a-fA-F]{24}$
-              createdAt:
-                type: string
-                format: date-time
-              updatedAt:
-                type: string
-                format: date-time
-            required:
-              - name
-              - eventName
-              - aggregationMethod
-              - id
-              - createdAt
-              - updatedAt
-        total:
-          type: number
-        hasMore:
-          type: boolean
-        nextCursor:
-          type: string
-      required:
-        - meters
-        - total
-        - hasMore
-    UpdateMeterRequestSchema:
-      type: object
-      properties:
-        name:
-          type: string
-          minLength: 1
-          description: The name of the meter
-        eventName:
-          type: string
-          minLength: 1
-          description: The name of the event that the meter is tracking.
-        aggregationMethod:
-          $ref: "#/components/schemas/AggregationMethod"
-        filter:
-          $ref: "#/components/schemas/Filter"
-      additionalProperties: false
-    UpdateMeterResponseSchema:
-      type: object
-      properties:
-        meter:
-          type: object
-          properties:
-            name:
-              type: string
-              minLength: 1
-              description: The name of the meter
-            eventName:
-              type: string
-              minLength: 1
-              description: The name of the event that the meter is tracking.
-            aggregationMethod:
-              $ref: "#/components/schemas/AggregationMethod"
-            filter:
-              $ref: "#/components/schemas/Filter"
-            id:
-              type: string
-              pattern: ^[0-9a-fA-F]{24}$
-            createdAt:
-              type: string
-              format: date-time
-            updatedAt:
-              type: string
-              format: date-time
-          required:
-            - name
-            - eventName
-            - aggregationMethod
-            - id
-            - createdAt
-            - updatedAt
-      required:
-        - meter
-    DeleteMeterResponseSchema:
-      type: object
-      properties:
-        meter:
-          type: object
-          properties:
-            name:
-              type: string
-              minLength: 1
-              description: The name of the meter
-            eventName:
-              type: string
-              minLength: 1
-              description: The name of the event that the meter is tracking.
-            aggregationMethod:
-              $ref: "#/components/schemas/AggregationMethod"
-            filter:
-              $ref: "#/components/schemas/Filter"
-            id:
-              type: string
-              pattern: ^[0-9a-fA-F]{24}$
-            createdAt:
-              type: string
-              format: date-time
-            updatedAt:
-              type: string
-              format: date-time
-            deletedAt:
-              type: string
-          required:
-            - name
-            - eventName
-            - aggregationMethod
-            - id
-            - createdAt
-            - updatedAt
-            - deletedAt
-      required:
-        - meter
-    PlanStatus:
+        - event
+    ContractStatus:
       type: string
       enum:
         - Active
         - Inactive
+        - Terminated
+        - PendingTermination
         - Error
-      description: The status of the plan. plan statuses are active, inactive
-    BillingInterval:
+    Currency:
       type: string
       enum:
-        - Monthly
-        - BiMonthly
-        - Quarterly
-        - SixMonths
-        - Yearly
-    PlanType:
-      type: string
-      enum:
-        - PostPay
-        - PrePay
-      default: PostPay
-    PlanBillingData:
+        - USD
+        - EUR
+        - GBP
+        - ILS
+    GetProductsUsageReportResponse:
       type: object
       properties:
-        billingInterval:
-          $ref: "#/components/schemas/BillingInterval"
-        duration:
-          type: number
-          minimum: 0
-          exclusiveMinimum: true
-        type:
-          $ref: "#/components/schemas/PlanType"
-        autoRenewal:
-          type: boolean
-          default: false
-      required:
-        - billingInterval
-        - duration
-        - type
-        - autoRenewal
-      description: The billing data of the plan. The billing data contains the billing
-        interval, the plan duration the payment terms and auto renewal, and the
-        billing method.
-    GetPlanResponseSchema:
-      type: object
-      properties:
-        plan:
-          type: object
-          properties:
-            name:
-              type: string
-              minLength: 1
-              description: The name of the plan
-            status:
-              $ref: "#/components/schemas/PlanStatus"
-            billingData:
-              $ref: "#/components/schemas/PlanBillingData"
-            id:
-              type: string
-              pattern: ^[0-9a-fA-F]{24}$
-            createdAt:
-              type: string
-              format: date-time
-            updatedAt:
-              type: string
-              format: date-time
-          required:
-            - name
-            - status
-            - billingData
-            - id
-            - createdAt
-            - updatedAt
-      required:
-        - plan
-    ListPlansResponseSchema:
-      type: object
-      properties:
-        plans:
-          type: array
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-                minLength: 1
-                description: The name of the plan
-              status:
-                $ref: "#/components/schemas/PlanStatus"
-              billingData:
-                $ref: "#/components/schemas/PlanBillingData"
-              id:
-                type: string
-                pattern: ^[0-9a-fA-F]{24}$
-              createdAt:
-                type: string
-                format: date-time
-              updatedAt:
-                type: string
-                format: date-time
-            required:
-              - name
-              - status
-              - billingData
-              - id
-              - createdAt
-              - updatedAt
-        total:
-          type: number
-        hasMore:
-          type: boolean
-        nextCursor:
+        contractStatus:
+          $ref: "#/components/schemas/ContractStatus"
+        customerName:
           type: string
-      required:
-        - plans
-        - total
-        - hasMore
-    DeletePlanResponseSchema:
-      type: object
-      properties:
-        plan:
-          type: object
-          properties:
-            name:
-              type: string
-              minLength: 1
-              description: The name of the plan
-            status:
-              $ref: "#/components/schemas/PlanStatus"
-            billingData:
-              $ref: "#/components/schemas/PlanBillingData"
-            id:
-              type: string
-              pattern: ^[0-9a-fA-F]{24}$
-            createdAt:
-              type: string
-              format: date-time
-            updatedAt:
-              type: string
-              format: date-time
-            deletedAt:
-              type: string
-          required:
-            - name
-            - status
-            - billingData
-            - id
-            - createdAt
-            - updatedAt
-            - deletedAt
-      required:
-        - plan
-    GetContractResponseSchema:
-      type: object
-      properties:
-        contract:
-          type: object
-          properties:
-            startDate:
-              type: string
-              description: The start date of the contract
-              format: date-time
-            endDate:
-              type: string
-              description: The end date of the contract
-              format: date-time
-            customerId:
-              type: string
-              pattern: ^[0-9a-fA-F]{24}$
-              description: The id of the customer that the contract is associated with
-            planId:
-              type: string
-              pattern: ^[0-9a-fA-F]{24}$
-              description: The id of the plan that the contract is associated with
-            id:
-              type: string
-              pattern: ^[0-9a-fA-F]{24}$
-            createdAt:
-              type: string
-              format: date-time
-            updatedAt:
-              type: string
-              format: date-time
-          required:
-            - startDate
-            - customerId
-            - planId
-            - id
-            - createdAt
-            - updatedAt
-      required:
-        - contract
-    ListContractsResponseSchema:
-      type: object
-      properties:
-        contracts:
-          type: array
-          items:
-            type: object
-            properties:
-              startDate:
-                type: string
-                description: The start date of the contract
-                format: date-time
-              endDate:
-                type: string
-                description: The end date of the contract
-                format: date-time
-              customerId:
-                type: string
-                pattern: ^[0-9a-fA-F]{24}$
-                description: The id of the customer that the contract is associated with
-              planId:
-                type: string
-                pattern: ^[0-9a-fA-F]{24}$
-                description: The id of the plan that the contract is associated with
-              id:
-                type: string
-                pattern: ^[0-9a-fA-F]{24}$
-              createdAt:
-                type: string
-                format: date-time
-              updatedAt:
-                type: string
-                format: date-time
-            required:
-              - startDate
-              - customerId
-              - planId
-              - id
-              - createdAt
-              - updatedAt
-        total:
-          type: number
-        hasMore:
-          type: boolean
-        nextCursor:
-          type: string
-      required:
-        - contracts
-        - total
-        - hasMore
-    CreateContractRequestSchema:
-      type: object
-      properties:
         startDate:
           type: string
-          description: The start date of the contract
           format: date-time
         endDate:
           type: string
-          description: The end date of the contract
           format: date-time
+        contractStartDate:
+          type: string
+          format: date-time
+        daysToContractEnd:
+          type: number
+        productVariantName:
+          type: string
+        commitmentConsumptionPercentage:
+          type: number
+        totalCommitmentCurrencyAmount:
+          type: number
+        totalCommitmentUnitsAmount:
+          type: number
+        commercialTermsAmount:
+          type: number
+        erpId:
+          type: string
+        currency:
+          $ref: "#/components/schemas/Currency"
+        usageConsumptionCurrencyAmount:
+          type: number
+        usageConsumptionUnitsAmount:
+          type: number
+      required:
+        - contractStatus
+        - customerName
+        - startDate
+        - endDate
+        - contractStartDate
+        - productVariantName
+        - currency
+    GetCommitmentReportResponse:
+      type: object
+      properties:
+        contractStatus:
+          $ref: "#/components/schemas/ContractStatus"
+        customerName:
+          type: string
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        contractStartDate:
+          type: string
+          format: date-time
+        daysToContractEnd:
+          type: number
+        productVariantName:
+          type: string
+        commitmentConsumptionCurrencyAmount:
+          type: number
+        commitmentConsumptionUnitsAmount:
+          type: number
+        commitmentConsumptionPercentage:
+          type: number
+        totalCommitmentCurrencyAmount:
+          type: number
+        totalCommitmentUnitsAmount:
+          type: number
+        commercialTermsAmount:
+          type: number
+        erpId:
+          type: string
+        currency:
+          $ref: "#/components/schemas/Currency"
+      required:
+        - contractStatus
+        - customerName
+        - startDate
+        - endDate
+        - contractStartDate
+        - productVariantName
+        - commitmentConsumptionCurrencyAmount
+        - commitmentConsumptionUnitsAmount
+        - commitmentConsumptionPercentage
+        - totalCommitmentCurrencyAmount
+        - totalCommitmentUnitsAmount
+        - currency
+    NetSuiteSyncInvoicesRequest:
+      type: object
+      properties:
+        integrationType:
+          type: string
+          enum:
+            - upsertInvoice
+        uid:
+          type: string
+        data:
+          type: object
+          properties:
+            startDate:
+              type: string
+              format: date-time
+            endDate:
+              type: string
+              format: date-time
+            tranDate:
+              type: string
+              format: date-time
+            memo:
+              type: string
+            externalId:
+              type: string
+              pattern: ^[0-9a-fA-F]{24}$
+            entity:
+              type: object
+              properties:
+                id:
+                  type: string
+              required:
+                - id
+            account:
+              type: object
+              properties:
+                id:
+                  type: string
+              required:
+                - id
+            item:
+              type: object
+              properties:
+                items:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      item:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                        required:
+                          - id
+                      quantity:
+                        type: number
+                      amount:
+                        type: number
+                      description:
+                        type: string
+                      memo:
+                        type: string
+                    required:
+                      - item
+                      - quantity
+                      - amount
+              required:
+                - items
+            discountItem:
+              type: object
+              properties:
+                id:
+                  type: string
+              required:
+                - id
+            discountRate:
+              type: number
+          required:
+            - startDate
+            - endDate
+            - tranDate
+            - memo
+            - externalId
+            - entity
+            - item
+      required:
+        - integrationType
+        - uid
+        - data
+    NetSuiteSyncInvoicesResponse:
+      type: object
+      properties:
+        recordId:
+          type: string
+        tranId:
+          type: string
+      required:
+        - recordId
+        - tranId
+    NetSuiteExportSalesOrderRequest:
+      type: object
+      properties:
+        contractId:
+          type: string
+          pattern: ^[0-9a-fA-F]{24}$
+        productsIds:
+          type: array
+          items:
+            type: string
+            pattern: ^[0-9a-fA-F]{24}$
+        subsidiaryId:
+          type: string
+      required:
+        - contractId
+        - productsIds
+        - subsidiaryId
+    BillingCycleStatus:
+      type: string
+      enum:
+        - Grant
+        - Deduct
+    CreditLedgerEntry:
+      type: object
+      properties:
+        type:
+          $ref: "#/components/schemas/BillingCycleStatus"
+        amount:
+          type: number
+        invoiceId:
+          type: string
+        balanceAfterEntry:
+          type: number
+      required:
+        - type
+        - amount
+        - balanceAfterEntry
+    ListCreditLedgerEntriesResponse:
+      type: object
+      properties:
+        entries:
+          type: array
+          items:
+            $ref: "#/components/schemas/CreditLedgerEntry"
+          description: The credit ledger entries for the customer.
+      required:
+        - entries
+    GrantCreditsRequest:
+      type: object
+      properties:
+        creditAmount:
+          type: number
+          description: The amount of credits to be granted to the user.
         customerId:
           type: string
           pattern: ^[0-9a-fA-F]{24}$
-          description: The id of the customer that the contract is associated with
-        planId:
+          description: The ID of the customer to whom the credits will be granted.
+      required:
+        - creditAmount
+        - customerId
+    DeductCreditsRequest:
+      type: object
+      properties:
+        creditAmount:
+          type: number
+          description: The amount of credits to be deducted from the user.
+        customerId:
           type: string
           pattern: ^[0-9a-fA-F]{24}$
-          description: The id of the plan that the contract is associated with
+          description: The ID of the customer to whom the credits will be deducted from.
       required:
-        - startDate
+        - creditAmount
         - customerId
-        - planId
-    CreateContractResponseSchema:
-      type: object
-      properties:
-        contract:
-          type: object
-          properties:
-            startDate:
-              type: string
-              description: The start date of the contract
-              format: date-time
-            endDate:
-              type: string
-              description: The end date of the contract
-              format: date-time
-            customerId:
-              type: string
-              pattern: ^[0-9a-fA-F]{24}$
-              description: The id of the customer that the contract is associated with
-            planId:
-              type: string
-              pattern: ^[0-9a-fA-F]{24}$
-              description: The id of the plan that the contract is associated with
-            id:
-              type: string
-              pattern: ^[0-9a-fA-F]{24}$
-            createdAt:
-              type: string
-              format: date-time
-            updatedAt:
-              type: string
-              format: date-time
-          required:
-            - startDate
-            - customerId
-            - planId
-            - id
-            - createdAt
-            - updatedAt
-      required:
-        - contract
-    DeleteContractResponseSchema:
-      type: object
-      properties:
-        contract:
-          type: object
-          properties:
-            startDate:
-              type: string
-              description: The start date of the contract
-              format: date-time
-            endDate:
-              type: string
-              description: The end date of the contract
-              format: date-time
-            customerId:
-              type: string
-              pattern: ^[0-9a-fA-F]{24}$
-              description: The id of the customer that the contract is associated with
-            planId:
-              type: string
-              pattern: ^[0-9a-fA-F]{24}$
-              description: The id of the plan that the contract is associated with
-            id:
-              type: string
-              pattern: ^[0-9a-fA-F]{24}$
-            createdAt:
-              type: string
-              format: date-time
-            updatedAt:
-              type: string
-              format: date-time
-            deletedAt:
-              type: string
-          required:
-            - startDate
-            - customerId
-            - planId
-            - id
-            - createdAt
-            - updatedAt
-            - deletedAt
-      required:
-        - contract
-    Period:
-      type: object
-      properties:
-        startTime:
-          type: string
-          format: date-time
-        endTime:
-          type: string
-          format: date-time
-      required:
-        - startTime
-        - endTime
-      description: The billing cycle of the invoice, consists of a start and end date
-    GetInvoiceResponseSchema:
-      type: object
-      properties:
-        invoice:
-          type: object
-          properties:
-            customerId:
-              type: string
-              pattern: ^[0-9a-fA-F]{24}$
-              description: The id of the customer that the invoice is associated with
-            contractId:
-              type: string
-              pattern: ^[0-9a-fA-F]{24}$
-              description: The id of the contract that the invoice is associated with
-            amount:
-              type: number
-              description: The amount to be charged in the invoice
-            name:
-              type: string
-              minLength: 1
-              description: The name of the invoice, usually a description of the billing
-                period
-            billingCycle:
-              $ref: "#/components/schemas/Period"
-            lineItems:
-              type: array
-              items:
-                type: object
-                properties:
-                  invoiceId:
-                    type: string
-                    pattern: ^[0-9a-fA-F]{24}$
-                    description: The id of the invoice that the line item is a part of
-                  price:
-                    type: number
-                    minimum: 0
-                    description: The price of the line item
-                required:
-                  - invoiceId
-                  - price
-            id:
-              type: string
-              pattern: ^[0-9a-fA-F]{24}$
-            createdAt:
-              type: string
-              format: date-time
-            updatedAt:
-              type: string
-              format: date-time
-          required:
-            - customerId
-            - amount
-            - name
-            - billingCycle
-            - lineItems
-            - id
-            - createdAt
-            - updatedAt
-      required:
-        - invoice
-    ListInvoicesResponseSchema:
-      type: object
-      properties:
-        invoices:
-          type: array
-          items:
-            type: object
-            properties:
-              customerId:
-                type: string
-                pattern: ^[0-9a-fA-F]{24}$
-                description: The id of the customer that the invoice is associated with
-              contractId:
-                type: string
-                pattern: ^[0-9a-fA-F]{24}$
-                description: The id of the contract that the invoice is associated with
-              amount:
-                type: number
-                description: The amount to be charged in the invoice
-              name:
-                type: string
-                minLength: 1
-                description: The name of the invoice, usually a description of the billing
-                  period
-              billingCycle:
-                $ref: "#/components/schemas/Period"
-              lineItems:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    invoiceId:
-                      type: string
-                      pattern: ^[0-9a-fA-F]{24}$
-                      description: The id of the invoice that the line item is a part of
-                    price:
-                      type: number
-                      minimum: 0
-                      description: The price of the line item
-                  required:
-                    - invoiceId
-                    - price
-              id:
-                type: string
-                pattern: ^[0-9a-fA-F]{24}$
-              createdAt:
-                type: string
-                format: date-time
-              updatedAt:
-                type: string
-                format: date-time
-            required:
-              - customerId
-              - amount
-              - name
-              - billingCycle
-              - lineItems
-              - id
-              - createdAt
-              - updatedAt
-        total:
-          type: number
-        hasMore:
-          type: boolean
-        nextCursor:
-          type: string
-      required:
-        - invoices
-        - total
-        - hasMore
-    StartTimeSchema:
+    NotificationEventType:
       type: string
-      format: date-time
-    EndTimeSchema:
-      type: string
-      format: date-time
-    EventNameSchema:
-      type: string
-      minLength: 1
-    LimitSchema:
+      enum:
+        - AnonymousCustomer
+        - Overage
+        - UpcomingRenewal
+        - InvoiceApproved
+    WebhookSubscribeRequest:
+      type: object
+      properties:
+        callbackUrl:
+          type: string
+        eventType:
+          $ref: "#/components/schemas/NotificationEventType"
+      required:
+        - callbackUrl
+        - eventType
+    Limit:
       type: number
       maximum: 1000
       default: 10
-    CursorSchema:
+    Cursor:
       type: string
-    RefIdSchema:
-      type: string
-    CustomerIdSchema:
+    CustomerId:
       type: string
       pattern: ^[0-9a-fA-F]{24}$
-    MeterIdSchema:
+    MeterId:
       type: string
       pattern: ^[0-9a-fA-F]{24}$
-    PlanIdSchema:
+    PlanId:
       type: string
       pattern: ^[0-9a-fA-F]{24}$
-    ContractIdSchema:
+    ContractId:
       type: string
       pattern: ^[0-9a-fA-F]{24}$
-    InvoiceIdSchema:
+    InvoiceId:
       type: string
       pattern: ^[0-9a-fA-F]{24}$
+    StartTime:
+      type: string
+      format: date-time
+    EndTime:
+      type: string
+      format: date-time
+    EventName:
+      type: string
+      minLength: 1
+    RefId:
+      type: string
+    ReportId:
+      type: string
 paths:
-  /events:
-    post:
-      tags:
-        - events
-      operationId: sendEvents
-      description: Use this endpoint to send an array of events for processing and
-        storage. Make sure to comply with the request schema for each event.
-      summary: Submit a batch of events for ingestion
-      security:
-        - BearerAuthorizer: []
-      requestBody:
-        $ref: "#/components/requestBodies/SendEventsRequest"
-      responses:
-        "200":
-          $ref: "#/components/responses/SendEventsResponse"
-        "400":
-          description: Bad Request
-        "401":
-          description: Unauthorized
-        "413":
-          description: Request Entity Too Large
-        "429":
-          description: Too Many Requests
-        "500":
-          description: Internal Server Error
-    get:
-      tags:
-        - events
-      operationId: queryEvents
-      description: Fetch events occurring within a specified timestamp range. An
-        optional event name can be provided to further filter the events.
-      summary: Query events by timestamp period and optional event name
-      security:
-        - BearerAuthorizer: []
-      parameters:
-        - schema:
-            $ref: "#/components/schemas/StartTimeSchema"
-          required: true
-          in: query
-          name: startTime
-        - schema:
-            $ref: "#/components/schemas/EndTimeSchema"
-          required: true
-          in: query
-          name: endTime
-        - schema:
-            $ref: "#/components/schemas/EventNameSchema"
-          required: false
-          in: query
-          name: eventName
-        - schema:
-            $ref: "#/components/schemas/LimitSchema"
-          required: false
-          in: query
-          name: limit
-        - schema:
-            $ref: "#/components/schemas/CursorSchema"
-          required: false
-          in: query
-          name: cursor
-      responses:
-        "200":
-          $ref: "#/components/responses/QueryEventsResponse"
-        "400":
-          description: Bad Request
-        "401":
-          description: Unauthorized
-        "429":
-          description: Too Many Requests
-        "500":
-          description: Internal Server Error
-  /events/{refId}:
-    get:
-      tags:
-        - events
-      operationId: getEventByRefId
-      description: Use this endpoint to get a specific event using its reference ID.
-      summary: Get event by refId
-      security:
-        - BearerAuthorizer: []
-      parameters:
-        - schema:
-            $ref: "#/components/schemas/RefIdSchema"
-          required: true
-          in: path
-          name: refId
-      responses:
-        "200":
-          $ref: "#/components/responses/GetEventByRefIdResponse"
-        "400":
-          description: Bad Request
-        "401":
-          description: Unauthorized
-        "404":
-          description: Not Found
-        "429":
-          description: Too Many Requests
-        "500":
-          description: Internal Server Error
-    delete:
-      tags:
-        - events
-      operationId: deleteEventByRefId
-      description: Use this endpoint to remove a specific event using its reference ID.
-      summary: Delete an event by refId
-      security:
-        - BearerAuthorizer: []
-      parameters:
-        - schema:
-            $ref: "#/components/schemas/RefIdSchema"
-          required: true
-          in: path
-          name: refId
-      responses:
-        "200":
-          $ref: "#/components/responses/DeleteEventByRefIdResponse"
-        "400":
-          description: Bad Request
-        "401":
-          description: Unauthorized
-        "404":
-          description: Not Found
-        "429":
-          description: Too Many Requests
-        "500":
-          description: Internal Server Error
-  /events/dry-run:
-    post:
-      tags:
-        - events
-      operationId: sendEventsDryRun
-      description: "Use this endpoint to send an array of events for processing. Make
-        sure to comply with the request schema for each event. NOTE: this is a
-        dry run and will not result in actual storage of the events."
-      summary: Submit a batch of events for testing
-      security:
-        - BearerAuthorizer: []
-      requestBody:
-        $ref: "#/components/requestBodies/EventsDryRunRequest"
-      responses:
-        "200":
-          $ref: "#/components/responses/EventsDryRunResponse"
-        "400":
-          description: Bad Request
-        "401":
-          description: Unauthorized
-        "413":
-          description: Request Entity Too Large
-        "429":
-          description: Too Many Requests
-        "500":
-          description: Internal Server Error
-  /login:
-    post:
-      tags:
-        - auth
-      operationId: login
-      description: >-
-        This endpoint is designed to acquire a temporary access token.
-            Submit the auth token in the request body to obtain a new access token.
-            Use this new token for subsequent API calls. Token is set to expire every hour.
-      summary: Login by obtaining a new access token
-      requestBody:
-        $ref: "#/components/requestBodies/LoginRequest"
-      responses:
-        "200":
-          $ref: "#/components/responses/LoginResponse"
-        "400":
-          description: Bad Request
-        "401":
-          description: Unauthorized
-        "429":
-          description: Too Many Requests
-        "500":
-          description: Internal Server Error
   /customers:
     post:
       tags:
@@ -1775,12 +2179,12 @@ paths:
         - BearerAuthorizer: []
       parameters:
         - schema:
-            $ref: "#/components/schemas/LimitSchema"
+            $ref: "#/components/schemas/Limit"
           required: false
           in: query
           name: limit
         - schema:
-            $ref: "#/components/schemas/CursorSchema"
+            $ref: "#/components/schemas/Cursor"
           required: false
           in: query
           name: cursor
@@ -1806,7 +2210,7 @@ paths:
         - BearerAuthorizer: []
       parameters:
         - schema:
-            $ref: "#/components/schemas/CustomerIdSchema"
+            $ref: "#/components/schemas/CustomerId"
           required: true
           in: path
           name: customerId
@@ -1835,7 +2239,7 @@ paths:
         $ref: "#/components/requestBodies/UpdateCustomerRequest"
       parameters:
         - schema:
-            $ref: "#/components/schemas/CustomerIdSchema"
+            $ref: "#/components/schemas/CustomerId"
           required: true
           in: path
           name: customerId
@@ -1862,7 +2266,7 @@ paths:
         - BearerAuthorizer: []
       parameters:
         - schema:
-            $ref: "#/components/schemas/CustomerIdSchema"
+            $ref: "#/components/schemas/CustomerId"
           required: true
           in: path
           name: customerId
@@ -1890,7 +2294,7 @@ paths:
         - BearerAuthorizer: []
       parameters:
         - schema:
-            $ref: "#/components/schemas/MeterIdSchema"
+            $ref: "#/components/schemas/MeterId"
           required: true
           in: path
           name: meterId
@@ -1919,7 +2323,7 @@ paths:
         $ref: "#/components/requestBodies/UpdateMeterRequest"
       parameters:
         - schema:
-            $ref: "#/components/schemas/MeterIdSchema"
+            $ref: "#/components/schemas/MeterId"
           required: true
           in: path
           name: meterId
@@ -1946,7 +2350,7 @@ paths:
         - BearerAuthorizer: []
       parameters:
         - schema:
-            $ref: "#/components/schemas/MeterIdSchema"
+            $ref: "#/components/schemas/MeterId"
           required: true
           in: path
           name: meterId
@@ -1974,12 +2378,12 @@ paths:
         - BearerAuthorizer: []
       parameters:
         - schema:
-            $ref: "#/components/schemas/LimitSchema"
+            $ref: "#/components/schemas/Limit"
           required: false
           in: query
           name: limit
         - schema:
-            $ref: "#/components/schemas/CursorSchema"
+            $ref: "#/components/schemas/Cursor"
           required: false
           in: query
           name: cursor
@@ -2005,7 +2409,7 @@ paths:
         - BearerAuthorizer: []
       parameters:
         - schema:
-            $ref: "#/components/schemas/PlanIdSchema"
+            $ref: "#/components/schemas/PlanId"
           required: true
           in: path
           name: planId
@@ -2032,7 +2436,7 @@ paths:
         - BearerAuthorizer: []
       parameters:
         - schema:
-            $ref: "#/components/schemas/PlanIdSchema"
+            $ref: "#/components/schemas/PlanId"
           required: true
           in: path
           name: planId
@@ -2060,12 +2464,12 @@ paths:
         - BearerAuthorizer: []
       parameters:
         - schema:
-            $ref: "#/components/schemas/LimitSchema"
+            $ref: "#/components/schemas/Limit"
           required: false
           in: query
           name: limit
         - schema:
-            $ref: "#/components/schemas/CursorSchema"
+            $ref: "#/components/schemas/Cursor"
           required: false
           in: query
           name: cursor
@@ -2091,7 +2495,7 @@ paths:
         - BearerAuthorizer: []
       parameters:
         - schema:
-            $ref: "#/components/schemas/ContractIdSchema"
+            $ref: "#/components/schemas/ContractId"
           required: true
           in: path
           name: contractId
@@ -2118,7 +2522,7 @@ paths:
         - BearerAuthorizer: []
       parameters:
         - schema:
-            $ref: "#/components/schemas/ContractIdSchema"
+            $ref: "#/components/schemas/ContractId"
           required: true
           in: path
           name: contractId
@@ -2146,12 +2550,12 @@ paths:
         - BearerAuthorizer: []
       parameters:
         - schema:
-            $ref: "#/components/schemas/LimitSchema"
+            $ref: "#/components/schemas/Limit"
           required: false
           in: query
           name: limit
         - schema:
-            $ref: "#/components/schemas/CursorSchema"
+            $ref: "#/components/schemas/Cursor"
           required: false
           in: query
           name: cursor
@@ -2198,7 +2602,7 @@ paths:
         - BearerAuthorizer: []
       parameters:
         - schema:
-            $ref: "#/components/schemas/InvoiceIdSchema"
+            $ref: "#/components/schemas/InvoiceId"
           required: true
           in: path
           name: invoiceId
@@ -2226,12 +2630,12 @@ paths:
         - BearerAuthorizer: []
       parameters:
         - schema:
-            $ref: "#/components/schemas/LimitSchema"
+            $ref: "#/components/schemas/Limit"
           required: false
           in: query
           name: limit
         - schema:
-            $ref: "#/components/schemas/CursorSchema"
+            $ref: "#/components/schemas/Cursor"
           required: false
           in: query
           name: cursor
@@ -2242,6 +2646,394 @@ paths:
           description: Bad Request
         "401":
           description: Unauthorized
+        "429":
+          description: Too Many Requests
+        "500":
+          description: Internal Server Error
+  /login:
+    post:
+      tags:
+        - auth
+      operationId: login
+      description: >-
+        This endpoint is designed to acquire a temporary access token.
+            Submit the auth token in the request body to obtain a new access token.
+            Use this new token for subsequent API calls. Token is set to expire every hour.
+      summary: Login by obtaining a new access token
+      requestBody:
+        $ref: "#/components/requestBodies/LoginRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/LoginResponse"
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "429":
+          description: Too Many Requests
+        "500":
+          description: Internal Server Error
+  /events/dry-run:
+    post:
+      tags:
+        - events
+      operationId: sendEventsDryRun
+      description: "Use this endpoint to send an array of events for processing. Make
+        sure to comply with the request schema for each event. NOTE: this is a
+        dry run and will not result in actual storage of the events."
+      summary: Submit a batch of events for testing
+      security:
+        - BearerAuthorizer: []
+      requestBody:
+        $ref: "#/components/requestBodies/EventsDryRunRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/EventsDryRunResponse"
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "413":
+          description: Request Entity Too Large
+        "429":
+          description: Too Many Requests
+        "500":
+          description: Internal Server Error
+  /events:
+    get:
+      tags:
+        - events
+      operationId: queryEvents
+      description: Fetch events occurring within a specified timestamp range. An
+        optional event name can be provided to further filter the events.
+      summary: Query events by timestamp period and optional event name
+      security:
+        - BearerAuthorizer: []
+      parameters:
+        - schema:
+            $ref: "#/components/schemas/StartTime"
+          required: true
+          in: query
+          name: startTime
+        - schema:
+            $ref: "#/components/schemas/EndTime"
+          required: true
+          in: query
+          name: endTime
+        - schema:
+            $ref: "#/components/schemas/EventName"
+          required: false
+          in: query
+          name: eventName
+        - schema:
+            $ref: "#/components/schemas/Limit"
+          required: false
+          in: query
+          name: limit
+        - schema:
+            $ref: "#/components/schemas/Cursor"
+          required: false
+          in: query
+          name: cursor
+      responses:
+        "200":
+          $ref: "#/components/responses/QueryEventsResponse"
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "429":
+          description: Too Many Requests
+        "500":
+          description: Internal Server Error
+    post:
+      tags:
+        - events
+      operationId: sendEvents
+      description: Use this endpoint to send an array of events for processing and
+        storage. Make sure to comply with the request schema for each event.
+      summary: Submit a batch of events for ingestion
+      security:
+        - BearerAuthorizer: []
+      requestBody:
+        $ref: "#/components/requestBodies/SendEventsRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/SendEventsResponse"
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "413":
+          description: Request Entity Too Large
+        "429":
+          description: Too Many Requests
+        "500":
+          description: Internal Server Error
+  /events/{refId}:
+    get:
+      tags:
+        - events
+      operationId: getEventByRefId
+      description: Use this endpoint to get a specific event using its reference ID.
+      summary: Get event by refId
+      security:
+        - BearerAuthorizer: []
+      parameters:
+        - schema:
+            $ref: "#/components/schemas/RefId"
+          required: true
+          in: path
+          name: refId
+      responses:
+        "200":
+          $ref: "#/components/responses/GetEventByRefIdResponse"
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+        "429":
+          description: Too Many Requests
+        "500":
+          description: Internal Server Error
+    delete:
+      tags:
+        - events
+      operationId: deleteEventByRefId
+      description: Use this endpoint to remove a specific event using its reference ID.
+      summary: Delete an event by refId
+      security:
+        - BearerAuthorizer: []
+      parameters:
+        - schema:
+            $ref: "#/components/schemas/RefId"
+          required: true
+          in: path
+          name: refId
+      responses:
+        "200":
+          $ref: "#/components/responses/DeleteEventByRefIdResponse"
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+        "429":
+          description: Too Many Requests
+        "500":
+          description: Internal Server Error
+  /report/products-usage:
+    get:
+      tags:
+        - reports
+      operationId: getProductsUsageReport
+      description: Use this endpoint to get the products usage report.
+      summary: Get products usage report
+      security:
+        - BearerAuthorizer: []
+      parameters:
+        - schema:
+            $ref: "#/components/schemas/ReportId"
+          required: false
+          in: query
+          name: reportId
+        - schema:
+            $ref: "#/components/schemas/Limit"
+          required: false
+          in: query
+          name: limit
+        - schema:
+            $ref: "#/components/schemas/Cursor"
+          required: false
+          in: query
+          name: cursor
+      responses:
+        "200":
+          $ref: "#/components/responses/GetProductsUsageReportResponse"
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "429":
+          description: Too Many Requests
+        "500":
+          description: Internal Server Error
+  /report/commitment:
+    get:
+      tags:
+        - reports
+      operationId: getCommitmentReportResponse
+      security:
+        - BearerAuthorizer: []
+      parameters:
+        - schema:
+            $ref: "#/components/schemas/ReportId"
+          required: false
+          in: query
+          name: reportId
+      responses:
+        "200":
+          $ref: "#/components/responses/GetCommitmentReportResponse"
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "429":
+          description: Too Many Requests
+        "500":
+          description: Internal Server Error
+  /integrations/netsuite/sync-invoices:
+    post:
+      tags:
+        - integrations
+      operationId: net-suite-sync-invoices
+      security:
+        - BearerAuthorizer: []
+      requestBody:
+        $ref: "#/components/requestBodies/NetSuiteSyncInvoicesRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/NetSuiteSyncInvoicesResponse"
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "429":
+          description: Too Many Requests
+        "500":
+          description: Internal Server Error
+  /integrations/netsuite/export-sales-order:
+    post:
+      tags:
+        - integrations
+      operationId: export-net-suite-sales-order
+      security:
+        - BearerAuthorizer: []
+      requestBody:
+        $ref: "#/components/requestBodies/NetSuiteExportSalesOrderRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/RequestSuccess"
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "429":
+          description: Too Many Requests
+        "500":
+          description: Internal Server Error
+  /credits:
+    get:
+      tags:
+        - credits
+      operationId: listCreditLedgerEntries
+      description: This endpoint is used to retrieve the credit ledger entries for a
+        specific customer.
+      summary: Retrieve credit ledger entries for customer.
+      security:
+        - BearerAuthorizer: []
+      parameters:
+        - schema:
+            $ref: "#/components/schemas/CustomerId"
+          required: true
+          in: query
+          name: customerId
+        - schema:
+            $ref: "#/components/schemas/Limit"
+          required: false
+          in: query
+          name: limit
+        - schema:
+            $ref: "#/components/schemas/Cursor"
+          required: false
+          in: query
+          name: cursor
+      responses:
+        "200":
+          $ref: "#/components/responses/ListCreditLedgerEntriesResponse"
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "429":
+          description: Too Many Requests
+        "500":
+          description: Internal Server Error
+  /credits/grant:
+    post:
+      tags:
+        - credits
+      operationId: grantCredits
+      description: >-
+        This endpoint is used to grant credits to a customer.
+            Submit the credit amount and customer ID in the request body to grant the credits.
+            The granted credits will be added to the customer's account.
+      summary: Grant credits to a customer credit ledger
+      security:
+        - BearerAuthorizer: []
+      requestBody:
+        $ref: "#/components/requestBodies/GrantCreditsRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/RequestSuccess"
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "429":
+          description: Too Many Requests
+        "500":
+          description: Internal Server Error
+  /credits/deduct:
+    post:
+      tags:
+        - credits
+      operationId: deductCredits
+      description: >-
+        This endpoint is used to deduct credits from the specified customer
+        account. 
+            Submit the credit amount and customer ID in the request body to deduct the credits. 
+            The deducted credits will be subtracted from the customer's account.
+      summary: Deduct credits from customer credit ledger
+      security:
+        - BearerAuthorizer: []
+      requestBody:
+        $ref: "#/components/requestBodies/DeductCreditsRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/RequestSuccess"
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "429":
+          description: Too Many Requests
+        "500":
+          description: Internal Server Error
+  /webhook:
+    post:
+      tags:
+        - webhooks
+      operationId: webhookSubscribe
+      description: Use this endpoint to subscribe to webhooks and receive event
+        notifications.
+      summary: Subscribe to webhooks
+      security:
+        - BearerAuthorizer: []
+      requestBody:
+        $ref: "#/components/requestBodies/WebhookSubscribeRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/RequestSuccess"
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "413":
+          description: Request Entity Too Large
         "429":
           description: Too Many Requests
         "500":
