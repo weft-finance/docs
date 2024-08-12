@@ -1489,7 +1489,7 @@ components:
                   to each customer.
                 example: customer_12345
               ref:
-                type: 'string'
+                type: string
                 description: A universally unique identifier (UUID) or other form of
                   high-entropy string serving as an immutable reference for each
                   event entry.
@@ -2866,6 +2866,7 @@ paths:
       tags:
         - reports
       operationId: getCommitmentReportResponse
+      summary: "Get commitment report "
       security:
         - BearerAuthorizer: []
       parameters:
@@ -2890,6 +2891,8 @@ paths:
       tags:
         - integrations
       operationId: net-suite-sync-invoices
+      description: This endpoint is used to sync invoices to NetSuite.
+      summary: Sync invoices to NetSuite
       security:
         - BearerAuthorizer: []
       requestBody:
@@ -2910,6 +2913,8 @@ paths:
       tags:
         - integrations
       operationId: export-net-suite-sales-order
+      description: This endpoint is used to export sales order to NetSuite.
+      summary: Export sales order to NetSuite
       security:
         - BearerAuthorizer: []
       requestBody:
