@@ -93,74 +93,88 @@
         "group": "Api Reference",
         "pages": [
           {
-            "group": "Auth",
+            "group": "customers",
             "pages": [
-              "api-reference/endpoints/auth/login-by-obtaining-a-new-access-token"
-            ]
-          },
-          {
-            "group": "Customers",
-            "pages": [
-              "api-reference/endpoints/customers/get-customer",
               "api-reference/endpoints/customers/list-customers",
               "api-reference/endpoints/customers/create-customer",
+              "api-reference/endpoints/customers/get-customer",
               "api-reference/endpoints/customers/update-customer",
               "api-reference/endpoints/customers/delete-customer"
             ]
           },
           {
-            "group": "Events",
-            "pages": [
-              "api-reference/endpoints/events/get-event-by-refid",
-              "api-reference/endpoints/events/query-events-by-timestamp-period-and-optional-event-name",
-              "api-reference/endpoints/events/submit-a-batch-of-events-for-ingestion",
-              "api-reference/endpoints/events/submit-a-batch-of-events-for-testing",
-              "api-reference/endpoints/events/delete-an-event-by-refid"
-            ]
-          },
-          {
-            "group": "Meters",
+            "group": "meters",
             "pages": [
               "api-reference/endpoints/meters/get-meter",
-              "api-reference/endpoints/meters/list-meters",
               "api-reference/endpoints/meters/update-meter",
-              "api-reference/endpoints/meters/delete-meter"
+              "api-reference/endpoints/meters/delete-meter",
+              "api-reference/endpoints/meters/list-meters"
             ]
           },
           {
-            "group": "Plans",
+            "group": "plans",
             "pages": [
               "api-reference/endpoints/plans/get-plan",
-              "api-reference/endpoints/plans/list-plans",
-              "api-reference/endpoints/plans/delete-plan"
+              "api-reference/endpoints/plans/delete-plan",
+              "api-reference/endpoints/plans/list-plans"
             ]
           },
           {
-            "group": "Contracts",
+            "group": "contracts",
             "pages": [
               "api-reference/endpoints/contracts/get-contract",
+              "api-reference/endpoints/contracts/delete-contract",
               "api-reference/endpoints/contracts/list-contracts",
-              "api-reference/endpoints/contracts/create-contract",
-              "api-reference/endpoints/contracts/delete-contract"
+              "api-reference/endpoints/contracts/create-contract"
             ]
           },
           {
-            "group": "Invoices",
+            "group": "invoices",
             "pages": [
               "api-reference/endpoints/invoices/get-invoice",
               "api-reference/endpoints/invoices/list-invoices"
             ]
           },
           {
-            "group": "Credits",
+            "group": "auth",
             "pages": [
-              "api-reference/endpoints/credits/grant-credits-to-a-customer-credit-ledger",
-              "api-reference/endpoints/credits/deduct-credits-from-customer-credit-ledger",
-              "api-reference/endpoints/credits/retrieve-credit-ledger-entries-for-customer"
+              "api-reference/endpoints/auth/login-by-obtaining-a-new-access-token"
             ]
           },
           {
-            "group": "Webhooks",
+            "group": "events",
+            "pages": [
+              "api-reference/endpoints/events/submit-a-batch-of-events-for-testing",
+              "api-reference/endpoints/events/query-events-by-timestamp-period-and-optional-event-name",
+              "api-reference/endpoints/events/submit-a-batch-of-events-for-ingestion",
+              "api-reference/endpoints/events/get-event-by-refid",
+              "api-reference/endpoints/events/delete-an-event-by-refid"
+            ]
+          },
+          {
+            "group": "reports",
+            "pages": [
+              "api-reference/endpoints/reports/get-products-usage-report",
+              "api-reference/endpoints/reports/get-commitment-report"
+            ]
+          },
+          {
+            "group": "integrations",
+            "pages": [
+              "api-reference/endpoints/integrations/sync-invoices-to-netsuite",
+              "api-reference/endpoints/integrations/export-sales-order-to-netsuite"
+            ]
+          },
+          {
+            "group": "credits",
+            "pages": [
+              "api-reference/endpoints/credits/retrieve-credit-ledger-entries-for-customer",
+              "api-reference/endpoints/credits/grant-credits-to-a-customer-credit-ledger",
+              "api-reference/endpoints/credits/deduct-credits-from-customer-credit-ledger"
+            ]
+          },
+          {
+            "group": "webhooks",
             "pages": [
               "api-reference/endpoints/webhooks/subscribe-to-webhooks"
             ]
