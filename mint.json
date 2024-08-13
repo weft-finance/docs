@@ -1,5 +1,6 @@
 {
   "$schema": "https://mintlify.com/schema.json",
+  
   "name": "Vayu docs",
   "logo": {
     "dark": "/assets/logo/dark.svg",
