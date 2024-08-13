@@ -36,10 +36,10 @@ tags:
     description: The billing-cycles tag is used for endpoints related to billing
       cycle management.
   - name: reports
-    description: The reports tag is used for endpoints related to report generation
+    description: The reports tag is used for endpoints related to report generation.
   - name: integrations
     description: The integrations tag is used for endpoints related to integrations
-      with external systems
+      with external systems.
   - name: credits
     description: The credits tag is used for endpoints related to credit management.
   - name: webhooks
