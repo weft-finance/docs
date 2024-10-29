@@ -36,10 +36,10 @@ tags:
     description: The billing-cycles tag is used for endpoints related to billing
       cycle management.
   - name: reports
-    description: The reports tag is used for endpoints related to report generation.
+    description: The reports tag is used for endpoints related to report generation
   - name: integrations
     description: The integrations tag is used for endpoints related to integrations
-      with external systems.
+      with external systems
   - name: credits
     description: The credits tag is used for endpoints related to credit management.
   - name: webhooks
@@ -265,18 +265,18 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/SendEventsResponse"
-    GetEventByRefIdResponse:
+    GetEventResponse:
       description: response contains the event matching the provided refId
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/GetEventByRefIdResponse"
-    DeleteEventByRefIdResponse:
+            $ref: "#/components/schemas/GetEventResponse"
+    DeleteEventResponse:
       description: Contains the event that was deleted
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/DeleteEventByRefIdResponse"
+            $ref: "#/components/schemas/DeleteEventResponse"
     GetProductsUsageReportResponse:
       description: response contains the products usage report
       content:
@@ -305,6 +305,38 @@ components:
             $ref: "#/components/schemas/ListCreditLedgerEntriesResponse"
   parameters: {}
   schemas:
+    Address:
+      type: object
+      properties:
+        country:
+          type: string
+          minLength: 1
+        city:
+          type: string
+          minLength: 1
+        addressText:
+          type: string
+          minLength: 1
+        state:
+          type: string
+          minLength: 1
+        postalCode:
+          type: string
+          minLength: 1
+      description: The address of the customer
+    Contact:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+        email:
+          type: string
+          format: email
+        isPrimary:
+          type: boolean
+      required:
+        - email
     CreateCustomerRequest:
       type: object
       properties:
@@ -312,10 +344,26 @@ components:
           type: string
           minLength: 1
           description: The name of the customer
-        alias:
+        externalId:
           type: string
           minLength: 1
-          description: The alias of the customer used to match events to the customer.
+          description: The external ID of the customer
+        aliases:
+          type: array
+          items:
+            type: string
+            minLength: 1
+          default: []
+          description: The aliases of the customer used to match events to the customer.
+        address:
+          $ref: "#/components/schemas/Address"
+        contacts:
+          type: array
+          items:
+            $ref: "#/components/schemas/Contact"
+          default: []
+          description: The contacts of the customer. Contact marked as primary is the
+            target for invoice sharing.
       required:
         - name
     CreateCustomerResponse:
@@ -328,10 +376,26 @@ components:
               type: string
               minLength: 1
               description: The name of the customer
-            alias:
+            externalId:
               type: string
               minLength: 1
-              description: The alias of the customer used to match events to the customer.
+              description: The external ID of the customer
+            aliases:
+              type: array
+              items:
+                type: string
+                minLength: 1
+              default: []
+              description: The aliases of the customer used to match events to the customer.
+            address:
+              $ref: "#/components/schemas/Address"
+            contacts:
+              type: array
+              items:
+                $ref: "#/components/schemas/Contact"
+              default: []
+              description: The contacts of the customer. Contact marked as primary is the
+                target for invoice sharing.
             id:
               type: string
             createdAt:
@@ -340,14 +404,11 @@ components:
             updatedAt:
               type: string
               format: date-time
-            deletedAt:
-              type: string
           required:
             - name
             - id
             - createdAt
             - updatedAt
-            - deletedAt
       required:
         - customer
     ListCustomersResponse:
@@ -362,10 +423,26 @@ components:
                 type: string
                 minLength: 1
                 description: The name of the customer
-              alias:
+              externalId:
                 type: string
                 minLength: 1
-                description: The alias of the customer used to match events to the customer.
+                description: The external ID of the customer
+              aliases:
+                type: array
+                items:
+                  type: string
+                  minLength: 1
+                default: []
+                description: The aliases of the customer used to match events to the customer.
+              address:
+                $ref: "#/components/schemas/Address"
+              contacts:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Contact"
+                default: []
+                description: The contacts of the customer. Contact marked as primary is the
+                  target for invoice sharing.
               id:
                 type: string
               createdAt:
@@ -399,10 +476,26 @@ components:
               type: string
               minLength: 1
               description: The name of the customer
-            alias:
+            externalId:
               type: string
               minLength: 1
-              description: The alias of the customer used to match events to the customer.
+              description: The external ID of the customer
+            aliases:
+              type: array
+              items:
+                type: string
+                minLength: 1
+              default: []
+              description: The aliases of the customer used to match events to the customer.
+            address:
+              $ref: "#/components/schemas/Address"
+            contacts:
+              type: array
+              items:
+                $ref: "#/components/schemas/Contact"
+              default: []
+              description: The contacts of the customer. Contact marked as primary is the
+                target for invoice sharing.
             id:
               type: string
             createdAt:
@@ -411,14 +504,11 @@ components:
             updatedAt:
               type: string
               format: date-time
-            deletedAt:
-              type: string
           required:
             - name
             - id
             - createdAt
             - updatedAt
-            - deletedAt
       required:
         - customer
     UpdateCustomerRequest:
@@ -428,10 +518,26 @@ components:
           type: string
           minLength: 1
           description: The name of the customer
-        alias:
+        externalId:
           type: string
           minLength: 1
-          description: The alias of the customer used to match events to the customer.
+          description: The external ID of the customer
+        aliases:
+          type: array
+          items:
+            type: string
+            minLength: 1
+          default: []
+          description: The aliases of the customer used to match events to the customer.
+        address:
+          $ref: "#/components/schemas/Address"
+        contacts:
+          type: array
+          items:
+            $ref: "#/components/schemas/Contact"
+          default: []
+          description: The contacts of the customer. Contact marked as primary is the
+            target for invoice sharing.
       additionalProperties: false
     UpdateCustomerResponse:
       type: object
@@ -443,10 +549,26 @@ components:
               type: string
               minLength: 1
               description: The name of the customer
-            alias:
+            externalId:
               type: string
               minLength: 1
-              description: The alias of the customer used to match events to the customer.
+              description: The external ID of the customer
+            aliases:
+              type: array
+              items:
+                type: string
+                minLength: 1
+              default: []
+              description: The aliases of the customer used to match events to the customer.
+            address:
+              $ref: "#/components/schemas/Address"
+            contacts:
+              type: array
+              items:
+                $ref: "#/components/schemas/Contact"
+              default: []
+              description: The contacts of the customer. Contact marked as primary is the
+                target for invoice sharing.
             id:
               type: string
             createdAt:
@@ -455,14 +577,11 @@ components:
             updatedAt:
               type: string
               format: date-time
-            deletedAt:
-              type: string
           required:
             - name
             - id
             - createdAt
             - updatedAt
-            - deletedAt
       required:
         - customer
     DeleteCustomerResponse:
@@ -475,10 +594,26 @@ components:
               type: string
               minLength: 1
               description: The name of the customer
-            alias:
+            externalId:
               type: string
               minLength: 1
-              description: The alias of the customer used to match events to the customer.
+              description: The external ID of the customer
+            aliases:
+              type: array
+              items:
+                type: string
+                minLength: 1
+              default: []
+              description: The aliases of the customer used to match events to the customer.
+            address:
+              $ref: "#/components/schemas/Address"
+            contacts:
+              type: array
+              items:
+                $ref: "#/components/schemas/Contact"
+              default: []
+              description: The contacts of the customer. Contact marked as primary is the
+                target for invoice sharing.
             id:
               type: string
             createdAt:
@@ -508,6 +643,23 @@ components:
         - Average
         - First
         - Last
+      description: The aggregation method defines how the events should be summed to
+        represent a usage value.
+    AggregationMethod:
+      type: object
+      properties:
+        operator:
+          $ref: "#/components/schemas/AggregationOperator"
+        field:
+          type: string
+          description: The field inside the "data" property to apply the aggregation
+            method to.
+        instanceKey:
+          type: string
+          description: The fields that is used to group different events together when
+            measuring the usage.
+      required:
+        - operator
       description: The aggregation method defines how the events should be summed to
         represent a usage value.
     CriterionOperator:
@@ -577,22 +729,7 @@ components:
               minLength: 1
               description: The name of the event that the meter is tracking.
             aggregationMethod:
-              type: object
-              properties:
-                operator:
-                  $ref: "#/components/schemas/AggregationOperator"
-                field:
-                  type: string
-                  description: The field inside the "data" property to apply the aggregation
-                    method to.
-                instanceKey:
-                  type: string
-                  description: The fields that is used to group different events together when
-                    measuring the usage.
-              required:
-                - operator
-              description: The aggregation method defines how the events should be summed to
-                represent a usage value.
+              $ref: "#/components/schemas/AggregationMethod"
             filter:
               $ref: "#/components/schemas/Filter"
             id:
@@ -603,8 +740,6 @@ components:
             updatedAt:
               type: string
               format: date-time
-            deletedAt:
-              type: string
           required:
             - name
             - eventName
@@ -612,7 +747,6 @@ components:
             - id
             - createdAt
             - updatedAt
-            - deletedAt
       required:
         - meter
     UpdateMeterRequest:
@@ -627,22 +761,7 @@ components:
           minLength: 1
           description: The name of the event that the meter is tracking.
         aggregationMethod:
-          type: object
-          properties:
-            operator:
-              $ref: "#/components/schemas/AggregationOperator"
-            field:
-              type: string
-              description: The field inside the "data" property to apply the aggregation
-                method to.
-            instanceKey:
-              type: string
-              description: The fields that is used to group different events together when
-                measuring the usage.
-          required:
-            - operator
-          description: The aggregation method defines how the events should be summed to
-            represent a usage value.
+          $ref: "#/components/schemas/AggregationMethod"
         filter:
           $ref: "#/components/schemas/Filter"
       additionalProperties: false
@@ -661,22 +780,7 @@ components:
               minLength: 1
               description: The name of the event that the meter is tracking.
             aggregationMethod:
-              type: object
-              properties:
-                operator:
-                  $ref: "#/components/schemas/AggregationOperator"
-                field:
-                  type: string
-                  description: The field inside the "data" property to apply the aggregation
-                    method to.
-                instanceKey:
-                  type: string
-                  description: The fields that is used to group different events together when
-                    measuring the usage.
-              required:
-                - operator
-              description: The aggregation method defines how the events should be summed to
-                represent a usage value.
+              $ref: "#/components/schemas/AggregationMethod"
             filter:
               $ref: "#/components/schemas/Filter"
             id:
@@ -687,8 +791,6 @@ components:
             updatedAt:
               type: string
               format: date-time
-            deletedAt:
-              type: string
           required:
             - name
             - eventName
@@ -696,7 +798,6 @@ components:
             - id
             - createdAt
             - updatedAt
-            - deletedAt
       required:
         - meter
     DeleteMeterResponse:
@@ -714,22 +815,7 @@ components:
               minLength: 1
               description: The name of the event that the meter is tracking.
             aggregationMethod:
-              type: object
-              properties:
-                operator:
-                  $ref: "#/components/schemas/AggregationOperator"
-                field:
-                  type: string
-                  description: The field inside the "data" property to apply the aggregation
-                    method to.
-                instanceKey:
-                  type: string
-                  description: The fields that is used to group different events together when
-                    measuring the usage.
-              required:
-                - operator
-              description: The aggregation method defines how the events should be summed to
-                represent a usage value.
+              $ref: "#/components/schemas/AggregationMethod"
             filter:
               $ref: "#/components/schemas/Filter"
             id:
@@ -769,22 +855,7 @@ components:
                 minLength: 1
                 description: The name of the event that the meter is tracking.
               aggregationMethod:
-                type: object
-                properties:
-                  operator:
-                    $ref: "#/components/schemas/AggregationOperator"
-                  field:
-                    type: string
-                    description: The field inside the "data" property to apply the aggregation
-                      method to.
-                  instanceKey:
-                    type: string
-                    description: The fields that is used to group different events together when
-                      measuring the usage.
-                required:
-                  - operator
-                description: The aggregation method defines how the events should be summed to
-                  represent a usage value.
+                $ref: "#/components/schemas/AggregationMethod"
               filter:
                 $ref: "#/components/schemas/Filter"
               id:
@@ -833,6 +904,7 @@ components:
         - Prepayment
         - Postpayment
       default: Postpayment
+      description: flag to indicate if the payment is postpayment or prepayment
     PlanBillingData:
       type: object
       properties:
@@ -881,8 +953,6 @@ components:
             updatedAt:
               type: string
               format: date-time
-            deletedAt:
-              type: string
           required:
             - name
             - status
@@ -890,7 +960,6 @@ components:
             - id
             - createdAt
             - updatedAt
-            - deletedAt
       required:
         - plan
     DeletePlanResponse:
@@ -998,8 +1067,6 @@ components:
             updatedAt:
               type: string
               format: date-time
-            deletedAt:
-              type: string
           required:
             - startDate
             - customerId
@@ -1007,7 +1074,6 @@ components:
             - id
             - createdAt
             - updatedAt
-            - deletedAt
       required:
         - contract
     DeleteContractResponse:
@@ -1154,8 +1220,6 @@ components:
             updatedAt:
               type: string
               format: date-time
-            deletedAt:
-              type: string
           required:
             - startDate
             - customerId
@@ -1163,10 +1227,9 @@ components:
             - id
             - createdAt
             - updatedAt
-            - deletedAt
       required:
         - contract
-    Period:
+    FullDayPeriod:
       type: object
       properties:
         startTime:
@@ -1179,6 +1242,40 @@ components:
         - startTime
         - endTime
       description: The billing cycle of the invoice, consists of a start and end date
+    LineItem:
+      type: object
+      properties:
+        invoiceId:
+          type: string
+          pattern: ^[0-9a-fA-F]{24}$
+          description: The id of the invoice that the line item is a part of
+        revenueBreakdown:
+          type: object
+          properties:
+            total:
+              type: number
+            subtotal:
+              type: number
+            overage:
+              type: number
+            discount:
+              type: number
+            creditsUsed:
+              type: number
+            tax:
+              type: number
+              minimum: 0
+          required:
+            - total
+            - subtotal
+            - overage
+            - discount
+            - creditsUsed
+            - tax
+          description: The revenue breakdown of the line item
+      required:
+        - invoiceId
+        - revenueBreakdown
     GetInvoiceResponse:
       type: object
       properties:
@@ -1199,23 +1296,11 @@ components:
               description: The name of the invoice, usually a description of the billing
                 period
             billingCycle:
-              $ref: "#/components/schemas/Period"
+              $ref: "#/components/schemas/FullDayPeriod"
             lineItems:
               type: array
               items:
-                type: object
-                properties:
-                  invoiceId:
-                    type: string
-                    pattern: ^[0-9a-fA-F]{24}$
-                    description: The id of the invoice that the line item is a part of
-                  price:
-                    type: number
-                    minimum: 0
-                    description: The price of the line item
-                required:
-                  - invoiceId
-                  - price
+                $ref: "#/components/schemas/LineItem"
             amount:
               type: number
               description: The total amount of the invoice
@@ -1227,8 +1312,6 @@ components:
             updatedAt:
               type: string
               format: date-time
-            deletedAt:
-              type: string
           required:
             - customerId
             - name
@@ -1238,7 +1321,6 @@ components:
             - id
             - createdAt
             - updatedAt
-            - deletedAt
       required:
         - invoice
     ListInvoicesResponse:
@@ -1263,23 +1345,11 @@ components:
                 description: The name of the invoice, usually a description of the billing
                   period
               billingCycle:
-                $ref: "#/components/schemas/Period"
+                $ref: "#/components/schemas/FullDayPeriod"
               lineItems:
                 type: array
                 items:
-                  type: object
-                  properties:
-                    invoiceId:
-                      type: string
-                      pattern: ^[0-9a-fA-F]{24}$
-                      description: The id of the invoice that the line item is a part of
-                    price:
-                      type: number
-                      minimum: 0
-                      description: The price of the line item
-                  required:
-                    - invoiceId
-                    - price
+                  $ref: "#/components/schemas/LineItem"
               amount:
                 type: number
                 description: The total amount of the invoice
@@ -1328,138 +1398,137 @@ components:
             to expire every hour.
       required:
         - accessToken
+    Event:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The distinctive label assigned to an event, serving as a critical
+            identifier for categorizing and pricing events within the system's
+            backend infrastructure.
+          example: api_call
+        timestamp:
+          type: string
+          description: The temporal marker denoting the exact moment of event occurrence.
+            The timestamp is formatted as an ISO 8601 string and is expressed in
+            Coordinated Universal Time (UTC). i.e. YYYY-MM-DDTHH:MM:SS.SSSZ
+          format: date-time
+          example: 2023-09-13T18:25:43.511Z
+        customerAlias:
+          type: string
+          minLength: 1
+          description: A pseudonymous or otherwise obfuscated identifier uniquely assigned
+            to each customer.
+          example: customer_12345
+        ref:
+          type: string
+          description: A universally unique identifier (UUID) or other form of
+            high-entropy string serving as an immutable reference for each event
+            entry.
+          example: 4f6cf35x-2c4y-483z-a0a9-158621f77a21
+        data:
+          type: object
+          nullable: true
+          additionalProperties:
+            nullable: true
+          description: A schema-less JSON object encapsulating miscellaneous attributes
+            and metrics associated with the event.
+          example:
+            key1: processing_duration
+            key2: api_url
+      required:
+        - name
+        - timestamp
+        - customerAlias
+        - ref
     EventsDryRunRequest:
       type: object
       properties:
         events:
           type: array
           items:
-            type: object
-            properties:
-              name:
-                type: string
-                description: The distinctive label assigned to an event, serving as a critical
-                  identifier for categorizing and pricing events within the
-                  system's backend infrastructure.
-                example: api_call
-              timestamp:
-                type: string
-                description: The temporal marker denoting the exact moment of event occurrence.
-                  The timestamp is formatted as an ISO 8601 string and is
-                  expressed in Coordinated Universal Time (UTC). i.e.
-                  YYYY-MM-DDTHH:MM:SS.SSSZ
-                format: date-time
-                example: 2023-09-13T18:25:43.511Z
-              customerAlias:
-                type: string
-                minLength: 1
-                description: A pseudonymous or otherwise obfuscated identifier uniquely assigned
-                  to each customer.
-                example: customer_12345
-              ref:
-                type: string
-                description: A universally unique identifier (UUID) or other form of
-                  high-entropy string serving as an immutable reference for each
-                  event entry.
-                example: 4f6cf35x-2c4y-483z-a0a9-158621f77a21
-              data:
-                type: object
-                nullable: true
-                additionalProperties:
-                  nullable: true
-                description: A schema-less JSON object encapsulating miscellaneous attributes
-                  and metrics associated with the event.
-                example:
-                  key1: processing_duration
-                  key2: api_url
-            required:
-              - name
-              - timestamp
-              - customerAlias
-              - ref
+            $ref: "#/components/schemas/Event"
           minItems: 1
           maxItems: 1000
       required:
         - events
-    EventsDryRunResponse:
-      type: array
-      items:
-        type: object
-        properties:
-          event:
-            type: object
-            properties:
-              timestamp:
-                type: string
-                format: date-time
-              customerAlias:
-                type: string
-                minLength: 1
-              accountId:
-                type: string
-                pattern: ^[0-9a-fA-F]{24}$
-              data:
-                type: object
-                nullable: true
-                additionalProperties:
-                  nullable: true
-              ref:
-                type: string
-              name:
-                type: string
-            required:
-              - timestamp
-              - customerAlias
-              - accountId
-              - ref
-              - name
-          matchedCustomer:
-            type: string
-            nullable: true
-          meterWithValues:
-            type: array
-            items:
+    Meter:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          description: The name of the meter
+        eventName:
+          type: string
+          minLength: 1
+          description: The name of the event that the meter is tracking.
+        aggregationMethod:
+          $ref: "#/components/schemas/AggregationMethod"
+        filter:
+          $ref: "#/components/schemas/Filter"
+      required:
+        - name
+        - eventName
+        - aggregationMethod
+    EventsDryRunResponseObject:
+      type: object
+      properties:
+        event:
+          type: object
+          properties:
+            timestamp:
+              type: string
+              format: date-time
+            customerAlias:
+              type: string
+              minLength: 1
+            accountId:
+              type: string
+              pattern: ^[0-9a-fA-F]{24}$
+            data:
               type: object
-              properties:
-                name:
-                  type: string
-                  minLength: 1
-                  description: The name of the meter
-                eventName:
-                  type: string
-                  minLength: 1
-                  description: The name of the event that the meter is tracking.
-                aggregationMethod:
-                  type: object
-                  properties:
-                    operator:
-                      $ref: "#/components/schemas/AggregationOperator"
-                    field:
-                      type: string
-                      description: The field inside the "data" property to apply the aggregation
-                        method to.
-                    instanceKey:
-                      type: string
-                      description: The fields that is used to group different events together when
-                        measuring the usage.
-                  required:
-                    - operator
-                  description: The aggregation method defines how the events should be summed to
-                    represent a usage value.
-                filter:
-                  $ref: "#/components/schemas/Filter"
-                value:
-                  type: number
-                instanceValue:
-                  nullable: true
-              required:
-                - name
-                - eventName
-                - aggregationMethod
-                - value
-        required:
-          - event
-          - meterWithValues
+              nullable: true
+              additionalProperties:
+                nullable: true
+            ref:
+              type: string
+            name:
+              type: string
+          required:
+            - timestamp
+            - customerAlias
+            - accountId
+            - ref
+            - name
+        matchedCustomer:
+          type: string
+          nullable: true
+        meterWithValues:
+          type: array
+          items:
+            allOf:
+              - $ref: "#/components/schemas/Meter"
+              - type: object
+                properties:
+                  value:
+                    type: number
+                  instanceValue:
+                    nullable: true
+                required:
+                  - value
+      required:
+        - event
+        - meterWithValues
+    EventsDryRunResponse:
+      type: object
+      properties:
+        events:
+          type: array
+          items:
+            $ref: "#/components/schemas/EventsDryRunResponseObject"
+      required:
+        - events
     QueryEventsResponse:
       type: object
       properties:
@@ -1529,167 +1598,42 @@ components:
         events:
           type: array
           items:
-            type: object
-            properties:
-              name:
-                type: string
-                description: The distinctive label assigned to an event, serving as a critical
-                  identifier for categorizing and pricing events within the
-                  system's backend infrastructure.
-                example: api_call
-              timestamp:
-                type: string
-                description: The temporal marker denoting the exact moment of event occurrence.
-                  The timestamp is formatted as an ISO 8601 string and is
-                  expressed in Coordinated Universal Time (UTC). i.e.
-                  YYYY-MM-DDTHH:MM:SS.SSSZ
-                format: date-time
-                example: 2023-09-13T18:25:43.511Z
-              customerAlias:
-                type: string
-                minLength: 1
-                description: A pseudonymous or otherwise obfuscated identifier uniquely assigned
-                  to each customer.
-                example: customer_12345
-              ref:
-                type: string
-                description: A universally unique identifier (UUID) or other form of
-                  high-entropy string serving as an immutable reference for each
-                  event entry.
-                example: 4f6cf35x-2c4y-483z-a0a9-158621f77a21
-              data:
-                type: object
-                nullable: true
-                additionalProperties:
-                  nullable: true
-                description: A schema-less JSON object encapsulating miscellaneous attributes
-                  and metrics associated with the event.
-                example:
-                  key1: processing_duration
-                  key2: api_url
-            required:
-              - name
-              - timestamp
-              - customerAlias
-              - ref
+            $ref: "#/components/schemas/Event"
           minItems: 1
           maxItems: 1000
       required:
         - events
+    InvalidEvent:
+      type: object
+      properties:
+        event:
+          $ref: "#/components/schemas/Event"
+        error:
+          type: string
+          description: The error message indicating the reason the event failed validation.
+          example: Event ref already exists.
+      required:
+        - event
+        - error
     SendEventsResponse:
       type: object
       properties:
         validEvents:
           type: array
           items:
-            type: object
-            properties:
-              name:
-                type: string
-                description: The distinctive label assigned to an event, serving as a critical
-                  identifier for categorizing and pricing events within the
-                  system's backend infrastructure.
-                example: api_call
-              timestamp:
-                type: string
-                description: The temporal marker denoting the exact moment of event occurrence.
-                  The timestamp is formatted as an ISO 8601 string and is
-                  expressed in Coordinated Universal Time (UTC). i.e.
-                  YYYY-MM-DDTHH:MM:SS.SSSZ
-                format: date-time
-                example: 2023-09-13T18:25:43.511Z
-              customerAlias:
-                type: string
-                minLength: 1
-                description: A pseudonymous or otherwise obfuscated identifier uniquely assigned
-                  to each customer.
-                example: customer_12345
-              ref:
-                type: string
-                description: A universally unique identifier (UUID) or other form of
-                  high-entropy string serving as an immutable reference for each
-                  event entry.
-                example: 4f6cf35x-2c4y-483z-a0a9-158621f77a21
-              data:
-                type: object
-                nullable: true
-                additionalProperties:
-                  nullable: true
-                description: A schema-less JSON object encapsulating miscellaneous attributes
-                  and metrics associated with the event.
-                example:
-                  key1: processing_duration
-                  key2: api_url
-            required:
-              - name
-              - timestamp
-              - customerAlias
-              - ref
+            $ref: "#/components/schemas/Event"
           description: An array of events that were successfully processed and sent to the
             queue.
         invalidEvents:
           type: array
           items:
-            type: object
-            properties:
-              event:
-                type: object
-                properties:
-                  name:
-                    type: string
-                    description: The distinctive label assigned to an event, serving as a critical
-                      identifier for categorizing and pricing events within the
-                      system's backend infrastructure.
-                    example: api_call
-                  timestamp:
-                    type: string
-                    description: The temporal marker denoting the exact moment of event occurrence.
-                      The timestamp is formatted as an ISO 8601 string and is
-                      expressed in Coordinated Universal Time (UTC). i.e.
-                      YYYY-MM-DDTHH:MM:SS.SSSZ
-                    format: date-time
-                    example: 2023-09-13T18:25:43.511Z
-                  customerAlias:
-                    type: string
-                    minLength: 1
-                    description: A pseudonymous or otherwise obfuscated identifier uniquely assigned
-                      to each customer.
-                    example: customer_12345
-                  ref:
-                    type: string
-                    description: A universally unique identifier (UUID) or other form of
-                      high-entropy string serving as an immutable reference for
-                      each event entry.
-                    example: 4f6cf35x-2c4y-483z-a0a9-158621f77a21
-                  data:
-                    type: object
-                    nullable: true
-                    additionalProperties:
-                      nullable: true
-                    description: A schema-less JSON object encapsulating miscellaneous attributes
-                      and metrics associated with the event.
-                    example:
-                      key1: processing_duration
-                      key2: api_url
-                required:
-                  - name
-                  - timestamp
-                  - customerAlias
-                  - ref
-              error:
-                type: string
-                description: The error message indicating the reason the event failed
-                  validation.
-                example: Event ref already exists.
-            required:
-              - event
-              - error
+            $ref: "#/components/schemas/InvalidEvent"
           description: An array of events that failed validation and were not sent to the
             queue. Each object contains the event and the error message.
       required:
         - validEvents
         - invalidEvents
-    GetEventByRefIdResponse:
+    GetEventResponse:
       type: object
       properties:
         event:
@@ -1750,7 +1694,7 @@ components:
           description: The event matching the provided refId
       required:
         - event
-    DeleteEventByRefIdResponse:
+    DeleteEventResponse:
       type: object
       properties:
         event:
@@ -2787,7 +2731,7 @@ paths:
           name: refId
       responses:
         "200":
-          $ref: "#/components/responses/GetEventByRefIdResponse"
+          $ref: "#/components/responses/GetEventResponse"
         "400":
           description: Bad Request
         "401":
@@ -2814,7 +2758,7 @@ paths:
           name: refId
       responses:
         "200":
-          $ref: "#/components/responses/DeleteEventByRefIdResponse"
+          $ref: "#/components/responses/DeleteEventResponse"
         "400":
           description: Bad Request
         "401":
