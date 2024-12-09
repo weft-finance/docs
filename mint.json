@@ -83,6 +83,37 @@
       ]
     },
     {
+      "group": "Guides V2",
+      "pages": [
+        {
+          "group": "Customers",
+          "pages": [
+            "documentation/guides/v2/customers/adding-a-customer",
+            "documentation/guides/v2/customers/customer-entitlement"
+          ]
+        },
+        {
+          "group": "Events",
+          "pages": [
+            "documentation/guides/v2/events/ingesting-events"
+          ]
+        },
+        {
+          "group": "Invoices",
+          "pages": [
+            "documentation/guides/v2/invoices/creating-an-invoice",
+            "documentation/guides/v2/invoices/calculating-an-invoice"
+          ]
+        },
+        {
+          "group": "Products",
+          "pages": [
+            "documentation/guides/v2/products/adding-a-product"
+          ]
+        }
+      ]
+    },
+    {
       "group": "API Documentation",
       "pages": [
         "api-reference/pages/introduction",

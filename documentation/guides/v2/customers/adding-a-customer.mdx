@@ -1,0 +1,28 @@
+---
+title: 'Adding a Customer'
+---
+
+#### A customer is an entity that represents a person or organization interacting with your business. 
+##### You can add customers using our TypeScript SDK.
+
+### Example Code
+
+```typescript
+import { Vayu, CreateCustomerPayload } from "vayu-ts/v2";
+
+export async function CreateCustomer() {
+  const apiKey: string = '{{ YOUR API KEY }}';
+
+  const vayu = new Vayu(apiKey);
+
+  await vayu.login();
+
+  const customerPayload: CreateCustomerPayload = {
+    name: 'John Doe',
+    externalId: '123456',
+    aliases: ['John', 'Doe'],
+  };
+
+  return vayu.customers.create(customerPayload);
+}
+```
