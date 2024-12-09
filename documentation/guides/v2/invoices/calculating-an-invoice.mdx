@@ -1,0 +1,42 @@
+---
+title: 'Calculating an Invoice'
+---
+
+### Calculating an Invoice
+
+Invoices are used to bill customers for products or services. In this guide, we will walk you through how to calculate an invoice using the Vayu TypeScript SDK.
+
+### Overview
+
+Invoices are calculated dynamically in real time to allow for the most accurate representation at the time of the request. Once an invoice is approved, it will be stored in the system as immutable data.
+
+### Invoice Details
+
+A calculated invoice will contain the following information:
+- **price**: The total price of the invoice.
+- **priceBreakdown**: The breakdown of the price by items.
+  - Each item will have a deep breakdown based on the pricing configuration of the item.
+  - Each pricing configuration can be altered based on revisions and customer entitlements.
+  - The breakdown will conclude each item price by revision if the item had multiple valid revision periods in the invoice period.
+
+### Using the `calculate` Method
+
+We will use the `calculate` method available on the `invoices` object to calculate an invoice. This method requires a `CalculateInvoicePayload` object as an argument, which allows you to calculate an invoice with various attributes such as `customerId`, `items`, and `discounts`.
+
+### Example Code
+
+```typescript
+import { Vayu } from "vayu-ts/v2";
+
+export async function CalculateInvoice() {
+  const apiKey: string = '{{ YOUR API KEY }}';
+
+  const vayu = new Vayu(apiKey);
+
+  await vayu.login();
+
+  const invoiceId = '{{ YOUR INVOICE ID }}';
+
+  return vayu.invoices.calculate(invoiceId);
+}
+```

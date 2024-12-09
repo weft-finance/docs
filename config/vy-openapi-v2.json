@@ -1,0 +1,2123 @@
+{
+	"openapi": "3.0.0",
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"AggregationMethods": {
+				"enum": [
+					"sum",
+					"avg",
+					"max",
+					"min",
+					"count"
+				],
+				"type": "string"
+			},
+			"CriterionOperators": {
+				"enum": [
+					"Equals",
+					"NotEqual",
+					"Has",
+					"In",
+					"Contains",
+					"NotContain",
+					"LargerThan",
+					"LowerThan",
+					"LowerEqualTo",
+					"LargerEqualTo"
+				],
+				"type": "string"
+			},
+			"Criterion": {
+				"properties": {
+					"value": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "number",
+								"format": "double"
+							},
+							{
+								"type": "boolean"
+							},
+							{
+								"type": "string",
+								"format": "date-time"
+							}
+						]
+					},
+					"operator": {
+						"$ref": "#/components/schemas/CriterionOperators"
+					},
+					"field": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"value",
+					"operator",
+					"field"
+				],
+				"type": "object"
+			},
+			"Condition": {
+				"properties": {
+					"criterions": {
+						"items": {
+							"$ref": "#/components/schemas/Criterion"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"criterions"
+				],
+				"type": "object"
+			},
+			"Aggregation": {
+				"properties": {
+					"type": {
+						"$ref": "#/components/schemas/AggregationMethods"
+					},
+					"field": {
+						"type": "string"
+					},
+					"filter": {
+						"items": {
+							"$ref": "#/components/schemas/Condition"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"type"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"Pricing": {
+				"properties": {
+					"commitment": {
+						"type": "number",
+						"format": "double"
+					},
+					"tiers": {
+						"items": {
+							"properties": {
+								"chunkSize": {
+									"type": "number",
+									"format": "double"
+								},
+								"price": {
+									"type": "number",
+									"format": "double"
+								},
+								"end": {
+									"type": "number",
+									"format": "double",
+									"nullable": true
+								},
+								"start": {
+									"type": "number",
+									"format": "double"
+								}
+							},
+							"required": [
+								"chunkSize",
+								"price",
+								"end",
+								"start"
+							],
+							"type": "object"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"tiers"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"APIProduct": {
+				"description": "API Product",
+				"properties": {
+					"id": {
+						"type": "string",
+						"description": "ID"
+					},
+					"name": {
+						"type": "string",
+						"description": "Name"
+					},
+					"eventName": {
+						"type": "string",
+						"description": "Event Name"
+					},
+					"description": {
+						"type": "string",
+						"description": "Description"
+					},
+					"accountId": {
+						"type": "string",
+						"description": "Account ID"
+					},
+					"aggregation": {
+						"$ref": "#/components/schemas/Aggregation",
+						"description": "Aggregation"
+					},
+					"pricing": {
+						"$ref": "#/components/schemas/Pricing",
+						"description": "Pricing"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date",
+						"description": "Created At"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date",
+						"description": "Updated At"
+					}
+				},
+				"required": [
+					"id",
+					"name",
+					"eventName",
+					"accountId",
+					"aggregation",
+					"pricing",
+					"createdAt",
+					"updatedAt"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"APICreateProductPayload": {
+				"properties": {
+					"name": {
+						"type": "string",
+						"description": "Name"
+					},
+					"eventName": {
+						"type": "string",
+						"description": "Event Name"
+					},
+					"description": {
+						"type": "string",
+						"description": "Description"
+					},
+					"aggregation": {
+						"$ref": "#/components/schemas/Aggregation",
+						"description": "Aggregation"
+					},
+					"pricing": {
+						"$ref": "#/components/schemas/Pricing",
+						"description": "Pricing"
+					}
+				},
+				"required": [
+					"name",
+					"eventName",
+					"aggregation",
+					"pricing"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"APIUpdateProductPayload": {
+				"properties": {
+					"name": {
+						"type": "string",
+						"description": "Name"
+					},
+					"eventName": {
+						"type": "string",
+						"description": "Event Name"
+					},
+					"description": {
+						"type": "string",
+						"description": "Description"
+					},
+					"aggregation": {
+						"$ref": "#/components/schemas/Aggregation",
+						"description": "Aggregation"
+					},
+					"pricing": {
+						"$ref": "#/components/schemas/Pricing",
+						"description": "Pricing"
+					}
+				},
+				"type": "object",
+				"additionalProperties": true
+			},
+			"QueryResult_APIProduct_": {
+				"properties": {
+					"items": {
+						"items": {
+							"$ref": "#/components/schemas/APIProduct"
+						},
+						"type": "array",
+						"description": "Items"
+					},
+					"totalCount": {
+						"type": "integer",
+						"format": "int32",
+						"description": "Total items found"
+					},
+					"hasMore": {
+						"type": "boolean",
+						"description": "There are more items"
+					}
+				},
+				"required": [
+					"items",
+					"totalCount",
+					"hasMore"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"APIQueryPayload_APIProduct_": {
+				"properties": {
+					"filter": {
+						"properties": {},
+						"type": "object",
+						"description": "Filter by field.",
+						"example": {
+							"field": "A"
+						}
+					},
+					"page": {
+						"type": "integer",
+						"format": "int32",
+						"description": "Page",
+						"example": 0,
+						"default": 0,
+						"minimum": 0
+					},
+					"pageSize": {
+						"type": "integer",
+						"format": "int32",
+						"description": "Page Size",
+						"example": 10,
+						"default": 100,
+						"minimum": 0
+					},
+					"sort": {
+						"properties": {},
+						"type": "object",
+						"description": "Sort by field. Use 1 for ascending and -1 for descending.",
+						"example": {
+							"field": 1
+						}
+					}
+				},
+				"required": [
+					"filter"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"ProductBreakdown": {
+				"properties": {
+					"units": {
+						"type": "number",
+						"format": "double"
+					},
+					"price": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"units",
+					"price"
+				],
+				"type": "object"
+			},
+			"TimeBoundPrice": {
+				"properties": {},
+				"additionalProperties": {
+					"$ref": "#/components/schemas/ProductBreakdown"
+				},
+				"type": "object"
+			},
+			"InvoiceProductBreakdown": {
+				"properties": {
+					"timeBoundPrice": {
+						"$ref": "#/components/schemas/TimeBoundPrice",
+						"description": "Time bound price breakdown based on each period of time"
+					},
+					"totalUnits": {
+						"type": "number",
+						"format": "double"
+					},
+					"totalPrice": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"totalUnits",
+					"totalPrice"
+				],
+				"type": "object",
+				"description": "Invoice product breakdown"
+			},
+			"PriceBreakdown": {
+				"properties": {},
+				"additionalProperties": {
+					"$ref": "#/components/schemas/InvoiceProductBreakdown"
+				},
+				"type": "object",
+				"description": "Price breakdown for each product"
+			},
+			"APIInvoice": {
+				"description": "API Invoice",
+				"properties": {
+					"id": {
+						"type": "string",
+						"description": "ID"
+					},
+					"name": {
+						"type": "string",
+						"description": "Name"
+					},
+					"accountId": {
+						"type": "string",
+						"description": "Account ID"
+					},
+					"customerId": {
+						"type": "string",
+						"description": "Customer ID"
+					},
+					"price": {
+						"type": "number",
+						"format": "double",
+						"description": "Price Breakdown"
+					},
+					"products": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array",
+						"description": "Products ids"
+					},
+					"priceBreakdown": {
+						"$ref": "#/components/schemas/PriceBreakdown",
+						"description": "Price breakdown for each product"
+					},
+					"billingPeriod": {
+						"properties": {
+							"endTime": {
+								"type": "string",
+								"format": "date",
+								"description": "Period End Date"
+							},
+							"startTime": {
+								"type": "string",
+								"format": "date",
+								"description": "Period Start Date"
+							}
+						},
+						"required": [
+							"endTime",
+							"startTime"
+						],
+						"type": "object",
+						"description": "Billing Period"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date",
+						"description": "Created At"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date",
+						"description": "Updated At"
+					}
+				},
+				"required": [
+					"id",
+					"name",
+					"accountId",
+					"customerId",
+					"price",
+					"products",
+					"priceBreakdown",
+					"billingPeriod",
+					"createdAt",
+					"updatedAt"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"APICreateInvoicePayload": {
+				"properties": {
+					"name": {
+						"type": "string",
+						"description": "Name"
+					},
+					"customerId": {
+						"type": "string",
+						"description": "Customer ID"
+					},
+					"products": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array",
+						"description": "Products"
+					},
+					"billingPeriod": {
+						"properties": {
+							"endTime": {
+								"type": "string",
+								"format": "date",
+								"description": "Period End Date"
+							},
+							"startTime": {
+								"type": "string",
+								"format": "date",
+								"description": "Period Start Date"
+							}
+						},
+						"required": [
+							"endTime",
+							"startTime"
+						],
+						"type": "object",
+						"description": "Billing Period"
+					}
+				},
+				"required": [
+					"name",
+					"customerId",
+					"products",
+					"billingPeriod"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"APIUpdateInvoicePayload": {
+				"properties": {
+					"name": {
+						"type": "string",
+						"description": "Name"
+					},
+					"customerId": {
+						"type": "string",
+						"description": "Customer ID"
+					},
+					"products": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array",
+						"description": "Products"
+					},
+					"billingPeriod": {
+						"properties": {
+							"endTime": {
+								"type": "string",
+								"format": "date",
+								"description": "Period End Date"
+							},
+							"startTime": {
+								"type": "string",
+								"format": "date",
+								"description": "Period Start Date"
+							}
+						},
+						"required": [
+							"endTime",
+							"startTime"
+						],
+						"type": "object",
+						"description": "Billing Period"
+					}
+				},
+				"type": "object",
+				"additionalProperties": true
+			},
+			"QueryResult_APIInvoice_": {
+				"properties": {
+					"items": {
+						"items": {
+							"$ref": "#/components/schemas/APIInvoice"
+						},
+						"type": "array",
+						"description": "Items"
+					},
+					"totalCount": {
+						"type": "integer",
+						"format": "int32",
+						"description": "Total items found"
+					},
+					"hasMore": {
+						"type": "boolean",
+						"description": "There are more items"
+					}
+				},
+				"required": [
+					"items",
+					"totalCount",
+					"hasMore"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"APIQueryPayload_APIInvoice_": {
+				"properties": {
+					"filter": {
+						"properties": {},
+						"type": "object",
+						"description": "Filter by field.",
+						"example": {
+							"field": "A"
+						}
+					},
+					"page": {
+						"type": "integer",
+						"format": "int32",
+						"description": "Page",
+						"example": 0,
+						"default": 0,
+						"minimum": 0
+					},
+					"pageSize": {
+						"type": "integer",
+						"format": "int32",
+						"description": "Page Size",
+						"example": 10,
+						"default": 100,
+						"minimum": 0
+					},
+					"sort": {
+						"properties": {},
+						"type": "object",
+						"description": "Sort by field. Use 1 for ascending and -1 for descending.",
+						"example": {
+							"field": 1
+						}
+					}
+				},
+				"required": [
+					"filter"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"Record_string.any_": {
+				"properties": {},
+				"additionalProperties": {},
+				"type": "object",
+				"description": "Construct a type with a set of properties K of type T"
+			},
+			"APIEvent": {
+				"description": "APIEvent model",
+				"properties": {
+					"id": {
+						"type": "string",
+						"description": "ID"
+					},
+					"name": {
+						"type": "string",
+						"description": "Name"
+					},
+					"timestamp": {
+						"type": "number",
+						"format": "double",
+						"description": "Timestamp - When the event occurred"
+					},
+					"metadata": {
+						"$ref": "#/components/schemas/Record_string.any_",
+						"description": "Metadata"
+					},
+					"accountId": {
+						"type": "string",
+						"description": "Account ID"
+					},
+					"customerId": {
+						"type": "string",
+						"description": "Customer ID"
+					},
+					"productId": {
+						"type": "string",
+						"description": "Product ID"
+					},
+					"ref": {
+						"type": "string",
+						"description": "Reference - unique identifier for the event"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date",
+						"description": "Created At"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date",
+						"description": "Updated At"
+					}
+				},
+				"required": [
+					"id",
+					"name",
+					"timestamp",
+					"metadata",
+					"accountId",
+					"customerId",
+					"productId",
+					"ref",
+					"createdAt",
+					"updatedAt"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"QueryResult_APIEvent_": {
+				"properties": {
+					"items": {
+						"items": {
+							"$ref": "#/components/schemas/APIEvent"
+						},
+						"type": "array",
+						"description": "Items"
+					},
+					"totalCount": {
+						"type": "integer",
+						"format": "int32",
+						"description": "Total items found"
+					},
+					"hasMore": {
+						"type": "boolean",
+						"description": "There are more items"
+					}
+				},
+				"required": [
+					"items",
+					"totalCount",
+					"hasMore"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"APIQueryPayload_APIEvent_": {
+				"properties": {
+					"filter": {
+						"properties": {},
+						"type": "object",
+						"description": "Filter by field.",
+						"example": {
+							"field": "A"
+						}
+					},
+					"page": {
+						"type": "integer",
+						"format": "int32",
+						"description": "Page",
+						"example": 0,
+						"default": 0,
+						"minimum": 0
+					},
+					"pageSize": {
+						"type": "integer",
+						"format": "int32",
+						"description": "Page Size",
+						"example": 10,
+						"default": 100,
+						"minimum": 0
+					},
+					"sort": {
+						"properties": {},
+						"type": "object",
+						"description": "Sort by field. Use 1 for ascending and -1 for descending.",
+						"example": {
+							"field": 1
+						}
+					}
+				},
+				"required": [
+					"filter"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"APIIngestEventPayload": {
+				"properties": {
+					"eventName": {
+						"type": "string",
+						"description": "Name"
+					},
+					"timestamp": {
+						"type": "number",
+						"format": "double",
+						"description": "Timestamp - When the event occurred"
+					},
+					"customerAlias": {
+						"type": "string",
+						"description": "Customer Identifier"
+					},
+					"ref": {
+						"type": "string",
+						"description": "Event Ref"
+					},
+					"data": {
+						"$ref": "#/components/schemas/Record_string.any_",
+						"description": "Event Data"
+					}
+				},
+				"required": [
+					"eventName",
+					"timestamp",
+					"customerAlias",
+					"ref",
+					"data"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"ObjectId": {
+				"type": "string",
+				"description": "A class representation of the BSON ObjectId type."
+			},
+			"EntitlementRevision": {
+				"properties": {
+					"revisionId": {
+						"$ref": "#/components/schemas/ObjectId"
+					},
+					"reason": {
+						"type": "string"
+					},
+					"asOf": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"pricing": {
+						"$ref": "#/components/schemas/Pricing"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					}
+				},
+				"required": [
+					"revisionId",
+					"reason",
+					"asOf",
+					"pricing",
+					"createdAt"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"APIEntitlement": {
+				"properties": {
+					"id": {
+						"type": "string",
+						"description": "The ID of the entitlement"
+					},
+					"accountId": {
+						"type": "string",
+						"description": "The ID of the account"
+					},
+					"customerId": {
+						"type": "string",
+						"description": "The ID of the customer"
+					},
+					"productId": {
+						"type": "string",
+						"description": "The ID of the product"
+					},
+					"pricing": {
+						"$ref": "#/components/schemas/Pricing",
+						"description": "Pricing information"
+					},
+					"revisions": {
+						"items": {
+							"$ref": "#/components/schemas/EntitlementRevision"
+						},
+						"type": "array",
+						"description": "Revisions"
+					},
+					"assignedAt": {
+						"type": "string",
+						"format": "date-time",
+						"description": "The date the entitlement was assigned"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
+					}
+				},
+				"required": [
+					"id",
+					"accountId",
+					"customerId",
+					"productId",
+					"pricing",
+					"assignedAt",
+					"createdAt",
+					"updatedAt"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"QueryResult_APIEntitlement_": {
+				"properties": {
+					"items": {
+						"items": {
+							"$ref": "#/components/schemas/APIEntitlement"
+						},
+						"type": "array",
+						"description": "Items"
+					},
+					"totalCount": {
+						"type": "integer",
+						"format": "int32",
+						"description": "Total items found"
+					},
+					"hasMore": {
+						"type": "boolean",
+						"description": "There are more items"
+					}
+				},
+				"required": [
+					"items",
+					"totalCount",
+					"hasMore"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"APIQueryPayload_APIEntitlement_": {
+				"properties": {
+					"filter": {
+						"properties": {},
+						"type": "object",
+						"description": "Filter by field.",
+						"example": {
+							"field": "A"
+						}
+					},
+					"page": {
+						"type": "integer",
+						"format": "int32",
+						"description": "Page",
+						"example": 0,
+						"default": 0,
+						"minimum": 0
+					},
+					"pageSize": {
+						"type": "integer",
+						"format": "int32",
+						"description": "Page Size",
+						"example": 10,
+						"default": 100,
+						"minimum": 0
+					},
+					"sort": {
+						"properties": {},
+						"type": "object",
+						"description": "Sort by field. Use 1 for ascending and -1 for descending.",
+						"example": {
+							"field": 1
+						}
+					}
+				},
+				"required": [
+					"filter"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"APICustomer": {
+				"description": "API Customer",
+				"properties": {
+					"id": {
+						"type": "string",
+						"description": "ID"
+					},
+					"name": {
+						"type": "string",
+						"description": "Name"
+					},
+					"accountId": {
+						"type": "string",
+						"description": "Account ID"
+					},
+					"aliases": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array",
+						"description": "Aliases"
+					},
+					"externalId": {
+						"type": "string",
+						"description": "External ID"
+					},
+					"metadata": {
+						"$ref": "#/components/schemas/Record_string.any_"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date",
+						"description": "Created At"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date",
+						"description": "Updated At"
+					}
+				},
+				"required": [
+					"id",
+					"name",
+					"accountId",
+					"aliases",
+					"externalId",
+					"metadata",
+					"createdAt",
+					"updatedAt"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"APICreateCustomerPayload": {
+				"properties": {
+					"name": {
+						"type": "string",
+						"description": "Name"
+					},
+					"externalId": {
+						"type": "string",
+						"description": "External ID"
+					},
+					"metadata": {
+						"$ref": "#/components/schemas/Record_string.any_"
+					},
+					"aliases": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array",
+						"description": "Aliases"
+					}
+				},
+				"required": [
+					"name",
+					"externalId"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"ReviseEntitlementPayload": {
+				"properties": {
+					"reason": {
+						"type": "string",
+						"description": "The reason the product was revised"
+					},
+					"pricing": {
+						"$ref": "#/components/schemas/Pricing",
+						"description": "Pricing"
+					},
+					"asOf": {
+						"type": "string",
+						"format": "date",
+						"description": "The date the revision is effective as of"
+					}
+				},
+				"required": [
+					"reason",
+					"pricing",
+					"asOf"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"APIReviseEntitlement": {
+				"$ref": "#/components/schemas/ReviseEntitlementPayload"
+			},
+			"APIUpdateCustomerPayload": {
+				"properties": {
+					"name": {
+						"type": "string",
+						"description": "Name"
+					},
+					"externalId": {
+						"type": "string",
+						"description": "External ID"
+					},
+					"metadata": {
+						"$ref": "#/components/schemas/Record_string.any_"
+					},
+					"aliases": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array",
+						"description": "Aliases"
+					}
+				},
+				"type": "object",
+				"additionalProperties": true
+			},
+			"QueryResult_APICustomer_": {
+				"properties": {
+					"items": {
+						"items": {
+							"$ref": "#/components/schemas/APICustomer"
+						},
+						"type": "array",
+						"description": "Items"
+					},
+					"totalCount": {
+						"type": "integer",
+						"format": "int32",
+						"description": "Total items found"
+					},
+					"hasMore": {
+						"type": "boolean",
+						"description": "There are more items"
+					}
+				},
+				"required": [
+					"items",
+					"totalCount",
+					"hasMore"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"APIQueryPayload_APICustomer_": {
+				"properties": {
+					"filter": {
+						"properties": {},
+						"type": "object",
+						"description": "Filter by field.",
+						"example": {
+							"field": "A"
+						}
+					},
+					"page": {
+						"type": "integer",
+						"format": "int32",
+						"description": "Page",
+						"example": 0,
+						"default": 0,
+						"minimum": 0
+					},
+					"pageSize": {
+						"type": "integer",
+						"format": "int32",
+						"description": "Page Size",
+						"example": 10,
+						"default": 100,
+						"minimum": 0
+					},
+					"sort": {
+						"properties": {},
+						"type": "object",
+						"description": "Sort by field. Use 1 for ascending and -1 for descending.",
+						"example": {
+							"field": 1
+						}
+					}
+				},
+				"required": [
+					"filter"
+				],
+				"type": "object",
+				"additionalProperties": true
+			}
+		},
+		"securitySchemes": {}
+	},
+	"info": {
+		"title": "24k",
+		"version": "1.0.0",
+		"license": {
+			"name": "ISC"
+		},
+		"contact": {}
+	},
+	"paths": {
+		"/auth/login": {
+			"post": {
+				"operationId": "Login",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"accessToken": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"accessToken"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Authentication"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"refreshToken": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"refreshToken"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/products/{id}": {
+			"get": {
+				"operationId": "Get Product",
+				"responses": {
+					"200": {
+						"description": "Product found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/APIProduct"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Product not found"
+					}
+				},
+				"description": "Get a single product by ID.",
+				"tags": [
+					"Products"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"description": "- The ID of the product to fetch.",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "Update Product",
+				"responses": {
+					"200": {
+						"description": "Product updated",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/APIProduct"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid payload"
+					},
+					"404": {
+						"description": "Product not found"
+					}
+				},
+				"description": "Update an existing product.",
+				"tags": [
+					"Products"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"description": "- The ID of the product to update.",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"description": "- The updated details of the product.",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/APIUpdateProductPayload",
+								"description": "- The updated details of the product."
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "Delete Product",
+				"responses": {
+					"204": {
+						"description": "Product deleted"
+					}
+				},
+				"description": "Delete a product by ID.",
+				"tags": [
+					"Products"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"description": "- The ID of the product to delete.",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/products": {
+			"post": {
+				"operationId": "Create Product",
+				"responses": {
+					"200": {
+						"description": "Product created",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/APIProduct"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid payload"
+					}
+				},
+				"description": "Create a new product.",
+				"tags": [
+					"Products"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"description": "- The details of the product to create.",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/APICreateProductPayload",
+								"description": "- The details of the product to create."
+							}
+						}
+					}
+				}
+			}
+		},
+		"/products/query": {
+			"post": {
+				"operationId": "Query Products",
+				"responses": {
+					"200": {
+						"description": "Products found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/QueryResult_APIProduct_"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid query"
+					}
+				},
+				"description": "Query products based on filters and pagination.",
+				"tags": [
+					"Products"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"description": "- The query filters and pagination details.",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/APIQueryPayload_APIProduct_",
+								"description": "- The query filters and pagination details."
+							}
+						}
+					}
+				}
+			}
+		},
+		"/invoices/{id}/calculate": {
+			"get": {
+				"operationId": "Calculate Invoice",
+				"responses": {
+					"200": {
+						"description": "Invoice total calculated",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/APIInvoice"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Invoice Products not found"
+					}
+				},
+				"description": "Calculate the total of an invoice.",
+				"tags": [
+					"Invoices"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"description": "- The ID of the invoice to calculate.",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/invoices/{id}": {
+			"get": {
+				"operationId": "Get Invoice",
+				"responses": {
+					"200": {
+						"description": "Invoice found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/APIInvoice"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Invoice not found"
+					}
+				},
+				"description": "Get a single invoice by ID.",
+				"tags": [
+					"Invoices"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"description": "- The ID of the invoice to fetch.",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "Update Invoice",
+				"responses": {
+					"200": {
+						"description": "Invoice updated",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/APIInvoice"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid payload"
+					},
+					"404": {
+						"description": "Invoice not found"
+					}
+				},
+				"description": "Update an existing invoice.",
+				"tags": [
+					"Invoices"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"description": "- The ID of the invoice to update.",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"description": "- The updated details of the invoice.",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/APIUpdateInvoicePayload",
+								"description": "- The updated details of the invoice."
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "Delete Invoice",
+				"responses": {
+					"204": {
+						"description": "Invoice deleted"
+					}
+				},
+				"description": "Delete an invoice by ID.",
+				"tags": [
+					"Invoices"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"description": "- The ID of the invoice to delete.",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/invoices": {
+			"post": {
+				"operationId": "Create Invoice",
+				"responses": {
+					"200": {
+						"description": "Invoice created",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/APIInvoice"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid payload"
+					}
+				},
+				"description": "Create a new invoice.",
+				"tags": [
+					"Invoices"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"description": "- The details of the invoice to create.",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/APICreateInvoicePayload",
+								"description": "- The details of the invoice to create."
+							}
+						}
+					}
+				}
+			}
+		},
+		"/invoices/query": {
+			"post": {
+				"operationId": "Query Invoices",
+				"responses": {
+					"200": {
+						"description": "Invoices found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/QueryResult_APIInvoice_"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid query"
+					}
+				},
+				"description": "Query invoices based on filters and pagination.",
+				"tags": [
+					"Invoices"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"description": "- The query filters and pagination options.",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/APIQueryPayload_APIInvoice_",
+								"description": "- The query filters and pagination options."
+							}
+						}
+					}
+				}
+			}
+		},
+		"/events/{id}": {
+			"get": {
+				"operationId": "Get Event",
+				"responses": {
+					"200": {
+						"description": "Event found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/APIEvent"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Event not found"
+					}
+				},
+				"description": "Get a single event by ID.",
+				"tags": [
+					"Events"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"description": "- The ID of the event to fetch.",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"delete": {
+				"operationId": "Delete Event",
+				"responses": {
+					"204": {
+						"description": "Event deleted"
+					}
+				},
+				"description": "Delete an event by ID.",
+				"tags": [
+					"Events"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"description": "- The ID of the event to delete.",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/events/query": {
+			"post": {
+				"operationId": "Query Events",
+				"responses": {
+					"200": {
+						"description": "Events found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/QueryResult_APIEvent_"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid query"
+					}
+				},
+				"description": "Query events based on filters and pagination.",
+				"tags": [
+					"Events"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"description": "- The query filters and pagination options.",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/APIQueryPayload_APIEvent_",
+								"description": "- The query filters and pagination options."
+							}
+						}
+					}
+				}
+			}
+		},
+		"/events/ingest": {
+			"post": {
+				"operationId": "Ingest Event to the system",
+				"responses": {
+					"200": {
+						"description": "Events ingested",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"insertedIds": {
+											"items": {
+												"type": "string"
+											},
+											"type": "array"
+										},
+										"insertedCount": {
+											"type": "number",
+											"format": "double"
+										},
+										"payload": {
+											"items": {
+												"$ref": "#/components/schemas/APIIngestEventPayload"
+											},
+											"type": "array"
+										}
+									},
+									"required": [
+										"insertedIds",
+										"insertedCount",
+										"payload"
+									],
+									"type": "object"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid payload"
+					}
+				},
+				"description": "Ingest events to the system",
+				"tags": [
+					"Events"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"description": "- The events to ingest",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"items": {
+									"$ref": "#/components/schemas/APIIngestEventPayload"
+								},
+								"type": "array",
+								"description": "- The events to ingest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/entitlements/{id}": {
+			"get": {
+				"operationId": "Get Entitlement",
+				"responses": {
+					"200": {
+						"description": "Entitlement found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/APIEntitlement"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Entitlement not found"
+					}
+				},
+				"description": "Get a single entitlement by ID.",
+				"tags": [
+					"Entitlements"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"description": "- The ID of the entitlement to fetch.",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"delete": {
+				"operationId": "Delete Entitlement",
+				"responses": {
+					"204": {
+						"description": "Entitlement deleted"
+					}
+				},
+				"description": "Delete an entitlement by ID.",
+				"tags": [
+					"Entitlements"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"description": "- The ID of the entitlement to delete.",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/entitlements/query": {
+			"post": {
+				"operationId": "Query Entitlements",
+				"responses": {
+					"200": {
+						"description": "Entitlements found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/QueryResult_APIEntitlement_"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid query"
+					}
+				},
+				"description": "Query entitlements based on filters and pagination.",
+				"tags": [
+					"Entitlements"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"description": "- The query filters and pagination options.",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/APIQueryPayload_APIEntitlement_",
+								"description": "- The query filters and pagination options."
+							}
+						}
+					}
+				}
+			}
+		},
+		"/customers/{id}": {
+			"get": {
+				"operationId": "Get Customer",
+				"responses": {
+					"200": {
+						"description": "Customer found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/APICustomer"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Customer not found"
+					}
+				},
+				"description": "Get a single customer by ID.",
+				"tags": [
+					"Customers"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"description": "- The ID of the customer to fetch.",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "Update Customer",
+				"responses": {
+					"200": {
+						"description": "Customer updated",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/APICustomer"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid payload"
+					},
+					"404": {
+						"description": "Customer not found"
+					}
+				},
+				"description": "Update an existing customer.",
+				"tags": [
+					"Customers"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"description": "- The ID of the customer to update.",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"description": "- The updated details of the customer.",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/APIUpdateCustomerPayload",
+								"description": "- The updated details of the customer."
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "Delete Customer",
+				"responses": {
+					"204": {
+						"description": "Customer deleted"
+					}
+				},
+				"description": "Delete a customer by ID.",
+				"tags": [
+					"Customers"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"description": "- The ID of the customer to delete.",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/customers": {
+			"post": {
+				"operationId": "Create Customer",
+				"responses": {
+					"200": {
+						"description": "Customer created",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/APICustomer"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid payload"
+					}
+				},
+				"description": "Create a new customer.",
+				"tags": [
+					"Customers"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"description": "- The details of the customer to create.",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/APICreateCustomerPayload",
+								"description": "- The details of the customer to create."
+							}
+						}
+					}
+				}
+			}
+		},
+		"/customers/{id}/products/{productId}": {
+			"patch": {
+				"operationId": "Update a customer's product",
+				"responses": {
+					"200": {
+						"description": "Customer product revised",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/APIEntitlement"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid payload"
+					}
+				},
+				"description": "Revise a customer's product.",
+				"tags": [
+					"Customers"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"description": "- The ID of the customer to revise.",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "- The ID of the product to revise.",
+						"in": "path",
+						"name": "productId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"description": "- The details of the revision to apply.",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/APIReviseEntitlement",
+								"description": "- The details of the revision to apply."
+							}
+						}
+					}
+				}
+			}
+		},
+		"/customers/query": {
+			"post": {
+				"operationId": "Query Customers",
+				"responses": {
+					"200": {
+						"description": "Customers found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/QueryResult_APICustomer_"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid query"
+					}
+				},
+				"description": "Query customers based on filters and pagination.",
+				"tags": [
+					"Customers"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"description": "- The query filters and pagination options.",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/APIQueryPayload_APICustomer_",
+								"description": "- The query filters and pagination options."
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"servers": [
+		{      
+			"url": "https://connect.v2.dev.withvayu.com",
+      "description": "V2 API server"
+		}
+	]
+}
