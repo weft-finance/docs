@@ -101,6 +101,16 @@
 				"type": "object",
 				"additionalProperties": true
 			},
+			"PricingCadence": {
+				"enum": [
+					"Monthly",
+					"Quarterly",
+					"BiMonthly",
+					"SixMonths",
+					"Yearly"
+				],
+				"type": "string"
+			},
 			"Pricing": {
 				"properties": {
 					"commitment": {
@@ -137,6 +147,9 @@
 							"type": "object"
 						},
 						"type": "array"
+					},
+					"cadence": {
+						"$ref": "#/components/schemas/PricingCadence"
 					}
 				},
 				"required": [
@@ -1318,7 +1331,7 @@
 			"post": {
 				"operationId": "Create Product",
 				"responses": {
-					"200": {
+					"201": {
 						"description": "Product created",
 						"content": {
 							"application/json": {
@@ -1539,7 +1552,7 @@
 			"post": {
 				"operationId": "Create Invoice",
 				"responses": {
-					"200": {
+					"201": {
 						"description": "Invoice created",
 						"content": {
 							"application/json": {
@@ -1713,7 +1726,7 @@
 			"post": {
 				"operationId": "Ingest Event to the system",
 				"responses": {
-					"200": {
+					"201": {
 						"description": "Events ingested",
 						"content": {
 							"application/json": {
@@ -1984,7 +1997,7 @@
 			"post": {
 				"operationId": "Create Customer",
 				"responses": {
-					"200": {
+					"201": {
 						"description": "Customer created",
 						"content": {
 							"application/json": {
@@ -2115,9 +2128,8 @@
 		}
 	},
 	"servers": [
-		{      
-			"url": "https://connect.v2.dev.withvayu.com",
-      "description": "V2 API server"
+		{
+			"url": "/"
 		}
 	]
 }
