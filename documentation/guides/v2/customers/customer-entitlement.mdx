@@ -22,6 +22,12 @@ import { Vayu, CreateCustomerEntitlementPayload } from "vayu-ts/v2";
 
 
 export async function CreateCustomerProductEntitlement() {
+  const apiKey: string = '{{ YOUR API KEY }}';
+
+  const vayu = new Vayu(apiKey);
+
+  await vayu.login();
+
   const productId: string = '{{ YOUR PRODUCT ID TO REVISE }}';
   const customerId: string = '{{ YOUR CUSTOMER ID }}';
   const productRevision: ReviseEntitlementPayload = {
