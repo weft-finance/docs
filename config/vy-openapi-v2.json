@@ -1318,7 +1318,7 @@
 			"post": {
 				"operationId": "Create Product",
 				"responses": {
-					"201": {
+					"200": {
 						"description": "Product created",
 						"content": {
 							"application/json": {
@@ -1539,7 +1539,7 @@
 			"post": {
 				"operationId": "Create Invoice",
 				"responses": {
-					"201": {
+					"200": {
 						"description": "Invoice created",
 						"content": {
 							"application/json": {
@@ -1713,7 +1713,7 @@
 			"post": {
 				"operationId": "Ingest Event to the system",
 				"responses": {
-					"201": {
+					"200": {
 						"description": "Events ingested",
 						"content": {
 							"application/json": {
@@ -1984,7 +1984,7 @@
 			"post": {
 				"operationId": "Create Customer",
 				"responses": {
-					"201": {
+					"200": {
 						"description": "Customer created",
 						"content": {
 							"application/json": {
@@ -2115,8 +2115,9 @@
 		}
 	},
 	"servers": [
-		{
-			"url": "/"
+		{      
+			"url": "https://connect.v2.dev.withvayu.com",
+      "description": "V2 API server"
 		}
 	]
 }
