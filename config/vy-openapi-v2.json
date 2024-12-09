@@ -685,70 +685,6 @@
 				"type": "object",
 				"additionalProperties": true
 			},
-			"ObjectId": {
-				"type": "string",
-				"description": "A class representation of the BSON ObjectId type."
-			},
-			"Event": {
-				"properties": {
-					"_id": {
-						"$ref": "#/components/schemas/ObjectId"
-					},
-					"createdAt": {
-						"type": "string",
-						"format": "date-time"
-					},
-					"updatedAt": {
-						"type": "string",
-						"format": "date-time"
-					},
-					"name": {
-						"type": "string"
-					},
-					"timestamp": {
-						"type": "number",
-						"format": "double"
-					},
-					"metadata": {
-						"$ref": "#/components/schemas/Record_string.any_"
-					},
-					"accountId": {
-						"$ref": "#/components/schemas/ObjectId"
-					},
-					"customerId": {
-						"$ref": "#/components/schemas/ObjectId"
-					},
-					"productId": {
-						"$ref": "#/components/schemas/ObjectId"
-					},
-					"ref": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"_id",
-					"createdAt",
-					"updatedAt",
-					"name",
-					"timestamp",
-					"metadata",
-					"accountId",
-					"customerId",
-					"productId",
-					"ref"
-				],
-				"type": "object",
-				"additionalProperties": true
-			},
-			"UpdateEventPayload": {
-				"properties": {
-					"metadata": {
-						"$ref": "#/components/schemas/Record_string.any_"
-					}
-				},
-				"type": "object",
-				"additionalProperties": true
-			},
 			"QueryResult_APIEvent_": {
 				"properties": {
 					"items": {
@@ -850,6 +786,10 @@
 				],
 				"type": "object",
 				"additionalProperties": true
+			},
+			"ObjectId": {
+				"type": "string",
+				"description": "A class representation of the BSON ObjectId type."
 			},
 			"EntitlementRevision": {
 				"properties": {
@@ -1283,12 +1223,14 @@
 						"description": "Product not found"
 					}
 				},
+				"description": "Get a single product by ID.",
 				"tags": [
 					"Products"
 				],
 				"security": [],
 				"parameters": [
 					{
+						"description": "- The ID of the product to fetch.",
 						"in": "path",
 						"name": "id",
 						"required": true,
@@ -1318,12 +1260,14 @@
 						"description": "Product not found"
 					}
 				},
+				"description": "Update an existing product.",
 				"tags": [
 					"Products"
 				],
 				"security": [],
 				"parameters": [
 					{
+						"description": "- The ID of the product to update.",
 						"in": "path",
 						"name": "id",
 						"required": true,
@@ -1333,11 +1277,13 @@
 					}
 				],
 				"requestBody": {
+					"description": "- The updated details of the product.",
 					"required": true,
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/APIUpdateProductPayload"
+								"$ref": "#/components/schemas/APIUpdateProductPayload",
+								"description": "- The updated details of the product."
 							}
 						}
 					}
@@ -1350,12 +1296,14 @@
 						"description": "Product deleted"
 					}
 				},
+				"description": "Delete a product by ID.",
 				"tags": [
 					"Products"
 				],
 				"security": [],
 				"parameters": [
 					{
+						"description": "- The ID of the product to delete.",
 						"in": "path",
 						"name": "id",
 						"required": true,
@@ -1384,17 +1332,20 @@
 						"description": "Invalid payload"
 					}
 				},
+				"description": "Create a new product.",
 				"tags": [
 					"Products"
 				],
 				"security": [],
 				"parameters": [],
 				"requestBody": {
+					"description": "- The details of the product to create.",
 					"required": true,
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/APICreateProductPayload"
+								"$ref": "#/components/schemas/APICreateProductPayload",
+								"description": "- The details of the product to create."
 							}
 						}
 					}
@@ -1419,17 +1370,20 @@
 						"description": "Invalid query"
 					}
 				},
+				"description": "Query products based on filters and pagination.",
 				"tags": [
 					"Products"
 				],
 				"security": [],
 				"parameters": [],
 				"requestBody": {
+					"description": "- The query filters and pagination details.",
 					"required": true,
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/APIQueryPayload_APIProduct_"
+								"$ref": "#/components/schemas/APIQueryPayload_APIProduct_",
+								"description": "- The query filters and pagination details."
 							}
 						}
 					}
@@ -1454,12 +1408,14 @@
 						"description": "Invoice Products not found"
 					}
 				},
+				"description": "Calculate the total of an invoice.",
 				"tags": [
 					"Invoices"
 				],
 				"security": [],
 				"parameters": [
 					{
+						"description": "- The ID of the invoice to calculate.",
 						"in": "path",
 						"name": "id",
 						"required": true,
@@ -1488,12 +1444,14 @@
 						"description": "Invoice not found"
 					}
 				},
+				"description": "Get a single invoice by ID.",
 				"tags": [
 					"Invoices"
 				],
 				"security": [],
 				"parameters": [
 					{
+						"description": "- The ID of the invoice to fetch.",
 						"in": "path",
 						"name": "id",
 						"required": true,
@@ -1523,12 +1481,14 @@
 						"description": "Invoice not found"
 					}
 				},
+				"description": "Update an existing invoice.",
 				"tags": [
 					"Invoices"
 				],
 				"security": [],
 				"parameters": [
 					{
+						"description": "- The ID of the invoice to update.",
 						"in": "path",
 						"name": "id",
 						"required": true,
@@ -1538,11 +1498,13 @@
 					}
 				],
 				"requestBody": {
+					"description": "- The updated details of the invoice.",
 					"required": true,
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/APIUpdateInvoicePayload"
+								"$ref": "#/components/schemas/APIUpdateInvoicePayload",
+								"description": "- The updated details of the invoice."
 							}
 						}
 					}
@@ -1555,12 +1517,14 @@
 						"description": "Invoice deleted"
 					}
 				},
+				"description": "Delete an invoice by ID.",
 				"tags": [
 					"Invoices"
 				],
 				"security": [],
 				"parameters": [
 					{
+						"description": "- The ID of the invoice to delete.",
 						"in": "path",
 						"name": "id",
 						"required": true,
@@ -1589,17 +1553,20 @@
 						"description": "Invalid payload"
 					}
 				},
+				"description": "Create a new invoice.",
 				"tags": [
 					"Invoices"
 				],
 				"security": [],
 				"parameters": [],
 				"requestBody": {
+					"description": "- The details of the invoice to create.",
 					"required": true,
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/APICreateInvoicePayload"
+								"$ref": "#/components/schemas/APICreateInvoicePayload",
+								"description": "- The details of the invoice to create."
 							}
 						}
 					}
@@ -1624,17 +1591,20 @@
 						"description": "Invalid query"
 					}
 				},
+				"description": "Query invoices based on filters and pagination.",
 				"tags": [
 					"Invoices"
 				],
 				"security": [],
 				"parameters": [],
 				"requestBody": {
+					"description": "- The query filters and pagination options.",
 					"required": true,
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/APIQueryPayload_APIInvoice_"
+								"$ref": "#/components/schemas/APIQueryPayload_APIInvoice_",
+								"description": "- The query filters and pagination options."
 							}
 						}
 					}
@@ -1659,12 +1629,14 @@
 						"description": "Event not found"
 					}
 				},
+				"description": "Get a single event by ID.",
 				"tags": [
 					"Events"
 				],
 				"security": [],
 				"parameters": [
 					{
+						"description": "- The ID of the event to fetch.",
 						"in": "path",
 						"name": "id",
 						"required": true,
@@ -1681,12 +1653,14 @@
 						"description": "Event deleted"
 					}
 				},
+				"description": "Delete an event by ID.",
 				"tags": [
 					"Events"
 				],
 				"security": [],
 				"parameters": [
 					{
+						"description": "- The ID of the event to delete.",
 						"in": "path",
 						"name": "id",
 						"required": true,
@@ -1715,17 +1689,20 @@
 						"description": "Invalid query"
 					}
 				},
+				"description": "Query events based on filters and pagination.",
 				"tags": [
 					"Events"
 				],
 				"security": [],
 				"parameters": [],
 				"requestBody": {
+					"description": "- The query filters and pagination options.",
 					"required": true,
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/APIQueryPayload_APIEvent_"
+								"$ref": "#/components/schemas/APIQueryPayload_APIEvent_",
+								"description": "- The query filters and pagination options."
 							}
 						}
 					}
@@ -1773,12 +1750,14 @@
 						"description": "Invalid payload"
 					}
 				},
+				"description": "Ingest events to the system",
 				"tags": [
 					"Events"
 				],
 				"security": [],
 				"parameters": [],
 				"requestBody": {
+					"description": "- The events to ingest",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -1786,7 +1765,8 @@
 								"items": {
 									"$ref": "#/components/schemas/APIIngestEventPayload"
 								},
-								"type": "array"
+								"type": "array",
+								"description": "- The events to ingest"
 							}
 						}
 					}
@@ -1811,12 +1791,14 @@
 						"description": "Entitlement not found"
 					}
 				},
+				"description": "Get a single entitlement by ID.",
 				"tags": [
 					"Entitlements"
 				],
 				"security": [],
 				"parameters": [
 					{
+						"description": "- The ID of the entitlement to fetch.",
 						"in": "path",
 						"name": "id",
 						"required": true,
@@ -1833,12 +1815,14 @@
 						"description": "Entitlement deleted"
 					}
 				},
+				"description": "Delete an entitlement by ID.",
 				"tags": [
 					"Entitlements"
 				],
 				"security": [],
 				"parameters": [
 					{
+						"description": "- The ID of the entitlement to delete.",
 						"in": "path",
 						"name": "id",
 						"required": true,
@@ -1867,17 +1851,20 @@
 						"description": "Invalid query"
 					}
 				},
+				"description": "Query entitlements based on filters and pagination.",
 				"tags": [
 					"Entitlements"
 				],
 				"security": [],
 				"parameters": [],
 				"requestBody": {
+					"description": "- The query filters and pagination options.",
 					"required": true,
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/APIQueryPayload_APIEntitlement_"
+								"$ref": "#/components/schemas/APIQueryPayload_APIEntitlement_",
+								"description": "- The query filters and pagination options."
 							}
 						}
 					}
@@ -1902,12 +1889,14 @@
 						"description": "Customer not found"
 					}
 				},
+				"description": "Get a single customer by ID.",
 				"tags": [
 					"Customers"
 				],
 				"security": [],
 				"parameters": [
 					{
+						"description": "- The ID of the customer to fetch.",
 						"in": "path",
 						"name": "id",
 						"required": true,
@@ -1937,12 +1926,14 @@
 						"description": "Customer not found"
 					}
 				},
+				"description": "Update an existing customer.",
 				"tags": [
 					"Customers"
 				],
 				"security": [],
 				"parameters": [
 					{
+						"description": "- The ID of the customer to update.",
 						"in": "path",
 						"name": "id",
 						"required": true,
@@ -1952,11 +1943,13 @@
 					}
 				],
 				"requestBody": {
+					"description": "- The updated details of the customer.",
 					"required": true,
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/APIUpdateCustomerPayload"
+								"$ref": "#/components/schemas/APIUpdateCustomerPayload",
+								"description": "- The updated details of the customer."
 							}
 						}
 					}
@@ -1969,12 +1962,14 @@
 						"description": "Customer deleted"
 					}
 				},
+				"description": "Delete a customer by ID.",
 				"tags": [
 					"Customers"
 				],
 				"security": [],
 				"parameters": [
 					{
+						"description": "- The ID of the customer to delete.",
 						"in": "path",
 						"name": "id",
 						"required": true,
@@ -2003,17 +1998,20 @@
 						"description": "Invalid payload"
 					}
 				},
+				"description": "Create a new customer.",
 				"tags": [
 					"Customers"
 				],
 				"security": [],
 				"parameters": [],
 				"requestBody": {
+					"description": "- The details of the customer to create.",
 					"required": true,
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/APICreateCustomerPayload"
+								"$ref": "#/components/schemas/APICreateCustomerPayload",
+								"description": "- The details of the customer to create."
 							}
 						}
 					}
@@ -2038,12 +2036,14 @@
 						"description": "Invalid payload"
 					}
 				},
+				"description": "Revise a customer's product.",
 				"tags": [
 					"Customers"
 				],
 				"security": [],
 				"parameters": [
 					{
+						"description": "- The ID of the customer to revise.",
 						"in": "path",
 						"name": "id",
 						"required": true,
@@ -2052,6 +2052,7 @@
 						}
 					},
 					{
+						"description": "- The ID of the product to revise.",
 						"in": "path",
 						"name": "productId",
 						"required": true,
@@ -2061,11 +2062,13 @@
 					}
 				],
 				"requestBody": {
+					"description": "- The details of the revision to apply.",
 					"required": true,
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/APIReviseEntitlement"
+								"$ref": "#/components/schemas/APIReviseEntitlement",
+								"description": "- The details of the revision to apply."
 							}
 						}
 					}
@@ -2090,17 +2093,20 @@
 						"description": "Invalid query"
 					}
 				},
+				"description": "Query customers based on filters and pagination.",
 				"tags": [
 					"Customers"
 				],
 				"security": [],
 				"parameters": [],
 				"requestBody": {
+					"description": "- The query filters and pagination options.",
 					"required": true,
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/APIQueryPayload_APICustomer_"
+								"$ref": "#/components/schemas/APIQueryPayload_APICustomer_",
+								"description": "- The query filters and pagination options."
 							}
 						}
 					}
