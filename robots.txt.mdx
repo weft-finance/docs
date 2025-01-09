@@ -1,0 +1,55 @@
+---
+title: Blocking Search Engines with robots.txt
+description: Learn how to prevent search engines from indexing your site using robots.txt
+---
+
+# Blocking Search Engines with robots.txt
+
+The `robots.txt` file is a standard used by websites to communicate with web crawlers and search engines. You can use it to prevent search engines from indexing your site.
+
+## Creating a robots.txt File
+
+To block all search engines from indexing your entire site, create a `robots.txt` file in your project's root directory (public directory when deployed) with the following content:
+
+```txt
+User-agent: *
+Disallow: /
+```
+
+This configuration:
+- `User-agent: *` targets all search engine bots
+- `Disallow: /` prevents access to all paths on your site
+
+## Important Notes
+
+1. Place the `robots.txt` file at the root of your domain (e.g., `https://yourdomain.com/robots.txt`)
+2. While most legitimate search engines respect `robots.txt` rules, it's not a security measure
+3. This will discourage search engines from indexing your site, but doesn't guarantee complete privacy
+
+## Alternative Approaches
+
+If you only want to block specific paths, you can modify the rules:
+
+```txt
+User-agent: *
+Disallow: /private/
+Disallow: /temp/
+Allow: /
+```
+
+You can also target specific search engines:
+
+```txt
+User-agent: Googlebot
+Disallow: /
+
+User-agent: *
+Allow: /
+```
+
+## Verification
+
+After deploying your `robots.txt` file:
+1. Ensure it's accessible at `yourdomain.com/robots.txt`
+2. Test it using Google's [robots.txt Tester](https://support.google.com/webmasters/answer/6062598) in Search Console
+3. Monitor your site's indexing status in search engine results
