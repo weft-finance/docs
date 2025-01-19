@@ -210,9 +210,7 @@
         },
         {
           "group": "Webhooks",
-          "pages": [
-            "api-reference/endpoints/webhooks/subscribe-to-webhooks"
-          ]
+          "pages": ["api-reference/endpoints/webhooks/subscribe-to-webhooks"]
         }
       ]
     },
