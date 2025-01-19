@@ -48,7 +48,9 @@
       "group": "Get Started",
       "pages": [
         "documentation/get-started/introduction",
-        "documentation/get-started/quickstart"
+        "documentation/get-started/quickstart",
+        "documentation/get-started/introduction",
+        "documentation/guides/data-metering/introduction"
       ]
     },
     {
@@ -58,6 +60,8 @@
           "group": "Customers",
           "pages": [
             "documentation/guides/customers/adding-a-customer",
+            "documentation/guides/customers/customer-overview",
+            "documentation/guides/customers/subsidiaries-and-related-entities",
             "documentation/guides/customers/customer-overview",
             "documentation/guides/customers/subsidiaries-and-related-entities"
           ]
@@ -70,13 +74,17 @@
             "documentation/guides/plans-and-pricing/plan-templates-and-contracts",
             "documentation/guides/plans-and-pricing/pricing-and-product-line-items",
             "documentation/guides/plans-and-pricing/base-amount-and-commitment",
-            "documentation/guides/plans-and-pricing/assign-plan-to-customer"
+            "documentation/guides/plans-and-pricing/assign-plan-to-customer",
+            "documentation/guides/plans-and-pricing/assign-plan-to-customer",
+            "documentation/guides/plans-and-pricing/plan-templates-and-contracts",
+            "documentation/guides/plans-and-pricing/pricing-and-product-line-items"
           ]
         },
         {
           "group": "Invoices",
           "pages": [
             "documentation/guides/invoices/real-time-invoice",
+            "documentation/guides/invoices/billing-and-invoice-automation",
             "documentation/guides/invoices/billing-and-invoice-automation"
           ]
         }
@@ -160,7 +168,9 @@
             "api-reference/endpoints/contracts/get-contract",
             "api-reference/endpoints/contracts/delete-contract",
             "api-reference/endpoints/contracts/list-contracts",
-            "api-reference/endpoints/contracts/create-contract"
+            "api-reference/endpoints/contracts/create-contract",
+            "api-reference/endpoints/contracts/get-contract",
+            "api-reference/endpoints/contracts/delete-contract"
           ]
         },
         {
@@ -173,6 +183,7 @@
         {
           "group": "Auth",
           "pages": [
+            "api-reference/endpoints/auth/login-by-obtaining-a-new-access-token",
             "api-reference/endpoints/auth/login-by-obtaining-a-new-access-token"
           ]
         },
