@@ -94,9 +94,7 @@
         },
         {
           "group": "Events",
-          "pages": [
-            "documentation/guides/v2/events/ingesting-events"
-          ]
+          "pages": ["documentation/guides/v2/events/ingesting-events"]
         },
         {
           "group": "Invoices",
@@ -107,9 +105,7 @@
         },
         {
           "group": "Products",
-          "pages": [
-            "documentation/guides/v2/products/adding-a-product"
-          ]
+          "pages": ["documentation/guides/v2/products/adding-a-product"]
         }
       ]
     },
@@ -275,6 +271,9 @@
       ]
     }
   ],
+  "metadata": {
+    "robots": "noindex"
+  },
   "footerSocials": {
     "linkedin": "https://www.linkedin.com/company/withvayu"
   }
