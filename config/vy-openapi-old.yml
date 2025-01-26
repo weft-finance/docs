@@ -146,7 +146,7 @@ components:
           schema:
             $ref: "#/components/schemas/ListCustomersResponse"
     GetCustomerResponse:
-      description: response contains the customer matching the provided externalId
+      description: RequestSuccess
       content:
         application/json:
           schema:
@@ -305,22 +305,6 @@ components:
             $ref: "#/components/schemas/ListCreditLedgerEntriesResponse"
   parameters: {}
   schemas:
-    ErpMetadata:
-      type: object
-      properties:
-        erpId:
-          type: string
-          minLength: 1
-        erpName:
-          type: string
-          minLength: 1
-        displayId:
-          type: string
-          nullable: true
-          minLength: 1
-      required:
-        - erpId
-        - erpName
     Address:
       type: object
       properties:
@@ -349,157 +333,39 @@ components:
         email:
           type: string
           format: email
-        receiveInvoiceEmail:
+        isPrimary:
           type: boolean
       required:
         - email
-    OverageSettings:
-      type: string
-      enum:
-        - NoCharge
-        - ChargeTier
-        - ChargeExtras
-    CustomerSettings:
-      type: object
-      nullable: true
-      properties:
-        currency:
-          type: string
-          enum:
-            - USD
-            - EUR
-            - GBP
-            - ILS
-        taxRate:
-          type: number
-          nullable: true
-        paymentProvider:
-          type: string
-          enum:
-            - PayPal
-            - Stripe
-            - Wire
-        paymentProviderMetadata:
-          type: object
-          properties:
-            providerExternalId:
-              type: string
-        secondaryPaymentProvider:
-          type: string
-          enum:
-            - PayPal
-            - Stripe
-            - Wire
-        secondaryPaymentProviderMetadata:
-          type: object
-          properties:
-            providerExternalId:
-              type: string
-        paymentDueDays:
-          type: number
-        overage:
-          $ref: "#/components/schemas/OverageSettings"
-        threshold:
-          type: number
-        wallet:
-          type: string
-        manualReview:
-          type: boolean
-      description: Additional settings for the customer
-    CustomerStatus:
-      type: string
-      enum:
-        - Active
-        - Inactive
-        - Suspended
-      description: The current status of the customer
-    CustomerSource:
-      type: string
-      nullable: true
-      enum:
-        - Stripe
-        - Ingestion
-        - Api
-        - Salesforce
-      description: The source from which the customer originated
     CreateCustomerRequest:
       type: object
       properties:
         name:
           type: string
           minLength: 1
-          description: The dkjhfeld of the customer
-        legalName:
-          type: string
-          nullable: true
-          minLength: 1
-          description: The legal name of the customer
+          description: The name of the customer
         externalId:
           type: string
-          nullable: true
           minLength: 1
-          description: The unique external identifier for the customer
+          description: The external ID of the customer
         aliases:
           type: array
-          nullable: true
           items:
             type: string
             minLength: 1
           default: []
           description: The aliases of the customer used to match events to the customer.
-        taxId:
-          type: string
-          nullable: true
-          minLength: 1
-          description: The tax identification number of the customer
-        crmId:
-          type: string
-          nullable: true
-          minLength: 1
-          description: The CRM identifier of the customer
-        erpMetadata:
-          $ref: "#/components/schemas/ErpMetadata"
         address:
           $ref: "#/components/schemas/Address"
         contacts:
           type: array
           items:
             $ref: "#/components/schemas/Contact"
+          default: []
           description: The contacts of the customer. Contact marked as primary is the
             target for invoice sharing.
-        settings:
-          $ref: "#/components/schemas/CustomerSettings"
-        revenueBreakdown:
-          type: object
-          properties:
-            total:
-              type: number
-            subtotal:
-              type: number
-            overage:
-              type: number
-            discount:
-              type: number
-            creditsUsed:
-              type: number
-            tax:
-              type: number
-              minimum: 0
-          required:
-            - total
-            - subtotal
-            - overage
-            - discount
-            - creditsUsed
-            - tax
-          description: The breakdown of revenue for the customer
-        status:
-          $ref: "#/components/schemas/CustomerStatus"
-        source:
-          $ref: "#/components/schemas/CustomerSource"
       required:
         - name
-        - revenueBreakdown
     CreateCustomerResponse:
       type: object
       properties:
@@ -509,82 +375,27 @@ components:
             name:
               type: string
               minLength: 1
-              description: The dkjhfeld of the customer
-            legalName:
-              type: string
-              nullable: true
-              minLength: 1
-              description: The legal name of the customer
+              description: The name of the customer
             externalId:
               type: string
-              nullable: true
               minLength: 1
-              description: The unique external identifier for the customer
+              description: The external ID of the customer
             aliases:
               type: array
-              nullable: true
               items:
                 type: string
                 minLength: 1
               default: []
               description: The aliases of the customer used to match events to the customer.
-            taxId:
-              type: string
-              nullable: true
-              minLength: 1
-              description: The tax identification number of the customer
-            crmId:
-              type: string
-              nullable: true
-              minLength: 1
-              description: The CRM identifier of the customer
-            erpMetadata:
-              anyOf:
-                - $ref: "#/components/schemas/ErpMetadata"
-                - type: object
-                  nullable: true
-                  enum:
-                    - null
-                - nullable: true
-              description: ERP metadata related to the customer
             address:
               $ref: "#/components/schemas/Address"
             contacts:
               type: array
               items:
                 $ref: "#/components/schemas/Contact"
+              default: []
               description: The contacts of the customer. Contact marked as primary is the
                 target for invoice sharing.
-            settings:
-              $ref: "#/components/schemas/CustomerSettings"
-            revenueBreakdown:
-              type: object
-              properties:
-                total:
-                  type: number
-                subtotal:
-                  type: number
-                overage:
-                  type: number
-                discount:
-                  type: number
-                creditsUsed:
-                  type: number
-                tax:
-                  type: number
-                  minimum: 0
-              required:
-                - total
-                - subtotal
-                - overage
-                - discount
-                - creditsUsed
-                - tax
-              description: The breakdown of revenue for the customer
-            status:
-              $ref: "#/components/schemas/CustomerStatus"
-            source:
-              $ref: "#/components/schemas/CustomerSource"
             id:
               type: string
             createdAt:
@@ -595,7 +406,6 @@ components:
               format: date-time
           required:
             - name
-            - revenueBreakdown
             - id
             - createdAt
             - updatedAt
@@ -612,82 +422,27 @@ components:
               name:
                 type: string
                 minLength: 1
-                description: The dkjhfeld of the customer
-              legalName:
-                type: string
-                nullable: true
-                minLength: 1
-                description: The legal name of the customer
+                description: The name of the customer
               externalId:
                 type: string
-                nullable: true
                 minLength: 1
-                description: The unique external identifier for the customer
+                description: The external ID of the customer
               aliases:
                 type: array
-                nullable: true
                 items:
                   type: string
                   minLength: 1
                 default: []
                 description: The aliases of the customer used to match events to the customer.
-              taxId:
-                type: string
-                nullable: true
-                minLength: 1
-                description: The tax identification number of the customer
-              crmId:
-                type: string
-                nullable: true
-                minLength: 1
-                description: The CRM identifier of the customer
-              erpMetadata:
-                anyOf:
-                  - $ref: "#/components/schemas/ErpMetadata"
-                  - type: object
-                    nullable: true
-                    enum:
-                      - null
-                  - nullable: true
-                description: ERP metadata related to the customer
               address:
                 $ref: "#/components/schemas/Address"
               contacts:
                 type: array
                 items:
                   $ref: "#/components/schemas/Contact"
+                default: []
                 description: The contacts of the customer. Contact marked as primary is the
                   target for invoice sharing.
-              settings:
-                $ref: "#/components/schemas/CustomerSettings"
-              revenueBreakdown:
-                type: object
-                properties:
-                  total:
-                    type: number
-                  subtotal:
-                    type: number
-                  overage:
-                    type: number
-                  discount:
-                    type: number
-                  creditsUsed:
-                    type: number
-                  tax:
-                    type: number
-                    minimum: 0
-                required:
-                  - total
-                  - subtotal
-                  - overage
-                  - discount
-                  - creditsUsed
-                  - tax
-                description: The breakdown of revenue for the customer
-              status:
-                $ref: "#/components/schemas/CustomerStatus"
-              source:
-                $ref: "#/components/schemas/CustomerSource"
               id:
                 type: string
               createdAt:
@@ -698,7 +453,6 @@ components:
                 format: date-time
             required:
               - name
-              - revenueBreakdown
               - id
               - createdAt
               - updatedAt
@@ -721,82 +475,27 @@ components:
             name:
               type: string
               minLength: 1
-              description: The dkjhfeld of the customer
-            legalName:
-              type: string
-              nullable: true
-              minLength: 1
-              description: The legal name of the customer
+              description: The name of the customer
             externalId:
               type: string
-              nullable: true
               minLength: 1
-              description: The unique external identifier for the customer
+              description: The external ID of the customer
             aliases:
               type: array
-              nullable: true
               items:
                 type: string
                 minLength: 1
               default: []
               description: The aliases of the customer used to match events to the customer.
-            taxId:
-              type: string
-              nullable: true
-              minLength: 1
-              description: The tax identification number of the customer
-            crmId:
-              type: string
-              nullable: true
-              minLength: 1
-              description: The CRM identifier of the customer
-            erpMetadata:
-              anyOf:
-                - $ref: "#/components/schemas/ErpMetadata"
-                - type: object
-                  nullable: true
-                  enum:
-                    - null
-                - nullable: true
-              description: ERP metadata related to the customer
             address:
               $ref: "#/components/schemas/Address"
             contacts:
               type: array
               items:
                 $ref: "#/components/schemas/Contact"
+              default: []
               description: The contacts of the customer. Contact marked as primary is the
                 target for invoice sharing.
-            settings:
-              $ref: "#/components/schemas/CustomerSettings"
-            revenueBreakdown:
-              type: object
-              properties:
-                total:
-                  type: number
-                subtotal:
-                  type: number
-                overage:
-                  type: number
-                discount:
-                  type: number
-                creditsUsed:
-                  type: number
-                tax:
-                  type: number
-                  minimum: 0
-              required:
-                - total
-                - subtotal
-                - overage
-                - discount
-                - creditsUsed
-                - tax
-              description: The breakdown of revenue for the customer
-            status:
-              $ref: "#/components/schemas/CustomerStatus"
-            source:
-              $ref: "#/components/schemas/CustomerSource"
             id:
               type: string
             createdAt:
@@ -807,7 +506,6 @@ components:
               format: date-time
           required:
             - name
-            - revenueBreakdown
             - id
             - createdAt
             - updatedAt
@@ -819,75 +517,27 @@ components:
         name:
           type: string
           minLength: 1
-          description: The dkjhfeld of the customer
-        legalName:
-          type: string
-          nullable: true
-          minLength: 1
-          description: The legal name of the customer
+          description: The name of the customer
         externalId:
           type: string
-          nullable: true
           minLength: 1
-          description: The unique external identifier for the customer
+          description: The external ID of the customer
         aliases:
           type: array
-          nullable: true
           items:
             type: string
             minLength: 1
           default: []
           description: The aliases of the customer used to match events to the customer.
-        taxId:
-          type: string
-          nullable: true
-          minLength: 1
-          description: The tax identification number of the customer
-        crmId:
-          type: string
-          nullable: true
-          minLength: 1
-          description: The CRM identifier of the customer
-        erpMetadata:
-          $ref: "#/components/schemas/ErpMetadata"
         address:
           $ref: "#/components/schemas/Address"
         contacts:
           type: array
           items:
             $ref: "#/components/schemas/Contact"
+          default: []
           description: The contacts of the customer. Contact marked as primary is the
             target for invoice sharing.
-        settings:
-          $ref: "#/components/schemas/CustomerSettings"
-        revenueBreakdown:
-          type: object
-          properties:
-            total:
-              type: number
-            subtotal:
-              type: number
-            overage:
-              type: number
-            discount:
-              type: number
-            creditsUsed:
-              type: number
-            tax:
-              type: number
-              minimum: 0
-          required:
-            - total
-            - subtotal
-            - overage
-            - discount
-            - creditsUsed
-            - tax
-          description: The breakdown of revenue for the customer
-        status:
-          $ref: "#/components/schemas/CustomerStatus"
-        source:
-          $ref: "#/components/schemas/CustomerSource"
       additionalProperties: false
     UpdateCustomerResponse:
       type: object
@@ -898,82 +548,27 @@ components:
             name:
               type: string
               minLength: 1
-              description: The dkjhfeld of the customer
-            legalName:
-              type: string
-              nullable: true
-              minLength: 1
-              description: The legal name of the customer
+              description: The name of the customer
             externalId:
               type: string
-              nullable: true
               minLength: 1
-              description: The unique external identifier for the customer
+              description: The external ID of the customer
             aliases:
               type: array
-              nullable: true
               items:
                 type: string
                 minLength: 1
               default: []
               description: The aliases of the customer used to match events to the customer.
-            taxId:
-              type: string
-              nullable: true
-              minLength: 1
-              description: The tax identification number of the customer
-            crmId:
-              type: string
-              nullable: true
-              minLength: 1
-              description: The CRM identifier of the customer
-            erpMetadata:
-              anyOf:
-                - $ref: "#/components/schemas/ErpMetadata"
-                - type: object
-                  nullable: true
-                  enum:
-                    - null
-                - nullable: true
-              description: ERP metadata related to the customer
             address:
               $ref: "#/components/schemas/Address"
             contacts:
               type: array
               items:
                 $ref: "#/components/schemas/Contact"
+              default: []
               description: The contacts of the customer. Contact marked as primary is the
                 target for invoice sharing.
-            settings:
-              $ref: "#/components/schemas/CustomerSettings"
-            revenueBreakdown:
-              type: object
-              properties:
-                total:
-                  type: number
-                subtotal:
-                  type: number
-                overage:
-                  type: number
-                discount:
-                  type: number
-                creditsUsed:
-                  type: number
-                tax:
-                  type: number
-                  minimum: 0
-              required:
-                - total
-                - subtotal
-                - overage
-                - discount
-                - creditsUsed
-                - tax
-              description: The breakdown of revenue for the customer
-            status:
-              $ref: "#/components/schemas/CustomerStatus"
-            source:
-              $ref: "#/components/schemas/CustomerSource"
             id:
               type: string
             createdAt:
@@ -984,7 +579,6 @@ components:
               format: date-time
           required:
             - name
-            - revenueBreakdown
             - id
             - createdAt
             - updatedAt
@@ -999,82 +593,27 @@ components:
             name:
               type: string
               minLength: 1
-              description: The dkjhfeld of the customer
-            legalName:
-              type: string
-              nullable: true
-              minLength: 1
-              description: The legal name of the customer
+              description: The name of the customer
             externalId:
               type: string
-              nullable: true
               minLength: 1
-              description: The unique external identifier for the customer
+              description: The external ID of the customer
             aliases:
               type: array
-              nullable: true
               items:
                 type: string
                 minLength: 1
               default: []
               description: The aliases of the customer used to match events to the customer.
-            taxId:
-              type: string
-              nullable: true
-              minLength: 1
-              description: The tax identification number of the customer
-            crmId:
-              type: string
-              nullable: true
-              minLength: 1
-              description: The CRM identifier of the customer
-            erpMetadata:
-              anyOf:
-                - $ref: "#/components/schemas/ErpMetadata"
-                - type: object
-                  nullable: true
-                  enum:
-                    - null
-                - nullable: true
-              description: ERP metadata related to the customer
             address:
               $ref: "#/components/schemas/Address"
             contacts:
               type: array
               items:
                 $ref: "#/components/schemas/Contact"
+              default: []
               description: The contacts of the customer. Contact marked as primary is the
                 target for invoice sharing.
-            settings:
-              $ref: "#/components/schemas/CustomerSettings"
-            revenueBreakdown:
-              type: object
-              properties:
-                total:
-                  type: number
-                subtotal:
-                  type: number
-                overage:
-                  type: number
-                discount:
-                  type: number
-                creditsUsed:
-                  type: number
-                tax:
-                  type: number
-                  minimum: 0
-              required:
-                - total
-                - subtotal
-                - overage
-                - discount
-                - creditsUsed
-                - tax
-              description: The breakdown of revenue for the customer
-            status:
-              $ref: "#/components/schemas/CustomerStatus"
-            source:
-              $ref: "#/components/schemas/CustomerSource"
             id:
               type: string
             createdAt:
@@ -1087,7 +626,6 @@ components:
               type: string
           required:
             - name
-            - revenueBreakdown
             - id
             - createdAt
             - updatedAt
@@ -1137,8 +675,6 @@ components:
         - LowerThan
         - LowerEqualTo
         - LargerEqualTo
-        - Exists
-        - DoesntExists
     Criterion:
       type: object
       properties:
@@ -1362,16 +898,6 @@ components:
         - Quarterly
         - SixMonths
         - Yearly
-    UnlimitedDuration:
-      type: number
-      enum:
-        - -1
-    PlanDuration:
-      anyOf:
-        - type: number
-          minimum: 0
-          exclusiveMinimum: true
-        - $ref: "#/components/schemas/UnlimitedDuration"
     PaymentTerm:
       type: string
       enum:
@@ -1385,7 +911,9 @@ components:
         billingInterval:
           $ref: "#/components/schemas/BillingInterval"
         duration:
-          $ref: "#/components/schemas/PlanDuration"
+          type: number
+          minimum: 0
+          exclusiveMinimum: true
         paymentTerm:
           $ref: "#/components/schemas/PaymentTerm"
         autoRenewal:
@@ -2258,12 +1786,7 @@ components:
         endDate:
           type: string
           format: date-time
-        contractName:
-          type: string
         contractStartDate:
-          type: string
-          format: date-time
-        contractEndDate:
           type: string
           format: date-time
         daysToContractEnd:
@@ -2307,12 +1830,7 @@ components:
         endDate:
           type: string
           format: date-time
-        contractName:
-          type: string
         contractStartDate:
-          type: string
-          format: date-time
-        contractEndDate:
           type: string
           format: date-time
         daysToContractEnd:
@@ -2571,8 +2089,6 @@ components:
     RefId:
       type: string
     ReportId:
-      type: string
-    ExternalId:
       type: string
 paths:
   /customers:
@@ -3467,34 +2983,6 @@ paths:
           description: Unauthorized
         "413":
           description: Request Entity Too Large
-        "429":
-          description: Too Many Requests
-        "500":
-          description: Internal Server Error
-  /customers/externalId/{externalId}:
-    get:
-      tags:
-        - customers
-      operationId: getCustomerByExternalId
-      description: Use this endpoint to get a specific customer using its external Id.
-      summary: Get customer by externalId
-      security:
-        - BearerAuthorizer: []
-      parameters:
-        - schema:
-            $ref: "#/components/schemas/ExternalId"
-          required: true
-          in: path
-          name: externalId
-      responses:
-        "200":
-          $ref: "#/components/responses/GetCustomerResponse"
-        "400":
-          description: Bad Request
-        "401":
-          description: Unauthorized
-        "404":
-          description: Not Found
         "429":
           description: Too Many Requests
         "500":
