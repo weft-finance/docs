@@ -30,10 +30,6 @@
     {
       "name": "API Reference",
       "url": "api-reference"
-    },
-    {
-      "name": "API V2 Reference",
-      "url": "api-reference/v2"
     }
   ],
   "anchors": [
@@ -207,66 +203,6 @@
         {
           "group": "Webhooks",
           "pages": ["api-reference/endpoints/webhooks/subscribe-to-webhooks"]
-        }
-      ]
-    },
-    {
-      "group": "API V2 Reference",
-      "pages": [
-        {
-          "group": "Authentication",
-          "pages": [
-            "api-reference/v2/endpoints/authentication/login-with-api-key"
-          ]
-        },
-        {
-          "group": "Customers",
-          "pages": [
-            "api-reference/v2/endpoints/customers/get-customer",
-            "api-reference/v2/endpoints/customers/create-customer",
-            "api-reference/v2/endpoints/customers/update-customer",
-            "api-reference/v2/endpoints/customers/delete-customer",
-            "api-reference/v2/endpoints/customers/query-customers",
-            "api-reference/v2/endpoints/customers/update-customer-product"
-          ]
-        },
-        {
-          "group": "Entitlements",
-          "pages": [
-            "api-reference/v2/endpoints/entitlements/get-entitlement",
-            "api-reference/v2/endpoints/entitlements/delete-entitlement",
-            "api-reference/v2/endpoints/entitlements/query-entitlements"
-          ]
-        },
-        {
-          "group": "Events",
-          "pages": [
-            "api-reference/v2/endpoints/events/get-event",
-            "api-reference/v2/endpoints/events/delete-event",
-            "api-reference/v2/endpoints/events/query-events",
-            "api-reference/v2/endpoints/events/ingest-events"
-          ]
-        },
-        {
-          "group": "Invoices",
-          "pages": [
-            "api-reference/v2/endpoints/invoices/get-invoice",
-            "api-reference/v2/endpoints/invoices/create-invoice",
-            "api-reference/v2/endpoints/invoices/update-invoice",
-            "api-reference/v2/endpoints/invoices/delete-invoice",
-            "api-reference/v2/endpoints/invoices/query-invoices",
-            "api-reference/v2/endpoints/invoices/calculate-invoice"
-          ]
-        },
-        {
-          "group": "Products",
-          "pages": [
-            "api-reference/v2/endpoints/products/get-product",
-            "api-reference/v2/endpoints/products/create-product",
-            "api-reference/v2/endpoints/products/update-product",
-            "api-reference/v2/endpoints/products/delete-product",
-            "api-reference/v2/endpoints/products/query-products"
-          ]
         }
       ]
     }
