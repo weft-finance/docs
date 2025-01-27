@@ -48,7 +48,10 @@
       "group": "Get Started",
       "pages": [
         "documentation/get-started/introduction",
-        "documentation/get-started/quickstart"
+        "documentation/get-started/quickstart",
+        "snippets/plan-settings-warning",
+        "snippets/plan-settings-warning",
+        "snippets/pricing-example"
       ]
     },
     {
@@ -70,7 +73,9 @@
             "documentation/guides/plans-and-pricing/plan-templates-and-contracts",
             "documentation/guides/plans-and-pricing/pricing-and-product-line-items",
             "documentation/guides/plans-and-pricing/base-amount-and-commitment",
-            "documentation/guides/plans-and-pricing/assign-plan-to-customer"
+            "documentation/guides/plans-and-pricing/assign-plan-to-customer",
+            "documentation/guides/plans-and-pricing/pricing-and-product-line-items",
+            "documentation/guides/plans-and-pricing/base-amount-and-commitment"
           ]
         },
         {
@@ -94,7 +99,9 @@
         },
         {
           "group": "Events",
-          "pages": ["documentation/guides/v2/events/ingesting-events"]
+          "pages": [
+            "documentation/guides/v2/events/ingesting-events"
+          ]
         },
         {
           "group": "Invoices",
@@ -105,7 +112,9 @@
         },
         {
           "group": "Products",
-          "pages": ["documentation/guides/v2/products/adding-a-product"]
+          "pages": [
+            "documentation/guides/v2/products/adding-a-product"
+          ]
         }
       ]
     },
@@ -206,7 +215,9 @@
         },
         {
           "group": "Webhooks",
-          "pages": ["api-reference/endpoints/webhooks/subscribe-to-webhooks"]
+          "pages": [
+            "api-reference/endpoints/webhooks/subscribe-to-webhooks"
+          ]
         }
       ]
     },

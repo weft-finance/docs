@@ -1,41 +1,131 @@
 ---
 title: 'Base Amount and Commitment'
+description: 'Understanding and configuring base amounts and commitments in your pricing plans'
 ---
 
-#### Configuration of Base Amount 
-> Base amounts allow you to set a minimum amount to be charged in cases of zero consumption. This is only applicable for metered or usage-based products.
-The base amount is set on the product line item, so you must start with a product line item.
+## Base Amount Configuration
 
+Base amounts provide a way to ensure minimum revenue from usage-based products, even when there's no actual usage. This is particularly useful for services where you want to guarantee a minimum monthly revenue while still allowing for usage-based pricing above that minimum.
+
+### Setting Up Base Amounts
+
+Base amounts are configured at the product line item level in your pricing plans:
+
+<Steps>
+  <Step title="Navigate to Plan Creation">
+    Go to **Plans & Pricing** → **New plan** → **Add pricing & products** → select **Tiered Pricing**
+  </Step>
   
--   Go to **Plans & Pricing** --> New plan--> Add pricing & products -->  select **Tiered Pricing**
-    
--   Add by clicking on **+ Set Base Amount**
-    
--   Enter the **amount to be charged** in case of no usage metered
-    
--   **Delete** or **edit** by hovering with your mouse 
-   
+  <Step title="Configure Base Amount">
+    Click **+ Set Base Amount** to add a minimum charge
+  </Step>
+  
+  <Step title="Set Amount">
+    Enter the **amount to be charged** that will apply when no usage is recorded
+  </Step>
+  
+  <Step title="Manage Settings">
+    You can **Delete** or **edit** the base amount by hovering over it with your mouse
+  </Step>
+</Steps>
+
 <Tip>
-    **Please Note** <br/>
-    Base amounts are only applicable for usage products (otherwise it's easier to go for "fixed recurring" pricing). <br/>
-    Base amount charges will be added to the customer's invoice according to the plan's billing interval. <br/>
-    All amounts are calculated in USD.
+  **Base Amount Best Practices**
+  - Only use base amounts for usage-based products
+  - For fixed recurring charges, use the "fixed recurring" pricing type instead
+  - Base amounts are added to invoices based on the plan's billing interval
+  - All amounts are calculated in USD
 </Tip>
 
----
+<Warning>
+  **Common Base Amount Mistakes to Avoid**
+  - Don't confuse base amounts with commitments - base amounts are minimum charges, while commitments are minimum usage quantities
+  - Ensure base amounts don't exceed the expected usage-based charges for typical customers
+  - Remember that base amounts apply to each billing interval, not the entire contract duration
+</Warning>
 
-#### Configuration of Commitment
+## Commitment Configuration
 
-> Commitment is the minimum <u>quantity</u> a customer has committed to purchase <u>during the plan lifetime</u>.
-The commitment is set on the product line item, so you must start by creating a product.
+Commitments represent the minimum quantity a customer agrees to purchase during the entire plan lifetime. Unlike base amounts that focus on monetary values, commitments deal with usage quantities.
 
--   **Go to Plans & Prcing** --> New plan--> Add pricing & products --> select **Tiered Pricing**
--   Add by clicking on **+ Set Commitment**  
--   Enter the number of units you want to set as your commitment
--   **Delete** or **edit** by hovering with your mouse
-    
+### How Commitments Work
+
+<AccordionGroup>
+  <Accordion title="Commitment Period">
+    Commitments are evaluated over the entire plan duration, not per billing interval. For example, in a 12-month plan, the commitment is checked against the total usage across all 12 months.
+  </Accordion>
+  
+  <Accordion title="Billing Impact">
+    The system tracks usage against the commitment and bills according to the pricing tiers, ensuring the minimum committed quantity is properly charged even if actual usage falls short.
+  </Accordion>
+  
+  <Accordion title="Overage Handling">
+    Usage beyond the commitment level is billed according to the defined pricing tiers, treating the commitment as a minimum rather than a cap.
+  </Accordion>
+</AccordionGroup>
+
+### Setting Up Commitments
+
+<Steps>
+  <Step title="Access Plan Settings">
+    Navigate to **Plans & Pricing** → **New plan** → **Add pricing & products** → select **Tiered Pricing**
+  </Step>
+  
+  <Step title="Add Commitment">
+    Click **+ Set Commitment** to define the minimum quantity
+  </Step>
+  
+  <Step title="Configure Units">
+    Enter the number of units you want to set as your commitment level
+  </Step>
+  
+  <Step title="Manage Settings">
+    You can **Delete** or **edit** the commitment by hovering with your mouse
+  </Step>
+</Steps>
+
 <Tip>
-    **Please Note** <br/>
-    Commitment can be used for usage products with tiered-based pricing. <br/>
-    Commitments are counted in units and calculated based on the price per unit (the defined tier).
+  **Commitment Configuration Best Practices**
+  - Use commitments with tiered-based pricing for usage products
+  - Set realistic commitment levels based on customer usage patterns
+  - Consider the entire contract duration when setting commitment quantities
+  - Remember commitments are counted in units and priced based on the tier pricing
 </Tip>
+
+### Base Amount vs. Commitment Comparison
+
+<Card title="Key Differences">
+  | Feature | Base Amount | Commitment |
+  |---------|-------------|------------|
+  | Type | Monetary (USD) | Quantity (Units) |
+  | Period | Per billing interval | Entire contract duration |
+  | Purpose | Minimum revenue guarantee | Minimum usage guarantee |
+  | Billing | Applied when no usage | Based on tier pricing |
+  | Flexibility | Can be changed per interval | Fixed for contract duration |
+</Card>
+
+### Troubleshooting Common Issues
+
+<AccordionGroup>
+  <Accordion title="Base Amount Not Appearing">
+    - Verify the product is configured as usage-based
+    - Check if the billing interval is properly set
+    - Ensure the base amount is saved correctly
+  </Accordion>
+  
+  <Accordion title="Commitment Tracking Issues">
+    - Confirm the commitment quantity is properly set
+    - Verify usage events are being correctly tracked
+    - Check the contract duration settings
+  </Accordion>
+  
+  <Accordion title="Billing Calculation Problems">
+    - Review tier pricing configuration
+    - Verify the relationship between base amounts and commitment levels
+    - Check for any conflicting discount settings
+  </Accordion>
+</AccordionGroup>
+
+<Note>
+  Need help with complex configurations? Contact our support team for assistance with setting up base amounts and commitments for your specific use case.
+</Note>

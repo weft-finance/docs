@@ -1,0 +1,124 @@
+# Pricing Configuration Examples
+
+<Accordion title="Fixed Fee Example">
+```json
+{
+  "name": "Enterprise Plan",
+  "type": "fixed",
+  "amount": 999,
+  "billingInterval": "monthly",
+  "currency": "USD"
+}
+```
+A simple fixed fee of $999 billed monthly. This is commonly used for subscription-based services with a set price.
+</Accordion>
+
+<Accordion title="Tiered Pricing Example">
+```json
+{
+  "name": "API Calls Plan",
+  "type": "tiered",
+  "tiers": [
+    {
+      "start": 0,
+      "end": 10000,
+      "pricePerUnit": 0.010,
+      "description": "First 10K calls"
+    },
+    {
+      "start": 10001,
+      "end": 50000,
+      "pricePerUnit": 0.008,
+      "description": "10K-50K calls"
+    },
+    {
+      "start": 50001,
+      "end": -1,
+      "pricePerUnit": 0.005,
+      "description": "50K+ calls"
+    }
+  ],
+  "currency": "USD"
+}
+```
+A tiered pricing model where the price per unit decreases as usage increases. The -1 in the last tier indicates no upper limit.
+</Accordion>
+
+<Accordion title="Usage-Based Example">
+```json
+{
+  "name": "Storage Plan",
+  "type": "usage",
+  "baseAmount": 50,
+  "unitPrice": 0.05,
+  "unit": "GB",
+  "minCommitment": 1000,
+  "billingInterval": "monthly",
+  "currency": "USD"
+}
+```
+A usage-based plan with:
+- Base amount of $50/month
+- $0.05 per GB used
+- Minimum commitment of 1000 GB
+</Accordion>
+
+<Accordion title="Hybrid Plan Example">
+```json
+{
+  "name": "Premium Hybrid Plan",
+  "components": [
+    {
+      "type": "fixed",
+      "name": "Base Platform Access",
+      "amount": 299,
+      "description": "Monthly platform access fee"
+    },
+    {
+      "type": "tiered",
+      "name": "API Usage",
+      "tiers": [
+        {
+          "start": 0,
+          "end": 5000,
+          "pricePerUnit": 0.015
+        },
+        {
+          "start": 5001,
+          "end": -1,
+          "pricePerUnit": 0.010
+        }
+      ]
+    },
+    {
+      "type": "usage",
+      "name": "Storage",
+      "unitPrice": 0.08,
+      "unit": "GB"
+    }
+  ],
+  "currency": "USD",
+  "billingInterval": "monthly"
+}
+```
+A hybrid plan combining:
+- Fixed monthly access fee
+- Tiered API usage pricing
+- Usage-based storage pricing
+</Accordion>
+
+<Info>
+  **Key Considerations:**
+  - Fixed fees are best for predictable, subscription-based services
+  - Tiered pricing encourages higher usage with better rates at higher volumes
+  - Usage-based pricing directly ties cost to value received
+  - Hybrid plans offer flexibility to match complex business models
+</Info>
+
+<Warning>
+  **Important Notes:**
+  - Ensure your base amounts and commitments align with your business model
+  - Consider the impact of billing intervals on cash flow
+  - Test complex pricing scenarios before deploying to production
+  - Monitor usage patterns to optimize tier boundaries
+</Warning>

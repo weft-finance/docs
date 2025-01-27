@@ -1,25 +1,109 @@
 ---
 title: 'Pricing & Product Line Items'
-description: 'Our pricing offers total flexibility.'
+description: 'Our pricing offers total flexibility to create the perfect pricing model for your business.'
 ---
-#### You can set your plans to be:
-> - Fixed fees only <br/>
->  -  Usage based only   <br/>
->  - Revenue Share based <br/>
->  - Hybrid - a combination of usage and fixed fees
 
-#### Adding Tiered Pricing
-When creating a plan with pricing tiers, make sure to do the following:
-1.  Click on **Items & Pricing** and choose **Tiered Pricing**
-2.  Click on **Select product source** to select a product
-3.  Insert **name** and add a **description** (optional)
-4.  **Start defining** the  quantities and prices in the **pricing** tiers table
-5.  In the first row, insert the number that represents the final value within the range for the initial unit under the **'To'** column. Notice that in the subsequent row, the initial number under the **'From'** column will automatically adjust based on the number you've provided.
-6.  Then click on **Add Row** until you reach the amount of units in the plan.
-    
-### Defining 'Grouped Products' (Bundle)
-> You can group products to add variants and apply fees to the entire group. The defined commitment and base amount will apply to all variants within the group.
--   Start by creating a tiered plan, as explained above
--   Then click on the three-dot menu on the right side of the item
--   Select the **Grouped products**, name this group, and create
--   This will enable a **+ Add Product Variant** selection and open up a new pricing table within the group
+## Pricing Models
+Vayu's flexible pricing system allows you to create sophisticated pricing plans that match your business needs. You can set your plans to be:
+
+<CardGroup cols={2}>
+  <Card title="Fixed Fees" icon="money-bill">
+    Charge a set amount on a recurring basis, perfect for subscription-based services
+  </Card>
+  <Card title="Usage Based" icon="chart-line">
+    Bill customers based on their actual usage of your products or services
+  </Card>
+  <Card title="Revenue Share" icon="chart-pie">
+    Take a percentage of transactions or revenue as your fee
+  </Card>
+  <Card title="Hybrid Pricing" icon="layer-group">
+    Combine multiple pricing models for maximum flexibility
+  </Card>
+</CardGroup>
+
+## Setting Up Tiered Pricing
+Tiered pricing allows you to create volume-based pricing structures where the price per unit changes based on usage levels.
+
+<Steps>
+  <Step title="Access Pricing Menu">
+    Click on **Items & Pricing** and select **Tiered Pricing** from the available options
+  </Step>
+  
+  <Step title="Select Product">
+    Click on **Select product source** to choose the product you want to create tiers for
+  </Step>
+  
+  <Step title="Add Basic Information">
+    - Enter a descriptive **name** for your tiered pricing structure
+    - Add a detailed **description** (optional but recommended for clarity)
+  </Step>
+
+  <Step title="Configure Pricing Tiers">
+    In the pricing tiers table:
+    1. Set your first tier range:
+       - The 'From' column starts at 0
+       - Enter the upper limit in the 'To' column
+    2. Add subsequent tiers:
+       - Click **Add Row** for each new tier
+       - The 'From' value automatically adjusts based on the previous tier's 'To' value
+       - For the final tier, use -1 in the 'To' column to indicate unlimited
+  </Step>
+</Steps>
+
+<Note>
+Best Practices for Tiered Pricing:
+- Ensure there are no gaps between tiers
+- Make sure tier ranges don't overlap
+- Consider volume discounts for higher tiers
+- Keep tier structures simple and easy to understand
+</Note>
+
+## Working with Grouped Products (Bundles)
+Grouped products allow you to create product bundles with shared pricing structures and commitments.
+
+### Creating Product Groups
+
+<Steps>
+  <Step title="Start with Base Product">
+    Create a tiered pricing plan for your primary product as described above
+  </Step>
+  
+  <Step title="Create Group">
+    1. Click the three-dot menu on the right side of the item
+    2. Select **Grouped products**
+    3. Provide a descriptive name for the group
+  </Step>
+  
+  <Step title="Add Product Variants">
+    - Click **+ Add Product Variant** to add additional products to the group
+    - Configure pricing for each variant individually
+    - The group's commitment and base amount settings will apply to all variants
+  </Step>
+</Steps>
+
+<Warning>
+Important Limitations for Grouped Products:
+- All products in a group share the same billing cycle
+- Base amounts and commitments are applied at the group level
+- You cannot mix different pricing models within a group
+</Warning>
+
+### Group Management Best Practices
+
+<Accordion title="Organizing Products">
+- Group related products that share similar pricing structures
+- Use clear naming conventions for groups and variants
+- Keep the number of variants manageable
+</Accordion>
+
+<Accordion title="Pricing Considerations">
+- Ensure pricing tiers align across variants
+- Consider volume discounts at the group level
+- Plan for future additions to the group
+</Accordion>
+
+<Accordion title="Common Pitfalls to Avoid">
+- Don't create overly complex group structures
+- Avoid mixing unrelated products in the same group
+- Be careful with commitment levels that apply to all variants
+</Accordion>
