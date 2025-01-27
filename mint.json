@@ -30,10 +30,6 @@
     {
       "name": "API Reference",
       "url": "api-reference"
-    },
-    {
-      "name": "API V2 Reference",
-      "url": "api-reference/v2"
     }
   ],
   "anchors": [
@@ -83,33 +79,6 @@
       ]
     },
     {
-      "group": "Guides V2",
-      "pages": [
-        {
-          "group": "Customers",
-          "pages": [
-            "documentation/guides/v2/customers/adding-a-customer",
-            "documentation/guides/v2/customers/customer-entitlement"
-          ]
-        },
-        {
-          "group": "Events",
-          "pages": ["documentation/guides/v2/events/ingesting-events"]
-        },
-        {
-          "group": "Invoices",
-          "pages": [
-            "documentation/guides/v2/invoices/creating-an-invoice",
-            "documentation/guides/v2/invoices/calculating-an-invoice"
-          ]
-        },
-        {
-          "group": "Products",
-          "pages": ["documentation/guides/v2/products/adding-a-product"]
-        }
-      ]
-    },
-    {
       "group": "API Documentation",
       "pages": [
         "api-reference/pages/introduction",
@@ -134,12 +103,13 @@
           ]
         },
         {
-          "group": "Meters",
+          "group": "Products",
           "pages": [
-            "api-reference/endpoints/meters/get-meter",
-            "api-reference/endpoints/meters/update-meter",
-            "api-reference/endpoints/meters/delete-meter",
-            "api-reference/endpoints/meters/list-meters"
+            "api-reference/endpoints/meters/get-product",
+            "api-reference/endpoints/meters/update-product",
+            "api-reference/endpoints/meters/delete-product",
+            "api-reference/endpoints/meters/list-products",
+            "api-reference/endpoints/meters/create-product"
           ]
         },
         {
@@ -147,7 +117,10 @@
           "pages": [
             "api-reference/endpoints/plans/get-plan",
             "api-reference/endpoints/plans/delete-plan",
-            "api-reference/endpoints/plans/list-plans"
+            "api-reference/endpoints/plans/list-plans",
+            "api-reference/endpoints/plans/create-plan",
+            "api-reference/endpoints/plans/update-plan"
+
           ]
         },
         {
@@ -156,14 +129,31 @@
             "api-reference/endpoints/contracts/get-contract",
             "api-reference/endpoints/contracts/delete-contract",
             "api-reference/endpoints/contracts/list-contracts",
-            "api-reference/endpoints/contracts/create-contract"
+            "api-reference/endpoints/contracts/create-contract",
+            "api-reference/endpoints/contracts/update-contract",
+            "api-reference/endpoints/contracts/revise-contract"
           ]
         },
         {
           "group": "Invoices",
           "pages": [
             "api-reference/endpoints/invoices/get-invoice",
-            "api-reference/endpoints/invoices/list-invoices"
+            "api-reference/endpoints/invoices/list-invoices",
+            "api-reference/endpoints/invoices/create-invoice",
+            "api-reference/endpoints/invoices/update-invoice",
+            "api-reference/endpoints/invoices/delete-invoice",
+            "api-reference/endpoints/invoices/share-invoices",
+            "api-reference/endpoints/invoices/approve-invoice"
+          ]
+        },
+        {
+          "group": "Measurements",
+          "pages": [
+            "api-reference/endpoints/measurements/get-measurement",
+            "api-reference/endpoints/measurements/list-measurements",
+            "api-reference/endpoints/measurements/create-measurement",
+            "api-reference/endpoints/measurements/update-measurement",
+            "api-reference/endpoints/measurements/delete-measurement"
           ]
         },
         {
@@ -207,66 +197,6 @@
         {
           "group": "Webhooks",
           "pages": ["api-reference/endpoints/webhooks/subscribe-to-webhooks"]
-        }
-      ]
-    },
-    {
-      "group": "API V2 Reference",
-      "pages": [
-        {
-          "group": "Authentication",
-          "pages": [
-            "api-reference/v2/endpoints/authentication/login-with-api-key"
-          ]
-        },
-        {
-          "group": "Customers",
-          "pages": [
-            "api-reference/v2/endpoints/customers/get-customer",
-            "api-reference/v2/endpoints/customers/create-customer",
-            "api-reference/v2/endpoints/customers/update-customer",
-            "api-reference/v2/endpoints/customers/delete-customer",
-            "api-reference/v2/endpoints/customers/query-customers",
-            "api-reference/v2/endpoints/customers/update-customer-product"
-          ]
-        },
-        {
-          "group": "Entitlements",
-          "pages": [
-            "api-reference/v2/endpoints/entitlements/get-entitlement",
-            "api-reference/v2/endpoints/entitlements/delete-entitlement",
-            "api-reference/v2/endpoints/entitlements/query-entitlements"
-          ]
-        },
-        {
-          "group": "Events",
-          "pages": [
-            "api-reference/v2/endpoints/events/get-event",
-            "api-reference/v2/endpoints/events/delete-event",
-            "api-reference/v2/endpoints/events/query-events",
-            "api-reference/v2/endpoints/events/ingest-events"
-          ]
-        },
-        {
-          "group": "Invoices",
-          "pages": [
-            "api-reference/v2/endpoints/invoices/get-invoice",
-            "api-reference/v2/endpoints/invoices/create-invoice",
-            "api-reference/v2/endpoints/invoices/update-invoice",
-            "api-reference/v2/endpoints/invoices/delete-invoice",
-            "api-reference/v2/endpoints/invoices/query-invoices",
-            "api-reference/v2/endpoints/invoices/calculate-invoice"
-          ]
-        },
-        {
-          "group": "Products",
-          "pages": [
-            "api-reference/v2/endpoints/products/get-product",
-            "api-reference/v2/endpoints/products/create-product",
-            "api-reference/v2/endpoints/products/update-product",
-            "api-reference/v2/endpoints/products/delete-product",
-            "api-reference/v2/endpoints/products/query-products"
-          ]
         }
       ]
     }
