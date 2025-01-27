@@ -1919,6 +1919,163 @@ components:
       description: The billing data of the plan. The billing data contains the billing
         interval, the plan duration the payment terms and auto renewal, and the
         billing method.
+    CreditProductConfiguration:
+      type: object
+      properties:
+        shouldCreateSeparateInvoice:
+          type: boolean
+          default: false
+      required:
+        - shouldCreateSeparateInvoice
+    CreditProductSettings:
+      type: object
+      properties:
+        productType:
+          type: string
+          enum:
+            - Credit
+        productConfiguration:
+          $ref: "#/components/schemas/CreditProductConfiguration"
+      required:
+        - productType
+        - productConfiguration
+    ServiceProductConfiguration:
+      type: object
+      properties: {}
+    ServiceProductSettings:
+      type: object
+      properties:
+        productType:
+          type: string
+          enum:
+            - Service
+        productConfiguration:
+          $ref: "#/components/schemas/ServiceProductConfiguration"
+      required:
+        - productType
+        - productConfiguration
+    ProductSettings:
+      oneOf:
+        - $ref: "#/components/schemas/CreditProductSettings"
+        - $ref: "#/components/schemas/ServiceProductSettings"
+      discriminator:
+        propertyName: productType
+        mapping:
+          Credit: "#/components/schemas/CreditProductSettings"
+          Service: "#/components/schemas/ServiceProductSettings"
+    NewProductVariant:
+      type: object
+      properties:
+        meterId:
+          type: string
+          pattern: ^[0-9a-fA-F]{24}$
+        pricing:
+          $ref: "#/components/schemas/Pricing"
+        settings:
+          $ref: "#/components/schemas/ProductSettings"
+        description:
+          type: string
+          minLength: 1
+        name:
+          type: string
+          minLength: 1
+      required:
+        - pricing
+        - name
+    CommitmentType:
+      type: string
+      enum:
+        - Price
+        - Units
+    ErpMetadata:
+      type: object
+      properties:
+        erpId:
+          type: string
+          minLength: 1
+        erpName:
+          type: string
+          minLength: 1
+        displayId:
+          type: string
+          nullable: true
+          minLength: 1
+      required:
+        - erpId
+        - erpName
+    NewProduct:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+        description:
+          type: string
+        variants:
+          type: array
+          items:
+            $ref: "#/components/schemas/NewProductVariant"
+          minItems: 1
+        basePrice:
+          type: number
+          minimum: 0
+        commitment:
+          type: object
+          properties:
+            amount:
+              type: number
+              minimum: 0
+            type:
+              $ref: "#/components/schemas/CommitmentType"
+            replenishmentInterval:
+              anyOf:
+                - type: number
+                - type: object
+                  nullable: true
+                  enum:
+                    - null
+                - nullable: true
+          required:
+            - amount
+            - type
+        currencyCommitment:
+          type: number
+        paymentTerm:
+          $ref: "#/components/schemas/PaymentTerm"
+        billingInterval:
+          $ref: "#/components/schemas/BillingInterval"
+        accumulationInterval:
+          type: number
+        proRata:
+          type: boolean
+        erpMetadata:
+          $ref: "#/components/schemas/ErpMetadata"
+        rateMultiplier:
+          type: number
+        isPeriodicVariants:
+          type: boolean
+          default: false
+      required:
+        - variants
+        - paymentTerm
+        - billingInterval
+    PlanTrial:
+      type: object
+      properties:
+        duration:
+          type: number
+        type:
+          type: string
+          enum:
+            - Weeks
+            - Months
+        free:
+          type: boolean
+          default: false
+      required:
+        - duration
+        - type
+        - free
     GetPlanResponse:
       type: object
       properties:
@@ -1933,6 +2090,47 @@ components:
               $ref: "#/components/schemas/PlanStatus"
             billingData:
               $ref: "#/components/schemas/PlanBillingData"
+            description:
+              anyOf:
+                - type: string
+                  minLength: 1
+                - type: object
+                  nullable: true
+                  enum:
+                    - null
+                - nullable: true
+              description: The description of the plan
+            products:
+              type: array
+              items:
+                allOf:
+                  - $ref: "#/components/schemas/NewProduct"
+                  - type: object
+                    properties: {}
+              minItems: 1
+              description: The products of the plan
+            trial:
+              anyOf:
+                - $ref: "#/components/schemas/PlanTrial"
+                - type: object
+                  nullable: true
+                  enum:
+                    - null
+                - nullable: true
+              description: The trial duration of the plan
+            basedFromPlanId:
+              anyOf:
+                - type: string
+                - type: object
+                  nullable: true
+                  enum:
+                    - null
+                - nullable: true
+              description: The plan ID that this plan is based on
+            purchaseOrder:
+              type: string
+              maxLength: 20
+              description: The purchase order number
             id:
               type: string
             createdAt:
@@ -1945,6 +2143,7 @@ components:
             - name
             - status
             - billingData
+            - products
             - id
             - createdAt
             - updatedAt
@@ -1961,6 +2160,26 @@ components:
           $ref: "#/components/schemas/PlanStatus"
         billingData:
           $ref: "#/components/schemas/PlanBillingData"
+        description:
+          type: string
+          minLength: 1
+        products:
+          type: array
+          items:
+            allOf:
+              - $ref: "#/components/schemas/NewProduct"
+              - type: object
+                properties: {}
+          minItems: 1
+          description: The products of the plan
+        trial:
+          $ref: "#/components/schemas/PlanTrial"
+        basedFromPlanId:
+          type: string
+        purchaseOrder:
+          type: string
+          maxLength: 20
+          description: The purchase order number
       additionalProperties: false
     UpdatePlanResponse:
       type: object
@@ -1976,6 +2195,47 @@ components:
               $ref: "#/components/schemas/PlanStatus"
             billingData:
               $ref: "#/components/schemas/PlanBillingData"
+            description:
+              anyOf:
+                - type: string
+                  minLength: 1
+                - type: object
+                  nullable: true
+                  enum:
+                    - null
+                - nullable: true
+              description: The description of the plan
+            products:
+              type: array
+              items:
+                allOf:
+                  - $ref: "#/components/schemas/NewProduct"
+                  - type: object
+                    properties: {}
+              minItems: 1
+              description: The products of the plan
+            trial:
+              anyOf:
+                - $ref: "#/components/schemas/PlanTrial"
+                - type: object
+                  nullable: true
+                  enum:
+                    - null
+                - nullable: true
+              description: The trial duration of the plan
+            basedFromPlanId:
+              anyOf:
+                - type: string
+                - type: object
+                  nullable: true
+                  enum:
+                    - null
+                - nullable: true
+              description: The plan ID that this plan is based on
+            purchaseOrder:
+              type: string
+              maxLength: 20
+              description: The purchase order number
             id:
               type: string
             createdAt:
@@ -1988,6 +2248,7 @@ components:
             - name
             - status
             - billingData
+            - products
             - id
             - createdAt
             - updatedAt
@@ -2007,6 +2268,47 @@ components:
               $ref: "#/components/schemas/PlanStatus"
             billingData:
               $ref: "#/components/schemas/PlanBillingData"
+            description:
+              anyOf:
+                - type: string
+                  minLength: 1
+                - type: object
+                  nullable: true
+                  enum:
+                    - null
+                - nullable: true
+              description: The description of the plan
+            products:
+              type: array
+              items:
+                allOf:
+                  - $ref: "#/components/schemas/NewProduct"
+                  - type: object
+                    properties: {}
+              minItems: 1
+              description: The products of the plan
+            trial:
+              anyOf:
+                - $ref: "#/components/schemas/PlanTrial"
+                - type: object
+                  nullable: true
+                  enum:
+                    - null
+                - nullable: true
+              description: The trial duration of the plan
+            basedFromPlanId:
+              anyOf:
+                - type: string
+                - type: object
+                  nullable: true
+                  enum:
+                    - null
+                - nullable: true
+              description: The plan ID that this plan is based on
+            purchaseOrder:
+              type: string
+              maxLength: 20
+              description: The purchase order number
             id:
               type: string
             createdAt:
@@ -2021,6 +2323,7 @@ components:
             - name
             - status
             - billingData
+            - products
             - id
             - createdAt
             - updatedAt
@@ -2043,6 +2346,47 @@ components:
                 $ref: "#/components/schemas/PlanStatus"
               billingData:
                 $ref: "#/components/schemas/PlanBillingData"
+              description:
+                anyOf:
+                  - type: string
+                    minLength: 1
+                  - type: object
+                    nullable: true
+                    enum:
+                      - null
+                  - nullable: true
+                description: The description of the plan
+              products:
+                type: array
+                items:
+                  allOf:
+                    - $ref: "#/components/schemas/NewProduct"
+                    - type: object
+                      properties: {}
+                minItems: 1
+                description: The products of the plan
+              trial:
+                anyOf:
+                  - $ref: "#/components/schemas/PlanTrial"
+                  - type: object
+                    nullable: true
+                    enum:
+                      - null
+                  - nullable: true
+                description: The trial duration of the plan
+              basedFromPlanId:
+                anyOf:
+                  - type: string
+                  - type: object
+                    nullable: true
+                    enum:
+                      - null
+                  - nullable: true
+                description: The plan ID that this plan is based on
+              purchaseOrder:
+                type: string
+                maxLength: 20
+                description: The purchase order number
               id:
                 type: string
               createdAt:
@@ -2055,6 +2399,7 @@ components:
               - name
               - status
               - billingData
+              - products
               - id
               - createdAt
               - updatedAt
@@ -2079,10 +2424,31 @@ components:
           $ref: "#/components/schemas/PlanStatus"
         billingData:
           $ref: "#/components/schemas/PlanBillingData"
+        description:
+          type: string
+          minLength: 1
+        products:
+          type: array
+          items:
+            allOf:
+              - $ref: "#/components/schemas/NewProduct"
+              - type: object
+                properties: {}
+          minItems: 1
+          description: The products of the plan
+        trial:
+          $ref: "#/components/schemas/PlanTrial"
+        basedFromPlanId:
+          type: string
+        purchaseOrder:
+          type: string
+          maxLength: 20
+          description: The purchase order number
       required:
         - name
         - status
         - billingData
+        - products
     CreatePlanResponse:
       type: object
       properties:
@@ -2097,6 +2463,47 @@ components:
               $ref: "#/components/schemas/PlanStatus"
             billingData:
               $ref: "#/components/schemas/PlanBillingData"
+            description:
+              anyOf:
+                - type: string
+                  minLength: 1
+                - type: object
+                  nullable: true
+                  enum:
+                    - null
+                - nullable: true
+              description: The description of the plan
+            products:
+              type: array
+              items:
+                allOf:
+                  - $ref: "#/components/schemas/NewProduct"
+                  - type: object
+                    properties: {}
+              minItems: 1
+              description: The products of the plan
+            trial:
+              anyOf:
+                - $ref: "#/components/schemas/PlanTrial"
+                - type: object
+                  nullable: true
+                  enum:
+                    - null
+                - nullable: true
+              description: The trial duration of the plan
+            basedFromPlanId:
+              anyOf:
+                - type: string
+                - type: object
+                  nullable: true
+                  enum:
+                    - null
+                - nullable: true
+              description: The plan ID that this plan is based on
+            purchaseOrder:
+              type: string
+              maxLength: 20
+              description: The purchase order number
             id:
               type: string
             createdAt:
@@ -2109,6 +2516,7 @@ components:
             - name
             - status
             - billingData
+            - products
             - id
             - createdAt
             - updatedAt
