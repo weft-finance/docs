@@ -4362,3 +4362,29 @@ paths:
           description: Too Many Requests
         "500":
           description: Internal Server Error
+  /contract/revise/{contractId}:
+    post:
+      tags:
+        - contracts
+      operationId: reviseContract
+      description: Use this endpoint to revise a contract.
+      summary: Revise contract
+      security:
+        - BearerAuthorizer: []
+      parameters:
+        - schema:
+            $ref: "#/components/schemas/ContractId"
+          required: false
+          in: query
+          name: contractId
+      responses:
+        "200":
+          $ref: "#/components/responses/RequestSuccess"
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "429":
+          description: Too Many Requests
+        "500":
+          description: Internal Server Error

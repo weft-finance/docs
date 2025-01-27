@@ -157,7 +157,8 @@
             "api-reference/endpoints/contracts/delete-contract",
             "api-reference/endpoints/contracts/list-contracts",
             "api-reference/endpoints/contracts/create-contract",
-            "api-reference/endpoints/contracts/update-contract"
+            "api-reference/endpoints/contracts/update-contract",
+            "api-reference/endpoints/contracts/revise-contract"
           ]
         },
         {
