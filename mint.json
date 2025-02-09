@@ -7,12 +7,12 @@
   },
   "favicon": "/assets/favicon.png",
   "colors": {
-    "primary": "#57b4ac",
-    "light": "#48EEDF",
-    "dark": "#57b4ac",
+    "primary": "#0499CB",
+    "light": "#06ADBA",
+    "dark": "#163B7E",
     "anchors": {
-      "from": "#0D9373",
-      "to": "#07C983"
+      "from": "#163B7E",
+      "to": "#0499CB"
     }
   },
   "topbarCtaButton": {
@@ -120,7 +120,6 @@
             "api-reference/endpoints/plans/list-plans",
             "api-reference/endpoints/plans/create-plan",
             "api-reference/endpoints/plans/update-plan"
-
           ]
         },
         {
