@@ -77,7 +77,8 @@
                   "api-reference/endpoints/customers/create-customer",
                   "api-reference/endpoints/customers/get-customer",
                   "api-reference/endpoints/customers/update-customer",
-                  "api-reference/endpoints/customers/delete-customer"
+                  "api-reference/endpoints/customers/delete-customer",
+                  "api-reference/endpoints/customers/get-products-consumptions-by-customer-id"
                 ]
               },
               {
