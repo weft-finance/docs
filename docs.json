@@ -19,7 +19,12 @@
               "documentation/get-started/introduction",
               "documentation/get-started/quickstart"
             ]
-          },
+          },{
+            "group": "Product log",
+            "pages":[
+              "Change-log/product-log"
+            ]
+          }
           {
             "group": "Guides",
             "pages": [
