@@ -19,12 +19,11 @@
               "documentation/get-started/introduction",
               "documentation/get-started/quickstart"
             ]
-          },{
+          },
+          {
             "group": "Product log",
-            "pages":[
-              "Change-log/product-log"
-            ]
-          }
+            "pages": ["documentation/change-log/03-2025"]
+          },
           {
             "group": "Guides",
             "pages": [
@@ -51,7 +50,8 @@
                 "group": "Invoices",
                 "pages": [
                   "documentation/guides/invoices/real-time-invoice",
-                  "documentation/guides/invoices/billing-and-invoice-automation"
+                  "documentation/guides/invoices/billing-and-invoice-automation",
+                  "documentation/guides/invoices/customer-portal"
                 ]
               }
             ]
@@ -126,8 +126,7 @@
                   "api-reference/endpoints/invoices/update-invoice",
                   "api-reference/endpoints/invoices/delete-invoice",
                   "api-reference/endpoints/invoices/share-invoices",
-                  "api-reference/endpoints/invoices/approve-invoice",
-                  "api-reference/endpoints/invoices/customer-portal"
+                  "api-reference/endpoints/invoices/approve-invoice"
                 ]
               },
               {
