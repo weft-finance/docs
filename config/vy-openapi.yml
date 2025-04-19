@@ -146,7 +146,7 @@ components:
           schema:
             $ref: "#/components/schemas/ListCustomersResponse"
     GetCustomerResponse:
-      description: RequestSuccess
+      description: response contains the customer matching the provided externalId
       content:
         application/json:
           schema:
@@ -303,6 +303,18 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/ListCreditLedgerEntriesResponse"
+    GetCustomerProductsConsumptionsResponse:
+      description: response contains the products consumptions by the customer id
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/GetCustomerProductsConsumptionsResponse"
+    GetProductConsumptionResponse:
+      description: The response from the get product consumption action
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/GetProductConsumptionResponse"
   parameters: {}
   schemas:
     Address:
@@ -333,7 +345,7 @@ components:
         email:
           type: string
           format: email
-        isPrimary:
+        receiveInvoiceEmail:
           type: boolean
       required:
         - email
@@ -344,12 +356,9 @@ components:
           type: string
           minLength: 1
           description: The name of the customer
-        externalId:
-          type: string
-          minLength: 1
-          description: The external ID of the customer
         aliases:
           type: array
+          nullable: true
           items:
             type: string
             minLength: 1
@@ -361,9 +370,12 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/Contact"
-          default: []
           description: The contacts of the customer. Contact marked as primary is the
             target for invoice sharing.
+        externalId:
+          type: string
+          minLength: 1
+          description: The external ID of the customer
       required:
         - name
     CreateCustomerResponse:
@@ -376,12 +388,9 @@ components:
               type: string
               minLength: 1
               description: The name of the customer
-            externalId:
-              type: string
-              minLength: 1
-              description: The external ID of the customer
             aliases:
               type: array
+              nullable: true
               items:
                 type: string
                 minLength: 1
@@ -393,9 +402,12 @@ components:
               type: array
               items:
                 $ref: "#/components/schemas/Contact"
-              default: []
               description: The contacts of the customer. Contact marked as primary is the
                 target for invoice sharing.
+            externalId:
+              type: string
+              minLength: 1
+              description: The external ID of the customer
             id:
               type: string
             createdAt:
@@ -423,12 +435,9 @@ components:
                 type: string
                 minLength: 1
                 description: The name of the customer
-              externalId:
-                type: string
-                minLength: 1
-                description: The external ID of the customer
               aliases:
                 type: array
+                nullable: true
                 items:
                   type: string
                   minLength: 1
@@ -440,9 +449,12 @@ components:
                 type: array
                 items:
                   $ref: "#/components/schemas/Contact"
-                default: []
                 description: The contacts of the customer. Contact marked as primary is the
                   target for invoice sharing.
+              externalId:
+                type: string
+                minLength: 1
+                description: The external ID of the customer
               id:
                 type: string
               createdAt:
@@ -476,12 +488,9 @@ components:
               type: string
               minLength: 1
               description: The name of the customer
-            externalId:
-              type: string
-              minLength: 1
-              description: The external ID of the customer
             aliases:
               type: array
+              nullable: true
               items:
                 type: string
                 minLength: 1
@@ -493,9 +502,12 @@ components:
               type: array
               items:
                 $ref: "#/components/schemas/Contact"
-              default: []
               description: The contacts of the customer. Contact marked as primary is the
                 target for invoice sharing.
+            externalId:
+              type: string
+              minLength: 1
+              description: The external ID of the customer
             id:
               type: string
             createdAt:
@@ -518,12 +530,9 @@ components:
           type: string
           minLength: 1
           description: The name of the customer
-        externalId:
-          type: string
-          minLength: 1
-          description: The external ID of the customer
         aliases:
           type: array
+          nullable: true
           items:
             type: string
             minLength: 1
@@ -535,9 +544,12 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/Contact"
-          default: []
           description: The contacts of the customer. Contact marked as primary is the
             target for invoice sharing.
+        externalId:
+          type: string
+          minLength: 1
+          description: The external ID of the customer
       additionalProperties: false
     UpdateCustomerResponse:
       type: object
@@ -549,12 +561,9 @@ components:
               type: string
               minLength: 1
               description: The name of the customer
-            externalId:
-              type: string
-              minLength: 1
-              description: The external ID of the customer
             aliases:
               type: array
+              nullable: true
               items:
                 type: string
                 minLength: 1
@@ -566,9 +575,12 @@ components:
               type: array
               items:
                 $ref: "#/components/schemas/Contact"
-              default: []
               description: The contacts of the customer. Contact marked as primary is the
                 target for invoice sharing.
+            externalId:
+              type: string
+              minLength: 1
+              description: The external ID of the customer
             id:
               type: string
             createdAt:
@@ -594,12 +606,9 @@ components:
               type: string
               minLength: 1
               description: The name of the customer
-            externalId:
-              type: string
-              minLength: 1
-              description: The external ID of the customer
             aliases:
               type: array
+              nullable: true
               items:
                 type: string
                 minLength: 1
@@ -611,9 +620,12 @@ components:
               type: array
               items:
                 $ref: "#/components/schemas/Contact"
-              default: []
               description: The contacts of the customer. Contact marked as primary is the
                 target for invoice sharing.
+            externalId:
+              type: string
+              minLength: 1
+              description: The external ID of the customer
             id:
               type: string
             createdAt:
@@ -675,6 +687,8 @@ components:
         - LowerThan
         - LowerEqualTo
         - LargerEqualTo
+        - Exists
+        - DoesntExists
     Criterion:
       type: object
       properties:
@@ -898,6 +912,16 @@ components:
         - Quarterly
         - SixMonths
         - Yearly
+    UnlimitedDuration:
+      type: number
+      enum:
+        - -1
+    PlanDuration:
+      anyOf:
+        - type: number
+          minimum: 0
+          exclusiveMinimum: true
+        - $ref: "#/components/schemas/UnlimitedDuration"
     PaymentTerm:
       type: string
       enum:
@@ -911,9 +935,7 @@ components:
         billingInterval:
           $ref: "#/components/schemas/BillingInterval"
         duration:
-          type: number
-          minimum: 0
-          exclusiveMinimum: true
+          $ref: "#/components/schemas/PlanDuration"
         paymentTerm:
           $ref: "#/components/schemas/PaymentTerm"
         autoRenewal:
@@ -1763,6 +1785,7 @@ components:
       enum:
         - Active
         - Inactive
+        - Expired
         - Terminated
         - PendingTermination
         - Error
@@ -1786,7 +1809,12 @@ components:
         endDate:
           type: string
           format: date-time
+        contractName:
+          type: string
         contractStartDate:
+          type: string
+          format: date-time
+        contractEndDate:
           type: string
           format: date-time
         daysToContractEnd:
@@ -1830,7 +1858,12 @@ components:
         endDate:
           type: string
           format: date-time
+        contractName:
+          type: string
         contractStartDate:
+          type: string
+          format: date-time
+        contractEndDate:
           type: string
           format: date-time
         daysToContractEnd:
@@ -2046,6 +2079,7 @@ components:
         - Overage
         - UpcomingRenewal
         - InvoiceApproved
+        - CustomerPortalLinkSent
     WebhookSubscribeRequest:
       type: object
       properties:
@@ -2056,6 +2090,69 @@ components:
       required:
         - callbackUrl
         - eventType
+    ProductConsumption:
+      type: object
+      properties:
+        productId:
+          type: string
+          pattern: ^[0-9a-fA-F]{24}$
+          description: The id of the product.
+        productName:
+          type: string
+          minLength: 1
+          description: The name of the product.
+          example: Vayu Product
+        provisionedAmount:
+          type: number
+          minimum: 0
+          description: The amount of units provisioned to the customer.
+          example: 10
+        consumedAmount:
+          type: number
+          minimum: 0
+          description: The amount of units consumed by the customer.
+          example: 10
+        usagePercentage:
+          type: number
+          minimum: 0
+          description: The percentage of the provisioned amount that has been consumed.
+        hasAccess:
+          type: boolean
+          description: Whether the customer has access to the product.
+          example: true
+        remainingAmount:
+          type: number
+          description: The amount of units remaining to consume.
+          example: 10
+        exceededAmount:
+          type: number
+          description: The amount of units exceeded.
+          example: 10
+      required:
+        - productId
+        - productName
+        - provisionedAmount
+        - consumedAmount
+        - usagePercentage
+        - hasAccess
+    GetCustomerProductsConsumptionsResponse:
+      type: object
+      properties:
+        productsConsumptions:
+          type: array
+          items:
+            $ref: "#/components/schemas/ProductConsumption"
+      required:
+        - productsConsumptions
+    GetProductConsumptionResponse:
+      type: object
+      properties:
+        productConsumption:
+          allOf:
+            - $ref: "#/components/schemas/ProductConsumption"
+            - description: The product consumption data
+      required:
+        - productConsumption
     Limit:
       type: number
       maximum: 1000
@@ -2089,6 +2186,10 @@ components:
     RefId:
       type: string
     ReportId:
+      type: string
+    ExternalId:
+      type: string
+    ProductId:
       type: string
 paths:
   /customers:
@@ -2983,6 +3084,90 @@ paths:
           description: Unauthorized
         "413":
           description: Request Entity Too Large
+        "429":
+          description: Too Many Requests
+        "500":
+          description: Internal Server Error
+  /customers/externalId/{externalId}:
+    get:
+      tags:
+        - customers
+      operationId: getCustomerByExternalId
+      description: Use this endpoint to get a specific customer using its external Id.
+      summary: Get customer by externalId
+      security:
+        - BearerAuthorizer: []
+      parameters:
+        - schema:
+            $ref: "#/components/schemas/ExternalId"
+          required: true
+          in: path
+          name: externalId
+      responses:
+        "200":
+          $ref: "#/components/responses/GetCustomerResponse"
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+        "429":
+          description: Too Many Requests
+        "500":
+          description: Internal Server Error
+  /customers/products-consumptions/{customerId}:
+    get:
+      tags:
+        - customers
+      operationId: getCustomerProductsConsumptions
+      description: Use this endpoint to get the products consumptions by the customer id.
+      summary: Get products consumptions by customer id
+      security:
+        - BearerAuthorizer: []
+      parameters:
+        - schema:
+            $ref: "#/components/schemas/CustomerId"
+          required: true
+          in: path
+          name: customerId
+      responses:
+        "200":
+          $ref: "#/components/responses/GetCustomerProductsConsumptionsResponse"
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+        "429":
+          description: Too Many Requests
+        "500":
+          description: Internal Server Error
+  /product-consumption/{productId}:
+    get:
+      tags:
+        - product-consumptions
+      operationId: getProductConsumption
+      description: Use this action to get the consumption data for a product
+      summary: Get product consumption
+      security:
+        - BearerAuthorizer: []
+      parameters:
+        - schema:
+            $ref: "#/components/schemas/ProductId"
+          required: true
+          in: path
+          name: productId
+      responses:
+        "200":
+          $ref: "#/components/responses/GetProductConsumptionResponse"
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
         "429":
           description: Too Many Requests
         "500":
