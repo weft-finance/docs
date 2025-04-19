@@ -1,0 +1,47 @@
+---
+title: 'Adding a Product'
+---
+
+### Adding a Product
+
+A product is a representation of a good or service that you provide to your customers. You can add products using our TypeScript SDK.
+
+### Example Code
+
+```typescript
+import { Vayu, CreateProductPayload, AggregationMethods } from "vayu-ts/v2";
+
+export async function CreateProduct() {
+  const apiKey: string = '{{ YOUR API KEY }}';
+
+  const vayu = new Vayu(apiKey);
+
+  await vayu.login();
+
+  const productPayload: CreateProductPayload = {
+    name: 'My Product',
+    eventName: 'my-event',
+    aggregation: {
+      type: AggregationMethods.Count,
+    },
+    pricing: {
+      tiers: [
+        {
+          start: 0,
+          end: 500,
+          price: 5,
+          chunkSize: 100,
+        },
+        {
+          start: 500,
+          end: -1,
+          price: 40,
+          chunkSize: 150,
+        },
+      ],
+    },
+  };
+
+  return  vayu.products.create(productPayload);
+}
+```

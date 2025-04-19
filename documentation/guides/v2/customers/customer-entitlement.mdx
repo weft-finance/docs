@@ -1,0 +1,51 @@
+---
+title: 'Customer Entitlement'
+---
+
+### Customer Entitlement
+
+Customer entitlement is a feature that allows you to grant a customer a unique version of a product that you provide.
+With entitlements, the customer can have different pricing configurations for a given product. 
+
+Entitlements also allow for revisions and enable future revisions to be applied to the customer's entitlements.
+
+#### Creating a Customer Entitlement
+We create a customer entitlement by revising a product for a customer.
+Upon revision, we attach each revision to a customer's entitlement of the product.
+
+Revisions only affect products based on the `asOf` dates.
+
+### Example Code
+
+```typescript
+import { Vayu, ReviseEntitlementPayload } from "vayu-ts/v2";
+
+
+export async function CreateCustomerProductEntitlement() {
+  const apiKey: string = '{{ YOUR API KEY }}';
+
+  const vayu = new Vayu(apiKey);
+
+  await vayu.login();
+
+  const productId: string = '{{ YOUR PRODUCT ID TO REVISE }}';
+  const customerId: string = '{{ YOUR CUSTOMER ID }}';
+  const productRevision: ReviseEntitlementPayload = {
+    asOf: new Date().toISOString(),
+    pricing: {
+      tiers: [
+        {
+          start: 0,
+          end: -1,
+          price: 5,
+          chunkSize: 1,
+        },
+      ],
+    },
+    reason: 'Price increase',
+  };
+
+  return vayu.customers.revise(customerId, productId, productRevision);
+}
+```
+

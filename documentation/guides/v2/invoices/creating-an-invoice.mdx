@@ -1,0 +1,36 @@
+---
+title: 'Creating an Invoice'
+---
+
+### Creating an Invoice
+
+An invoice is a document that details the products or services provided to a customer. In this guide, we will walk you through how to create an invoice using the Vayu TypeScript SDK.
+
+### Example Code
+
+```typescript
+import { Vayu, CreateInvoicePayload } from "vayu-ts/v2";
+
+export async function CreateInvoice() {
+  const apiKey: string = '{{ YOUR API KEY }}';
+
+  const vayu = new Vayu(apiKey);
+
+  await vayu.login();
+
+  const customerId = '{{ YOUR CUSTOMER ID }}';
+  const productIds: string[] = ['{{ YOUR PRODUCT ID }}'];
+
+  const invoicePayload: CreateInvoicePayload = {
+    billingPeriod: {
+      startTime: new Date().toISOString(),
+      endTime: new Date().toISOString(),
+    },
+    customerId,
+    name: 'Customer Invoice',
+    products: productIds,
+  };
+
+  return vayu.invoices.create(invoicePayload);
+}
+```

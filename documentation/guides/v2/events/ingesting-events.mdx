@@ -1,0 +1,46 @@
+---
+title: 'Ingesting Events'
+---
+
+### Ingesting Events
+
+Ingesting events is a feature that allows you to send events to Vayu. Events are used to track user interactions with your products and services.
+
+#### Sending Events
+
+You can send events using the `ingest` method available on the `events` object. This method requires an `IngestEventPayload` object as an argument, which allows you to send events with various attributes such as `name`, `timestamp`, and `properties`.
+
+We currently support payloads up to 50mb in size.
+
+
+### Example Code
+
+```typescript
+import { Vayu, IngestEventPayload } from "vayu-ts/v2";
+
+export async function IngestEvents() {
+  const apiKey: string = '{{ YOUR API KEY }}';
+
+  const vayu = new Vayu(apiKey);
+
+  await vayu.login();
+
+  const productEventName = '{{ YOUR EVENT NAME }}';
+  const customerAlias = '{{ YOUR CUSTOMER ALIAS }}';
+  const eventData = { /* Data */ };
+  const eventRef = '{{ UNIQUE EVENT REFERENCE }}';
+  const eventTimestamp = new Date().getTime(); // The time the event occurred in Unix time
+
+  const events: IngestEventPayload[] = [
+    {
+      customerAlias: customerAlias,
+      data: eventData,
+      eventName: productEventName,
+      ref: eventRef,
+      timestamp: eventTimestamp,
+    },
+  ];
+
+  return vayu.events.ingest(events);
+}
+```
