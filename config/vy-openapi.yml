@@ -3496,6 +3496,7 @@ components:
       enum:
         - Active
         - Inactive
+        - Expired
         - Terminated
         - PendingTermination
         - Error
@@ -3789,6 +3790,7 @@ components:
         - Overage
         - UpcomingRenewal
         - InvoiceApproved
+        - CustomerPortalLinkSent
     WebhookSubscribeRequest:
       type: object
       properties:
