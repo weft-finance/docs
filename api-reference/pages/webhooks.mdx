@@ -1,13 +1,16 @@
-# Webhooks
+---
+title: 'Webhooks'
+icon: 'bell'
+---
 
 Webhooks allow you to receive real-time notifications about important events in your Vayu account. This document describes the available webhook types and their payload structures.
 
 ## Available Webhooks
 
-| Webhook Type | Description | Trigger Condition | Return Type |
-|-------------|-------------|-------------------|-------------|
-| Overage | Notifies when a customer exceeds their provisioned amount for a product | Customer's consumption exceeds their provisioned amount | JSON |
-| Anonymous Customer Created | Notifies when a new anonymous customer is created in the system | Event was sent for a customer that couldn't exist | JSON |
+| Webhook Type | Description | Trigger Condition | 
+|-------------|-------------|-------------------|
+| Overage | Notifies when a customer exceeds their provisioned amount for a product | Customer's consumption exceeds their provisioned amount | 
+| Anonymous Customer Created | Notifies when a new anonymous customer is created in the system | Event was sent for a customer that couldn't exist |
 
 ## Webhook Payloads
 
@@ -30,7 +33,7 @@ The overage webhook is triggered when a customer exceeds their provisioned amoun
 }
 ```
 
-you can read more about the product consumption type in the [product consumption](api-reference/pages/product-consumption) page.
+you can read more about the product consumption type in the [ get product consumption endpoint](/api-reference/endpoints/product-consumptions/get-product-consumption) page.
 
 #### Example Payload
 

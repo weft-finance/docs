@@ -47,8 +47,7 @@
                 ]
               },
               {
-                "group": "Invoices",
-                "pages": [
+                "group": "Invoices", "pages": [
                   "documentation/guides/invoices/real-time-invoice",
                   "documentation/guides/invoices/billing-and-invoice-automation",
                   "documentation/guides/invoices/customer-portal"
@@ -69,7 +68,8 @@
               "api-reference/pages/pagination",
               "api-reference/pages/ingestion",
               "api-reference/pages/sending-events",
-              "api-reference/pages/browsing-events"
+              "api-reference/pages/browsing-events",
+              "api-reference/pages/webhooks"
             ]
           },
           {
