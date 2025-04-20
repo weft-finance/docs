@@ -1,0 +1,103 @@
+---
+title: 'Webhooks'
+icon: 'bell'
+---
+
+Webhooks allow you to receive real-time notifications about important events in your Vayu account. This document describes the available webhook types and their payload structures.
+
+## Available Webhooks
+
+| Webhook Type | Description | Trigger Condition | 
+|-------------|-------------|-------------------|
+| Overage | Notifies when a customer exceeds their provisioned amount for a product | Customer's consumption exceeds their provisioned amount | 
+| Anonymous Customer Created | Notifies when a new anonymous customer is created in the system | Event was sent for a customer that couldn't exist |
+
+## Webhook Payloads
+
+### Overage Notification
+
+The overage webhook is triggered when a customer exceeds their provisioned amount for a product. The payload includes detailed information about the product consumption.
+
+#### Payload Structure
+
+```json
+{
+  "productId": "string",          // The id of the product
+  "productName": "string",        // The name of the product 
+  "provisionedAmount": "number",  // The amount of units provisioned to the customer
+  "consumedAmount": "number",     // The amount of units consumed by the customer
+  "usagePercentage": "number",    // The percentage of the provisioned amount that has been consumed
+  "hasAccess": "boolean",         // Whether the customer has access to the product based on the provisioned amount
+  "remainingAmount": "number",    // The amount of units remaining to consume
+  "exceededAmount": "number"      // The amount of units exceeded
+}
+```
+
+you can read more about the product consumption type in the [ get product consumption endpoint](/api-reference/endpoints/product-consumptions/get-product-consumption) page.
+
+#### Example Payload
+
+```json
+{
+  "productId": "prod_123456789",
+  "productName": "Vayu Product",
+  "provisionedAmount": 1000,
+  "consumedAmount": 1200,
+  "usagePercentage": 120,
+  "hasAccess": false,
+  "remainingAmount": 0,
+  "exceededAmount": 200
+}
+```
+
+### Anonymous Customer Created
+
+This webhook is triggered when a new anonymous customer is created in the system. The payload contains basic customer information.
+
+#### Payload Structure
+
+```json
+{
+  "id": "string",           // The Vayu Id of the created customer
+  "externalId": "string",   // The assumed external Id of the customer
+  "aliases": "string[]",    // The aliases used to match events to this customer (will be the externalId for this event)
+  "name": "string"          // The temporary assumed name of the customer
+}
+```
+
+#### Example Payload
+
+```json
+{
+  "id": "cust_123456789",
+  "externalId": "ext_987654321",
+  "aliases": ["ext_987654321"],
+  "name": "Anonymous Customer"
+}
+```
+
+## Webhook Security
+
+For security purposes, all webhook requests include:
+- A timestamp header
+- The event type in the payload
+
+Note: Only HTTPS endpoints are supported. HTTP endpoints are not allowed for security reasons.
+
+Make sure to implement proper security measures for your webhook endpoints.
+
+## Best Practices
+
+1. Always verify webhook signatures
+2. Implement retry logic for failed webhook deliveries
+3. Keep your webhook endpoints secure and up-to-date
+4. Monitor webhook delivery status
+5. Handle duplicate webhook deliveries gracefully
+
+## Troubleshooting
+
+If you're not receiving webhooks:
+1. Verify your webhook URL is accessible from the internet
+2. Check that your endpoint returns a 2xx status code
+3. Ensure your webhook subscription is active
+4. Verify your webhook endpoint can handle the expected payload size 
