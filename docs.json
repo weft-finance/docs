@@ -180,7 +180,7 @@
               {
                 "group": "Product Consumption",
                 "pages": [
-                  "api-reference/endpoints/product-consumption/get-product-consumption"
+                  "api-reference/endpoints/product-consumptions/get-product-consumption"
                 ]
               },
               {
