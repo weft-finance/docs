@@ -156,20 +156,6 @@
                 ]
               },
               {
-                "group": "Reports",
-                "pages": [
-                  "api-reference/endpoints/reports/get-products-usage-report",
-                  "api-reference/endpoints/reports/get-commitment-report"
-                ]
-              },
-              {
-                "group": "Integrations",
-                "pages": [
-                  "api-reference/endpoints/integrations/sync-invoices-to-netsuite",
-                  "api-reference/endpoints/integrations/export-sales-order-to-netsuite"
-                ]
-              },
-              {
                 "group": "Credits",
                 "pages": [
                   "api-reference/endpoints/credits/retrieve-credit-ledger-entries-for-customer",
