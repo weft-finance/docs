@@ -178,6 +178,12 @@
                 ]
               },
               {
+                "group": "Product Consumption",
+                "pages": [
+                  "api-reference/endpoints/product-consumption/get-product-consumption"
+                ]
+              },
+              {
                 "group": "Webhooks",
                 "pages": [
                   "api-reference/endpoints/webhooks/subscribe-to-webhooks"
