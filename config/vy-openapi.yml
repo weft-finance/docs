@@ -44,9 +44,6 @@ tags:
     description: The credits tag is used for endpoints related to credit management.
   - name: webhooks
     description: The webhooks tag is used for endpoints related to webhook management.
-  - name: measurements
-    description: The measurements tag is used for endpoints related to measurement
-      management.
 components:
   securitySchemes:
     BearerAuthorizer:
@@ -66,66 +63,18 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/UpdateCustomerRequest"
-    UpdateProductRequest:
+    UpdateMeterRequest:
       required: true
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/UpdateProductRequest"
-    CreateProductRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/CreateProductRequest"
-    UpdateMeasurementRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/UpdateMeasurementRequest"
-    CreateMeasurementRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/CreateMeasurementRequest"
-    UpdatePlanRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/UpdatePlanRequest"
-    CreatePlanRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/CreatePlanRequest"
-    UpdateContractRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/UpdateContractRequest"
+            $ref: "#/components/schemas/UpdateMeterRequest"
     CreateContractRequest:
       required: true
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/CreateContractRequest"
-    UpdateInvoiceRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/UpdateInvoiceRequest"
-    CreateInvoiceRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/CreateInvoiceRequest"
     LoginRequest:
       required: true
       content:
@@ -183,18 +132,6 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/WebhookSubscribeRequest"
-    ShareInvoicesRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/ShareInvoicesRequest"
-    ReviseContractRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/ReviseContractRequest"
   responses:
     CreateCustomerResponse:
       description: RequestSuccess
@@ -226,78 +163,36 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/DeleteCustomerResponse"
-    GetProductResponse:
+    GetMeterResponse:
       description: RequestSuccess
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/GetProductResponse"
-    UpdateProductResponse:
+            $ref: "#/components/schemas/GetMeterResponse"
+    UpdateMeterResponse:
       description: RequestSuccess
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/UpdateProductResponse"
-    DeleteProductResponse:
+            $ref: "#/components/schemas/UpdateMeterResponse"
+    DeleteMeterResponse:
       description: RequestSuccess
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/DeleteProductResponse"
-    ListProductsResponse:
+            $ref: "#/components/schemas/DeleteMeterResponse"
+    ListMetersResponse:
       description: RequestSuccess
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/ListProductsResponse"
-    CreateProductResponse:
-      description: RequestSuccess
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/CreateProductResponse"
-    GetMeasurementResponse:
-      description: RequestSuccess
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/GetMeasurementResponse"
-    UpdateMeasurementResponse:
-      description: RequestSuccess
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/UpdateMeasurementResponse"
-    DeleteMeasurementResponse:
-      description: RequestSuccess
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/DeleteMeasurementResponse"
-    ListMeasurementsResponse:
-      description: RequestSuccess
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/ListMeasurementsResponse"
-    CreateMeasurementResponse:
-      description: RequestSuccess
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/CreateMeasurementResponse"
+            $ref: "#/components/schemas/ListMetersResponse"
     GetPlanResponse:
       description: RequestSuccess
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/GetPlanResponse"
-    UpdatePlanResponse:
-      description: RequestSuccess
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/UpdatePlanResponse"
     DeletePlanResponse:
       description: RequestSuccess
       content:
@@ -310,24 +205,12 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/ListPlansResponse"
-    CreatePlanResponse:
-      description: RequestSuccess
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/CreatePlanResponse"
     GetContractResponse:
       description: RequestSuccess
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/GetContractResponse"
-    UpdateContractResponse:
-      description: RequestSuccess
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/UpdateContractResponse"
     DeleteContractResponse:
       description: RequestSuccess
       content:
@@ -352,30 +235,12 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/GetInvoiceResponse"
-    UpdateInvoiceResponse:
-      description: RequestSuccess
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/UpdateInvoiceResponse"
-    DeleteInvoiceResponse:
-      description: RequestSuccess
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/DeleteInvoiceResponse"
     ListInvoicesResponse:
       description: RequestSuccess
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/ListInvoicesResponse"
-    CreateInvoiceResponse:
-      description: RequestSuccess
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/CreateInvoiceResponse"
     LoginResponse:
       description: RequestSuccess
       content:
@@ -444,12 +309,12 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/GetCustomerProductsConsumptionsResponse"
-    ApproveInvoiceResponse:
-      description: RequestSuccess
+    GetProductConsumptionResponse:
+      description: The response from the get product consumption action
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/ApproveInvoiceResponse"
+            $ref: "#/components/schemas/GetProductConsumptionResponse"
   parameters: {}
   schemas:
     Address:
@@ -863,385 +728,10 @@ components:
         The filter to apply to the events to be included in the meter.
             The filter object contains an array of Conditions, each condition represents a logical OR statement.
             Each condition contains an array of Criteria (criterions), each criterion represents a logical AND statement.
-    PerUnitPricingConfiguration:
+    GetMeterResponse:
       type: object
       properties:
-        price:
-          type: number
-          minimum: 0
-        chunkSize:
-          type: number
-          minimum: 0
-          exclusiveMinimum: true
-      required:
-        - price
-    PerUnitPricing:
-      type: object
-      properties:
-        pricingModel:
-          type: string
-          enum:
-            - PerUnit
-        priceConfiguration:
-          $ref: "#/components/schemas/PerUnitPricingConfiguration"
-      required:
-        - pricingModel
-        - priceConfiguration
-    PriceTier:
-      type: object
-      properties:
-        from:
-          type: number
-          minimum: 0
-        to:
-          type: number
-          minimum: 0
-        price:
-          type: number
-          minimum: 0
-        flatRate:
-          type: number
-        chunkSize:
-          type: number
-      required:
-        - from
-        - to
-        - price
-    PriceTiersList:
-      type: array
-      items:
-        $ref: "#/components/schemas/PriceTier"
-      minItems: 1
-    TiersPricingConfiguration:
-      type: object
-      properties:
-        tiers:
-          $ref: "#/components/schemas/PriceTiersList"
-        isVolume:
-          type: boolean
-          default: false
-        isFlatRate:
-          type: boolean
-          default: false
-        isChunked:
-          type: boolean
-          default: false
-        isRevShare:
-          type: boolean
-          default: false
-        useInfinity:
-          type: boolean
-          default: false
-      required:
-        - tiers
-    TiersPricing:
-      type: object
-      properties:
-        pricingModel:
-          type: string
-          enum:
-            - Tiers
-        priceConfiguration:
-          $ref: "#/components/schemas/TiersPricingConfiguration"
-      required:
-        - pricingModel
-        - priceConfiguration
-    TieredSubscriptionPricingConfiguration:
-      type: object
-      properties:
-        tiers:
-          $ref: "#/components/schemas/PriceTiersList"
-        isVolume:
-          type: boolean
-          default: true
-        maxUnits:
-          type: number
-        useInfinity:
-          type: boolean
-          default: false
-      required:
-        - tiers
-        - isVolume
-    TieredSubscriptionPricing:
-      type: object
-      properties:
-        pricingModel:
-          type: string
-          enum:
-            - TieredSubscription
-        priceConfiguration:
-          $ref: "#/components/schemas/TieredSubscriptionPricingConfiguration"
-      required:
-        - pricingModel
-        - priceConfiguration
-    OneTimePricingConfiguration:
-      type: object
-      properties:
-        price:
-          type: number
-        shouldCreateSeparateInvoice:
-          type: boolean
-          default: false
-        discountConfiguration:
-          type: object
-          properties:
-            name:
-              type: string
-              minLength: 1
-            type:
-              anyOf:
-                - type: string
-                  enum:
-                    - Fixed
-                - type: string
-                  enum:
-                    - Percentage
-            amountToDeduct:
-              type: number
-              minimum: 1
-          required:
-            - name
-            - type
-            - amountToDeduct
-      required:
-        - price
-        - shouldCreateSeparateInvoice
-    OneTimePricing:
-      type: object
-      properties:
-        pricingModel:
-          type: string
-          enum:
-            - FixedOneTime
-        priceConfiguration:
-          $ref: "#/components/schemas/OneTimePricingConfiguration"
-      required:
-        - pricingModel
-        - priceConfiguration
-    RecurringPricingConfiguration:
-      type: object
-      properties:
-        price:
-          type: number
-          minimum: 0
-        upfrontPay:
-          type: boolean
-          default: false
-        shouldCreateSeparateInvoice:
-          type: boolean
-          default: false
-        installments:
-          type: integer
-          minimum: 0
-        seats:
-          type: integer
-          minimum: 0
-        discountConfiguration:
-          type: object
-          properties:
-            name:
-              type: string
-              minLength: 1
-            type:
-              anyOf:
-                - type: string
-                  enum:
-                    - Fixed
-                - type: string
-                  enum:
-                    - Percentage
-            amountToDeduct:
-              type: number
-              minimum: 1
-          required:
-            - name
-            - type
-            - amountToDeduct
-      required:
-        - price
-        - upfrontPay
-        - shouldCreateSeparateInvoice
-    RecurringPricing:
-      type: object
-      properties:
-        pricingModel:
-          type: string
-          enum:
-            - Subscription
-        priceConfiguration:
-          $ref: "#/components/schemas/RecurringPricingConfiguration"
-      required:
-        - pricingModel
-        - priceConfiguration
-    CommercialTermsPricingConfiguration:
-      type: object
-      properties:
-        price:
-          type: number
-          minimum: 0
-        shouldCreateSeparateInvoice:
-          type: boolean
-          default: false
-        shouldSplitAmount:
-          type: boolean
-          default: false
-        discountConfiguration:
-          type: object
-          properties:
-            name:
-              type: string
-              minLength: 1
-            type:
-              anyOf:
-                - type: string
-                  enum:
-                    - Fixed
-                - type: string
-                  enum:
-                    - Percentage
-            amountToDeduct:
-              type: number
-              minimum: 1
-          required:
-            - name
-            - type
-            - amountToDeduct
-      required:
-        - price
-        - shouldCreateSeparateInvoice
-        - shouldSplitAmount
-    CommercialTermsPricing:
-      type: object
-      properties:
-        pricingModel:
-          type: string
-          enum:
-            - CommercialTerms
-        priceConfiguration:
-          $ref: "#/components/schemas/CommercialTermsPricingConfiguration"
-      required:
-        - pricingModel
-        - priceConfiguration
-    CommissionPricingConfiguration:
-      type: object
-      properties:
-        percentage:
-          type: number
-          minimum: 0.01
-      required:
-        - percentage
-    CommissionPricing:
-      type: object
-      properties:
-        pricingModel:
-          type: string
-          enum:
-            - Commission
-        priceConfiguration:
-          $ref: "#/components/schemas/CommissionPricingConfiguration"
-      required:
-        - pricingModel
-        - priceConfiguration
-    RefundPricingConfiguration:
-      type: object
-      properties:
-        price:
-          type: number
-        shouldCreateSeparateInvoice:
-          type: boolean
-          default: false
-      required:
-        - price
-        - shouldCreateSeparateInvoice
-    RefundPricing:
-      type: object
-      properties:
-        pricingModel:
-          type: string
-          enum:
-            - Refund
-        priceConfiguration:
-          $ref: "#/components/schemas/RefundPricingConfiguration"
-      required:
-        - pricingModel
-        - priceConfiguration
-    FixedDeductionPricingConfiguration:
-      type: object
-      properties:
-        amountToDeduct:
-          type: number
-          minimum: 0
-        installments:
-          type: integer
-          minimum: 0
-      required:
-        - amountToDeduct
-    FixedDeductionPricing:
-      type: object
-      properties:
-        pricingModel:
-          type: string
-          enum:
-            - FixedDeduction
-        priceConfiguration:
-          $ref: "#/components/schemas/FixedDeductionPricingConfiguration"
-      required:
-        - pricingModel
-        - priceConfiguration
-    PercentageDeductionPricingConfiguration:
-      type: object
-      properties:
-        percentageToDeduct:
-          type: number
-          minimum: 1
-        installments:
-          type: integer
-          minimum: 0
-      required:
-        - percentageToDeduct
-    PercentageDeductionPricing:
-      type: object
-      properties:
-        pricingModel:
-          type: string
-          enum:
-            - PercentageDeduction
-        priceConfiguration:
-          $ref: "#/components/schemas/PercentageDeductionPricingConfiguration"
-      required:
-        - pricingModel
-        - priceConfiguration
-    Pricing:
-      oneOf:
-        - $ref: "#/components/schemas/PerUnitPricing"
-        - $ref: "#/components/schemas/TiersPricing"
-        - $ref: "#/components/schemas/TieredSubscriptionPricing"
-        - $ref: "#/components/schemas/OneTimePricing"
-        - $ref: "#/components/schemas/RecurringPricing"
-        - $ref: "#/components/schemas/CommercialTermsPricing"
-        - $ref: "#/components/schemas/CommissionPricing"
-        - $ref: "#/components/schemas/RefundPricing"
-        - $ref: "#/components/schemas/FixedDeductionPricing"
-        - $ref: "#/components/schemas/PercentageDeductionPricing"
-      discriminator:
-        propertyName: pricingModel
-        mapping:
-          PerUnit: "#/components/schemas/PerUnitPricing"
-          Tiers: "#/components/schemas/TiersPricing"
-          TieredSubscription: "#/components/schemas/TieredSubscriptionPricing"
-          FixedOneTime: "#/components/schemas/OneTimePricing"
-          Subscription: "#/components/schemas/RecurringPricing"
-          CommercialTerms: "#/components/schemas/CommercialTermsPricing"
-          Commission: "#/components/schemas/CommissionPricing"
-          Refund: "#/components/schemas/RefundPricing"
-          FixedDeduction: "#/components/schemas/FixedDeductionPricing"
-          PercentageDeduction: "#/components/schemas/PercentageDeductionPricing"
-      description: The pricing data of the meter. The pricing data contains the
-        pricing model and the pricing details.
-    GetProductResponse:
-      type: object
-      properties:
-        product:
+        meter:
           type: object
           properties:
             name:
@@ -1256,8 +746,6 @@ components:
               $ref: "#/components/schemas/AggregationMethod"
             filter:
               $ref: "#/components/schemas/Filter"
-            pricing:
-              $ref: "#/components/schemas/Pricing"
             id:
               type: string
             createdAt:
@@ -1274,8 +762,8 @@ components:
             - createdAt
             - updatedAt
       required:
-        - product
-    UpdateProductRequest:
+        - meter
+    UpdateMeterRequest:
       type: object
       properties:
         name:
@@ -1290,13 +778,11 @@ components:
           $ref: "#/components/schemas/AggregationMethod"
         filter:
           $ref: "#/components/schemas/Filter"
-        pricing:
-          $ref: "#/components/schemas/Pricing"
       additionalProperties: false
-    UpdateProductResponse:
+    UpdateMeterResponse:
       type: object
       properties:
-        product:
+        meter:
           type: object
           properties:
             name:
@@ -1311,8 +797,6 @@ components:
               $ref: "#/components/schemas/AggregationMethod"
             filter:
               $ref: "#/components/schemas/Filter"
-            pricing:
-              $ref: "#/components/schemas/Pricing"
             id:
               type: string
             createdAt:
@@ -1329,11 +813,11 @@ components:
             - createdAt
             - updatedAt
       required:
-        - product
-    DeleteProductResponse:
+        - meter
+    DeleteMeterResponse:
       type: object
       properties:
-        product:
+        meter:
           type: object
           properties:
             name:
@@ -1348,8 +832,6 @@ components:
               $ref: "#/components/schemas/AggregationMethod"
             filter:
               $ref: "#/components/schemas/Filter"
-            pricing:
-              $ref: "#/components/schemas/Pricing"
             id:
               type: string
             createdAt:
@@ -1369,11 +851,11 @@ components:
             - updatedAt
             - deletedAt
       required:
-        - product
-    ListProductsResponse:
+        - meter
+    ListMetersResponse:
       type: object
       properties:
-        products:
+        meters:
           type: array
           items:
             type: object
@@ -1390,8 +872,6 @@ components:
                 $ref: "#/components/schemas/AggregationMethod"
               filter:
                 $ref: "#/components/schemas/Filter"
-              pricing:
-                $ref: "#/components/schemas/Pricing"
               id:
                 type: string
               createdAt:
@@ -1414,467 +894,9 @@ components:
         nextCursor:
           type: string
       required:
-        - products
+        - meters
         - total
         - hasMore
-    CreateProductRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          minLength: 1
-          description: The name of the meter
-        eventName:
-          type: string
-          minLength: 1
-          description: The name of the event that the meter is tracking.
-        aggregationMethod:
-          $ref: "#/components/schemas/AggregationMethod"
-        filter:
-          $ref: "#/components/schemas/Filter"
-        pricing:
-          $ref: "#/components/schemas/Pricing"
-      required:
-        - name
-        - eventName
-        - aggregationMethod
-    CreateProductResponse:
-      type: object
-      properties:
-        product:
-          type: object
-          properties:
-            name:
-              type: string
-              minLength: 1
-              description: The name of the meter
-            eventName:
-              type: string
-              minLength: 1
-              description: The name of the event that the meter is tracking.
-            aggregationMethod:
-              $ref: "#/components/schemas/AggregationMethod"
-            filter:
-              $ref: "#/components/schemas/Filter"
-            pricing:
-              $ref: "#/components/schemas/Pricing"
-            id:
-              type: string
-            createdAt:
-              type: string
-              format: date-time
-            updatedAt:
-              type: string
-              format: date-time
-          required:
-            - name
-            - eventName
-            - aggregationMethod
-            - id
-            - createdAt
-            - updatedAt
-      required:
-        - product
-    FullDayPeriod:
-      type: object
-      properties:
-        startTime:
-          type: string
-          format: date-time
-        endTime:
-          type: string
-          format: date-time
-      required:
-        - startTime
-        - endTime
-      description: The period of the measurement
-    GetMeasurementResponse:
-      type: object
-      properties:
-        measurement:
-          type: object
-          properties:
-            accountId:
-              type: string
-              pattern: ^[0-9a-fA-F]{24}$
-              description: The id of the account that the measurement is associated with
-            period:
-              $ref: "#/components/schemas/FullDayPeriod"
-            meterId:
-              type: string
-              pattern: ^[0-9a-fA-F]{24}$
-              description: The id of the meter that the measurement is associated with
-            customerId:
-              type: string
-              pattern: ^[0-9a-fA-F]{24}$
-              description: The id of the customer that the measurement is associated with
-            value:
-              type: number
-              minimum: 0
-              description: The value of the measurement
-            price:
-              anyOf:
-                - type: number
-                - type: object
-                  nullable: true
-                  enum:
-                    - null
-                - nullable: true
-              description: The price of the measurement
-            measurementPriceId:
-              anyOf:
-                - type: string
-                  pattern: ^[0-9a-fA-F]{24}$
-                - type: object
-                  nullable: true
-                  enum:
-                    - null
-                - nullable: true
-              description: The id of the measurement price that the measurement is associated
-                with
-            id:
-              type: string
-            createdAt:
-              type: string
-              format: date-time
-            updatedAt:
-              type: string
-              format: date-time
-          required:
-            - accountId
-            - period
-            - meterId
-            - customerId
-            - value
-            - id
-            - createdAt
-            - updatedAt
-      required:
-        - measurement
-    UpdateMeasurementRequest:
-      type: object
-      properties:
-        accountId:
-          type: string
-          pattern: ^[0-9a-fA-F]{24}$
-          description: The id of the account that the measurement is associated with
-        period:
-          $ref: "#/components/schemas/FullDayPeriod"
-        meterId:
-          type: string
-          pattern: ^[0-9a-fA-F]{24}$
-          description: The id of the meter that the measurement is associated with
-        customerId:
-          type: string
-          pattern: ^[0-9a-fA-F]{24}$
-          description: The id of the customer that the measurement is associated with
-        value:
-          type: number
-          minimum: 0
-          description: The value of the measurement
-        price:
-          type: number
-        measurementPriceId:
-          type: string
-          pattern: ^[0-9a-fA-F]{24}$
-      additionalProperties: false
-    UpdateMeasurementResponse:
-      type: object
-      properties:
-        measurement:
-          type: object
-          properties:
-            accountId:
-              type: string
-              pattern: ^[0-9a-fA-F]{24}$
-              description: The id of the account that the measurement is associated with
-            period:
-              $ref: "#/components/schemas/FullDayPeriod"
-            meterId:
-              type: string
-              pattern: ^[0-9a-fA-F]{24}$
-              description: The id of the meter that the measurement is associated with
-            customerId:
-              type: string
-              pattern: ^[0-9a-fA-F]{24}$
-              description: The id of the customer that the measurement is associated with
-            value:
-              type: number
-              minimum: 0
-              description: The value of the measurement
-            price:
-              anyOf:
-                - type: number
-                - type: object
-                  nullable: true
-                  enum:
-                    - null
-                - nullable: true
-              description: The price of the measurement
-            measurementPriceId:
-              anyOf:
-                - type: string
-                  pattern: ^[0-9a-fA-F]{24}$
-                - type: object
-                  nullable: true
-                  enum:
-                    - null
-                - nullable: true
-              description: The id of the measurement price that the measurement is associated
-                with
-            id:
-              type: string
-            createdAt:
-              type: string
-              format: date-time
-            updatedAt:
-              type: string
-              format: date-time
-          required:
-            - accountId
-            - period
-            - meterId
-            - customerId
-            - value
-            - id
-            - createdAt
-            - updatedAt
-      required:
-        - measurement
-    DeleteMeasurementResponse:
-      type: object
-      properties:
-        measurement:
-          type: object
-          properties:
-            accountId:
-              type: string
-              pattern: ^[0-9a-fA-F]{24}$
-              description: The id of the account that the measurement is associated with
-            period:
-              $ref: "#/components/schemas/FullDayPeriod"
-            meterId:
-              type: string
-              pattern: ^[0-9a-fA-F]{24}$
-              description: The id of the meter that the measurement is associated with
-            customerId:
-              type: string
-              pattern: ^[0-9a-fA-F]{24}$
-              description: The id of the customer that the measurement is associated with
-            value:
-              type: number
-              minimum: 0
-              description: The value of the measurement
-            price:
-              anyOf:
-                - type: number
-                - type: object
-                  nullable: true
-                  enum:
-                    - null
-                - nullable: true
-              description: The price of the measurement
-            measurementPriceId:
-              anyOf:
-                - type: string
-                  pattern: ^[0-9a-fA-F]{24}$
-                - type: object
-                  nullable: true
-                  enum:
-                    - null
-                - nullable: true
-              description: The id of the measurement price that the measurement is associated
-                with
-            id:
-              type: string
-            createdAt:
-              type: string
-              format: date-time
-            updatedAt:
-              type: string
-              format: date-time
-            deletedAt:
-              type: string
-          required:
-            - accountId
-            - period
-            - meterId
-            - customerId
-            - value
-            - id
-            - createdAt
-            - updatedAt
-            - deletedAt
-      required:
-        - measurement
-    ListMeasurementsResponse:
-      type: object
-      properties:
-        measurements:
-          type: array
-          items:
-            type: object
-            properties:
-              accountId:
-                type: string
-                pattern: ^[0-9a-fA-F]{24}$
-                description: The id of the account that the measurement is associated with
-              period:
-                $ref: "#/components/schemas/FullDayPeriod"
-              meterId:
-                type: string
-                pattern: ^[0-9a-fA-F]{24}$
-                description: The id of the meter that the measurement is associated with
-              customerId:
-                type: string
-                pattern: ^[0-9a-fA-F]{24}$
-                description: The id of the customer that the measurement is associated with
-              value:
-                type: number
-                minimum: 0
-                description: The value of the measurement
-              price:
-                anyOf:
-                  - type: number
-                  - type: object
-                    nullable: true
-                    enum:
-                      - null
-                  - nullable: true
-                description: The price of the measurement
-              measurementPriceId:
-                anyOf:
-                  - type: string
-                    pattern: ^[0-9a-fA-F]{24}$
-                  - type: object
-                    nullable: true
-                    enum:
-                      - null
-                  - nullable: true
-                description: The id of the measurement price that the measurement is associated
-                  with
-              id:
-                type: string
-              createdAt:
-                type: string
-                format: date-time
-              updatedAt:
-                type: string
-                format: date-time
-            required:
-              - accountId
-              - period
-              - meterId
-              - customerId
-              - value
-              - id
-              - createdAt
-              - updatedAt
-        total:
-          type: number
-        hasMore:
-          type: boolean
-        nextCursor:
-          type: string
-      required:
-        - measurements
-        - total
-        - hasMore
-    CreateMeasurementRequest:
-      type: object
-      properties:
-        accountId:
-          type: string
-          pattern: ^[0-9a-fA-F]{24}$
-          description: The id of the account that the measurement is associated with
-        period:
-          $ref: "#/components/schemas/FullDayPeriod"
-        meterId:
-          type: string
-          pattern: ^[0-9a-fA-F]{24}$
-          description: The id of the meter that the measurement is associated with
-        customerId:
-          type: string
-          pattern: ^[0-9a-fA-F]{24}$
-          description: The id of the customer that the measurement is associated with
-        value:
-          type: number
-          minimum: 0
-          description: The value of the measurement
-        price:
-          type: number
-        measurementPriceId:
-          type: string
-          pattern: ^[0-9a-fA-F]{24}$
-      required:
-        - accountId
-        - period
-        - meterId
-        - customerId
-        - value
-    CreateMeasurementResponse:
-      type: object
-      properties:
-        measurement:
-          type: object
-          properties:
-            accountId:
-              type: string
-              pattern: ^[0-9a-fA-F]{24}$
-              description: The id of the account that the measurement is associated with
-            period:
-              $ref: "#/components/schemas/FullDayPeriod"
-            meterId:
-              type: string
-              pattern: ^[0-9a-fA-F]{24}$
-              description: The id of the meter that the measurement is associated with
-            customerId:
-              type: string
-              pattern: ^[0-9a-fA-F]{24}$
-              description: The id of the customer that the measurement is associated with
-            value:
-              type: number
-              minimum: 0
-              description: The value of the measurement
-            price:
-              anyOf:
-                - type: number
-                - type: object
-                  nullable: true
-                  enum:
-                    - null
-                - nullable: true
-              description: The price of the measurement
-            measurementPriceId:
-              anyOf:
-                - type: string
-                  pattern: ^[0-9a-fA-F]{24}$
-                - type: object
-                  nullable: true
-                  enum:
-                    - null
-                - nullable: true
-              description: The id of the measurement price that the measurement is associated
-                with
-            id:
-              type: string
-            createdAt:
-              type: string
-              format: date-time
-            updatedAt:
-              type: string
-              format: date-time
-          required:
-            - accountId
-            - period
-            - meterId
-            - customerId
-            - value
-            - id
-            - createdAt
-            - updatedAt
-      required:
-        - measurement
     PlanStatus:
       type: string
       enum:
@@ -1931,163 +953,6 @@ components:
       description: The billing data of the plan. The billing data contains the billing
         interval, the plan duration the payment terms and auto renewal, and the
         billing method.
-    CreditProductConfiguration:
-      type: object
-      properties:
-        shouldCreateSeparateInvoice:
-          type: boolean
-          default: false
-      required:
-        - shouldCreateSeparateInvoice
-    CreditProductSettings:
-      type: object
-      properties:
-        productType:
-          type: string
-          enum:
-            - Credit
-        productConfiguration:
-          $ref: "#/components/schemas/CreditProductConfiguration"
-      required:
-        - productType
-        - productConfiguration
-    ServiceProductConfiguration:
-      type: object
-      properties: {}
-    ServiceProductSettings:
-      type: object
-      properties:
-        productType:
-          type: string
-          enum:
-            - Service
-        productConfiguration:
-          $ref: "#/components/schemas/ServiceProductConfiguration"
-      required:
-        - productType
-        - productConfiguration
-    ProductSettings:
-      oneOf:
-        - $ref: "#/components/schemas/CreditProductSettings"
-        - $ref: "#/components/schemas/ServiceProductSettings"
-      discriminator:
-        propertyName: productType
-        mapping:
-          Credit: "#/components/schemas/CreditProductSettings"
-          Service: "#/components/schemas/ServiceProductSettings"
-    NewProductVariant:
-      type: object
-      properties:
-        meterId:
-          type: string
-          pattern: ^[0-9a-fA-F]{24}$
-        pricing:
-          $ref: "#/components/schemas/Pricing"
-        settings:
-          $ref: "#/components/schemas/ProductSettings"
-        description:
-          type: string
-          minLength: 1
-        name:
-          type: string
-          minLength: 1
-      required:
-        - pricing
-        - name
-    CommitmentType:
-      type: string
-      enum:
-        - Price
-        - Units
-    ErpMetadata:
-      type: object
-      properties:
-        erpId:
-          type: string
-          minLength: 1
-        erpName:
-          type: string
-          minLength: 1
-        displayId:
-          type: string
-          nullable: true
-          minLength: 1
-      required:
-        - erpId
-        - erpName
-    NewProduct:
-      type: object
-      properties:
-        name:
-          type: string
-          minLength: 1
-        description:
-          type: string
-        variants:
-          type: array
-          items:
-            $ref: "#/components/schemas/NewProductVariant"
-          minItems: 1
-        basePrice:
-          type: number
-          minimum: 0
-        commitment:
-          type: object
-          properties:
-            amount:
-              type: number
-              minimum: 0
-            type:
-              $ref: "#/components/schemas/CommitmentType"
-            replenishmentInterval:
-              anyOf:
-                - type: number
-                - type: object
-                  nullable: true
-                  enum:
-                    - null
-                - nullable: true
-          required:
-            - amount
-            - type
-        currencyCommitment:
-          type: number
-        paymentTerm:
-          $ref: "#/components/schemas/PaymentTerm"
-        billingInterval:
-          $ref: "#/components/schemas/BillingInterval"
-        accumulationInterval:
-          type: number
-        proRata:
-          type: boolean
-        erpMetadata:
-          $ref: "#/components/schemas/ErpMetadata"
-        rateMultiplier:
-          type: number
-        isPeriodicVariants:
-          type: boolean
-          default: false
-      required:
-        - variants
-        - paymentTerm
-        - billingInterval
-    PlanTrial:
-      type: object
-      properties:
-        duration:
-          type: number
-        type:
-          type: string
-          enum:
-            - Weeks
-            - Months
-        free:
-          type: boolean
-          default: false
-      required:
-        - duration
-        - type
-        - free
     GetPlanResponse:
       type: object
       properties:
@@ -2102,47 +967,6 @@ components:
               $ref: "#/components/schemas/PlanStatus"
             billingData:
               $ref: "#/components/schemas/PlanBillingData"
-            description:
-              anyOf:
-                - type: string
-                  minLength: 1
-                - type: object
-                  nullable: true
-                  enum:
-                    - null
-                - nullable: true
-              description: The description of the plan
-            products:
-              type: array
-              items:
-                allOf:
-                  - $ref: "#/components/schemas/NewProduct"
-                  - type: object
-                    properties: {}
-              minItems: 1
-              description: The products of the plan
-            trial:
-              anyOf:
-                - $ref: "#/components/schemas/PlanTrial"
-                - type: object
-                  nullable: true
-                  enum:
-                    - null
-                - nullable: true
-              description: The trial duration of the plan
-            basedFromPlanId:
-              anyOf:
-                - type: string
-                - type: object
-                  nullable: true
-                  enum:
-                    - null
-                - nullable: true
-              description: The plan ID that this plan is based on
-            purchaseOrder:
-              type: string
-              maxLength: 20
-              description: The purchase order number
             id:
               type: string
             createdAt:
@@ -2152,107 +976,9 @@ components:
               type: string
               format: date-time
           required:
-            - id
-            - createdAt
-            - updatedAt
-      required:
-        - plan
-    UpdatePlanRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          minLength: 1
-          description: The name of the plan
-        status:
-          $ref: "#/components/schemas/PlanStatus"
-        billingData:
-          $ref: "#/components/schemas/PlanBillingData"
-        description:
-          type: string
-          minLength: 1
-        products:
-          type: array
-          items:
-            allOf:
-              - $ref: "#/components/schemas/NewProduct"
-              - type: object
-                properties: {}
-          minItems: 1
-          description: The products of the plan
-        trial:
-          $ref: "#/components/schemas/PlanTrial"
-        basedFromPlanId:
-          type: string
-        purchaseOrder:
-          type: string
-          maxLength: 20
-          description: The purchase order number
-      additionalProperties: false
-    UpdatePlanResponse:
-      type: object
-      properties:
-        plan:
-          type: object
-          properties:
-            name:
-              type: string
-              minLength: 1
-              description: The name of the plan
-            status:
-              $ref: "#/components/schemas/PlanStatus"
-            billingData:
-              $ref: "#/components/schemas/PlanBillingData"
-            description:
-              anyOf:
-                - type: string
-                  minLength: 1
-                - type: object
-                  nullable: true
-                  enum:
-                    - null
-                - nullable: true
-              description: The description of the plan
-            products:
-              type: array
-              items:
-                allOf:
-                  - $ref: "#/components/schemas/NewProduct"
-                  - type: object
-                    properties: {}
-              minItems: 1
-              description: The products of the plan
-            trial:
-              anyOf:
-                - $ref: "#/components/schemas/PlanTrial"
-                - type: object
-                  nullable: true
-                  enum:
-                    - null
-                - nullable: true
-              description: The trial duration of the plan
-            basedFromPlanId:
-              anyOf:
-                - type: string
-                - type: object
-                  nullable: true
-                  enum:
-                    - null
-                - nullable: true
-              description: The plan ID that this plan is based on
-            purchaseOrder:
-              type: string
-              maxLength: 20
-              description: The purchase order number
-            id:
-              type: string
-            createdAt:
-              type: string
-              format: date-time
-            updatedAt:
-              type: string
-              format: date-time
-          required:
+            - name
+            - status
+            - billingData
             - id
             - createdAt
             - updatedAt
@@ -2272,47 +998,6 @@ components:
               $ref: "#/components/schemas/PlanStatus"
             billingData:
               $ref: "#/components/schemas/PlanBillingData"
-            description:
-              anyOf:
-                - type: string
-                  minLength: 1
-                - type: object
-                  nullable: true
-                  enum:
-                    - null
-                - nullable: true
-              description: The description of the plan
-            products:
-              type: array
-              items:
-                allOf:
-                  - $ref: "#/components/schemas/NewProduct"
-                  - type: object
-                    properties: {}
-              minItems: 1
-              description: The products of the plan
-            trial:
-              anyOf:
-                - $ref: "#/components/schemas/PlanTrial"
-                - type: object
-                  nullable: true
-                  enum:
-                    - null
-                - nullable: true
-              description: The trial duration of the plan
-            basedFromPlanId:
-              anyOf:
-                - type: string
-                - type: object
-                  nullable: true
-                  enum:
-                    - null
-                - nullable: true
-              description: The plan ID that this plan is based on
-            purchaseOrder:
-              type: string
-              maxLength: 20
-              description: The purchase order number
             id:
               type: string
             createdAt:
@@ -2324,6 +1009,9 @@ components:
             deletedAt:
               type: string
           required:
+            - name
+            - status
+            - billingData
             - id
             - createdAt
             - updatedAt
@@ -2346,47 +1034,6 @@ components:
                 $ref: "#/components/schemas/PlanStatus"
               billingData:
                 $ref: "#/components/schemas/PlanBillingData"
-              description:
-                anyOf:
-                  - type: string
-                    minLength: 1
-                  - type: object
-                    nullable: true
-                    enum:
-                      - null
-                  - nullable: true
-                description: The description of the plan
-              products:
-                type: array
-                items:
-                  allOf:
-                    - $ref: "#/components/schemas/NewProduct"
-                    - type: object
-                      properties: {}
-                minItems: 1
-                description: The products of the plan
-              trial:
-                anyOf:
-                  - $ref: "#/components/schemas/PlanTrial"
-                  - type: object
-                    nullable: true
-                    enum:
-                      - null
-                  - nullable: true
-                description: The trial duration of the plan
-              basedFromPlanId:
-                anyOf:
-                  - type: string
-                  - type: object
-                    nullable: true
-                    enum:
-                      - null
-                  - nullable: true
-                description: The plan ID that this plan is based on
-              purchaseOrder:
-                type: string
-                maxLength: 20
-                description: The purchase order number
               id:
                 type: string
               createdAt:
@@ -2396,6 +1043,9 @@ components:
                 type: string
                 format: date-time
             required:
+              - name
+              - status
+              - billingData
               - id
               - createdAt
               - updatedAt
@@ -2409,166 +1059,7 @@ components:
         - plans
         - total
         - hasMore
-    CreatePlanRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          minLength: 1
-          description: The name of the plan
-        status:
-          $ref: "#/components/schemas/PlanStatus"
-        billingData:
-          $ref: "#/components/schemas/PlanBillingData"
-        description:
-          type: string
-          minLength: 1
-        products:
-          type: array
-          items:
-            allOf:
-              - $ref: "#/components/schemas/NewProduct"
-              - type: object
-                properties: {}
-          minItems: 1
-          description: The products of the plan
-        trial:
-          $ref: "#/components/schemas/PlanTrial"
-        basedFromPlanId:
-          type: string
-        purchaseOrder:
-          type: string
-          maxLength: 20
-          description: The purchase order number
-    CreatePlanResponse:
-      type: object
-      properties:
-        plan:
-          type: object
-          properties:
-            name:
-              type: string
-              minLength: 1
-              description: The name of the plan
-            status:
-              $ref: "#/components/schemas/PlanStatus"
-            billingData:
-              $ref: "#/components/schemas/PlanBillingData"
-            description:
-              anyOf:
-                - type: string
-                  minLength: 1
-                - type: object
-                  nullable: true
-                  enum:
-                    - null
-                - nullable: true
-              description: The description of the plan
-            products:
-              type: array
-              items:
-                allOf:
-                  - $ref: "#/components/schemas/NewProduct"
-                  - type: object
-                    properties: {}
-              minItems: 1
-              description: The products of the plan
-            trial:
-              anyOf:
-                - $ref: "#/components/schemas/PlanTrial"
-                - type: object
-                  nullable: true
-                  enum:
-                    - null
-                - nullable: true
-              description: The trial duration of the plan
-            basedFromPlanId:
-              anyOf:
-                - type: string
-                - type: object
-                  nullable: true
-                  enum:
-                    - null
-                - nullable: true
-              description: The plan ID that this plan is based on
-            purchaseOrder:
-              type: string
-              maxLength: 20
-              description: The purchase order number
-            id:
-              type: string
-            createdAt:
-              type: string
-              format: date-time
-            updatedAt:
-              type: string
-              format: date-time
-          required:
-            - id
-            - createdAt
-            - updatedAt
-      required:
-        - plan
     GetContractResponse:
-      type: object
-      properties:
-        contract:
-          type: object
-          properties:
-            startDate:
-              type: string
-              description: The start date of the contract
-              format: date-time
-            endDate:
-              type: string
-              description: The end date of the contract
-              format: date-time
-            customerId:
-              type: string
-              pattern: ^[0-9a-fA-F]{24}$
-              description: The id of the customer that the contract is associated with
-            planId:
-              type: string
-              pattern: ^[0-9a-fA-F]{24}$
-              description: The id of the plan that the contract is associated with
-            id:
-              type: string
-            createdAt:
-              type: string
-              format: date-time
-            updatedAt:
-              type: string
-              format: date-time
-          required:
-            - startDate
-            - customerId
-            - planId
-            - id
-            - createdAt
-            - updatedAt
-      required:
-        - contract
-    UpdateContractRequest:
-      type: object
-      properties:
-        startDate:
-          type: string
-          description: The start date of the contract
-          format: date-time
-        endDate:
-          type: string
-          description: The end date of the contract
-          format: date-time
-        customerId:
-          type: string
-          pattern: ^[0-9a-fA-F]{24}$
-          description: The id of the customer that the contract is associated with
-        planId:
-          type: string
-          pattern: ^[0-9a-fA-F]{24}$
-          description: The id of the plan that the contract is associated with
-      additionalProperties: false
-    UpdateContractResponse:
       type: object
       properties:
         contract:
@@ -2760,6 +1251,19 @@ components:
             - updatedAt
       required:
         - contract
+    FullDayPeriod:
+      type: object
+      properties:
+        startTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
+      required:
+        - startTime
+        - endTime
+      description: The billing cycle of the invoice, consists of a start and end date
     LineItem:
       type: object
       properties:
@@ -2814,9 +1318,7 @@ components:
               description: The name of the invoice, usually a description of the billing
                 period
             billingCycle:
-              allOf:
-                - $ref: "#/components/schemas/FullDayPeriod"
-                - description: The billing cycle of the invoice, consists of a start and end date
+              $ref: "#/components/schemas/FullDayPeriod"
             lineItems:
               type: array
               items:
@@ -2841,134 +1343,6 @@ components:
             - id
             - createdAt
             - updatedAt
-      required:
-        - invoice
-    UpdateInvoiceRequest:
-      type: object
-      properties:
-        customerId:
-          type: string
-          pattern: ^[0-9a-fA-F]{24}$
-          description: The id of the customer that the invoice is associated with
-        contractId:
-          type: string
-          pattern: ^[0-9a-fA-F]{24}$
-          description: The id of the contract that the invoice is associated with
-        name:
-          type: string
-          minLength: 1
-          description: The name of the invoice, usually a description of the billing period
-        billingCycle:
-          allOf:
-            - $ref: "#/components/schemas/FullDayPeriod"
-            - description: The billing cycle of the invoice, consists of a start and end date
-        lineItems:
-          type: array
-          items:
-            $ref: "#/components/schemas/LineItem"
-        amount:
-          type: number
-          description: The total amount of the invoice
-      additionalProperties: false
-    UpdateInvoiceResponse:
-      type: object
-      properties:
-        invoice:
-          type: object
-          properties:
-            customerId:
-              type: string
-              pattern: ^[0-9a-fA-F]{24}$
-              description: The id of the customer that the invoice is associated with
-            contractId:
-              type: string
-              pattern: ^[0-9a-fA-F]{24}$
-              description: The id of the contract that the invoice is associated with
-            name:
-              type: string
-              minLength: 1
-              description: The name of the invoice, usually a description of the billing
-                period
-            billingCycle:
-              allOf:
-                - $ref: "#/components/schemas/FullDayPeriod"
-                - description: The billing cycle of the invoice, consists of a start and end date
-            lineItems:
-              type: array
-              items:
-                $ref: "#/components/schemas/LineItem"
-            amount:
-              type: number
-              description: The total amount of the invoice
-            id:
-              type: string
-            createdAt:
-              type: string
-              format: date-time
-            updatedAt:
-              type: string
-              format: date-time
-          required:
-            - customerId
-            - name
-            - billingCycle
-            - lineItems
-            - amount
-            - id
-            - createdAt
-            - updatedAt
-      required:
-        - invoice
-    DeleteInvoiceResponse:
-      type: object
-      properties:
-        invoice:
-          type: object
-          properties:
-            customerId:
-              type: string
-              pattern: ^[0-9a-fA-F]{24}$
-              description: The id of the customer that the invoice is associated with
-            contractId:
-              type: string
-              pattern: ^[0-9a-fA-F]{24}$
-              description: The id of the contract that the invoice is associated with
-            name:
-              type: string
-              minLength: 1
-              description: The name of the invoice, usually a description of the billing
-                period
-            billingCycle:
-              allOf:
-                - $ref: "#/components/schemas/FullDayPeriod"
-                - description: The billing cycle of the invoice, consists of a start and end date
-            lineItems:
-              type: array
-              items:
-                $ref: "#/components/schemas/LineItem"
-            amount:
-              type: number
-              description: The total amount of the invoice
-            id:
-              type: string
-            createdAt:
-              type: string
-              format: date-time
-            updatedAt:
-              type: string
-              format: date-time
-            deletedAt:
-              type: string
-          required:
-            - customerId
-            - name
-            - billingCycle
-            - lineItems
-            - amount
-            - id
-            - createdAt
-            - updatedAt
-            - deletedAt
       required:
         - invoice
     ListInvoicesResponse:
@@ -2993,9 +1367,7 @@ components:
                 description: The name of the invoice, usually a description of the billing
                   period
               billingCycle:
-                allOf:
-                  - $ref: "#/components/schemas/FullDayPeriod"
-                  - description: The billing cycle of the invoice, consists of a start and end date
+                $ref: "#/components/schemas/FullDayPeriod"
               lineItems:
                 type: array
                 items:
@@ -3030,87 +1402,6 @@ components:
         - invoices
         - total
         - hasMore
-    CreateInvoiceRequest:
-      type: object
-      properties:
-        customerId:
-          type: string
-          pattern: ^[0-9a-fA-F]{24}$
-          description: The id of the customer that the invoice is associated with
-        contractId:
-          type: string
-          pattern: ^[0-9a-fA-F]{24}$
-          description: The id of the contract that the invoice is associated with
-        name:
-          type: string
-          minLength: 1
-          description: The name of the invoice, usually a description of the billing period
-        billingCycle:
-          allOf:
-            - $ref: "#/components/schemas/FullDayPeriod"
-            - description: The billing cycle of the invoice, consists of a start and end date
-        lineItems:
-          type: array
-          items:
-            $ref: "#/components/schemas/LineItem"
-        amount:
-          type: number
-          description: The total amount of the invoice
-      required:
-        - customerId
-        - name
-        - billingCycle
-        - lineItems
-        - amount
-    CreateInvoiceResponse:
-      type: object
-      properties:
-        invoice:
-          type: object
-          properties:
-            customerId:
-              type: string
-              pattern: ^[0-9a-fA-F]{24}$
-              description: The id of the customer that the invoice is associated with
-            contractId:
-              type: string
-              pattern: ^[0-9a-fA-F]{24}$
-              description: The id of the contract that the invoice is associated with
-            name:
-              type: string
-              minLength: 1
-              description: The name of the invoice, usually a description of the billing
-                period
-            billingCycle:
-              allOf:
-                - $ref: "#/components/schemas/FullDayPeriod"
-                - description: The billing cycle of the invoice, consists of a start and end date
-            lineItems:
-              type: array
-              items:
-                $ref: "#/components/schemas/LineItem"
-            amount:
-              type: number
-              description: The total amount of the invoice
-            id:
-              type: string
-            createdAt:
-              type: string
-              format: date-time
-            updatedAt:
-              type: string
-              format: date-time
-          required:
-            - customerId
-            - name
-            - billingCycle
-            - lineItems
-            - amount
-            - id
-            - createdAt
-            - updatedAt
-      required:
-        - invoice
     LoginRequest:
       type: object
       properties:
@@ -3198,8 +1489,6 @@ components:
           $ref: "#/components/schemas/AggregationMethod"
         filter:
           $ref: "#/components/schemas/Filter"
-        pricing:
-          $ref: "#/components/schemas/Pricing"
       required:
         - name
         - eventName
@@ -3811,26 +2100,41 @@ components:
         productName:
           type: string
           minLength: 1
-        commitment:
+          description: The name of the product.
+          example: Vayu Product
+        provisionedAmount:
           type: number
           minimum: 0
-          description: The amount of the commitment on the product.
+          description: The amount of units provisioned to the customer.
           example: 10
-        consumption:
+        consumedAmount:
           type: number
           minimum: 0
-          description: The amount of the product that been consumed.
+          description: The amount of units consumed by the customer.
           example: 10
-        ratio:
+        usagePercentage:
           type: number
           minimum: 0
-          description: The ratio of the consumption to the commitment.
-          example: 1.5
+          description: The percentage of the provisioned amount that has been consumed.
+        hasAccess:
+          type: boolean
+          description: Whether the customer has access to the product.
+          example: true
+        remainingAmount:
+          type: number
+          description: The amount of units remaining to consume.
+          example: 10
+        exceededAmount:
+          type: number
+          description: The amount of units exceeded.
+          example: 10
       required:
         - productId
-        - commitment
-        - consumption
-        - ratio
+        - productName
+        - provisionedAmount
+        - consumedAmount
+        - usagePercentage
+        - hasAccess
     GetCustomerProductsConsumptionsResponse:
       type: object
       properties:
@@ -3840,79 +2144,15 @@ components:
             $ref: "#/components/schemas/ProductConsumption"
       required:
         - productsConsumptions
-    ApproveInvoiceResponse:
+    GetProductConsumptionResponse:
       type: object
       properties:
-        invoiceId:
-          type: string
-          pattern: ^[0-9a-fA-F]{24}$
-        approvedAt:
-          type: string
-          format: date-time
+        productConsumption:
+          allOf:
+            - $ref: "#/components/schemas/ProductConsumption"
+            - description: The product consumption data
       required:
-        - invoiceId
-        - approvedAt
-    shareInvoicesRequest:
-      type: object
-      properties:
-        emailOverride:
-          type: string
-          format: email
-        invoiceId:
-          type: string
-      required:
-        - invoiceId
-    ShareInvoicesRequest:
-      type: array
-      items:
-        $ref: "#/components/schemas/shareInvoicesRequest"
-    NewPlan:
-      type: object
-      properties:
-        name:
-          type: string
-          minLength: 1
-        description:
-          type: string
-          minLength: 1
-        products:
-          type: array
-          items:
-            allOf:
-              - $ref: "#/components/schemas/NewProduct"
-              - type: object
-                properties: {}
-          minItems: 1
-        billingData:
-          $ref: "#/components/schemas/PlanBillingData"
-        status:
-          $ref: "#/components/schemas/PlanStatus"
-        basedFromPlanId:
-          type: string
-        trial:
-          $ref: "#/components/schemas/PlanTrial"
-        purchaseOrder:
-          type: string
-          maxLength: 20
-        rawSyncData:
-          type: object
-          properties: {}
-      required:
-        - name
-        - products
-        - billingData
-        - status
-    ReviseContractRequest:
-      type: object
-      properties:
-        plan:
-          $ref: "#/components/schemas/NewPlan"
-        startDate:
-          type: string
-          format: date-time
-      required:
-        - plan
-        - startDate
+        - productConsumption
     Limit:
       type: number
       maximum: 1000
@@ -3922,10 +2162,7 @@ components:
     CustomerId:
       type: string
       pattern: ^[0-9a-fA-F]{24}$
-    ProductId:
-      type: string
-      pattern: ^[0-9a-fA-F]{24}$
-    MeasurementId:
+    MeterId:
       type: string
       pattern: ^[0-9a-fA-F]{24}$
     PlanId:
@@ -3951,6 +2188,8 @@ components:
     ReportId:
       type: string
     ExternalId:
+      type: string
+    ProductId:
       type: string
 paths:
   /customers:
@@ -4089,24 +2328,24 @@ paths:
           description: Too Many Requests
         "500":
           description: Internal Server Error
-  /products/{productId}:
+  /meters/{meterId}:
     get:
       tags:
         - meters
-      operationId: getProduct
-      description: Get a Product by id.
-      summary: Get Product
+      operationId: getMeter
+      description: Get a Meter by id.
+      summary: Get Meter
       security:
         - BearerAuthorizer: []
       parameters:
         - schema:
-            $ref: "#/components/schemas/ProductId"
+            $ref: "#/components/schemas/MeterId"
           required: true
           in: path
-          name: productId
+          name: meterId
       responses:
         "200":
-          $ref: "#/components/responses/GetProductResponse"
+          $ref: "#/components/responses/GetMeterResponse"
         "400":
           description: Bad Request
         "401":
@@ -4120,22 +2359,22 @@ paths:
     put:
       tags:
         - meters
-      operationId: updateProduct
-      description: Update a Product by id.
-      summary: Update Product
+      operationId: updateMeter
+      description: Update a Meter by id.
+      summary: Update Meter
       security:
         - BearerAuthorizer: []
       requestBody:
-        $ref: "#/components/requestBodies/UpdateProductRequest"
+        $ref: "#/components/requestBodies/UpdateMeterRequest"
       parameters:
         - schema:
-            $ref: "#/components/schemas/ProductId"
+            $ref: "#/components/schemas/MeterId"
           required: true
           in: path
-          name: productId
+          name: meterId
       responses:
         "200":
-          $ref: "#/components/responses/UpdateProductResponse"
+          $ref: "#/components/responses/UpdateMeterResponse"
         "400":
           description: Bad Request
         "401":
@@ -4149,20 +2388,20 @@ paths:
     delete:
       tags:
         - meters
-      operationId: deleteProduct
-      description: Delete a Product by id.
-      summary: Delete Product
+      operationId: deleteMeter
+      description: Delete a Meter by id.
+      summary: Delete Meter
       security:
         - BearerAuthorizer: []
       parameters:
         - schema:
-            $ref: "#/components/schemas/ProductId"
+            $ref: "#/components/schemas/MeterId"
           required: true
           in: path
-          name: productId
+          name: meterId
       responses:
         "200":
-          $ref: "#/components/responses/DeleteProductResponse"
+          $ref: "#/components/responses/DeleteMeterResponse"
         "400":
           description: Bad Request
         "401":
@@ -4173,13 +2412,13 @@ paths:
           description: Too Many Requests
         "500":
           description: Internal Server Error
-  /products:
+  /meters:
     get:
       tags:
         - meters
-      operationId: listProducts
-      description: Get a list of Products.
-      summary: List Products
+      operationId: listMeters
+      description: Get a list of Meters.
+      summary: List Meters
       security:
         - BearerAuthorizer: []
       parameters:
@@ -4195,164 +2434,7 @@ paths:
           name: cursor
       responses:
         "200":
-          $ref: "#/components/responses/ListProductsResponse"
-        "400":
-          description: Bad Request
-        "401":
-          description: Unauthorized
-        "429":
-          description: Too Many Requests
-        "500":
-          description: Internal Server Error
-    post:
-      tags:
-        - meters
-      operationId: createProduct
-      description: Create a new Product.
-      summary: Create Product
-      security:
-        - BearerAuthorizer: []
-      requestBody:
-        $ref: "#/components/requestBodies/CreateProductRequest"
-      responses:
-        "200":
-          $ref: "#/components/responses/CreateProductResponse"
-        "400":
-          description: Bad Request
-        "401":
-          description: Unauthorized
-        "429":
-          description: Too Many Requests
-        "500":
-          description: Internal Server Error
-  /measurements/{measurementId}:
-    get:
-      tags:
-        - measurements
-      operationId: getMeasurement
-      description: Get a Measurement by id.
-      summary: Get Measurement
-      security:
-        - BearerAuthorizer: []
-      parameters:
-        - schema:
-            $ref: "#/components/schemas/MeasurementId"
-          required: true
-          in: path
-          name: measurementId
-      responses:
-        "200":
-          $ref: "#/components/responses/GetMeasurementResponse"
-        "400":
-          description: Bad Request
-        "401":
-          description: Unauthorized
-        "404":
-          description: Not Found
-        "429":
-          description: Too Many Requests
-        "500":
-          description: Internal Server Error
-    put:
-      tags:
-        - measurements
-      operationId: updateMeasurement
-      description: Update a Measurement by id.
-      summary: Update Measurement
-      security:
-        - BearerAuthorizer: []
-      requestBody:
-        $ref: "#/components/requestBodies/UpdateMeasurementRequest"
-      parameters:
-        - schema:
-            $ref: "#/components/schemas/MeasurementId"
-          required: true
-          in: path
-          name: measurementId
-      responses:
-        "200":
-          $ref: "#/components/responses/UpdateMeasurementResponse"
-        "400":
-          description: Bad Request
-        "401":
-          description: Unauthorized
-        "404":
-          description: Not Found
-        "429":
-          description: Too Many Requests
-        "500":
-          description: Internal Server Error
-    delete:
-      tags:
-        - measurements
-      operationId: deleteMeasurement
-      description: Delete a Measurement by id.
-      summary: Delete Measurement
-      security:
-        - BearerAuthorizer: []
-      parameters:
-        - schema:
-            $ref: "#/components/schemas/MeasurementId"
-          required: true
-          in: path
-          name: measurementId
-      responses:
-        "200":
-          $ref: "#/components/responses/DeleteMeasurementResponse"
-        "400":
-          description: Bad Request
-        "401":
-          description: Unauthorized
-        "404":
-          description: Not Found
-        "429":
-          description: Too Many Requests
-        "500":
-          description: Internal Server Error
-  /measurements:
-    get:
-      tags:
-        - measurements
-      operationId: listMeasurements
-      description: Get a list of Measurements.
-      summary: List Measurements
-      security:
-        - BearerAuthorizer: []
-      parameters:
-        - schema:
-            $ref: "#/components/schemas/Limit"
-          required: false
-          in: query
-          name: limit
-        - schema:
-            $ref: "#/components/schemas/Cursor"
-          required: false
-          in: query
-          name: cursor
-      responses:
-        "200":
-          $ref: "#/components/responses/ListMeasurementsResponse"
-        "400":
-          description: Bad Request
-        "401":
-          description: Unauthorized
-        "429":
-          description: Too Many Requests
-        "500":
-          description: Internal Server Error
-    post:
-      tags:
-        - measurements
-      operationId: createMeasurement
-      description: Create a new Measurement.
-      summary: Create Measurement
-      security:
-        - BearerAuthorizer: []
-      requestBody:
-        $ref: "#/components/requestBodies/CreateMeasurementRequest"
-      responses:
-        "200":
-          $ref: "#/components/responses/CreateMeasurementResponse"
+          $ref: "#/components/responses/ListMetersResponse"
         "400":
           description: Bad Request
         "401":
@@ -4379,35 +2461,6 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/GetPlanResponse"
-        "400":
-          description: Bad Request
-        "401":
-          description: Unauthorized
-        "404":
-          description: Not Found
-        "429":
-          description: Too Many Requests
-        "500":
-          description: Internal Server Error
-    put:
-      tags:
-        - plans
-      operationId: updatePlan
-      description: Update a Plan by id.
-      summary: Update Plan
-      security:
-        - BearerAuthorizer: []
-      requestBody:
-        $ref: "#/components/requestBodies/UpdatePlanRequest"
-      parameters:
-        - schema:
-            $ref: "#/components/schemas/PlanId"
-          required: true
-          in: path
-          name: planId
-      responses:
-        "200":
-          $ref: "#/components/responses/UpdatePlanResponse"
         "400":
           description: Bad Request
         "401":
@@ -4476,27 +2529,6 @@ paths:
           description: Too Many Requests
         "500":
           description: Internal Server Error
-    post:
-      tags:
-        - plans
-      operationId: createPlan
-      description: Create a new Plan.
-      summary: Create Plan
-      security:
-        - BearerAuthorizer: []
-      requestBody:
-        $ref: "#/components/requestBodies/CreatePlanRequest"
-      responses:
-        "200":
-          $ref: "#/components/responses/CreatePlanResponse"
-        "400":
-          description: Bad Request
-        "401":
-          description: Unauthorized
-        "429":
-          description: Too Many Requests
-        "500":
-          description: Internal Server Error
   /contracts/{contractId}:
     get:
       tags:
@@ -4515,35 +2547,6 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/GetContractResponse"
-        "400":
-          description: Bad Request
-        "401":
-          description: Unauthorized
-        "404":
-          description: Not Found
-        "429":
-          description: Too Many Requests
-        "500":
-          description: Internal Server Error
-    put:
-      tags:
-        - contracts
-      operationId: updateContract
-      description: Update a Contract by id.
-      summary: Update Contract
-      security:
-        - BearerAuthorizer: []
-      requestBody:
-        $ref: "#/components/requestBodies/UpdateContractRequest"
-      parameters:
-        - schema:
-            $ref: "#/components/schemas/ContractId"
-          required: true
-          in: path
-          name: contractId
-      responses:
-        "200":
-          $ref: "#/components/responses/UpdateContractResponse"
         "400":
           description: Bad Request
         "401":
@@ -4661,62 +2664,6 @@ paths:
           description: Too Many Requests
         "500":
           description: Internal Server Error
-    put:
-      tags:
-        - invoices
-      operationId: updateInvoice
-      description: Update a Invoice by id.
-      summary: Update Invoice
-      security:
-        - BearerAuthorizer: []
-      requestBody:
-        $ref: "#/components/requestBodies/UpdateInvoiceRequest"
-      parameters:
-        - schema:
-            $ref: "#/components/schemas/InvoiceId"
-          required: true
-          in: path
-          name: invoiceId
-      responses:
-        "200":
-          $ref: "#/components/responses/UpdateInvoiceResponse"
-        "400":
-          description: Bad Request
-        "401":
-          description: Unauthorized
-        "404":
-          description: Not Found
-        "429":
-          description: Too Many Requests
-        "500":
-          description: Internal Server Error
-    delete:
-      tags:
-        - invoices
-      operationId: deleteInvoice
-      description: Delete a Invoice by id.
-      summary: Delete Invoice
-      security:
-        - BearerAuthorizer: []
-      parameters:
-        - schema:
-            $ref: "#/components/schemas/InvoiceId"
-          required: true
-          in: path
-          name: invoiceId
-      responses:
-        "200":
-          $ref: "#/components/responses/DeleteInvoiceResponse"
-        "400":
-          description: Bad Request
-        "401":
-          description: Unauthorized
-        "404":
-          description: Not Found
-        "429":
-          description: Too Many Requests
-        "500":
-          description: Internal Server Error
   /invoices:
     get:
       tags:
@@ -4740,27 +2687,6 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/ListInvoicesResponse"
-        "400":
-          description: Bad Request
-        "401":
-          description: Unauthorized
-        "429":
-          description: Too Many Requests
-        "500":
-          description: Internal Server Error
-    post:
-      tags:
-        - invoices
-      operationId: createInvoice
-      description: Create a new Invoice.
-      summary: Create Invoice
-      security:
-        - BearerAuthorizer: []
-      requestBody:
-        $ref: "#/components/requestBodies/CreateInvoiceRequest"
-      responses:
-        "200":
-          $ref: "#/components/responses/CreateInvoiceResponse"
         "400":
           description: Bad Request
         "401":
@@ -5218,72 +3144,30 @@ paths:
           description: Too Many Requests
         "500":
           description: Internal Server Error
-  /invoice/approve:
-    post:
+  /product-consumption/{productId}:
+    get:
       tags:
-        - invoices
-      operationId: approveInvoice
+        - product-consumptions
+      operationId: getProductConsumption
+      description: Use this action to get the consumption data for a product
+      summary: Get product consumption
       security:
         - BearerAuthorizer: []
       parameters:
         - schema:
-            $ref: "#/components/schemas/InvoiceId"
-          required: false
-          in: query
-          name: invoiceId
-      responses:
-        "200":
-          $ref: "#/components/responses/ApproveInvoiceResponse"
-        "400":
-          description: Bad Request
-        "401":
-          description: Unauthorized
-        "429":
-          description: Too Many Requests
-        "500":
-          description: Internal Server Error
-  /invoices/share:
-    post:
-      tags:
-        - invoices
-      operationId: shareInvoices
-      security:
-        - BearerAuthorizer: []
-      requestBody:
-        $ref: "#/components/requestBodies/ShareInvoicesRequest"
-      responses:
-        "200":
-          $ref: "#/components/responses/RequestSuccess"
-        "400":
-          description: Bad Request
-        "401":
-          description: Unauthorized
-        "429":
-          description: Too Many Requests
-        "500":
-          description: Internal Server Error
-  /contract/revise/{contractId}:
-    post:
-      tags:
-        - contracts
-      operationId: reviseContract
-      security:
-        - BearerAuthorizer: []
-      requestBody:
-        $ref: "#/components/requestBodies/ReviseContractRequest"
-      parameters:
-        - schema:
-            $ref: "#/components/schemas/ContractId"
+            $ref: "#/components/schemas/ProductId"
           required: true
           in: path
-          name: contractId
+          name: productId
       responses:
         "200":
-          $ref: "#/components/responses/RequestSuccess"
+          $ref: "#/components/responses/GetProductConsumptionResponse"
         "400":
           description: Bad Request
         "401":
           description: Unauthorized
+        "404":
+          description: Not Found
         "429":
           description: Too Many Requests
         "500":
