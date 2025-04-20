@@ -309,6 +309,12 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/GetCustomerProductsConsumptionsResponse"
+    GetProductConsumptionResponse:
+      description: The response from the get product consumption action
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/GetProductConsumptionResponse"
   parameters: {}
   schemas:
     Address:
@@ -2094,26 +2100,41 @@ components:
         productName:
           type: string
           minLength: 1
-        commitment:
+          description: The name of the product.
+          example: Vayu Product
+        provisionedAmount:
           type: number
           minimum: 0
-          description: The amount of the commitment on the product.
+          description: The amount of units provisioned to the customer.
           example: 10
-        consumption:
+        consumedAmount:
           type: number
           minimum: 0
-          description: The amount of the product that been consumed.
+          description: The amount of units consumed by the customer.
           example: 10
-        ratio:
+        usagePercentage:
           type: number
           minimum: 0
-          description: The ratio of the consumption to the commitment.
-          example: 1.5
+          description: The percentage of the provisioned amount that has been consumed.
+        hasAccess:
+          type: boolean
+          description: Whether the customer has access to the product.
+          example: true
+        remainingAmount:
+          type: number
+          description: The amount of units remaining to consume.
+          example: 10
+        exceededAmount:
+          type: number
+          description: The amount of units exceeded.
+          example: 10
       required:
         - productId
-        - commitment
-        - consumption
-        - ratio
+        - productName
+        - provisionedAmount
+        - consumedAmount
+        - usagePercentage
+        - hasAccess
     GetCustomerProductsConsumptionsResponse:
       type: object
       properties:
@@ -2123,6 +2144,15 @@ components:
             $ref: "#/components/schemas/ProductConsumption"
       required:
         - productsConsumptions
+    GetProductConsumptionResponse:
+      type: object
+      properties:
+        productConsumption:
+          allOf:
+            - $ref: "#/components/schemas/ProductConsumption"
+            - description: The product consumption data
+      required:
+        - productConsumption
     Limit:
       type: number
       maximum: 1000
@@ -2158,6 +2188,8 @@ components:
     ReportId:
       type: string
     ExternalId:
+      type: string
+    ProductId:
       type: string
 paths:
   /customers:
@@ -3102,6 +3134,34 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/GetCustomerProductsConsumptionsResponse"
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+        "429":
+          description: Too Many Requests
+        "500":
+          description: Internal Server Error
+  /product-consumption/{productId}:
+    get:
+      tags:
+        - product-consumptions
+      operationId: getProductConsumption
+      description: Use this action to get the consumption data for a product
+      summary: Get product consumption
+      security:
+        - BearerAuthorizer: []
+      parameters:
+        - schema:
+            $ref: "#/components/schemas/ProductId"
+          required: true
+          in: path
+          name: productId
+      responses:
+        "200":
+          $ref: "#/components/responses/GetProductConsumptionResponse"
         "400":
           description: Bad Request
         "401":
