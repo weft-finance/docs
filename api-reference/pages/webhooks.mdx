@@ -79,25 +79,74 @@ This webhook is triggered when a new anonymous customer is created in the system
 ## Webhook Security
 
 For security purposes, all webhook requests include:
-- A timestamp header
+- A timestamp header (in seconds)
+- A signature header (RSA-SHA256 signed message of 'timestamp.payload')
 - The event type in the payload
 
-Note: Only HTTPS endpoints are supported. HTTP endpoints are not allowed for security reasons.
+> Note: Only HTTPS endpoints are supported. HTTP endpoints are not allowed for security reasons.
 
-Make sure to implement proper security measures for your webhook endpoints.
+###Signature Verification:
+To ensure the webhook is authentic, you must verify the webhook signature using the public key provided by Vayu.
 
-## Best Practices
+Here's a ready-to-use helper function you can drop into your backend codebase:
 
-1. Always verify webhook signatures
-2. Implement retry logic for failed webhook deliveries
-3. Keep your webhook endpoints secure and up-to-date
-4. Monitor webhook delivery status
-5. Handle duplicate webhook deliveries gracefully
+#### Typescript:
 
-## Troubleshooting
+```typescript
+app.post('/webhooks', (req, res) => {
+  const payload = JSON.stringify(req.body);
+  const timestamp = Number(req.headers['x-timestamp']);
+  const signature = String(req.headers['x-signature']);
 
-If you're not receiving webhooks:
-1. Verify your webhook URL is accessible from the internet
-2. Check that your endpoint returns a 2xx status code
-3. Ensure your webhook subscription is active
-4. Verify your webhook endpoint can handle the expected payload size 
+  // Important to login before verifying webhook signatures.
+  await vayu.login();
+  
+  const isValid = vayu.verifyWebhookSignature({
+    payload,
+    timestamp,
+    signature,
+  });
+
+  if (!isValid) {
+    // Handle invalid token.
+  }
+
+  // Proceed with webhook handling
+  console.log('Webhook is valid', JSON.parse(payload));
+  
+  // ... Handle event.
+  
+  res.sendStatus(200);
+});
+```
+
+#### Python:
+
+Here's a ready-to-use helper function you can drop into your backend codebase:
+
+```python
+@app.route('/webhooks', methods=['POST'])
+def webhooks():
+    payload = request.get_data(as_text=True)
+    timestamp = int(request.headers.get('X-Timestamp', '0'))
+    signature = request.headers.get('X-Signature', '')
+    
+    # Important: authenticate with Vayu before verifying webhook signatures
+    vayu.login()
+    
+    is_valid = vayu.verify_webhook_signature(
+        payload=payload,
+        timestamp=timestamp,
+        signature=signature
+    )
+    
+    if not is_valid:
+        # Handle invalid token
+    
+    # Proceed with webhook handling
+    print('Webhook is valid:', payload)
+
+    # ... Handle event.
+    
+    return '', 200
+```
