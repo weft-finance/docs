@@ -69,12 +69,6 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/UpdateMeterRequest"
-    CreateContractRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/CreateContractRequest"
     LoginRequest:
       required: true
       content:
@@ -101,6 +95,18 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/SendEventsRequest"
+    NetSuiteSyncInvoicesRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/NetSuiteSyncInvoicesRequest"
+    NetSuiteExportSalesOrderRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/NetSuiteExportSalesOrderRequest"
     GrantCreditsRequest:
       required: true
       content:
@@ -211,12 +217,6 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/ListContractsResponse"
-    CreateContractResponse:
-      description: RequestSuccess
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/CreateContractResponse"
     GetInvoiceResponse:
       description: RequestSuccess
       content:
@@ -265,14 +265,32 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/DeleteEventResponse"
+    GetProductsUsageReportResponse:
+      description: response contains the products usage report
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/GetProductsUsageReportResponse"
+    GetCommitmentReportResponse:
+      description: response contains the commitment report
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/GetCommitmentReportResponse"
+    NetSuiteSyncInvoicesResponse:
+      description: RequestSuccess
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/NetSuiteSyncInvoicesResponse"
+    RequestSuccess:
+      description: RequestSuccess
     ListCreditLedgerEntriesResponse:
       description: RequestSuccess
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/ListCreditLedgerEntriesResponse"
-    RequestSuccess:
-      description: RequestSuccess
     GetCustomerProductsConsumptionsResponse:
       description: response contains the products consumptions by the customer id
       content:
@@ -1159,68 +1177,6 @@ components:
         - contracts
         - total
         - hasMore
-    CreateContractRequest:
-      type: object
-      properties:
-        startDate:
-          type: string
-          description: The start date of the contract
-          format: date-time
-        endDate:
-          type: string
-          description: The end date of the contract
-          format: date-time
-        customerId:
-          type: string
-          pattern: ^[0-9a-fA-F]{24}$
-          description: The id of the customer that the contract is associated with
-        planId:
-          type: string
-          pattern: ^[0-9a-fA-F]{24}$
-          description: The id of the plan that the contract is associated with
-      required:
-        - startDate
-        - customerId
-        - planId
-    CreateContractResponse:
-      type: object
-      properties:
-        contract:
-          type: object
-          properties:
-            startDate:
-              type: string
-              description: The start date of the contract
-              format: date-time
-            endDate:
-              type: string
-              description: The end date of the contract
-              format: date-time
-            customerId:
-              type: string
-              pattern: ^[0-9a-fA-F]{24}$
-              description: The id of the customer that the contract is associated with
-            planId:
-              type: string
-              pattern: ^[0-9a-fA-F]{24}$
-              description: The id of the plan that the contract is associated with
-            id:
-              type: string
-            createdAt:
-              type: string
-              format: date-time
-            updatedAt:
-              type: string
-              format: date-time
-          required:
-            - startDate
-            - customerId
-            - planId
-            - id
-            - createdAt
-            - updatedAt
-      required:
-        - contract
     FullDayPeriod:
       type: object
       properties:
@@ -1750,6 +1706,242 @@ components:
           description: The event matching the provided refId
       required:
         - event
+    ContractStatus:
+      type: string
+      enum:
+        - Active
+        - Inactive
+        - Expired
+        - Terminated
+        - PendingTermination
+        - Error
+    Currency:
+      type: string
+      enum:
+        - USD
+        - EUR
+        - GBP
+        - ILS
+    GetProductsUsageReportResponse:
+      type: object
+      properties:
+        contractStatus:
+          $ref: "#/components/schemas/ContractStatus"
+        customerName:
+          type: string
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        contractName:
+          type: string
+        contractStartDate:
+          type: string
+          format: date-time
+        contractEndDate:
+          type: string
+          format: date-time
+        daysToContractEnd:
+          type: number
+        productVariantName:
+          type: string
+        commitmentConsumptionPercentage:
+          type: number
+        totalCommitmentCurrencyAmount:
+          type: number
+        totalCommitmentUnitsAmount:
+          type: number
+        commercialTermsAmount:
+          type: number
+        erpId:
+          type: string
+        currency:
+          $ref: "#/components/schemas/Currency"
+        usageConsumptionCurrencyAmount:
+          type: number
+        usageConsumptionUnitsAmount:
+          type: number
+      required:
+        - contractStatus
+        - customerName
+        - startDate
+        - endDate
+        - contractStartDate
+        - productVariantName
+        - currency
+    GetCommitmentReportResponse:
+      type: object
+      properties:
+        contractStatus:
+          $ref: "#/components/schemas/ContractStatus"
+        customerName:
+          type: string
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        contractName:
+          type: string
+        contractStartDate:
+          type: string
+          format: date-time
+        contractEndDate:
+          type: string
+          format: date-time
+        daysToContractEnd:
+          type: number
+        productVariantName:
+          type: string
+        commitmentConsumptionCurrencyAmount:
+          type: number
+        commitmentConsumptionUnitsAmount:
+          type: number
+        commitmentConsumptionPercentage:
+          type: number
+        totalCommitmentCurrencyAmount:
+          type: number
+        totalCommitmentUnitsAmount:
+          type: number
+        commercialTermsAmount:
+          type: number
+        erpId:
+          type: string
+        currency:
+          $ref: "#/components/schemas/Currency"
+      required:
+        - contractStatus
+        - customerName
+        - startDate
+        - endDate
+        - contractStartDate
+        - productVariantName
+        - commitmentConsumptionCurrencyAmount
+        - commitmentConsumptionUnitsAmount
+        - commitmentConsumptionPercentage
+        - totalCommitmentCurrencyAmount
+        - totalCommitmentUnitsAmount
+        - currency
+    NetSuiteSyncInvoicesRequest:
+      type: object
+      properties:
+        integrationType:
+          type: string
+          enum:
+            - upsertInvoice
+        uid:
+          type: string
+        data:
+          type: object
+          properties:
+            startDate:
+              type: string
+              format: date-time
+            endDate:
+              type: string
+              format: date-time
+            tranDate:
+              type: string
+              format: date-time
+            memo:
+              type: string
+            externalId:
+              type: string
+              pattern: ^[0-9a-fA-F]{24}$
+            entity:
+              type: object
+              properties:
+                id:
+                  type: string
+              required:
+                - id
+            account:
+              type: object
+              properties:
+                id:
+                  type: string
+              required:
+                - id
+            item:
+              type: object
+              properties:
+                items:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      item:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                        required:
+                          - id
+                      quantity:
+                        type: number
+                      amount:
+                        type: number
+                      description:
+                        type: string
+                      memo:
+                        type: string
+                    required:
+                      - item
+                      - quantity
+                      - amount
+              required:
+                - items
+            discountItem:
+              type: object
+              properties:
+                id:
+                  type: string
+              required:
+                - id
+            discountRate:
+              type: number
+          required:
+            - startDate
+            - endDate
+            - tranDate
+            - memo
+            - externalId
+            - entity
+            - item
+      required:
+        - integrationType
+        - uid
+        - data
+    NetSuiteSyncInvoicesResponse:
+      type: object
+      properties:
+        recordId:
+          type: string
+        tranId:
+          type: string
+      required:
+        - recordId
+        - tranId
+    NetSuiteExportSalesOrderRequest:
+      type: object
+      properties:
+        contractId:
+          type: string
+          pattern: ^[0-9a-fA-F]{24}$
+        productsIds:
+          type: array
+          items:
+            type: string
+            pattern: ^[0-9a-fA-F]{24}$
+        subsidiaryId:
+          type: string
+      required:
+        - contractId
+        - productsIds
+        - subsidiaryId
     BillingCycleStatus:
       type: string
       enum:
@@ -1918,6 +2110,8 @@ components:
       type: string
       minLength: 1
     RefId:
+      type: string
+    ReportId:
       type: string
     ExternalId:
       type: string
@@ -2347,27 +2541,6 @@ paths:
           description: Too Many Requests
         "500":
           description: Internal Server Error
-    post:
-      tags:
-        - contracts
-      operationId: createContract
-      description: Create a new Contract.
-      summary: Create Contract
-      security:
-        - BearerAuthorizer: []
-      requestBody:
-        $ref: "#/components/requestBodies/CreateContractRequest"
-      responses:
-        "200":
-          $ref: "#/components/responses/CreateContractResponse"
-        "400":
-          description: Bad Request
-        "401":
-          description: Unauthorized
-        "429":
-          description: Too Many Requests
-        "500":
-          description: Internal Server Error
   /invoices/{invoiceId}:
     get:
       tags:
@@ -2598,6 +2771,111 @@ paths:
           description: Unauthorized
         "404":
           description: Not Found
+        "429":
+          description: Too Many Requests
+        "500":
+          description: Internal Server Error
+  /report/products-usage:
+    get:
+      tags:
+        - reports
+      operationId: getProductsUsageReport
+      description: Use this endpoint to get the products usage report.
+      summary: Get products usage report
+      security:
+        - BearerAuthorizer: []
+      parameters:
+        - schema:
+            $ref: "#/components/schemas/ReportId"
+          required: false
+          in: query
+          name: reportId
+        - schema:
+            $ref: "#/components/schemas/Limit"
+          required: false
+          in: query
+          name: limit
+        - schema:
+            $ref: "#/components/schemas/Cursor"
+          required: false
+          in: query
+          name: cursor
+      responses:
+        "200":
+          $ref: "#/components/responses/GetProductsUsageReportResponse"
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "429":
+          description: Too Many Requests
+        "500":
+          description: Internal Server Error
+  /report/commitment:
+    get:
+      tags:
+        - reports
+      operationId: getCommitmentReportResponse
+      summary: "Get commitment report "
+      security:
+        - BearerAuthorizer: []
+      parameters:
+        - schema:
+            $ref: "#/components/schemas/ReportId"
+          required: false
+          in: query
+          name: reportId
+      responses:
+        "200":
+          $ref: "#/components/responses/GetCommitmentReportResponse"
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "429":
+          description: Too Many Requests
+        "500":
+          description: Internal Server Error
+  /integrations/netsuite/sync-invoices:
+    post:
+      tags:
+        - integrations
+      operationId: net-suite-sync-invoices
+      description: This endpoint is used to sync invoices to NetSuite.
+      summary: Sync invoices to NetSuite
+      security:
+        - BearerAuthorizer: []
+      requestBody:
+        $ref: "#/components/requestBodies/NetSuiteSyncInvoicesRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/NetSuiteSyncInvoicesResponse"
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "429":
+          description: Too Many Requests
+        "500":
+          description: Internal Server Error
+  /integrations/netsuite/export-sales-order:
+    post:
+      tags:
+        - integrations
+      operationId: export-net-suite-sales-order
+      description: This endpoint is used to export sales order to NetSuite.
+      summary: Export sales order to NetSuite
+      security:
+        - BearerAuthorizer: []
+      requestBody:
+        $ref: "#/components/requestBodies/NetSuiteExportSalesOrderRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/RequestSuccess"
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
         "429":
           description: Too Many Requests
         "500":
