@@ -22,7 +22,9 @@
           },
           {
             "group": "Product log",
-            "pages": ["documentation/change-log/03-2025"]
+            "pages": [
+              "documentation/change-log/03-2025"
+            ]
           },
           {
             "group": "Guides",
@@ -47,7 +49,8 @@
                 ]
               },
               {
-                "group": "Invoices", "pages": [
+                "group": "Invoices",
+                "pages": [
                   "documentation/guides/invoices/real-time-invoice",
                   "documentation/guides/invoices/billing-and-invoice-automation",
                   "documentation/guides/invoices/customer-portal"
@@ -64,6 +67,7 @@
             "group": "API Documentation",
             "pages": [
               "api-reference/pages/introduction",
+              "api-reference/pages/connecting-to-vayu",
               "api-reference/pages/sdk",
               "api-reference/pages/pagination",
               "api-reference/pages/ingestion",
@@ -106,6 +110,7 @@
                 "group": "Measurements",
                 "pages": [
                   "api-reference/endpoints/measurements/get-measurement",
+                  "api-reference/endpoints/measurements/update-measurement",
                   "api-reference/endpoints/measurements/list-measurements",
                   "api-reference/endpoints/measurements/create-measurement",
                   "api-reference/endpoints/measurements/delete-measurement"
