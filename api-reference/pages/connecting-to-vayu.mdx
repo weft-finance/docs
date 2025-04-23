@@ -1,0 +1,47 @@
+---
+title: 'Connecting to Vayu'
+icon: 'key'
+---
+
+To connect to Vayu and get your API credentials, follow these steps:
+
+1. Log into Vayu at [http://app.withvayu.com](http://app.withvayu.com)
+2. Navigate to the Integrations section
+3. Click "Connect" on the Vayu card
+
+A side pane will open with two important fields:
+
+1. **Client ID** - This is used to identify your organization when making requests to Vayu
+2. **Fetch your API token** - This is used to authenticate you when making requests to Vayu
+
+## Important Notes
+
+- Once you generate the API token, make sure to click the copy button as it will not be visible to you in the future after closing the pane
+- You can only have one active API token at a time
+- To refresh your API token:
+  1. First revoke the existing token (from the same place you generated it)
+  2. Then click generate again to create a new token 
+
+## Using Your Credentials
+
+### With the Vayu SDK
+
+When using the Vayu SDK:
+1. Set your client ID as an environment variable:
+   ```bash
+   export VAYU_CLIENT_ID=your_client_id_here
+   ```
+2. Pass your API token when initializing the Vayu client
+
+For more details about using the SDK, see the [SDK section](/api-reference/pages/sdk).
+
+### Direct API Usage
+
+When making direct API calls without the SDK:
+- Include your client ID in the request headers:
+  ```
+  x-api-key: your_client_id_here
+  ```
+- When using the API for login, you can read about the login request payload in the [login endpoint documentation](/api-reference/endpoints/auth/login-by-obtaining-a-new-access-token)
+
+Make sure to keep your client ID and API token secure and never expose them in client-side code. 
