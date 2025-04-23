@@ -87,46 +87,19 @@
                 ]
               },
               {
-                "group": "Products",
-                "pages": [
-                  "api-reference/endpoints/meters/get-product",
-                  "api-reference/endpoints/meters/update-product",
-                  "api-reference/endpoints/meters/delete-product",
-                  "api-reference/endpoints/meters/list-products",
-                  "api-reference/endpoints/meters/create-product"
-                ]
-              },
-              {
-                "group": "Plans",
-                "pages": [
-                  "api-reference/endpoints/plans/get-plan",
-                  "api-reference/endpoints/plans/delete-plan",
-                  "api-reference/endpoints/plans/list-plans",
-                  "api-reference/endpoints/plans/create-plan",
-                  "api-reference/endpoints/plans/update-plan"
-                ]
-              },
-              {
                 "group": "Contracts",
                 "pages": [
                   "api-reference/endpoints/contracts/get-contract",
                   "api-reference/endpoints/contracts/delete-contract",
                   "api-reference/endpoints/contracts/list-contracts",
-                  "api-reference/endpoints/contracts/create-contract",
-                  "api-reference/endpoints/contracts/update-contract",
-                  "api-reference/endpoints/contracts/revise-contract"
+                  "api-reference/endpoints/contracts/create-contract"
                 ]
               },
               {
                 "group": "Invoices",
                 "pages": [
                   "api-reference/endpoints/invoices/get-invoice",
-                  "api-reference/endpoints/invoices/list-invoices",
-                  "api-reference/endpoints/invoices/create-invoice",
-                  "api-reference/endpoints/invoices/update-invoice",
-                  "api-reference/endpoints/invoices/delete-invoice",
-                  "api-reference/endpoints/invoices/share-invoices",
-                  "api-reference/endpoints/invoices/approve-invoice"
+                  "api-reference/endpoints/invoices/list-invoices"
                 ]
               },
               {
@@ -135,7 +108,6 @@
                   "api-reference/endpoints/measurements/get-measurement",
                   "api-reference/endpoints/measurements/list-measurements",
                   "api-reference/endpoints/measurements/create-measurement",
-                  "api-reference/endpoints/measurements/update-measurement",
                   "api-reference/endpoints/measurements/delete-measurement"
                 ]
               },
