@@ -327,6 +327,15 @@ components:
           type: boolean
       required:
         - email
+    CustomerSource:
+      type: string
+      nullable: true
+      enum:
+        - Stripe
+        - Ingestion
+        - Api
+        - Salesforce
+      description: The source of the customer
     CreateCustomerRequest:
       type: object
       properties:
@@ -350,10 +359,17 @@ components:
             $ref: "#/components/schemas/Contact"
           description: The contacts of the customer. Contact marked as primary is the
             target for invoice sharing.
+        source:
+          $ref: "#/components/schemas/CustomerSource"
         externalId:
           type: string
           minLength: 1
           description: The external ID of the customer
+        customerErpId:
+          type: string
+          nullable: true
+          minLength: 1
+          description: The ID of the customer in the ERP system
       required:
         - name
     CreateCustomerResponse:
@@ -382,10 +398,17 @@ components:
                 $ref: "#/components/schemas/Contact"
               description: The contacts of the customer. Contact marked as primary is the
                 target for invoice sharing.
+            source:
+              $ref: "#/components/schemas/CustomerSource"
             externalId:
               type: string
               minLength: 1
               description: The external ID of the customer
+            customerErpId:
+              type: string
+              nullable: true
+              minLength: 1
+              description: The ID of the customer in the ERP system
             id:
               type: string
             createdAt:
@@ -429,10 +452,17 @@ components:
                   $ref: "#/components/schemas/Contact"
                 description: The contacts of the customer. Contact marked as primary is the
                   target for invoice sharing.
+              source:
+                $ref: "#/components/schemas/CustomerSource"
               externalId:
                 type: string
                 minLength: 1
                 description: The external ID of the customer
+              customerErpId:
+                type: string
+                nullable: true
+                minLength: 1
+                description: The ID of the customer in the ERP system
               id:
                 type: string
               createdAt:
@@ -482,10 +512,17 @@ components:
                 $ref: "#/components/schemas/Contact"
               description: The contacts of the customer. Contact marked as primary is the
                 target for invoice sharing.
+            source:
+              $ref: "#/components/schemas/CustomerSource"
             externalId:
               type: string
               minLength: 1
               description: The external ID of the customer
+            customerErpId:
+              type: string
+              nullable: true
+              minLength: 1
+              description: The ID of the customer in the ERP system
             id:
               type: string
             createdAt:
@@ -524,10 +561,17 @@ components:
             $ref: "#/components/schemas/Contact"
           description: The contacts of the customer. Contact marked as primary is the
             target for invoice sharing.
+        source:
+          $ref: "#/components/schemas/CustomerSource"
         externalId:
           type: string
           minLength: 1
           description: The external ID of the customer
+        customerErpId:
+          type: string
+          nullable: true
+          minLength: 1
+          description: The ID of the customer in the ERP system
       additionalProperties: false
     UpdateCustomerResponse:
       type: object
@@ -555,10 +599,17 @@ components:
                 $ref: "#/components/schemas/Contact"
               description: The contacts of the customer. Contact marked as primary is the
                 target for invoice sharing.
+            source:
+              $ref: "#/components/schemas/CustomerSource"
             externalId:
               type: string
               minLength: 1
               description: The external ID of the customer
+            customerErpId:
+              type: string
+              nullable: true
+              minLength: 1
+              description: The ID of the customer in the ERP system
             id:
               type: string
             createdAt:
@@ -600,10 +651,17 @@ components:
                 $ref: "#/components/schemas/Contact"
               description: The contacts of the customer. Contact marked as primary is the
                 target for invoice sharing.
+            source:
+              $ref: "#/components/schemas/CustomerSource"
             externalId:
               type: string
               minLength: 1
               description: The external ID of the customer
+            customerErpId:
+              type: string
+              nullable: true
+              minLength: 1
+              description: The ID of the customer in the ERP system
             id:
               type: string
             createdAt:
@@ -885,18 +943,219 @@ components:
               type: string
               description: The start date of the contract
               format: date-time
-            endDate:
-              type: string
-              description: The end date of the contract
-              format: date-time
             customerId:
               type: string
               pattern: ^[0-9a-fA-F]{24}$
               description: The id of the customer that the contract is associated with
-            planId:
+            name:
               type: string
-              pattern: ^[0-9a-fA-F]{24}$
-              description: The id of the plan that the contract is associated with
+              description: The name of the contract
+            salesForceOpportunityId:
+              type: string
+              description: The id of the sales force opportunity that the contract is
+                associated with
+            endDate:
+              type: string
+              nullable: true
+              description: The end date of the contract
+              format: date-time
+            products:
+              type: array
+              items:
+                type: object
+                properties:
+                  displayName:
+                    type: string
+                  description:
+                    type: string
+                    nullable: true
+                  scheduling:
+                    type: object
+                    properties:
+                      billingDay:
+                        type: integer
+                        minimum: 1
+                        maximum: 31
+                        default: 1
+                        description: The day of the month that the product is billed
+                      duration:
+                        type: object
+                        properties:
+                          unit:
+                            type: string
+                            enum:
+                              - DAY
+                              - WEEK
+                              - MONTH
+                              - YEAR
+                            default: MONTH
+                          value:
+                            type: integer
+                            minimum: 0
+                            maximum: 1000
+                        required:
+                          - unit
+                          - value
+                        description: The duration of the product
+                    required:
+                      - duration
+                  pricing:
+                    oneOf:
+                      - type: object
+                        properties:
+                          type:
+                            type: string
+                            enum:
+                              - ONE_TIME
+                          price:
+                            type: number
+                            minimum: 0
+                        required:
+                          - type
+                          - price
+                      - type: object
+                        properties:
+                          type:
+                            type: string
+                            enum:
+                              - CONTRACT_TERMS
+                          price:
+                            type: number
+                            minimum: 0
+                          installments:
+                            type: array
+                            nullable: true
+                            items:
+                              type: object
+                              properties:
+                                installmentDate:
+                                  type: string
+                                  format: date-time
+                                amount:
+                                  type: number
+                                  minimum: 0
+                              required:
+                                - installmentDate
+                                - amount
+                        required:
+                          - type
+                          - price
+                      - type: object
+                        properties:
+                          type:
+                            type: string
+                            enum:
+                              - SUBSCRIPTION
+                          price:
+                            type: number
+                            minimum: 0
+                          subscriptionCadence:
+                            type: object
+                            properties:
+                              unit:
+                                type: string
+                                enum:
+                                  - DAY
+                                  - WEEK
+                                  - MONTH
+                                  - YEAR
+                                default: MONTH
+                              value:
+                                type: integer
+                                minimum: 0
+                                maximum: 1000
+                            required:
+                              - unit
+                              - value
+                        required:
+                          - type
+                          - price
+                          - subscriptionCadence
+                      - type: object
+                        properties:
+                          type:
+                            type: string
+                            enum:
+                              - TIERED
+                          tiers:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                fromInclusive:
+                                  type: number
+                                  minimum: 0
+                                toExclusive:
+                                  type: number
+                                  nullable: true
+                                  minimum: 0
+                                rate:
+                                  type: number
+                                  nullable: true
+                                  minimum: 0
+                                flatFee:
+                                  type: number
+                                  nullable: true
+                                  minimum: 0
+                                packageSize:
+                                  type: number
+                                  nullable: true
+                                  minimum: 0
+                              required:
+                                - fromInclusive
+                          subscriptionCadence:
+                            type: object
+                            nullable: true
+                            properties:
+                              unit:
+                                type: string
+                                enum:
+                                  - DAY
+                                  - WEEK
+                                  - MONTH
+                                  - YEAR
+                                default: MONTH
+                              value:
+                                type: integer
+                                minimum: 0
+                                maximum: 1000
+                            required:
+                              - unit
+                              - value
+                          autoUpgrade:
+                            type: boolean
+                          prorate:
+                            type: boolean
+                        required:
+                          - type
+                          - tiers
+                      - type: object
+                        properties:
+                          type:
+                            type: string
+                            enum:
+                              - PER_UNIT
+                          price:
+                            type: number
+                            minimum: 0
+                          chunkSize:
+                            type: number
+                            minimum: 0
+                            exclusiveMinimum: true
+                        required:
+                          - type
+                          - price
+                  catalogProductId:
+                    type: string
+                    nullable: true
+                  productErpId:
+                    type: string
+                    nullable: true
+                required:
+                  - displayName
+                  - scheduling
+                  - pricing
+              description: The products that the contract is associated with
             id:
               type: string
             createdAt:
@@ -908,7 +1167,7 @@ components:
           required:
             - startDate
             - customerId
-            - planId
+            - name
             - id
             - createdAt
             - updatedAt
@@ -924,18 +1183,219 @@ components:
               type: string
               description: The start date of the contract
               format: date-time
-            endDate:
-              type: string
-              description: The end date of the contract
-              format: date-time
             customerId:
               type: string
               pattern: ^[0-9a-fA-F]{24}$
               description: The id of the customer that the contract is associated with
-            planId:
+            name:
               type: string
-              pattern: ^[0-9a-fA-F]{24}$
-              description: The id of the plan that the contract is associated with
+              description: The name of the contract
+            salesForceOpportunityId:
+              type: string
+              description: The id of the sales force opportunity that the contract is
+                associated with
+            endDate:
+              type: string
+              nullable: true
+              description: The end date of the contract
+              format: date-time
+            products:
+              type: array
+              items:
+                type: object
+                properties:
+                  displayName:
+                    type: string
+                  description:
+                    type: string
+                    nullable: true
+                  scheduling:
+                    type: object
+                    properties:
+                      billingDay:
+                        type: integer
+                        minimum: 1
+                        maximum: 31
+                        default: 1
+                        description: The day of the month that the product is billed
+                      duration:
+                        type: object
+                        properties:
+                          unit:
+                            type: string
+                            enum:
+                              - DAY
+                              - WEEK
+                              - MONTH
+                              - YEAR
+                            default: MONTH
+                          value:
+                            type: integer
+                            minimum: 0
+                            maximum: 1000
+                        required:
+                          - unit
+                          - value
+                        description: The duration of the product
+                    required:
+                      - duration
+                  pricing:
+                    oneOf:
+                      - type: object
+                        properties:
+                          type:
+                            type: string
+                            enum:
+                              - ONE_TIME
+                          price:
+                            type: number
+                            minimum: 0
+                        required:
+                          - type
+                          - price
+                      - type: object
+                        properties:
+                          type:
+                            type: string
+                            enum:
+                              - CONTRACT_TERMS
+                          price:
+                            type: number
+                            minimum: 0
+                          installments:
+                            type: array
+                            nullable: true
+                            items:
+                              type: object
+                              properties:
+                                installmentDate:
+                                  type: string
+                                  format: date-time
+                                amount:
+                                  type: number
+                                  minimum: 0
+                              required:
+                                - installmentDate
+                                - amount
+                        required:
+                          - type
+                          - price
+                      - type: object
+                        properties:
+                          type:
+                            type: string
+                            enum:
+                              - SUBSCRIPTION
+                          price:
+                            type: number
+                            minimum: 0
+                          subscriptionCadence:
+                            type: object
+                            properties:
+                              unit:
+                                type: string
+                                enum:
+                                  - DAY
+                                  - WEEK
+                                  - MONTH
+                                  - YEAR
+                                default: MONTH
+                              value:
+                                type: integer
+                                minimum: 0
+                                maximum: 1000
+                            required:
+                              - unit
+                              - value
+                        required:
+                          - type
+                          - price
+                          - subscriptionCadence
+                      - type: object
+                        properties:
+                          type:
+                            type: string
+                            enum:
+                              - TIERED
+                          tiers:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                fromInclusive:
+                                  type: number
+                                  minimum: 0
+                                toExclusive:
+                                  type: number
+                                  nullable: true
+                                  minimum: 0
+                                rate:
+                                  type: number
+                                  nullable: true
+                                  minimum: 0
+                                flatFee:
+                                  type: number
+                                  nullable: true
+                                  minimum: 0
+                                packageSize:
+                                  type: number
+                                  nullable: true
+                                  minimum: 0
+                              required:
+                                - fromInclusive
+                          subscriptionCadence:
+                            type: object
+                            nullable: true
+                            properties:
+                              unit:
+                                type: string
+                                enum:
+                                  - DAY
+                                  - WEEK
+                                  - MONTH
+                                  - YEAR
+                                default: MONTH
+                              value:
+                                type: integer
+                                minimum: 0
+                                maximum: 1000
+                            required:
+                              - unit
+                              - value
+                          autoUpgrade:
+                            type: boolean
+                          prorate:
+                            type: boolean
+                        required:
+                          - type
+                          - tiers
+                      - type: object
+                        properties:
+                          type:
+                            type: string
+                            enum:
+                              - PER_UNIT
+                          price:
+                            type: number
+                            minimum: 0
+                          chunkSize:
+                            type: number
+                            minimum: 0
+                            exclusiveMinimum: true
+                        required:
+                          - type
+                          - price
+                  catalogProductId:
+                    type: string
+                    nullable: true
+                  productErpId:
+                    type: string
+                    nullable: true
+                required:
+                  - displayName
+                  - scheduling
+                  - pricing
+              description: The products that the contract is associated with
             id:
               type: string
             createdAt:
@@ -949,7 +1409,7 @@ components:
           required:
             - startDate
             - customerId
-            - planId
+            - name
             - id
             - createdAt
             - updatedAt
@@ -968,18 +1428,219 @@ components:
                 type: string
                 description: The start date of the contract
                 format: date-time
-              endDate:
-                type: string
-                description: The end date of the contract
-                format: date-time
               customerId:
                 type: string
                 pattern: ^[0-9a-fA-F]{24}$
                 description: The id of the customer that the contract is associated with
-              planId:
+              name:
                 type: string
-                pattern: ^[0-9a-fA-F]{24}$
-                description: The id of the plan that the contract is associated with
+                description: The name of the contract
+              salesForceOpportunityId:
+                type: string
+                description: The id of the sales force opportunity that the contract is
+                  associated with
+              endDate:
+                type: string
+                nullable: true
+                description: The end date of the contract
+                format: date-time
+              products:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    displayName:
+                      type: string
+                    description:
+                      type: string
+                      nullable: true
+                    scheduling:
+                      type: object
+                      properties:
+                        billingDay:
+                          type: integer
+                          minimum: 1
+                          maximum: 31
+                          default: 1
+                          description: The day of the month that the product is billed
+                        duration:
+                          type: object
+                          properties:
+                            unit:
+                              type: string
+                              enum:
+                                - DAY
+                                - WEEK
+                                - MONTH
+                                - YEAR
+                              default: MONTH
+                            value:
+                              type: integer
+                              minimum: 0
+                              maximum: 1000
+                          required:
+                            - unit
+                            - value
+                          description: The duration of the product
+                      required:
+                        - duration
+                    pricing:
+                      oneOf:
+                        - type: object
+                          properties:
+                            type:
+                              type: string
+                              enum:
+                                - ONE_TIME
+                            price:
+                              type: number
+                              minimum: 0
+                          required:
+                            - type
+                            - price
+                        - type: object
+                          properties:
+                            type:
+                              type: string
+                              enum:
+                                - CONTRACT_TERMS
+                            price:
+                              type: number
+                              minimum: 0
+                            installments:
+                              type: array
+                              nullable: true
+                              items:
+                                type: object
+                                properties:
+                                  installmentDate:
+                                    type: string
+                                    format: date-time
+                                  amount:
+                                    type: number
+                                    minimum: 0
+                                required:
+                                  - installmentDate
+                                  - amount
+                          required:
+                            - type
+                            - price
+                        - type: object
+                          properties:
+                            type:
+                              type: string
+                              enum:
+                                - SUBSCRIPTION
+                            price:
+                              type: number
+                              minimum: 0
+                            subscriptionCadence:
+                              type: object
+                              properties:
+                                unit:
+                                  type: string
+                                  enum:
+                                    - DAY
+                                    - WEEK
+                                    - MONTH
+                                    - YEAR
+                                  default: MONTH
+                                value:
+                                  type: integer
+                                  minimum: 0
+                                  maximum: 1000
+                              required:
+                                - unit
+                                - value
+                          required:
+                            - type
+                            - price
+                            - subscriptionCadence
+                        - type: object
+                          properties:
+                            type:
+                              type: string
+                              enum:
+                                - TIERED
+                            tiers:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  fromInclusive:
+                                    type: number
+                                    minimum: 0
+                                  toExclusive:
+                                    type: number
+                                    nullable: true
+                                    minimum: 0
+                                  rate:
+                                    type: number
+                                    nullable: true
+                                    minimum: 0
+                                  flatFee:
+                                    type: number
+                                    nullable: true
+                                    minimum: 0
+                                  packageSize:
+                                    type: number
+                                    nullable: true
+                                    minimum: 0
+                                required:
+                                  - fromInclusive
+                            subscriptionCadence:
+                              type: object
+                              nullable: true
+                              properties:
+                                unit:
+                                  type: string
+                                  enum:
+                                    - DAY
+                                    - WEEK
+                                    - MONTH
+                                    - YEAR
+                                  default: MONTH
+                                value:
+                                  type: integer
+                                  minimum: 0
+                                  maximum: 1000
+                              required:
+                                - unit
+                                - value
+                            autoUpgrade:
+                              type: boolean
+                            prorate:
+                              type: boolean
+                          required:
+                            - type
+                            - tiers
+                        - type: object
+                          properties:
+                            type:
+                              type: string
+                              enum:
+                                - PER_UNIT
+                            price:
+                              type: number
+                              minimum: 0
+                            chunkSize:
+                              type: number
+                              minimum: 0
+                              exclusiveMinimum: true
+                          required:
+                            - type
+                            - price
+                    catalogProductId:
+                      type: string
+                      nullable: true
+                    productErpId:
+                      type: string
+                      nullable: true
+                  required:
+                    - displayName
+                    - scheduling
+                    - pricing
+                description: The products that the contract is associated with
               id:
                 type: string
               createdAt:
@@ -991,7 +1652,7 @@ components:
             required:
               - startDate
               - customerId
-              - planId
+              - name
               - id
               - createdAt
               - updatedAt
@@ -1012,22 +1673,223 @@ components:
           type: string
           description: The start date of the contract
           format: date-time
-        endDate:
-          type: string
-          description: The end date of the contract
-          format: date-time
         customerId:
           type: string
           pattern: ^[0-9a-fA-F]{24}$
           description: The id of the customer that the contract is associated with
-        planId:
+        name:
           type: string
-          pattern: ^[0-9a-fA-F]{24}$
-          description: The id of the plan that the contract is associated with
+          description: The name of the contract
+        salesForceOpportunityId:
+          type: string
+          description: The id of the sales force opportunity that the contract is
+            associated with
+        endDate:
+          type: string
+          nullable: true
+          description: The end date of the contract
+          format: date-time
+        products:
+          type: array
+          items:
+            type: object
+            properties:
+              displayName:
+                type: string
+              description:
+                type: string
+                nullable: true
+              scheduling:
+                type: object
+                properties:
+                  billingDay:
+                    type: integer
+                    minimum: 1
+                    maximum: 31
+                    default: 1
+                    description: The day of the month that the product is billed
+                  duration:
+                    type: object
+                    properties:
+                      unit:
+                        type: string
+                        enum:
+                          - DAY
+                          - WEEK
+                          - MONTH
+                          - YEAR
+                        default: MONTH
+                      value:
+                        type: integer
+                        minimum: 0
+                        maximum: 1000
+                    required:
+                      - unit
+                      - value
+                    description: The duration of the product
+                required:
+                  - duration
+              pricing:
+                oneOf:
+                  - type: object
+                    properties:
+                      type:
+                        type: string
+                        enum:
+                          - ONE_TIME
+                      price:
+                        type: number
+                        minimum: 0
+                    required:
+                      - type
+                      - price
+                  - type: object
+                    properties:
+                      type:
+                        type: string
+                        enum:
+                          - CONTRACT_TERMS
+                      price:
+                        type: number
+                        minimum: 0
+                      installments:
+                        type: array
+                        nullable: true
+                        items:
+                          type: object
+                          properties:
+                            installmentDate:
+                              type: string
+                              format: date-time
+                            amount:
+                              type: number
+                              minimum: 0
+                          required:
+                            - installmentDate
+                            - amount
+                    required:
+                      - type
+                      - price
+                  - type: object
+                    properties:
+                      type:
+                        type: string
+                        enum:
+                          - SUBSCRIPTION
+                      price:
+                        type: number
+                        minimum: 0
+                      subscriptionCadence:
+                        type: object
+                        properties:
+                          unit:
+                            type: string
+                            enum:
+                              - DAY
+                              - WEEK
+                              - MONTH
+                              - YEAR
+                            default: MONTH
+                          value:
+                            type: integer
+                            minimum: 0
+                            maximum: 1000
+                        required:
+                          - unit
+                          - value
+                    required:
+                      - type
+                      - price
+                      - subscriptionCadence
+                  - type: object
+                    properties:
+                      type:
+                        type: string
+                        enum:
+                          - TIERED
+                      tiers:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            fromInclusive:
+                              type: number
+                              minimum: 0
+                            toExclusive:
+                              type: number
+                              nullable: true
+                              minimum: 0
+                            rate:
+                              type: number
+                              nullable: true
+                              minimum: 0
+                            flatFee:
+                              type: number
+                              nullable: true
+                              minimum: 0
+                            packageSize:
+                              type: number
+                              nullable: true
+                              minimum: 0
+                          required:
+                            - fromInclusive
+                      subscriptionCadence:
+                        type: object
+                        nullable: true
+                        properties:
+                          unit:
+                            type: string
+                            enum:
+                              - DAY
+                              - WEEK
+                              - MONTH
+                              - YEAR
+                            default: MONTH
+                          value:
+                            type: integer
+                            minimum: 0
+                            maximum: 1000
+                        required:
+                          - unit
+                          - value
+                      autoUpgrade:
+                        type: boolean
+                      prorate:
+                        type: boolean
+                    required:
+                      - type
+                      - tiers
+                  - type: object
+                    properties:
+                      type:
+                        type: string
+                        enum:
+                          - PER_UNIT
+                      price:
+                        type: number
+                        minimum: 0
+                      chunkSize:
+                        type: number
+                        minimum: 0
+                        exclusiveMinimum: true
+                    required:
+                      - type
+                      - price
+              catalogProductId:
+                type: string
+                nullable: true
+              productErpId:
+                type: string
+                nullable: true
+            required:
+              - displayName
+              - scheduling
+              - pricing
+          description: The products that the contract is associated with
       required:
         - startDate
         - customerId
-        - planId
+        - name
     CreateContractResponse:
       type: object
       properties:
@@ -1038,18 +1900,219 @@ components:
               type: string
               description: The start date of the contract
               format: date-time
-            endDate:
-              type: string
-              description: The end date of the contract
-              format: date-time
             customerId:
               type: string
               pattern: ^[0-9a-fA-F]{24}$
               description: The id of the customer that the contract is associated with
-            planId:
+            name:
               type: string
-              pattern: ^[0-9a-fA-F]{24}$
-              description: The id of the plan that the contract is associated with
+              description: The name of the contract
+            salesForceOpportunityId:
+              type: string
+              description: The id of the sales force opportunity that the contract is
+                associated with
+            endDate:
+              type: string
+              nullable: true
+              description: The end date of the contract
+              format: date-time
+            products:
+              type: array
+              items:
+                type: object
+                properties:
+                  displayName:
+                    type: string
+                  description:
+                    type: string
+                    nullable: true
+                  scheduling:
+                    type: object
+                    properties:
+                      billingDay:
+                        type: integer
+                        minimum: 1
+                        maximum: 31
+                        default: 1
+                        description: The day of the month that the product is billed
+                      duration:
+                        type: object
+                        properties:
+                          unit:
+                            type: string
+                            enum:
+                              - DAY
+                              - WEEK
+                              - MONTH
+                              - YEAR
+                            default: MONTH
+                          value:
+                            type: integer
+                            minimum: 0
+                            maximum: 1000
+                        required:
+                          - unit
+                          - value
+                        description: The duration of the product
+                    required:
+                      - duration
+                  pricing:
+                    oneOf:
+                      - type: object
+                        properties:
+                          type:
+                            type: string
+                            enum:
+                              - ONE_TIME
+                          price:
+                            type: number
+                            minimum: 0
+                        required:
+                          - type
+                          - price
+                      - type: object
+                        properties:
+                          type:
+                            type: string
+                            enum:
+                              - CONTRACT_TERMS
+                          price:
+                            type: number
+                            minimum: 0
+                          installments:
+                            type: array
+                            nullable: true
+                            items:
+                              type: object
+                              properties:
+                                installmentDate:
+                                  type: string
+                                  format: date-time
+                                amount:
+                                  type: number
+                                  minimum: 0
+                              required:
+                                - installmentDate
+                                - amount
+                        required:
+                          - type
+                          - price
+                      - type: object
+                        properties:
+                          type:
+                            type: string
+                            enum:
+                              - SUBSCRIPTION
+                          price:
+                            type: number
+                            minimum: 0
+                          subscriptionCadence:
+                            type: object
+                            properties:
+                              unit:
+                                type: string
+                                enum:
+                                  - DAY
+                                  - WEEK
+                                  - MONTH
+                                  - YEAR
+                                default: MONTH
+                              value:
+                                type: integer
+                                minimum: 0
+                                maximum: 1000
+                            required:
+                              - unit
+                              - value
+                        required:
+                          - type
+                          - price
+                          - subscriptionCadence
+                      - type: object
+                        properties:
+                          type:
+                            type: string
+                            enum:
+                              - TIERED
+                          tiers:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                fromInclusive:
+                                  type: number
+                                  minimum: 0
+                                toExclusive:
+                                  type: number
+                                  nullable: true
+                                  minimum: 0
+                                rate:
+                                  type: number
+                                  nullable: true
+                                  minimum: 0
+                                flatFee:
+                                  type: number
+                                  nullable: true
+                                  minimum: 0
+                                packageSize:
+                                  type: number
+                                  nullable: true
+                                  minimum: 0
+                              required:
+                                - fromInclusive
+                          subscriptionCadence:
+                            type: object
+                            nullable: true
+                            properties:
+                              unit:
+                                type: string
+                                enum:
+                                  - DAY
+                                  - WEEK
+                                  - MONTH
+                                  - YEAR
+                                default: MONTH
+                              value:
+                                type: integer
+                                minimum: 0
+                                maximum: 1000
+                            required:
+                              - unit
+                              - value
+                          autoUpgrade:
+                            type: boolean
+                          prorate:
+                            type: boolean
+                        required:
+                          - type
+                          - tiers
+                      - type: object
+                        properties:
+                          type:
+                            type: string
+                            enum:
+                              - PER_UNIT
+                          price:
+                            type: number
+                            minimum: 0
+                          chunkSize:
+                            type: number
+                            minimum: 0
+                            exclusiveMinimum: true
+                        required:
+                          - type
+                          - price
+                  catalogProductId:
+                    type: string
+                    nullable: true
+                  productErpId:
+                    type: string
+                    nullable: true
+                required:
+                  - displayName
+                  - scheduling
+                  - pricing
+              description: The products that the contract is associated with
             id:
               type: string
             createdAt:
@@ -1061,7 +2124,7 @@ components:
           required:
             - startDate
             - customerId
-            - planId
+            - name
             - id
             - createdAt
             - updatedAt
@@ -1873,6 +2936,50 @@ components:
       enum:
         - Grant
         - Deduct
+    IntegrationProviders:
+      type: string
+      enum:
+        - Hubspot
+        - Stripe
+        - NetSuite
+        - Salesforce
+        - Quickbooks
+        - Slack
+        - S3
+        - Vayu
+    SyncStatus:
+      type: string
+      enum:
+        - None
+        - Synced
+        - Failed
+    IntegrationEntity:
+      type: object
+      properties:
+        updatedAt:
+          type: string
+          format: date-time
+        integrationProvider:
+          $ref: "#/components/schemas/IntegrationProviders"
+        integrationExternalId:
+          type: string
+        syncStatus:
+          $ref: "#/components/schemas/SyncStatus"
+        metadata:
+          type: object
+          nullable: true
+          additionalProperties:
+            nullable: true
+        rawSyncedData:
+          type: object
+          nullable: true
+          additionalProperties:
+            nullable: true
+      required:
+        - updatedAt
+        - integrationProvider
+        - integrationExternalId
+        - syncStatus
     CreditLedgerEntry:
       type: object
       properties:
@@ -1890,16 +2997,21 @@ components:
           type: number
         invoiceId:
           type: string
-        productId:
+        erpId:
           type: string
         contractId:
           type: string
+        integrationEntities:
+          type: array
+          items:
+            $ref: "#/components/schemas/IntegrationEntity"
       required:
         - id
         - createdAt
         - type
         - amount
         - balanceAfterEntry
+        - integrationEntities
     ListCreditLedgerEntriesResponse:
       type: object
       properties:
