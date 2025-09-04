@@ -118,6 +118,16 @@
                 ]
               },
               {
+                "group": "Catalog Products",
+                "pages": [
+                  "api-reference/endpoints/catalog-products/get-catalog-product",
+                  "api-reference/endpoints/catalog-products/update-catalog-product",
+                  "api-reference/endpoints/catalog-products/list-catalog-products",
+                  "api-reference/endpoints/catalog-products/create-catalog-product",
+                  "api-reference/endpoints/catalog-products/delete-catalog-product"
+                ]
+              },
+              {
                 "group": "Auth",
                 "pages": [
                   "api-reference/endpoints/auth/login-by-obtaining-a-new-access-token"
