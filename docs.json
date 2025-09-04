@@ -92,6 +92,16 @@
                 ]
               },
               {
+                "group": "Catalog Products",
+                "pages": [
+                  "api-reference/endpoints/catalog-products/get-catalog-product",
+                  "api-reference/endpoints/catalog-products/update-catalog-product",
+                  "api-reference/endpoints/catalog-products/list-catalog-products",
+                  "api-reference/endpoints/catalog-products/create-catalog-product",
+                  "api-reference/endpoints/catalog-products/delete-catalog-product"
+                ]
+              },
+              {
                 "group": "Contracts",
                 "pages": [
                   "api-reference/endpoints/contracts/get-contract",
@@ -145,16 +155,6 @@
                 "group": "Product Consumption",
                 "pages": [
                   "api-reference/endpoints/product-consumptions/get-product-consumption"
-                ]
-              },
-              {
-                "group": "Catalog Products",
-                "pages": [
-                  "api-reference/endpoints/catalog-products/get-catalog-product",
-                  "api-reference/endpoints/catalog-products/update-catalog-product",
-                  "api-reference/endpoints/catalog-products/list-catalog-products",
-                  "api-reference/endpoints/catalog-products/create-catalog-product",
-                  "api-reference/endpoints/catalog-products/delete-catalog-product"
                 ]
               },
               {
