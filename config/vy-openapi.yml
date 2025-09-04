@@ -41,6 +41,18 @@ components:
       scheme: bearer
       bearerFormat: JWT
   requestBodies:
+    CreateCatalogProductRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/CreateCatalogProductRequest"
+    UpdateCatalogProductRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/UpdateCatalogProductRequest"
     CreateCustomerRequest:
       required: true
       content:
@@ -117,6 +129,36 @@ components:
           schema:
             $ref: "#/components/schemas/WebhookSubscribeRequest"
   responses:
+    CreateCatalogProductResponse:
+      description: RequestSuccess
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/CreateCatalogProductResponse"
+    ListCatalogProductsResponse:
+      description: RequestSuccess
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ListCatalogProductsResponse"
+    GetCatalogProductResponse:
+      description: RequestSuccess
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/GetCatalogProductResponse"
+    UpdateCatalogProductResponse:
+      description: RequestSuccess
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/UpdateCatalogProductResponse"
+    DeleteCatalogProductResponse:
+      description: RequestSuccess
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/DeleteCatalogProductResponse"
     CreateCustomerResponse:
       description: RequestSuccess
       content:
@@ -295,6 +337,210 @@ components:
             $ref: "#/components/schemas/GetProductConsumptionResponse"
   parameters: {}
   schemas:
+    CreateCatalogProductRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          description: The name of the catalog product
+        description:
+          type: string
+          description: The description of the catalog product
+        externalId:
+          type: string
+          minLength: 1
+          description: The external ID of the catalog product
+      required:
+        - name
+    CreateCatalogProductResponse:
+      type: object
+      properties:
+        catalogProduct:
+          type: object
+          properties:
+            name:
+              type: string
+              minLength: 1
+              description: The name of the catalog product
+            description:
+              type: string
+              description: The description of the catalog product
+            externalId:
+              type: string
+              minLength: 1
+              description: The external ID of the catalog product
+            id:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+            updatedAt:
+              type: string
+              format: date-time
+          required:
+            - name
+            - id
+            - createdAt
+            - updatedAt
+      required:
+        - catalogProduct
+    ListCatalogProductsResponse:
+      type: object
+      properties:
+        catalogProducts:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                minLength: 1
+                description: The name of the catalog product
+              description:
+                type: string
+                description: The description of the catalog product
+              externalId:
+                type: string
+                minLength: 1
+                description: The external ID of the catalog product
+              id:
+                type: string
+              createdAt:
+                type: string
+                format: date-time
+              updatedAt:
+                type: string
+                format: date-time
+            required:
+              - name
+              - id
+              - createdAt
+              - updatedAt
+        total:
+          type: number
+        hasMore:
+          type: boolean
+        nextCursor:
+          type: string
+      required:
+        - catalogProducts
+        - total
+        - hasMore
+    GetCatalogProductResponse:
+      type: object
+      properties:
+        catalogProduct:
+          type: object
+          properties:
+            name:
+              type: string
+              minLength: 1
+              description: The name of the catalog product
+            description:
+              type: string
+              description: The description of the catalog product
+            externalId:
+              type: string
+              minLength: 1
+              description: The external ID of the catalog product
+            id:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+            updatedAt:
+              type: string
+              format: date-time
+          required:
+            - name
+            - id
+            - createdAt
+            - updatedAt
+      required:
+        - catalogProduct
+    UpdateCatalogProductRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          description: The name of the catalog product
+        description:
+          type: string
+          description: The description of the catalog product
+        externalId:
+          type: string
+          minLength: 1
+          description: The external ID of the catalog product
+      additionalProperties: false
+    UpdateCatalogProductResponse:
+      type: object
+      properties:
+        catalogProduct:
+          type: object
+          properties:
+            name:
+              type: string
+              minLength: 1
+              description: The name of the catalog product
+            description:
+              type: string
+              description: The description of the catalog product
+            externalId:
+              type: string
+              minLength: 1
+              description: The external ID of the catalog product
+            id:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+            updatedAt:
+              type: string
+              format: date-time
+          required:
+            - name
+            - id
+            - createdAt
+            - updatedAt
+      required:
+        - catalogProduct
+    DeleteCatalogProductResponse:
+      type: object
+      properties:
+        catalogProduct:
+          type: object
+          properties:
+            name:
+              type: string
+              minLength: 1
+              description: The name of the catalog product
+            description:
+              type: string
+              description: The description of the catalog product
+            externalId:
+              type: string
+              minLength: 1
+              description: The external ID of the catalog product
+            id:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+            updatedAt:
+              type: string
+              format: date-time
+            deletedAt:
+              type: string
+          required:
+            - name
+            - id
+            - createdAt
+            - updatedAt
+            - deletedAt
+      required:
+        - catalogProduct
     Address:
       type: object
       properties:
@@ -335,6 +581,7 @@ components:
         - Ingestion
         - Api
         - Salesforce
+        - HubSpot
       description: The source of the customer
     CreateCustomerRequest:
       type: object
@@ -3145,10 +3392,14 @@ components:
         - productConsumption
     Limit:
       type: number
+      minimum: 1
       maximum: 1000
       default: 10
     Cursor:
       type: string
+    CatalogProductId:
+      type: string
+      pattern: ^[0-9a-fA-F]{24}$
     CustomerId:
       type: string
       pattern: ^[0-9a-fA-F]{24}$
@@ -3182,6 +3433,142 @@ components:
     ProductId:
       type: string
 paths:
+  /catalogProducts:
+    post:
+      tags:
+        - catalog-products
+      operationId: createCatalogProduct
+      description: Create a new Catalog product.
+      summary: Create Catalog product
+      security:
+        - BearerAuthorizer: []
+      requestBody:
+        $ref: "#/components/requestBodies/CreateCatalogProductRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/CreateCatalogProductResponse"
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "429":
+          description: Too Many Requests
+        "500":
+          description: Internal Server Error
+    get:
+      tags:
+        - catalog-products
+      operationId: listCatalogProducts
+      description: Get a list of Catalog products.
+      summary: List Catalog products
+      security:
+        - BearerAuthorizer: []
+      parameters:
+        - schema:
+            $ref: "#/components/schemas/Limit"
+          required: false
+          in: query
+          name: limit
+        - schema:
+            $ref: "#/components/schemas/Cursor"
+          required: false
+          in: query
+          name: cursor
+      responses:
+        "200":
+          $ref: "#/components/responses/ListCatalogProductsResponse"
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "429":
+          description: Too Many Requests
+        "500":
+          description: Internal Server Error
+  /catalogProducts/{catalogProductId}:
+    get:
+      tags:
+        - catalog-products
+      operationId: getCatalogProduct
+      description: Get a Catalog product by id.
+      summary: Get Catalog product
+      security:
+        - BearerAuthorizer: []
+      parameters:
+        - schema:
+            $ref: "#/components/schemas/CatalogProductId"
+          required: true
+          in: path
+          name: catalogProductId
+      responses:
+        "200":
+          $ref: "#/components/responses/GetCatalogProductResponse"
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+        "429":
+          description: Too Many Requests
+        "500":
+          description: Internal Server Error
+    put:
+      tags:
+        - catalog-products
+      operationId: updateCatalogProduct
+      description: Update a Catalog product by id.
+      summary: Update Catalog product
+      security:
+        - BearerAuthorizer: []
+      requestBody:
+        $ref: "#/components/requestBodies/UpdateCatalogProductRequest"
+      parameters:
+        - schema:
+            $ref: "#/components/schemas/CatalogProductId"
+          required: true
+          in: path
+          name: catalogProductId
+      responses:
+        "200":
+          $ref: "#/components/responses/UpdateCatalogProductResponse"
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+        "429":
+          description: Too Many Requests
+        "500":
+          description: Internal Server Error
+    delete:
+      tags:
+        - catalog-products
+      operationId: deleteCatalogProduct
+      description: Delete a Catalog product by id.
+      summary: Delete Catalog product
+      security:
+        - BearerAuthorizer: []
+      parameters:
+        - schema:
+            $ref: "#/components/schemas/CatalogProductId"
+          required: true
+          in: path
+          name: catalogProductId
+      responses:
+        "200":
+          $ref: "#/components/responses/DeleteCatalogProductResponse"
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+        "429":
+          description: Too Many Requests
+        "500":
+          description: Internal Server Error
   /customers:
     post:
       tags:
