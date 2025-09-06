@@ -73,7 +73,8 @@
               "api-reference/pages/ingestion",
               "api-reference/pages/sending-events",
               "api-reference/pages/browsing-events",
-              "api-reference/pages/webhooks"
+              "api-reference/pages/webhooks",
+              "api-reference/pages/product-structure"
             ]
           },
           {

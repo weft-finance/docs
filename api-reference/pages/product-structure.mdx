@@ -1,0 +1,298 @@
+---
+title: 'Product Structure'
+icon: 'box'
+---
+
+# Product Structure
+
+Products in Vayu contracts have a specific structure that defines their scheduling, pricing, and metadata. This section details the different valid structures products can have.
+
+## Basic Product Properties
+
+Every product must have the following required properties:
+
+- **displayName** (string): The display name of the product
+- **scheduling** (object): Defines the billing schedule for the product
+- **pricing** (object): Defines the pricing model for the product
+
+Optional properties include:
+
+- **description** (string, nullable): A description of the product
+- **catalogProductId** (string, nullable): Reference to a catalog product
+- **productErpId** (string, nullable): ERP system identifier for the product
+
+## Scheduling Structure
+
+The `scheduling` object defines when and how often the product is billed. The first billing schedule starts when the contract starts (unless using the more advanced installments feature).
+
+```json
+{
+  "scheduling": {
+    "billingDay": 1,
+    "duration": {
+      "unit": "MONTH",
+      "value": 1
+    }
+  }
+}
+```
+
+### Properties
+
+- **billingDay** (integer, required): The day of the month that the product is billed (1-31)
+  > **Note**: The billing day should almost always start at the contract start date to ensure proper billing alignment and avoid proration issues.
+- **duration** (object, required): The duration of the product
+  - **unit** (string, required): Time unit - `DAY`, `WEEK`, `MONTH`, or `YEAR`
+  - **value** (integer, required): Number of units (0-1000)
+
+## Pricing Models
+
+Products support multiple pricing models defined in the `pricing` object. These are divided into two main categories:
+
+## Fixed Products
+
+Fixed products have predetermined pricing that doesn't depend on usage.
+
+### 1. One-Time Payment
+
+- **type**: `"ONE_TIME"`
+- **price** (number, required): The one-time price (minimum 0)
+
+> **Note**: One-time payment products can only have a scheduling duration of 1 day.
+
+### 2. Subscription
+
+- **type**: `"SUBSCRIPTION"`
+- **price** (number, required): Price per subscription period (minimum 0)
+- **subscriptionCadence** (object, required): How many times the subscription charges accumulate within the billing period
+  - **unit** (string, required): Time unit - `DAY`, `WEEK`, `MONTH`, or `YEAR`
+  - **value** (integer, required): Number of units (0-1000)
+
+### 3. Contract Terms
+
+- **type**: `"CONTRACT_TERMS"`
+- **price** (number, required): Total contract fee for the lifetime of the contract (minimum 0)
+- **installments** (array, optional): Array of installment objects to split the contract fee
+  - **installmentDate** (string, required): ISO 8601 date-time of the installment
+  - **amount** (number, required): Amount for this installment (minimum 0)
+
+## Usage Products
+
+Usage products have pricing that depends on actual consumption or usage metrics.
+
+> **Important**: Usage products must have a `catalogProductId` because that is where the usage metering is defined.
+
+### 4. Tiered Pricing
+
+Tiered pricing offers different rates or fees based on usage volume.
+
+- **type**: `"TIERED"`
+- **tiers** (array, required): Array of pricing tiers
+  - **fromInclusive** (number, required): Starting quantity for this tier (minimum 0)
+  - **toExclusive** (number, optional): Ending quantity for this tier (null for unlimited)
+  - **rate** (number, optional): Rate per unit in this tier (minimum 0)
+  - **flatFee** (number, optional): Flat fee for this tier (minimum 0). Defaults to 0 if not specified.
+  - **packageSize** (number, optional): Package size for this tier (minimum 0). Defaults to 1 if not specified.
+- **subscriptionCadence** (object, optional): How many times the subscription charges accumulate within the billing period
+- **autoUpgrade** (boolean, optional): Whether to automatically upgrade to higher tiers in the next billing period
+- **prorate** (boolean, optional): Whether to prorate flat fees based on when the user crossed the tier
+
+### 5. Per-Unit Pricing
+
+Per-unit pricing is a simple pay-as-you-go model where customers are charged based on their actual usage.
+
+- **type**: `"PER_UNIT"`
+- **price** (number, required): Price per unit (minimum 0)
+- **chunkSize** (number, required): Number of units per chunk (minimum 0, exclusive)
+
+## Examples
+
+### Fixed Product Examples
+
+#### One-Time Payment
+
+This product charges a single fee that is billed immediately when the contract starts. The billing duration is always 1 day.
+
+```json
+{
+  "displayName": "Setup Fee",
+  "description": "One-time setup fee for new customers",
+  "scheduling": {
+    "billingDay": 1,
+    "duration": {
+      "unit": "DAY",
+      "value": 1
+    }
+  },
+  "pricing": {
+    "type": "ONE_TIME",
+    "price": 100.00
+  }
+}
+```
+
+#### Subscription
+
+This product charges a recurring fee with monthly subscription cadence but quarterly billing. The subscription charges accumulate monthly, but the customer is billed every 3 months.
+
+```json
+{
+  "displayName": "Monthly Premium Plan",
+  "description": "Monthly subscription to premium features with quarterly billing",
+  "scheduling": {
+    "billingDay": 1,
+    "duration": {
+      "unit": "MONTH",
+      "value": 3
+    }
+  },
+  "pricing": {
+    "type": "SUBSCRIPTION",
+    "price": 50.00,
+    "subscriptionCadence": {
+      "unit": "MONTH",
+      "value": 1
+    }
+  }
+}
+```
+
+#### Contract Terms
+
+This product charges a contract fee for the lifetime of the contract. The fee can optionally be split into installments at custom dates instead of regular billing schedules.
+
+```json
+{
+  "displayName": "Annual Software License",
+  "description": "Annual software license paid in installments",
+  "scheduling": {
+    "billingDay": 1,
+    "duration": {
+      "unit": "YEAR",
+      "value": 1
+    }
+  },
+  "pricing": {
+    "type": "CONTRACT_TERMS",
+    "price": 1000.00,
+    "installments": [
+      {
+        "installmentDate": "2024-01-01T00:00:00Z",
+        "amount": 500.00
+      },
+      {
+        "installmentDate": "2024-06-01T00:00:00Z",
+        "amount": 500.00
+      }
+    ]
+  }
+}
+```
+
+### Usage Product Examples
+
+#### Per-Unit Pricing
+
+This is the simplest usage-based pricing model. Customers are charged a fixed rate per unit consumed, with optional chunking for billing efficiency.
+
+```json
+{
+  "displayName": "SMS Messages",
+  "description": "Pay-per-SMS message with chunked billing",
+  "scheduling": {
+    "billingDay": 1,
+    "duration": {
+      "unit": "MONTH",
+      "value": 1
+    }
+  },
+  "pricing": {
+    "type": "PER_UNIT",
+    "price": 2.50,
+    "chunkSize": 10
+  },
+  "catalogProductId": "64a1b2c3d4e5f6789012345d"
+}
+```
+
+#### Simple Tiered Pricing
+
+This product charges different rates based on usage volume with no flat fees or chunking. Customers pay per unit at different rates depending on their usage tier.
+
+```json
+{
+  "displayName": "API Usage Tiers",
+  "description": "Volume-based pricing for API calls",
+  "scheduling": {
+    "billingDay": 1,
+    "duration": {
+      "unit": "MONTH",
+      "value": 1
+    }
+  },
+  "pricing": {
+    "type": "TIERED",
+    "tiers": [
+      {
+        "fromInclusive": 0,
+        "toExclusive": 1000,
+        "rate": 0.10
+      },
+      {
+        "fromInclusive": 1000,
+        "toExclusive": 10000,
+        "rate": 0.08
+      },
+      {
+        "fromInclusive": 10000,
+        "rate": 0.05
+      }
+    ]
+  },
+  "catalogProductId": "64a1b2c3d4e5f6789012345a"
+}
+```
+
+#### Tiered Subscription with Auto-Upgrade and Proration
+
+This is the most complex usage-based pricing model. It charges different flat fees based on usage tiers with subscription billing, automatic tier upgrades, and proration.
+
+```json
+{
+  "displayName": "Storage Subscription Tiers",
+  "description": "Monthly storage subscription with automatic tier upgrades and proration",
+  "scheduling": {
+    "billingDay": 1,
+    "duration": {
+      "unit": "MONTH",
+      "value": 1
+    }
+  },
+  "pricing": {
+    "type": "TIERED",
+    "tiers": [
+      {
+        "fromInclusive": 0,
+        "toExclusive": 100,
+        "flatFee": 10.00
+      },
+      {
+        "fromInclusive": 100,
+        "toExclusive": 500,
+        "flatFee": 25.00
+      },
+      {
+        "fromInclusive": 500,
+        "flatFee": 50.00
+      }
+    ],
+    "subscriptionCadence": {
+      "unit": "MONTH",
+      "value": 1
+    },
+    "autoUpgrade": true,
+    "prorate": true
+  },
+  "catalogProductId": "64a1b2c3d4e5f6789012345b"
+}
+```
