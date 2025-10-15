@@ -89,6 +89,14 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/LoginRequest"
+    DeleteEventsByRefsRequest:
+      required: true
+      description: A list of event refs to delete. The request deletes the matching
+        events for the authenticated account.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/DeleteEventsByRefsRequest"
     EventsDryRunRequest:
       required: true
       description: >-
@@ -279,6 +287,12 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/LoginResponse"
+    DeleteEventsByRefsResponse:
+      description: Contains the events that were removed along with deletion metadata.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/DeleteEventsByRefsResponse"
     EventsDryRunResponse:
       description: Events with their corresponding meter and customer data.
       content:
@@ -569,10 +583,13 @@ components:
         email:
           type: string
           format: email
+        title:
+          type: string
+        phone:
+          type: string
+          pattern: ^\+?[1-9]\d{4,15}$
         receiveInvoiceEmail:
           type: boolean
-      required:
-        - email
     CustomerSource:
       type: string
       nullable: true
@@ -1373,6 +1390,11 @@ components:
                             type: boolean
                           prorate:
                             type: boolean
+                          isRevShare:
+                            type: boolean
+                          baseAmount:
+                            type: number
+                            minimum: 0
                         required:
                           - type
                           - tiers
@@ -1613,6 +1635,11 @@ components:
                             type: boolean
                           prorate:
                             type: boolean
+                          isRevShare:
+                            type: boolean
+                          baseAmount:
+                            type: number
+                            minimum: 0
                         required:
                           - type
                           - tiers
@@ -1858,6 +1885,11 @@ components:
                               type: boolean
                             prorate:
                               type: boolean
+                            isRevShare:
+                              type: boolean
+                            baseAmount:
+                              type: number
+                              minimum: 0
                           required:
                             - type
                             - tiers
@@ -2103,6 +2135,11 @@ components:
                         type: boolean
                       prorate:
                         type: boolean
+                      isRevShare:
+                        type: boolean
+                      baseAmount:
+                        type: number
+                        minimum: 0
                     required:
                       - type
                       - tiers
@@ -2330,6 +2367,11 @@ components:
                             type: boolean
                           prorate:
                             type: boolean
+                          isRevShare:
+                            type: boolean
+                          baseAmount:
+                            type: number
+                            minimum: 0
                         required:
                           - type
                           - tiers
@@ -2818,6 +2860,84 @@ components:
             to expire every hour.
       required:
         - accessToken
+    DeleteEventsByRefsRequest:
+      type: object
+      properties:
+        refs:
+          type: array
+          items:
+            type: string
+            minLength: 1
+          minItems: 1
+          maxItems: 1000
+      required:
+        - refs
+    DeleteEventsByRefsResponse:
+      type: object
+      properties:
+        events:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: The distinctive label assigned to an event, serving as a critical
+                  identifier for categorizing and pricing events within the
+                  system's backend infrastructure.
+                example: api_call
+              timestamp:
+                type: string
+                description: The temporal marker denoting the exact moment of event occurrence.
+                  The timestamp is formatted as an ISO 8601 string and is
+                  expressed in Coordinated Universal Time (UTC). i.e.
+                  YYYY-MM-DDTHH:MM:SS.SSSZ
+                format: date-time
+                example: 2023-09-13T18:25:43.511Z
+              customerAlias:
+                type: string
+                minLength: 1
+                description: A pseudonymous or otherwise obfuscated identifier uniquely assigned
+                  to each customer.
+                example: customer_12345
+              ref:
+                type: string
+                description: A universally unique identifier (UUID) or other form of
+                  high-entropy string serving as an immutable reference for each
+                  event entry.
+                example: 4f6cf35x-2c4y-483z-a0a9-158621f77a21
+              data:
+                type: object
+                nullable: true
+                additionalProperties:
+                  nullable: true
+                description: A schema-less JSON object encapsulating miscellaneous attributes
+                  and metrics associated with the event.
+                example:
+                  key1: processing_duration
+                  key2: api_url
+              id:
+                type: string
+              createdAt:
+                type: string
+                format: date-time
+              updatedAt:
+                type: string
+                format: date-time
+              deletedAt:
+                type: string
+            required:
+              - name
+              - timestamp
+              - customerAlias
+              - ref
+              - id
+              - createdAt
+              - updatedAt
+              - deletedAt
+          description: The events that were deleted
+      required:
+        - events
     Event:
       type: object
       properties:
@@ -3190,10 +3310,11 @@ components:
         - Stripe
         - NetSuite
         - Salesforce
-        - Quickbooks
+        - QuickBooks
         - Slack
         - S3
         - Vayu
+        - Morning
     SyncStatus:
       type: string
       enum:
@@ -4112,6 +4233,30 @@ paths:
           description: Bad Request
         "401":
           description: Unauthorized
+        "429":
+          description: Too Many Requests
+        "500":
+          description: Internal Server Error
+  /events/delete-by-refs:
+    post:
+      tags:
+        - events
+      operationId: deleteEventsByRefs
+      description: Delete multiple events, identified by ref, in a single request.
+      summary: Delete events by refs
+      security:
+        - BearerAuthorizer: []
+      requestBody:
+        $ref: "#/components/requestBodies/DeleteEventsByRefsRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/DeleteEventsByRefsResponse"
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
         "429":
           description: Too Many Requests
         "500":
