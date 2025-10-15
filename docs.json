@@ -141,7 +141,8 @@
                   "api-reference/endpoints/events/query-events-by-timestamp-period-and-optional-event-name",
                   "api-reference/endpoints/events/submit-a-batch-of-events-for-ingestion",
                   "api-reference/endpoints/events/get-event-by-refid",
-                  "api-reference/endpoints/events/delete-an-event-by-refid"
+                  "api-reference/endpoints/events/delete-an-event-by-refid",
+                  "api-reference/endpoints/events/delete-events-by-refs"
                 ]
               },
               {
