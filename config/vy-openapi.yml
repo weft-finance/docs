@@ -363,7 +363,6 @@ components:
           description: The description of the catalog product
         externalId:
           type: string
-          minLength: 1
           description: The external ID of the catalog product
       required:
         - name
@@ -382,7 +381,6 @@ components:
               description: The description of the catalog product
             externalId:
               type: string
-              minLength: 1
               description: The external ID of the catalog product
             id:
               type: string
@@ -416,7 +414,6 @@ components:
                 description: The description of the catalog product
               externalId:
                 type: string
-                minLength: 1
                 description: The external ID of the catalog product
               id:
                 type: string
@@ -456,7 +453,6 @@ components:
               description: The description of the catalog product
             externalId:
               type: string
-              minLength: 1
               description: The external ID of the catalog product
             id:
               type: string
@@ -485,7 +481,6 @@ components:
           description: The description of the catalog product
         externalId:
           type: string
-          minLength: 1
           description: The external ID of the catalog product
       additionalProperties: false
     UpdateCatalogProductResponse:
@@ -503,7 +498,6 @@ components:
               description: The description of the catalog product
             externalId:
               type: string
-              minLength: 1
               description: The external ID of the catalog product
             id:
               type: string
@@ -535,7 +529,6 @@ components:
               description: The description of the catalog product
             externalId:
               type: string
-              minLength: 1
               description: The external ID of the catalog product
             id:
               type: string
@@ -560,26 +553,20 @@ components:
       properties:
         country:
           type: string
-          minLength: 1
         city:
           type: string
-          minLength: 1
         addressText:
           type: string
-          minLength: 1
         state:
           type: string
-          minLength: 1
         postalCode:
           type: string
-          minLength: 1
       description: The address of the customer
     Contact:
       type: object
       properties:
         name:
           type: string
-          minLength: 1
         email:
           type: string
           format: email
@@ -605,14 +592,12 @@ components:
       properties:
         name:
           type: string
-          minLength: 1
           description: The name of the customer
         aliases:
           type: array
           nullable: true
           items:
             type: string
-            minLength: 1
           default: []
           description: The aliases of the customer used to match events to the customer.
         address:
@@ -627,12 +612,10 @@ components:
           $ref: "#/components/schemas/CustomerSource"
         externalId:
           type: string
-          minLength: 1
           description: The external ID of the customer
         customerErpId:
           type: string
           nullable: true
-          minLength: 1
           description: The ID of the customer in the ERP system
       required:
         - name
@@ -644,14 +627,12 @@ components:
           properties:
             name:
               type: string
-              minLength: 1
               description: The name of the customer
             aliases:
               type: array
               nullable: true
               items:
                 type: string
-                minLength: 1
               default: []
               description: The aliases of the customer used to match events to the customer.
             address:
@@ -666,12 +647,10 @@ components:
               $ref: "#/components/schemas/CustomerSource"
             externalId:
               type: string
-              minLength: 1
               description: The external ID of the customer
             customerErpId:
               type: string
               nullable: true
-              minLength: 1
               description: The ID of the customer in the ERP system
             id:
               type: string
@@ -698,14 +677,12 @@ components:
             properties:
               name:
                 type: string
-                minLength: 1
                 description: The name of the customer
               aliases:
                 type: array
                 nullable: true
                 items:
                   type: string
-                  minLength: 1
                 default: []
                 description: The aliases of the customer used to match events to the customer.
               address:
@@ -720,12 +697,10 @@ components:
                 $ref: "#/components/schemas/CustomerSource"
               externalId:
                 type: string
-                minLength: 1
                 description: The external ID of the customer
               customerErpId:
                 type: string
                 nullable: true
-                minLength: 1
                 description: The ID of the customer in the ERP system
               id:
                 type: string
@@ -758,14 +733,12 @@ components:
           properties:
             name:
               type: string
-              minLength: 1
               description: The name of the customer
             aliases:
               type: array
               nullable: true
               items:
                 type: string
-                minLength: 1
               default: []
               description: The aliases of the customer used to match events to the customer.
             address:
@@ -780,12 +753,10 @@ components:
               $ref: "#/components/schemas/CustomerSource"
             externalId:
               type: string
-              minLength: 1
               description: The external ID of the customer
             customerErpId:
               type: string
               nullable: true
-              minLength: 1
               description: The ID of the customer in the ERP system
             id:
               type: string
@@ -807,14 +778,12 @@ components:
       properties:
         name:
           type: string
-          minLength: 1
           description: The name of the customer
         aliases:
           type: array
           nullable: true
           items:
             type: string
-            minLength: 1
           default: []
           description: The aliases of the customer used to match events to the customer.
         address:
@@ -829,12 +798,10 @@ components:
           $ref: "#/components/schemas/CustomerSource"
         externalId:
           type: string
-          minLength: 1
           description: The external ID of the customer
         customerErpId:
           type: string
           nullable: true
-          minLength: 1
           description: The ID of the customer in the ERP system
       additionalProperties: false
     UpdateCustomerResponse:
@@ -845,14 +812,12 @@ components:
           properties:
             name:
               type: string
-              minLength: 1
               description: The name of the customer
             aliases:
               type: array
               nullable: true
               items:
                 type: string
-                minLength: 1
               default: []
               description: The aliases of the customer used to match events to the customer.
             address:
@@ -867,12 +832,10 @@ components:
               $ref: "#/components/schemas/CustomerSource"
             externalId:
               type: string
-              minLength: 1
               description: The external ID of the customer
             customerErpId:
               type: string
               nullable: true
-              minLength: 1
               description: The ID of the customer in the ERP system
             id:
               type: string
@@ -897,14 +860,12 @@ components:
           properties:
             name:
               type: string
-              minLength: 1
               description: The name of the customer
             aliases:
               type: array
               nullable: true
               items:
                 type: string
-                minLength: 1
               default: []
               description: The aliases of the customer used to match events to the customer.
             address:
@@ -919,12 +880,10 @@ components:
               $ref: "#/components/schemas/CustomerSource"
             externalId:
               type: string
-              minLength: 1
               description: The external ID of the customer
             customerErpId:
               type: string
               nullable: true
-              minLength: 1
               description: The ID of the customer in the ERP system
             id:
               type: string
@@ -1223,6 +1182,14 @@ components:
               nullable: true
               description: The end date of the contract
               format: date-time
+            shouldProRateInvoices:
+              type: boolean
+              description: Whether to pro rate the invoices for the contract. If not provided,
+                it will default to false
+            autoRenewContract:
+              type: boolean
+              description: Whether the contract is set to auto renew. If not provided, it will
+                be treated as true
             products:
               type: array
               items:
@@ -1468,6 +1435,14 @@ components:
               nullable: true
               description: The end date of the contract
               format: date-time
+            shouldProRateInvoices:
+              type: boolean
+              description: Whether to pro rate the invoices for the contract. If not provided,
+                it will default to false
+            autoRenewContract:
+              type: boolean
+              description: Whether the contract is set to auto renew. If not provided, it will
+                be treated as true
             products:
               type: array
               items:
@@ -1718,6 +1693,14 @@ components:
                 nullable: true
                 description: The end date of the contract
                 format: date-time
+              shouldProRateInvoices:
+                type: boolean
+                description: Whether to pro rate the invoices for the contract. If not provided,
+                  it will default to false
+              autoRenewContract:
+                type: boolean
+                description: Whether the contract is set to auto renew. If not provided, it will
+                  be treated as true
               products:
                 type: array
                 items:
@@ -1968,6 +1951,14 @@ components:
           nullable: true
           description: The end date of the contract
           format: date-time
+        shouldProRateInvoices:
+          type: boolean
+          description: Whether to pro rate the invoices for the contract. If not provided,
+            it will default to false
+        autoRenewContract:
+          type: boolean
+          description: Whether the contract is set to auto renew. If not provided, it will
+            be treated as true
         products:
           type: array
           items:
@@ -2200,6 +2191,14 @@ components:
               nullable: true
               description: The end date of the contract
               format: date-time
+            shouldProRateInvoices:
+              type: boolean
+              description: Whether to pro rate the invoices for the contract. If not provided,
+                it will default to false
+            autoRenewContract:
+              type: boolean
+              description: Whether the contract is set to auto renew. If not provided, it will
+                be treated as true
             products:
               type: array
               items:
