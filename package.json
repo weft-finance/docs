@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "generate-endpoints": "npx @mintlify/scraping@latest openapi-file ./config/vy-openapi.yml -o api-reference/endpoints",
+    "dev": "mintlify dev --port 8080"
+  },
+  "devDependencies": {
+    "@mintlify/scraping": "^4.0.443"
+  }
+}
