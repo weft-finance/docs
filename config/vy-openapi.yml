@@ -1213,9 +1213,11 @@ components:
                 properties:
                   displayName:
                     type: string
+                    description: The display name of the product
                   description:
                     type: string
                     nullable: true
+                    description: The description of the product
                   scheduling:
                     type: object
                     properties:
@@ -1246,6 +1248,7 @@ components:
                         description: The duration of the product
                     required:
                       - duration
+                    description: The scheduling of the product
                   pricing:
                     oneOf:
                       - type: object
@@ -1397,17 +1400,32 @@ components:
                         required:
                           - type
                           - price
+                    description: The pricing of the product
                   catalogProductId:
                     type: string
                     nullable: true
+                    description: The id of the a product from the catalog to connect the contract
+                      product to
                   productErpId:
                     type: string
                     nullable: true
+                    description: The id of the product in NetSuite ERP
+                  nsClass:
+                    type: string
+                    nullable: true
+                    description: The class of the product in NetSuite ERP
+                  nsClassId:
+                    type: string
+                    nullable: true
+                    description: The id of the class of the product in NetSuite ERP
                 required:
                   - displayName
                   - scheduling
                   - pricing
               description: The products that the contract is associated with
+            accountManager:
+              type: string
+              description: The name of the account manager of the contract
             id:
               type: string
             createdAt:
@@ -1458,9 +1476,11 @@ components:
                 properties:
                   displayName:
                     type: string
+                    description: The display name of the product
                   description:
                     type: string
                     nullable: true
+                    description: The description of the product
                   scheduling:
                     type: object
                     properties:
@@ -1491,6 +1511,7 @@ components:
                         description: The duration of the product
                     required:
                       - duration
+                    description: The scheduling of the product
                   pricing:
                     oneOf:
                       - type: object
@@ -1642,17 +1663,32 @@ components:
                         required:
                           - type
                           - price
+                    description: The pricing of the product
                   catalogProductId:
                     type: string
                     nullable: true
+                    description: The id of the a product from the catalog to connect the contract
+                      product to
                   productErpId:
                     type: string
                     nullable: true
+                    description: The id of the product in NetSuite ERP
+                  nsClass:
+                    type: string
+                    nullable: true
+                    description: The class of the product in NetSuite ERP
+                  nsClassId:
+                    type: string
+                    nullable: true
+                    description: The id of the class of the product in NetSuite ERP
                 required:
                   - displayName
                   - scheduling
                   - pricing
               description: The products that the contract is associated with
+            accountManager:
+              type: string
+              description: The name of the account manager of the contract
             id:
               type: string
             createdAt:
@@ -1708,9 +1744,11 @@ components:
                   properties:
                     displayName:
                       type: string
+                      description: The display name of the product
                     description:
                       type: string
                       nullable: true
+                      description: The description of the product
                     scheduling:
                       type: object
                       properties:
@@ -1741,6 +1779,7 @@ components:
                           description: The duration of the product
                       required:
                         - duration
+                      description: The scheduling of the product
                     pricing:
                       oneOf:
                         - type: object
@@ -1892,17 +1931,32 @@ components:
                           required:
                             - type
                             - price
+                      description: The pricing of the product
                     catalogProductId:
                       type: string
                       nullable: true
+                      description: The id of the a product from the catalog to connect the contract
+                        product to
                     productErpId:
                       type: string
                       nullable: true
+                      description: The id of the product in NetSuite ERP
+                    nsClass:
+                      type: string
+                      nullable: true
+                      description: The class of the product in NetSuite ERP
+                    nsClassId:
+                      type: string
+                      nullable: true
+                      description: The id of the class of the product in NetSuite ERP
                   required:
                     - displayName
                     - scheduling
                     - pricing
                 description: The products that the contract is associated with
+              accountManager:
+                type: string
+                description: The name of the account manager of the contract
               id:
                 type: string
               createdAt:
@@ -1958,9 +2012,11 @@ components:
             properties:
               displayName:
                 type: string
+                description: The display name of the product
               description:
                 type: string
                 nullable: true
+                description: The description of the product
               scheduling:
                 type: object
                 properties:
@@ -1991,6 +2047,7 @@ components:
                     description: The duration of the product
                 required:
                   - duration
+                description: The scheduling of the product
               pricing:
                 oneOf:
                   - type: object
@@ -2142,17 +2199,32 @@ components:
                     required:
                       - type
                       - price
+                description: The pricing of the product
               catalogProductId:
                 type: string
                 nullable: true
+                description: The id of the a product from the catalog to connect the contract
+                  product to
               productErpId:
                 type: string
                 nullable: true
+                description: The id of the product in NetSuite ERP
+              nsClass:
+                type: string
+                nullable: true
+                description: The class of the product in NetSuite ERP
+              nsClassId:
+                type: string
+                nullable: true
+                description: The id of the class of the product in NetSuite ERP
             required:
               - displayName
               - scheduling
               - pricing
           description: The products that the contract is associated with
+        accountManager:
+          type: string
+          description: The name of the account manager of the contract
       required:
         - startDate
         - customerId
@@ -2190,9 +2262,11 @@ components:
                 properties:
                   displayName:
                     type: string
+                    description: The display name of the product
                   description:
                     type: string
                     nullable: true
+                    description: The description of the product
                   scheduling:
                     type: object
                     properties:
@@ -2223,6 +2297,7 @@ components:
                         description: The duration of the product
                     required:
                       - duration
+                    description: The scheduling of the product
                   pricing:
                     oneOf:
                       - type: object
@@ -2374,17 +2449,32 @@ components:
                         required:
                           - type
                           - price
+                    description: The pricing of the product
                   catalogProductId:
                     type: string
                     nullable: true
+                    description: The id of the a product from the catalog to connect the contract
+                      product to
                   productErpId:
                     type: string
                     nullable: true
+                    description: The id of the product in NetSuite ERP
+                  nsClass:
+                    type: string
+                    nullable: true
+                    description: The class of the product in NetSuite ERP
+                  nsClassId:
+                    type: string
+                    nullable: true
+                    description: The id of the class of the product in NetSuite ERP
                 required:
                   - displayName
                   - scheduling
                   - pricing
               description: The products that the contract is associated with
+            accountManager:
+              type: string
+              description: The name of the account manager of the contract
             id:
               type: string
             createdAt:
