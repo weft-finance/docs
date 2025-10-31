@@ -1,0 +1,227 @@
+---
+title: "Pricing — Fixed and Usage Fees"
+description: "Description of your new file."
+---
+
+# Pricing Overview
+
+Vayu supports two general payment models: fixed fees and usage fees. Each model has multiple options, as we will describe below. There are standard or default options baked into many of these plans, which can be adapted based on customer needs. Click on any option to see a more detailed description:
+
+| **Fixed Fees**    | **Usage Fees**      |
+| :---------------- | :------------------ |
+| Subscription      | Tiers               |
+| One-Time Fee      | Volume              |
+| Yearly Commitment | Tiered Subscription |
+| Credits           | Revenue Share       |
+| Refunds           |                     |
+
+<Note>
+  Data Intake\
+  \
+  Vayu is source-agnostic: pricing can be populated from Salesforce (Closed-Won), API, CSV/Excel, or entered manually.
+</Note>
+
+## Fixed Fees
+
+For fixed fee rates, we offer five kinds of payment models:   
+
+### Subscription Pricing  
+
+Used mainly for charges such as the Platform Fee, the client pays upfront for each calendar month the exact amount.
+
+By default, charges are calculated on a **pro rata** basis according to the number of days client is _active_ on the platform. By default, payments will be calendar-aligned. This can be adjusted in your plan settings by going to **General Terms**, then \*\*Select Billing Method:\*\*Calendar-Aligned Payments Example
+
+In cases where the subscription _is_ calendar-aligned, consider a scenario when a customer subscribes beginning on July 14:
+
+- The first invoice to be generated covers the period between July 14 to July 31 (the final date of the month)
+- The next invoice will cover August 1 through August 31 (the full calendar month)
+- All future invoices will be generated for full calendar months.
+
+#### Pro Rata Payment Calculation Example
+
+When a subscription starts during the month, the subscription fee will be calculated on a \*\*pro rata (partial) basis \*\*according to the number of days the account has been _active_.
+
+In the above example, the July 14-31 covers 18 days. If the premium plan is \$50/mo, the cost for the first invoice will be calculated like this:
+
+(\$50/31 days) × 18 days = \$29.03
+
+### One-Time Fee 
+
+This is used mostly for one-time fees, for example the **Integration Fee**. Charges are added to the client’s first issued invoice or at day one as separate invoice.
+
+### Yearly Commitment
+
+A total amount that represent the contact total value, usually paid upfront on mutually agreed date  for the entire contract period.
+
+### Credits
+
+A negative line item, a credit is a reduction in the amount owed, often issued as a credit note.
+
+### Refunds
+
+A negative line item, a refund is a return of money to the customer, usually in cash or back to their payment method.
+
+## Usage Fees
+
+### Tier-Based Pricing 
+
+This bills price per unit in a tiered system. The tier is determined by the actual usage in a period. Usage **_accumulation is set to monthly by default._**
+
+<Note>
+  **<u>Metering vs. Billing</u>**\
+  \
+  You can have different usage metering and billing intervals. For example, you can meter monthly _but_ charge for overage _quarterly._
+</Note>
+
+### Volume Pricing
+
+Usage accumulation is ‘lifetime’ from the contract start date.  The charges are periodic and are based on the a accumulative volume up until that point.
+
+### Tiered Subscription
+
+For tiered subscriptions, a flat rate fee will apply based on the consumption in a tier for each billing period.  By default, subscriptions will be upfront charges on a _monthly_ basis.
+
+You can add the following enhanced pricing features to tier subscriptions:
+
+- **Auto-upgrade**
+- **Discount**
+- **Prepay (custom interval)** – Collecting payment at the start of a chosen period (e.g., monthly, quarterly, custom) for the upcoming service
+
+  **Pro rata** (a.k.a. **Proration**) – Charging only for the portion of a billing period used when a plan starts, changes, or ends mid-cycle, typically proportional to days or units.
+- **Rollover overage into the next invoice** – Carrying excess usage from one period to be billed on the subsequent invoice instead of the current one
+
+### Usage Products – Advanced Options
+
+**Commitment**
+
+Commitment is the minimum <u>quantity</u> a customer has committed to consume <u>during the plan lifetime</u>. The commitment can be either in ‘Units’ or based on dedicated ‘Amount’ (USD).
+
+### Base amount
+
+Base amounts allow you to set a minimum amount to be charged in cases of zero consumption. This is only applicable for metered or usage-based products.
+
+# Pricing Walkthrough
+
+When you sign into Vayu, navigate to the lefthand-side menu. Find and select **Plans & Pricing**.
+
+Once there, you will be able to see all the plans you’ve created so far. To create a new plan, go to the top right of the plans list and select the **\+ Create** button.
+
+![Vayu Create Planpage Pn](/images/Vayu-CreatePlanpage.png)
+
+On the **Create Plan** page, you will meet several options.
+
+In the top row, you can choose to **Get started →** on a new contract or **Go to plan builder →** to create a new plan.
+
+Alternatively, you can select from three popular templates for Hybrid plans, Usage-based plans, or Growth-based (PLG).
+
+![Vayu General Termspage Pn](/images/Vayu-GeneralTermspage.png)
+
+On the **Plan Builder** (i.e. General Terms) page, you will name the plan and select its length from a dropdown list that includes the following **plan duration** options:
+
+- Any range of 1 to 12 months
+- 18 months or 24 months
+- Evergreen
+
+Next, select your billing method from the following three options:
+
+- Calendar-aligned with proration
+- Pro rata
+- No proration
+
+Next, select the length of the trial period from a dropdown list that has these options:
+
+- 1, 2, or 3 weeks
+- Any range of 1 to 6 months
+
+Finally, toggle whether or not you want auto-renewal to be automatic.
+
+Select the dark blue **Continue** button to the bottom right.
+
+## Pricing & Products Page
+
+On the **Pricing & Products** page, you will have the opportunity to add the following:
+
+- Service fees
+- Usage-based fees
+- Credits & discounts
+
+### Service Fees
+
+When you enter the Service Fees page, you'll be met with a white box titled **Create & Add Fixed Fees**, select the blue button **\+ Add Fees**.
+
+![Servicefees Pn](/images/Servicefees.png)
+
+You can select from the dropdown one of four options:
+
+- One Time Fee
+- Subscription
+- Contract Terms
+- Commission
+
+### Usage-Based Fees
+
+On the Usage-Based Fees page, select the blue **\+ Set terms & Pricing** button, then select the option you want from the dropdown menu.
+
+![Usage Based Fees Pn](/usage-based-fees.png)
+
+For each item, you will have three fields: **Select pricing**, **Select product source**, and **Product name**.
+
+Under **Select pricing**, you will have five options:
+
+- Tiered
+- Volume
+- Per Unit
+- Revenue Share
+- Tiered Subscription
+
+Next, click the gray \*\*<u>✎</u> Modify \*\*button.
+
+For usage-based fees, you can modify Item Settings (NS Product ID and/or Product Description), Schedule, and finally Data Metering & Pricing.
+
+### Credits & Discounts
+
+On the Credits & Discounts page, go to the white box titled **Credits & Discounts**, then select the dark blue **\+ Add Promotion**s button:
+
+![Credits And Discounts Pn](/credits-and-discounts.png)
+
+You will have three initial options to configure:
+
+- Credits
+- Percentage Discount
+- Metered Credit
+
+Next, click the gray \*\*<u>✎</u> Modify \*\*button.
+
+For credits and discount percentages, you can toggle the product description or if this will be a recurring discount.
+
+When creating a new plan, you must have at least one product from either the Service Fees section or Usage-Based Fees section.
+
+<Note>
+  If you forget to fill these in when applying a credit or discount, you will be prompted to go back.
+</Note>
+
+## Sample Demo
+
+In this quick demo, you can see how to create add a service fee to your plan.
+
+![Createservicefee Gi](/images/Createservicefee.gif)
+
+From the white box titled **Create & Add Fixed Fees**, select the blue button **\+ Add Fees**.
+
+Select from the dropdown one of four fee types: one time fee, subscription, contract terms, or a commission.
+
+Go to the **General Terms** page, filling in the **Service Name (ERP ID)** and **Price** for the given fee.
+
+Next, click the gray \*\*<u>✎</u> Modify \*\*button. Here, you can modify terms for **Pricing Settings**, **Schedule**, and **Payment**.
+
+Under **Pricing Settings**, you can apply five different options:
+
+1. Sync the fee with a fee in your integrated NetSuite account (**NS Product ID**)
+2. Sync the fee with a fee in your integrated QuickBooks account (**QB Product ID**)
+3. Mark it as a **Credit Purchase**
+4. Add a **Product Description**, or
+5. Apply a **Discount**.
+
+Under Schedule, you can set the date for the plan to begin:
+
+![Plan Schedule Gi](/images/PlanSchedule.gif)
