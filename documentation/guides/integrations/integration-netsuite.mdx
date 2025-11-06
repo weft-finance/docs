@@ -13,7 +13,7 @@ Vayu integrates smoothly and swiftly with Netsuite, offering robust two-way sync
 
 To enable precise syncing, Vayu uses NetSuite attributes defined at the client/account level, including:
 
-- \*\*Subsidiaries \*\*- Ensures transactions are correctly tagged to the appropriate legal entity in NetSuite.
+- **Subsidiaries**- Ensures transactions are correctly tagged to the appropriate legal entity in NetSuite.
 - **Accounts Receivable** - Sync aligns with the customer’s receivable account setup in NetSuite, ensuring accurate GL posting.
 - **Product ERP Mappings** - Products and pricing in Vayu are matched to NetSuite items using ERP codes, classifications, and other identifiers.
 
@@ -34,21 +34,11 @@ You will need the following to get started:
 
 1. NetSuite account
 2. Vayu account
-3. Permissions and Admin support   ~~for data on 1) customers, 2) sales orders, 3) invoices, and 4) accounts receivable~~
-
-~~Additionally, you'll need login permissions:~~
+3. Permissions and Admin support 
 
 ## Connection & Setup
 
-To launch an integration contact Vayu team...
-
-~~navigate to the Integrations section at the bottom of the lefthand-side menu panel. From there, you will be brought to a screen with all available Vayu integrations.~~
-
-![image.png](/images/image.png)
-
-~~All attributes in the integration window will reflect the default values carried over from NetSuite. You can customize all these listings in Vayu, which will then be reflected back in NetSuite if automatic syncing is selected for those attributes.~~
-
-~~Admins can override defaults using field-level mapping controls inside integration window.  You can define custom field pairings, sync frequency, and filters.~~
+To launch an integration, the contact Vayu team.
 
 ## Configurations
 
@@ -60,23 +50,17 @@ Set up configurations by clicking on NetSuite on the integration page. A panel w
 
 Choose from a dropdown which product you are configuring. For each product, you will be able to configure attributes separately.
 
-![Vayuproductselection Gi](/images/Vayuproductselection.gif)
-
 ### Customers
 
 Here, choose if you want your customer lists to automatically export to your NetSuite account, or if you want to maintain full control and go with manual matching.
 
 We recommend turning on automatic export by selecting ⦿ **Export customers automatically (recommended)**.
 
-![Screenshot2025 10 11at21 38 28 Pn](/images/Screenshot2025-10-11at21.38.28.png)
-
 ### Invoices
 
 There are two configurations for invoices.
 
 First, decide if you want automatic syncing once invoices are approved.
-
-![Screenshot2025 10 11at21 38 13 Pn](/images/Screenshot2025-10-11at21.38.13.png)
 
 Upon integration, Vayu aggregates metered events and applies pricing rules (fixed, usage-based, or hybrid). The platform generates draft invoices automatically, visible under the customer’s [**Invoices**](https://guide.withvayu.com/documentation/guides/invoices/real-time-invoice) tab:
 
@@ -96,9 +80,7 @@ To allow Vayu to override the NetSuite number, enter your NetSuite settings. Go 
 
 Finally, choose whether or not you want to automatically sync credit memos when you create a new credit ledger.
 
-![Credit Memos](/images/Screenshot2025-10-11at21.37.43.png)
-
-## ~~Field Mappings & Attribut ~~ Control Over Revenue Records and Operational Processes
+## Field Mappings & Attribution 
 
 ### How Contracts Sync
 
@@ -125,8 +107,6 @@ Once approved, invoices are automatically pushed to NetSuite, updating the **Inv
 NetSuite updates (payment status, AR changes, credit memos) are pulled into Vayu for real-time visibility.
 
 These updates refresh dashboards, contract summaries, and invoice activity views.
-
-~~When used with connected CRMs (Salesforce, HubSpot), the same invoice and usage data is propagated for complete customer account transparency.~~
 
 ### Logs and Activity Tracking
 
