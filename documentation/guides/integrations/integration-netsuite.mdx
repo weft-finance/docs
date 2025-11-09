@@ -34,11 +34,11 @@ You will need the following to get started:
 
 1. NetSuite account
 2. Vayu account
-3. Permissions and Admin support 
+3. Permissions and Admin support
 
 ## Connection & Setup
 
-To launch an integration, the contact Vayu team.
+To launch initial setup and integrations, please contact the Vayu support team.
 
 ## Configurations
 
@@ -80,7 +80,7 @@ To allow Vayu to override the NetSuite number, enter your NetSuite settings. Go 
 
 Finally, choose whether or not you want to automatically sync credit memos when you create a new credit ledger.
 
-## Field Mappings & Attribution 
+## Field Mappings & Attribution
 
 ### How Contracts Sync
 
@@ -121,10 +121,9 @@ Each integration maintains an **Activity Log** showing:
 
 ### Common Issues and Fixes
 
-| Issue                                            | Common Reason                                        | Common Fix                                                        |
-| ------------------------------------------------ | ---------------------------------------------------- | ----------------------------------------------------------------- |
-| Invoice or Sales Order not appearing in NetSuite | Missing or incorrect Cusotmer or ERP product mapping | Verify product codes under _Integration → Manage → ERP Mapping_   |
-| Duplicate customer records                       | Customer existed in both systems before sync         | Merge duplicate records in NetSuite; refresh in Vayu              |
-| Sync failed with “Permission Denied”             | NetSuite role lacks API access                       | Update NetSuite user role to include API + transaction rights     |
-| Discrepancy in invoice totals                    | Currency or rounding mismatch                        | Confirm both systems use same currency and rounding precision     |
-| ~~Contract missing after CRM sync~~              | ~~“Closed–Won” event not captured~~                  | ~~Re-import deal manually or validate CRM connector credentials~~ |
+| Issue                                            | Common Reason                                        | Common Fix                                                      |
+| ------------------------------------------------ | ---------------------------------------------------- | --------------------------------------------------------------- |
+| Invoice or Sales Order not appearing in NetSuite | Missing or incorrect Cusotmer or ERP product mapping | Verify product codes under _Integration → Manage → ERP Mapping_ |
+| Duplicate customer records                       | Customer existed in both systems before sync         | Merge duplicate records in NetSuite; refresh in Vayu            |
+| Sync failed with “Permission Denied”             | NetSuite role lacks API access                       | Update NetSuite user role to include API + transaction rights   |
+| Discrepancy in invoice totals                    | Currency or rounding mismatch                        | Confirm both systems use same currency and rounding precision   |
