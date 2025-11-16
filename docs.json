@@ -30,6 +30,12 @@
             "group": "Guides",
             "pages": [
               {
+                "group": "Integrations",
+                "pages": [
+                  "documentation/guides/integrations/integration-netsuite"
+                ]
+              },
+              {
                 "group": "Customers",
                 "pages": [
                   "documentation/guides/customers/adding-a-customer",
