@@ -23,7 +23,7 @@
           {
             "group": "Product log",
             "pages": [
-              "documentation/change-log/changelog",
+              "documentation/changelog",
               "documentation/changelog-test"
             ]
           },
