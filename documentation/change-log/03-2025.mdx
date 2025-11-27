@@ -4,7 +4,167 @@ description: "New features and updates to Vayu"
 icon: "clock"
 ---
 
-<Update label="March 2025">
+<Update label="November 11, 2025" tags={Reporting, UI}>
+  
+</Update>
+
+# **MRR Report**
+
+Vayu has improved its recurring revenue reporting. These reports are viewable in the app, can be downloaded in CSV form and are available by account or customer level. The reports allow for custom fields (which appear by additional column), support contract phases, and can be viewed along with past reports’ MRR data in the Vayu UI.
+
+![Rrr Gi](/images/rrr.gif)
+
+# **Additional Improvements**
+
+You will now see better customer-to-contact linking and data consistency in the Vayu UI.
+
+<Update label="September 23, 2025" tags={ UI, API, Reporting, Billing & Invoicing, Contracts}>
+  
+</Update>
+
+This release focused heavily on invoice management, especially currencies and line item editing. Bug fixes and feature enhancements also included a focus on accurate PDF generation. 
+
+# **Currencies: Contract and Invoice-Level**
+
+Approved invoices will maintain their original currency and _not auto-switch_ when customer currency settings are changed. For example, if you charged a customer USD in the past, but switched your default to EUR later, that previous invoice will remain in USD.
+
+![Currencies Pn](/images/currencies.png)
+
+Additional currency-related updates include:
+
+- **Data Migration:** We added an overridingCurrency field as well as new migration settings for invoice currencies.
+- **Dynamic Editing:** Improved line item editing and dynamic currency fields for invoices (UI and API)
+
+<Update label="September 16, 2025" tags={UI, Contracts}>
+  
+</Update>
+
+# **Editable Usage Line Items**
+
+Users can now edit usage product line items the same as they can for fixed fee line items. Additional UI enhancements include:
+
+- Undo function for modified prices
+- Line item editing in the API
+
+[IMAGE]
+
+# **Contract Management**
+
+The Contract Page also got a few enhancements, namely the ability to manage custom configurations or restrictions for editing contracts. Additionally, contract pages now show both the ERP ID and the product name. This makes it easy to check that integrations are working properly.
+
+# **Additional Features**
+
+- \*\*Monitoring: \*\*Vayu now has more enhanced audit logging and better logging for invoice calculations. 
+
+<Update label="September 3, 2025" tags={Contracts, API, Integrations}>
+  
+</Update>
+
+# **Multi-Currency Contract Management**
+
+Vayu customers can now have multiple contracts with different currencies. This means you can set a specific currency other than default for each contract. 
+
+![Currencies Pn](/images/currencies.png)
+
+# **External API**
+
+We have added a schema with dynamic paths for catalog products, including create, get, lists, and update.
+
+# **Hubspot Integration**
+
+You can now link products to Hubspot, including support for contract creation, plan creation, revision, and deleting.
+
+![Hubspot Gi](/images/Hubspot.gif)
+
+# **Important Changes**
+
+- Clearly labeled Refund operations, changed from ‘**Invoice**’
+
+<Update label="August 19, 2025" tags={UI, Billing & Invoicing}>
+  
+</Update>
+
+# **Contract Overview Page**
+
+This creates a navigable hub for managing contracts.
+
+![Contract Overview Gi](/images/ContractOverview.gif)
+
+New design now includes easy to access metrics, and places actionable contract lifecycle actions in the front:
+
+- Billing Tab
+- Phases Tab
+- Products Tab
+
+[IMAGE]
+
+<Update label="July 29, 2025" tags={UI, Contracts}>
+  # Introducing Phases
+
+  ![Phases Gi](/images/Phases.gif)
+
+  Vayu now lets you create phased contract agreements, where the terms of payment change throughout the life of the contract.
+
+  Simply go to **Customers**, then the **Contract** page, and finally press the gray \*\*+ Add Phase \*\*  button to the right of the page. From there, a window will open letting you define the start date of the new phase. Add a label, then hit the dark blue button \*\*Go to plan builder \> \*\* .
+
+  Check out the video below for a short, full tutorial: [<u>https://www.linkedin.com/feed/update/urn:li:activity:7382059848361738240/</u>](https://www.linkedin.com/feed/update/urn:li:activity:7382059848361738240/) 
+</Update>
+
+<Update label="June 24. 2025" tags={Integrations}>
+  # NetSuite Invoice Synching
+
+  Vayu now lets you sync invoices with many of your resources:\
+  Our improved NetSuite integration gives you the capability to sync invoices with different items.
+
+  - Credit information
+  - Discounts
+  - Manual changes
+
+  <Update label="June 17. 2025" tags={UI, Billing & Invoices}>
+    
+  </Update>
+</Update>
+
+# Enhanced Dashboard
+
+Vayu has upgraded its reports dashboard to display more comprehensive data. This also includes suggested reports.
+
+- Additional `useInvoicesSummary` hook for comprehensive reporting
+- Revenue chart data
+- Suggested reports list includes new report sections, including Customer section
+
+<Update label="June 23, 2025" tags={UI, Billing & Invoicing}>
+  # **NetSuite Integration**
+
+  Vayu introduces its new NetSuite integration that includes automatic class assignment, class synchronization, and easy maintainability.
+
+  # **Invoice Management**
+
+  Changes for invoice management include:
+
+  - Contract status visibility and improvements to the invoice history
+  - Sync status
+  - Additional fields for currency, customer, period, issue date, and due date
+
+  # **Plan Template**
+
+  The UI for plan creation is more intuitive than it was before, with additional guidance to walk you through the steps.
+
+  ![image.png](/images/image.png)
+
+  <Update label="March 25, 2025" tags={Security, Alerts & Notifications}>
+    
+  </Update>
+  # **Security**
+
+  Vayu has added granular role-based access control (RBAC) to Catalog Products. 
+
+  # **Notifications**
+
+  Additionally, Vayu has created or enhanced notification options, including a new option for Slack and improved email alerts.
+</Update>
+
+<Update label="March 15, 2025" tags={UI}>
   # Customer Overview Page
 
   <Frame>
@@ -30,163 +190,4 @@ icon: "clock"
 
   **\*Coming Soon\***\
   Set **schedules**  for individual products within a contract with the **Scheduled Products** feature. Instead of following a fixed contract date, you can bill products on different timelines, issue separate invoices, or include them in existing billing cycles—offering flexibility for **complex pricing models, phased deployments, or staggered activations.**
-</Update>
-
-<Update label="November 11, 2025" tags={Reporting, UI}>
-  
-</Update>
-
-## Streamlined MRR Reports
-
-Nov 11, 2025 8:30 AM
-
-Reporting UI
-
-### **MRR Report**
-
-Vayu has improved its recurring revenue reporting. These reports are viewable in the app, can be downloaded in CSV form and are available by account or customer level. The reports allow for custom fields (which appear by additional column), support contract phases, and can be viewed along with past reports’ MRR data in the Vayu UI.
-
-[IMAGE]
-
-### **Additional Improvements**
-
-You will see better customer-to-contact linking and data consistency in the Vayu UI:
-
-<Update label="September 23, 2025" tags={ UI, API, Reporting, Billing & Invoicing, Contracts}>
-  
-</Update>
-
-This release focused heavily on invoice management, especially currencies and line item editing. Bug fixes and feature enhancements also included a focus on accurate PDF generation. 
-
-### **Currencies: Contract and Invoice-Level**
-
-Approved invoices will maintain their original currency and _not auto-switch_ when customer currency settings are changed. For example, if you charged a customer USD in the past, but switched your default to EUR later, that previous invoice will remain in USD.
-
-[IMAGE]
-
-Additional currency-related updates include:
-
-- **Data Migration:** We added an overridingCurrency field as well as new migration settings for invoice currencies.
-- **Dynamic Editing:** Improved line item editing and dynamic currency fields for invoices (UI and API)
-
-<Update label="11/22/2025" description>
-  
-</Update>
-
-## September 16, 2025: Contracts & Line Items
-
-Sep 16, 2025 8:30 AM
-
-### **Editable Usage Line Items**
-
-Users can now edit usage product line items the same as they can for fixed fee line items. Additional UI enhancements include 1) an Undo function for modified prices and 2) line item editing in the API.
-
-[IMAGE]
-
-### **Contract Management**
-
-The Contract Page also got a few enhancements, namely the ability to manage custom configurations or restrictions for editing contracts. Additionally, contract pages now show both the ERP ID and the product name. This makes it easy to check that integrations are working properly.
-
-### **Additional Features**
-
-- **Monitoring: **Vayu now has more enhanced audit logging and better logging for invoice calculations. 
-
-## September 3, 2025: Contract Management
-
-Sep 2, 2025 8:30 AM
-
-Contracts API Integrations UI 
-
-### **Multi-Currency Contract Management**
-
-Vayu customers can now have multiple contracts with different currencies. This means you can set a specific currency other than default for each contract. 
-
-### **External API**
-
-We have added a schema with dynamic paths for catalog products, including create, get, lists, and update.
-
-### **Hubspot Integration**
-
-You can now link products to Hubspot, including support fro contract creation, plan creation, revision, and deleting.
-
-### **Important Changes**
-
-- Clearly labeled Refund operations, changed from ‘Invoice’
-
-## August 19, 2025: Contracts
-
-Aug 19, 2025 8:30 AM
-
- UI  Billing & Invoicing 
-
-### **Contract Overview Page**
-
-This creates a navigable hub for managing contracts.
-
-New design now includes easy to access metrics, and places actionable contract lifecycle actions in the front \
-Billing tab\
-Phases Tab
-
-Products Tab
-
-[IMAGE]
-
-## July 29, 2025: Introducing Phases
-
-Jul 29, 2025 8:30 AM
-
-Vayu now lets you create phased contract agreements, where the terms of payment change throughout the life of the contract.
-
-Simply go to **Customers**, then the **Contract** page, and finally press the gray **\+ Add Phase **  button to the right of the page. From there, a window will open letting you define the start date of the new phase. Add a label, then hit the dark blue button **Go to plan builder \> ** .
-
-Check out the video below for a short, full tutorial: [<u>https://www.linkedin.com/feed/update/urn:li:activity:7382059848361738240/</u>](https://www.linkedin.com/feed/update/urn:li:activity:7382059848361738240/) 
-
-## June 24, 2025: NetSuite Invoice Synching
-
-Jun 24, 2025 8:30 AM
-
-Vayu now lets you sync invoices with many of your resources:\
-Our improved NetSuite integration gives you the capability to sync invoices with different items.
-
-- Credit information
-- Discounts
-- Manual changes
-
-## June 17, 2025: Enhanced Dashboard
-
-Jun 17, 2025 8:30 AM
-
-Vayu has upgraded its reports dashboard to display more comprehensive data. This also includes suggested reports.
-
-- Additional useInvoicesSummary hook for comprehensive reporting
-- Revenue chart data
-- Suggested reports list includes new report sections, including Customer section
-
-<Update label="June 23, 2025" tags={UI, Billing & Invoicing}>
-  ## **NetSuite Integration**
-
-  Vayu introduces its new NetSuite integration that includes automatic class assignment, class synchronization, and easy maintainability.
-
-  ## **Invoice Management**
-
-  Changes for invoice management include:
-
-  - Contract status visibility and improvements to the invoice history
-  - Sync status
-  - Additional fields for currency, customer, period, issue date, and due date
-
-  ### **Plan Template**
-
-  The UI for plan creation is more intuitive than it was before, with additional guidance to walk you through the steps.
-
-  <Update label="March 25, 2025" tags={Security, Alerts & Notifications}>
-    
-  </Update>
-  ### **Security**
-
-  Vayu has added granular role-based access control (RBAC) to Catalog Products. 
-
-  ### **Notifications**
-
-  Additionally, Vayu has created or enhanced notification options, including a new option for Slack and improved email alerts.
 </Update>
