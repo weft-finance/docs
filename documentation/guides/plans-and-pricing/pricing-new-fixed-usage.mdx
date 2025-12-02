@@ -16,21 +16,23 @@ Vayu supports two general payment models: fixed fees and usage fees. Each model 
 | Commission     | Tiered Subscription  |
 |                | Revenue Share        |
 
-Data Intake\
-\
-Vayu is source-agnostic: pricing can be populated from Salesforce (Closed-Won), API, CSV/Excel, or entered manually.
+<Tip>
+  **Data Intake**\
+  \
+  Vayu is source-agnostic: pricing can be populated from Salesforce (Closed-Won), API, CSV/Excel, or entered manually.
+</Tip>
 
 ## **Fixed Fees**
 
-For fixed fee rates, we offer five kinds of payment models:   
+For fixed fee rates, we offer four kinds of payment models:   
 
-### \*\*Subscription Pricing  \*\*
+### Subscription Pricing
 
 Used mainly for charges such as the Platform Fee, the client pays upfront for each calendar month the exact amount.
 
 By default, charges are calculated on a **pro rata** basis according to the number of days client is _active_ on the platform. By default, payments will be calendar-aligned. This can be adjusted in your plan settings by going to **General Terms**, then Select Billing Method: Calendar-Aligned Payments
 
-#### **Example**
+#### **_Example_**
 
 In cases where the subscription _is_ calendar-aligned, consider a scenario when a customer subscribes beginning on July 14:
 
@@ -38,7 +40,7 @@ In cases where the subscription _is_ calendar-aligned, consider a scenario when 
 - The next invoice will cover August 1 through August 31 (the full calendar month)
 - All future invoices will be generated for full calendar months.
 
-#### **Pro Rata Payment Calculation Example**
+#### **_Pro Rata Payment Calculation Example_**
 
 When a subscription starts during the month, the subscription fee will be calculated on a \*\*pro rata (partial) basis \*\*according to the number of days the account has been _active_.
 
@@ -46,7 +48,7 @@ In the above example, the July 14-31 covers 18 days. If the premium plan is \$50
 
 (\$50/31 days) × 18 days = \$29.03
 
-### \*\*One-Time Fee \*\*
+### One-Time Fee
 
 This is used mostly for one-time fees, for example the **Integration Fee**. Charges are added to the client’s first issued invoice or at day one as separate invoice.
 
@@ -60,7 +62,7 @@ Commitment is the minimum <u>quantity</u> a customer has committed to consume <u
 
 ## **Usage Fees**
 
-### \*\*Tier-Based Pricing \*\*
+### Tier-Based Pricing
 
 This bills price per unit in a tiered system. The tier is determined by the actual usage in a period. Usage **_accumulation is set to monthly by default._**
 
@@ -77,7 +79,7 @@ Usage accumulation is ‘lifetime’ from the contract start date. The charges a
 
 ### **Tiered Subscription**
 
-For tiered subscriptions, a flat rate fee will apply based on the consumption in a tier for each billing period. By default, subscriptions will be upfront charges on a _monthly_ basis. 
+For tiered subscriptions, a flat rate fee will apply based on the consumption in a tier for each billing period. By default, subscriptions will be upfront charges on a _monthly_ basis.
 
 For example, consider these pricing tiers for cloud storage:
 
