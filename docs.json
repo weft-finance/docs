@@ -61,12 +61,6 @@
                   "documentation/guides/invoices/billing-and-invoice-automation",
                   "documentation/guides/invoices/customer-portal"
                 ]
-              },
-              {
-                "group": "Integrations",
-                "pages": [
-                  "documentation/guides/integrations/integration-netsuite"
-                ]
               }
             ]
           }
