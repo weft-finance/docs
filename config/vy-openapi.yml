@@ -367,6 +367,18 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/GetCustomerProductsConsumptionsByAliasResponse"
+    GetCustomerByIntegrationIdResponse:
+      description: response contains the customer matching the provided integration id
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/GetCustomerByIntegrationIdResponse"
+    GetContractByIntegrationIdResponse:
+      description: Response contains the contract matching the provided integration id
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/GetContractByIntegrationIdResponse"
     GetProductConsumptionResponse:
       description: The response from the get product consumption action
       content:
@@ -572,20 +584,6 @@ components:
             - deletedAt
       required:
         - catalogProduct
-    Address:
-      type: object
-      properties:
-        country:
-          type: string
-        city:
-          type: string
-        addressText:
-          type: string
-        state:
-          type: string
-        postalCode:
-          type: string
-      description: The address of the customer
     Contact:
       type: object
       properties:
@@ -606,11 +604,31 @@ components:
       nullable: true
       enum:
         - Stripe
-        - Ingestion
+        - VayuEventsApi
         - Api
         - Salesforce
         - HubSpot
       description: The source of the customer
+    Address:
+      type: object
+      nullable: true
+      properties:
+        country:
+          type: string
+          nullable: true
+        city:
+          type: string
+          nullable: true
+        addressText:
+          type: string
+          nullable: true
+        state:
+          type: string
+          nullable: true
+        postalCode:
+          type: string
+          nullable: true
+      description: The address of the customer
     CreateCustomerRequest:
       type: object
       properties:
@@ -624,10 +642,9 @@ components:
             type: string
           default: []
           description: The aliases of the customer used to match events to the customer.
-        address:
-          $ref: "#/components/schemas/Address"
         contacts:
           type: array
+          nullable: true
           items:
             $ref: "#/components/schemas/Contact"
           description: The contacts of the customer. Contact marked as primary is the
@@ -641,6 +658,24 @@ components:
           type: string
           nullable: true
           description: The ID of the customer in the ERP system
+        address:
+          $ref: "#/components/schemas/Address"
+        salesForceAccountId:
+          type: string
+          nullable: true
+          description: The ID of the customer in the Salesforce system
+        dueDays:
+          type: string
+          nullable: true
+          enum:
+            - END_OF_MONTH
+            - SAME_DAY
+            - 15_DAYS
+            - 30_DAYS
+            - 45_DAYS
+            - 60_DAYS
+            - 90_DAYS
+          description: The due days of the customer
       required:
         - name
     CreateCustomerResponse:
@@ -659,10 +694,9 @@ components:
                 type: string
               default: []
               description: The aliases of the customer used to match events to the customer.
-            address:
-              $ref: "#/components/schemas/Address"
             contacts:
               type: array
+              nullable: true
               items:
                 $ref: "#/components/schemas/Contact"
               description: The contacts of the customer. Contact marked as primary is the
@@ -676,6 +710,24 @@ components:
               type: string
               nullable: true
               description: The ID of the customer in the ERP system
+            address:
+              $ref: "#/components/schemas/Address"
+            salesForceAccountId:
+              type: string
+              nullable: true
+              description: The ID of the customer in the Salesforce system
+            dueDays:
+              type: string
+              nullable: true
+              enum:
+                - END_OF_MONTH
+                - SAME_DAY
+                - 15_DAYS
+                - 30_DAYS
+                - 45_DAYS
+                - 60_DAYS
+                - 90_DAYS
+              description: The due days of the customer
             id:
               type: string
             createdAt:
@@ -709,10 +761,9 @@ components:
                   type: string
                 default: []
                 description: The aliases of the customer used to match events to the customer.
-              address:
-                $ref: "#/components/schemas/Address"
               contacts:
                 type: array
+                nullable: true
                 items:
                   $ref: "#/components/schemas/Contact"
                 description: The contacts of the customer. Contact marked as primary is the
@@ -726,6 +777,24 @@ components:
                 type: string
                 nullable: true
                 description: The ID of the customer in the ERP system
+              address:
+                $ref: "#/components/schemas/Address"
+              salesForceAccountId:
+                type: string
+                nullable: true
+                description: The ID of the customer in the Salesforce system
+              dueDays:
+                type: string
+                nullable: true
+                enum:
+                  - END_OF_MONTH
+                  - SAME_DAY
+                  - 15_DAYS
+                  - 30_DAYS
+                  - 45_DAYS
+                  - 60_DAYS
+                  - 90_DAYS
+                description: The due days of the customer
               id:
                 type: string
               createdAt:
@@ -765,10 +834,9 @@ components:
                 type: string
               default: []
               description: The aliases of the customer used to match events to the customer.
-            address:
-              $ref: "#/components/schemas/Address"
             contacts:
               type: array
+              nullable: true
               items:
                 $ref: "#/components/schemas/Contact"
               description: The contacts of the customer. Contact marked as primary is the
@@ -782,6 +850,24 @@ components:
               type: string
               nullable: true
               description: The ID of the customer in the ERP system
+            address:
+              $ref: "#/components/schemas/Address"
+            salesForceAccountId:
+              type: string
+              nullable: true
+              description: The ID of the customer in the Salesforce system
+            dueDays:
+              type: string
+              nullable: true
+              enum:
+                - END_OF_MONTH
+                - SAME_DAY
+                - 15_DAYS
+                - 30_DAYS
+                - 45_DAYS
+                - 60_DAYS
+                - 90_DAYS
+              description: The due days of the customer
             id:
               type: string
             createdAt:
@@ -810,10 +896,9 @@ components:
             type: string
           default: []
           description: The aliases of the customer used to match events to the customer.
-        address:
-          $ref: "#/components/schemas/Address"
         contacts:
           type: array
+          nullable: true
           items:
             $ref: "#/components/schemas/Contact"
           description: The contacts of the customer. Contact marked as primary is the
@@ -827,6 +912,24 @@ components:
           type: string
           nullable: true
           description: The ID of the customer in the ERP system
+        address:
+          $ref: "#/components/schemas/Address"
+        salesForceAccountId:
+          type: string
+          nullable: true
+          description: The ID of the customer in the Salesforce system
+        dueDays:
+          type: string
+          nullable: true
+          enum:
+            - END_OF_MONTH
+            - SAME_DAY
+            - 15_DAYS
+            - 30_DAYS
+            - 45_DAYS
+            - 60_DAYS
+            - 90_DAYS
+          description: The due days of the customer
       additionalProperties: false
     UpdateCustomerResponse:
       type: object
@@ -844,10 +947,9 @@ components:
                 type: string
               default: []
               description: The aliases of the customer used to match events to the customer.
-            address:
-              $ref: "#/components/schemas/Address"
             contacts:
               type: array
+              nullable: true
               items:
                 $ref: "#/components/schemas/Contact"
               description: The contacts of the customer. Contact marked as primary is the
@@ -861,6 +963,24 @@ components:
               type: string
               nullable: true
               description: The ID of the customer in the ERP system
+            address:
+              $ref: "#/components/schemas/Address"
+            salesForceAccountId:
+              type: string
+              nullable: true
+              description: The ID of the customer in the Salesforce system
+            dueDays:
+              type: string
+              nullable: true
+              enum:
+                - END_OF_MONTH
+                - SAME_DAY
+                - 15_DAYS
+                - 30_DAYS
+                - 45_DAYS
+                - 60_DAYS
+                - 90_DAYS
+              description: The due days of the customer
             id:
               type: string
             createdAt:
@@ -892,10 +1012,9 @@ components:
                 type: string
               default: []
               description: The aliases of the customer used to match events to the customer.
-            address:
-              $ref: "#/components/schemas/Address"
             contacts:
               type: array
+              nullable: true
               items:
                 $ref: "#/components/schemas/Contact"
               description: The contacts of the customer. Contact marked as primary is the
@@ -909,6 +1028,24 @@ components:
               type: string
               nullable: true
               description: The ID of the customer in the ERP system
+            address:
+              $ref: "#/components/schemas/Address"
+            salesForceAccountId:
+              type: string
+              nullable: true
+              description: The ID of the customer in the Salesforce system
+            dueDays:
+              type: string
+              nullable: true
+              enum:
+                - END_OF_MONTH
+                - SAME_DAY
+                - 15_DAYS
+                - 30_DAYS
+                - 45_DAYS
+                - 60_DAYS
+                - 90_DAYS
+              description: The due days of the customer
             id:
               type: string
             createdAt:
@@ -1180,6 +1317,382 @@ components:
         - meters
         - total
         - hasMore
+    ExternalUsageReset:
+      type: integer
+      nullable: true
+      description: "Usage reset is represented in months and must be one of: 1, 2, 3, 6, 12"
+    ExternalOverageStrategy:
+      type: string
+      nullable: true
+      enum:
+        - IGNORE
+        - BLOCK
+        - UPGRADE_PLAN
+        - TOP_UP
+      default: IGNORE
+      description: The strategy to apply when the overage occurs
+    ProductGroup:
+      type: object
+      properties:
+        displayName:
+          type: string
+          description: The display name of the product
+        description:
+          type: string
+          nullable: true
+          description: The description of the product
+        productErpId:
+          type: string
+          nullable: true
+          description: The id of the product in NetSuite ERP
+        nsClass:
+          type: string
+          nullable: true
+          description: The class of the product in NetSuite ERP
+        nsClassId:
+          type: string
+          nullable: true
+          description: The id of the class of the product in NetSuite ERP
+        products:
+          type: array
+          items:
+            type: object
+            properties:
+              displayName:
+                type: string
+                description: The display name of the product
+              description:
+                type: string
+                nullable: true
+                description: The description of the product
+              scheduling:
+                type: object
+                properties:
+                  billingDay:
+                    type: integer
+                    minimum: 1
+                    maximum: 31
+                    default: 1
+                    description: The day of the month that the product is billed
+                  duration:
+                    type: object
+                    properties:
+                      unit:
+                        type: string
+                        enum:
+                          - DAY
+                          - WEEK
+                          - MONTH
+                          - YEAR
+                        default: MONTH
+                      value:
+                        type: integer
+                        minimum: 0
+                        maximum: 1000
+                    required:
+                      - unit
+                      - value
+                    description: The duration of the product
+                required:
+                  - duration
+                description: The scheduling of the product
+              pricing:
+                oneOf:
+                  - type: object
+                    properties:
+                      type:
+                        type: string
+                        enum:
+                          - ONE_TIME
+                      price:
+                        type: number
+                        minimum: 0
+                    required:
+                      - type
+                      - price
+                  - type: object
+                    properties:
+                      type:
+                        type: string
+                        enum:
+                          - CONTRACT_TERMS
+                      price:
+                        type: number
+                        minimum: 0
+                      installments:
+                        type: array
+                        nullable: true
+                        items:
+                          type: object
+                          properties:
+                            installmentDate:
+                              type: string
+                              format: date-time
+                            amount:
+                              type: number
+                              minimum: 0
+                          required:
+                            - installmentDate
+                            - amount
+                    required:
+                      - type
+                      - price
+                  - type: object
+                    properties:
+                      type:
+                        type: string
+                        enum:
+                          - SUBSCRIPTION
+                      price:
+                        type: number
+                        minimum: 0
+                      subscriptionCadence:
+                        type: object
+                        properties:
+                          unit:
+                            type: string
+                            enum:
+                              - DAY
+                              - WEEK
+                              - MONTH
+                              - YEAR
+                            default: MONTH
+                          value:
+                            type: integer
+                            minimum: 0
+                            maximum: 1000
+                        required:
+                          - unit
+                          - value
+                    required:
+                      - type
+                      - price
+                      - subscriptionCadence
+                  - type: object
+                    properties:
+                      type:
+                        type: string
+                        enum:
+                          - TIERED
+                      tiers:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            fromInclusive:
+                              type: number
+                              minimum: 0
+                            toExclusive:
+                              type: number
+                              nullable: true
+                              minimum: 0
+                            rate:
+                              type: number
+                              nullable: true
+                              minimum: 0
+                            flatFee:
+                              type: number
+                              nullable: true
+                              minimum: 0
+                            packageSize:
+                              type: number
+                              nullable: true
+                              minimum: 0
+                          required:
+                            - fromInclusive
+                      subscriptionCadence:
+                        type: object
+                        nullable: true
+                        properties:
+                          unit:
+                            type: string
+                            enum:
+                              - DAY
+                              - WEEK
+                              - MONTH
+                              - YEAR
+                            default: MONTH
+                          value:
+                            type: integer
+                            minimum: 0
+                            maximum: 1000
+                        required:
+                          - unit
+                          - value
+                      autoUpgrade:
+                        type: boolean
+                        nullable: true
+                      prorate:
+                        type: boolean
+                        nullable: true
+                      isRevShare:
+                        type: boolean
+                        nullable: true
+                      baseAmount:
+                        type: number
+                        nullable: true
+                        minimum: 0
+                      usageReset:
+                        $ref: "#/components/schemas/ExternalUsageReset"
+                    required:
+                      - type
+                      - tiers
+                  - type: object
+                    properties:
+                      type:
+                        type: string
+                        enum:
+                          - PER_UNIT
+                      price:
+                        type: number
+                        minimum: 0
+                      chunkSize:
+                        type: number
+                        nullable: true
+                        minimum: 0
+                        exclusiveMinimum: true
+                      usageReset:
+                        $ref: "#/components/schemas/ExternalUsageReset"
+                      baseAmount:
+                        type: number
+                        nullable: true
+                        minimum: 0
+                    required:
+                      - type
+                      - price
+                description: The pricing of the product
+              catalogProductId:
+                type: string
+                nullable: true
+                description: The id of the a product from the catalog to connect the contract
+                  product to
+              productErpId:
+                type: string
+                nullable: true
+                description: The id of the product in NetSuite ERP
+              nsClass:
+                type: string
+                nullable: true
+                description: The class of the product in NetSuite ERP
+              nsClassId:
+                type: string
+                nullable: true
+                description: The id of the class of the product in NetSuite ERP
+              commitment:
+                type: object
+                nullable: true
+                properties:
+                  units:
+                    type: number
+                    minimum: 0
+                    description: Units to commit the customer for
+                  price:
+                    type: number
+                    nullable: true
+                    minimum: 0
+                    description: Price to charge the customer for the committed units
+                  scheduling:
+                    type: object
+                    nullable: true
+                    properties:
+                      billingDay:
+                        type: integer
+                        minimum: 1
+                        maximum: 31
+                        default: 1
+                        description: The day of the month that the product is billed
+                      duration:
+                        type: object
+                        properties:
+                          unit:
+                            type: string
+                            enum:
+                              - DAY
+                              - WEEK
+                              - MONTH
+                              - YEAR
+                            default: MONTH
+                          value:
+                            type: integer
+                            minimum: 0
+                            maximum: 1000
+                        required:
+                          - unit
+                          - value
+                        description: The duration of the product
+                    required:
+                      - duration
+                    description: Scheduling in case of recurring commitment
+                  overageStrategy:
+                    $ref: "#/components/schemas/ExternalOverageStrategy"
+                required:
+                  - units
+                description: The commitment of the product
+            required:
+              - displayName
+              - scheduling
+              - pricing
+          minItems: 1
+          description: The products that the product group is associated with
+        baseAmount:
+          type: number
+          nullable: true
+          description: The base amount for the customer to pay even if the amount based on
+            usage is lower
+        commitment:
+          type: object
+          nullable: true
+          properties:
+            units:
+              type: number
+              minimum: 0
+              description: Units to commit the customer for
+            price:
+              type: number
+              nullable: true
+              minimum: 0
+              description: Price to charge the customer for the committed units
+            scheduling:
+              type: object
+              nullable: true
+              properties:
+                billingDay:
+                  type: integer
+                  minimum: 1
+                  maximum: 31
+                  default: 1
+                  description: The day of the month that the product is billed
+                duration:
+                  type: object
+                  properties:
+                    unit:
+                      type: string
+                      enum:
+                        - DAY
+                        - WEEK
+                        - MONTH
+                        - YEAR
+                      default: MONTH
+                    value:
+                      type: integer
+                      minimum: 0
+                      maximum: 1000
+                  required:
+                    - unit
+                    - value
+                  description: The duration of the product
+              required:
+                - duration
+              description: Scheduling in case of recurring commitment
+            overageStrategy:
+              $ref: "#/components/schemas/ExternalOverageStrategy"
+          required:
+            - units
+          description: The commitment of the product group. units are aggregated for all
+            products in the group
+      required:
+        - displayName
+        - products
     GetContractResponse:
       type: object
       properties:
@@ -1199,12 +1712,18 @@ components:
               description: The name of the contract
             salesForceOpportunityId:
               type: string
+              nullable: true
               description: The id of the sales force opportunity that the contract is
                 associated with
             endDate:
               type: string
               nullable: true
               description: The end date of the contract
+              format: date-time
+            signatureDate:
+              type: string
+              nullable: true
+              description: The signature date of the contract
               format: date-time
             products:
               type: array
@@ -1374,13 +1893,19 @@ components:
                               - value
                           autoUpgrade:
                             type: boolean
+                            nullable: true
                           prorate:
                             type: boolean
+                            nullable: true
                           isRevShare:
                             type: boolean
+                            nullable: true
                           baseAmount:
                             type: number
+                            nullable: true
                             minimum: 0
+                          usageReset:
+                            $ref: "#/components/schemas/ExternalUsageReset"
                         required:
                           - type
                           - tiers
@@ -1395,8 +1920,15 @@ components:
                             minimum: 0
                           chunkSize:
                             type: number
+                            nullable: true
                             minimum: 0
                             exclusiveMinimum: true
+                          usageReset:
+                            $ref: "#/components/schemas/ExternalUsageReset"
+                          baseAmount:
+                            type: number
+                            nullable: true
+                            minimum: 0
                         required:
                           - type
                           - price
@@ -1418,14 +1950,80 @@ components:
                     type: string
                     nullable: true
                     description: The id of the class of the product in NetSuite ERP
+                  commitment:
+                    type: object
+                    nullable: true
+                    properties:
+                      units:
+                        type: number
+                        minimum: 0
+                        description: Units to commit the customer for
+                      price:
+                        type: number
+                        nullable: true
+                        minimum: 0
+                        description: Price to charge the customer for the committed units
+                      scheduling:
+                        type: object
+                        nullable: true
+                        properties:
+                          billingDay:
+                            type: integer
+                            minimum: 1
+                            maximum: 31
+                            default: 1
+                            description: The day of the month that the product is billed
+                          duration:
+                            type: object
+                            properties:
+                              unit:
+                                type: string
+                                enum:
+                                  - DAY
+                                  - WEEK
+                                  - MONTH
+                                  - YEAR
+                                default: MONTH
+                              value:
+                                type: integer
+                                minimum: 0
+                                maximum: 1000
+                            required:
+                              - unit
+                              - value
+                            description: The duration of the product
+                        required:
+                          - duration
+                        description: Scheduling in case of recurring commitment
+                      overageStrategy:
+                        $ref: "#/components/schemas/ExternalOverageStrategy"
+                    required:
+                      - units
+                    description: The commitment of the product
                 required:
                   - displayName
                   - scheduling
                   - pricing
               description: The products that the contract is associated with
+            productGroups:
+              type: array
+              items:
+                $ref: "#/components/schemas/ProductGroup"
+              description: Product groups are list of products that can be grouped as a single
+                line item with shared settings like ERP settings, commitment
+                settings, etc.
             accountManager:
               type: string
+              nullable: true
               description: The name of the account manager of the contract
+            shouldProRateInvoices:
+              type: boolean
+              description: Whether to pro rate the invoices for the contract. If not provided,
+                it will default to false
+            autoRenewContract:
+              type: boolean
+              description: Whether the contract is set to auto renew. If not provided, it will
+                be treated as true
             id:
               type: string
             createdAt:
@@ -1462,12 +2060,18 @@ components:
               description: The name of the contract
             salesForceOpportunityId:
               type: string
+              nullable: true
               description: The id of the sales force opportunity that the contract is
                 associated with
             endDate:
               type: string
               nullable: true
               description: The end date of the contract
+              format: date-time
+            signatureDate:
+              type: string
+              nullable: true
+              description: The signature date of the contract
               format: date-time
             products:
               type: array
@@ -1637,13 +2241,19 @@ components:
                               - value
                           autoUpgrade:
                             type: boolean
+                            nullable: true
                           prorate:
                             type: boolean
+                            nullable: true
                           isRevShare:
                             type: boolean
+                            nullable: true
                           baseAmount:
                             type: number
+                            nullable: true
                             minimum: 0
+                          usageReset:
+                            $ref: "#/components/schemas/ExternalUsageReset"
                         required:
                           - type
                           - tiers
@@ -1658,8 +2268,15 @@ components:
                             minimum: 0
                           chunkSize:
                             type: number
+                            nullable: true
                             minimum: 0
                             exclusiveMinimum: true
+                          usageReset:
+                            $ref: "#/components/schemas/ExternalUsageReset"
+                          baseAmount:
+                            type: number
+                            nullable: true
+                            minimum: 0
                         required:
                           - type
                           - price
@@ -1681,14 +2298,80 @@ components:
                     type: string
                     nullable: true
                     description: The id of the class of the product in NetSuite ERP
+                  commitment:
+                    type: object
+                    nullable: true
+                    properties:
+                      units:
+                        type: number
+                        minimum: 0
+                        description: Units to commit the customer for
+                      price:
+                        type: number
+                        nullable: true
+                        minimum: 0
+                        description: Price to charge the customer for the committed units
+                      scheduling:
+                        type: object
+                        nullable: true
+                        properties:
+                          billingDay:
+                            type: integer
+                            minimum: 1
+                            maximum: 31
+                            default: 1
+                            description: The day of the month that the product is billed
+                          duration:
+                            type: object
+                            properties:
+                              unit:
+                                type: string
+                                enum:
+                                  - DAY
+                                  - WEEK
+                                  - MONTH
+                                  - YEAR
+                                default: MONTH
+                              value:
+                                type: integer
+                                minimum: 0
+                                maximum: 1000
+                            required:
+                              - unit
+                              - value
+                            description: The duration of the product
+                        required:
+                          - duration
+                        description: Scheduling in case of recurring commitment
+                      overageStrategy:
+                        $ref: "#/components/schemas/ExternalOverageStrategy"
+                    required:
+                      - units
+                    description: The commitment of the product
                 required:
                   - displayName
                   - scheduling
                   - pricing
               description: The products that the contract is associated with
+            productGroups:
+              type: array
+              items:
+                $ref: "#/components/schemas/ProductGroup"
+              description: Product groups are list of products that can be grouped as a single
+                line item with shared settings like ERP settings, commitment
+                settings, etc.
             accountManager:
               type: string
+              nullable: true
               description: The name of the account manager of the contract
+            shouldProRateInvoices:
+              type: boolean
+              description: Whether to pro rate the invoices for the contract. If not provided,
+                it will default to false
+            autoRenewContract:
+              type: boolean
+              description: Whether the contract is set to auto renew. If not provided, it will
+                be treated as true
             id:
               type: string
             createdAt:
@@ -1730,12 +2413,18 @@ components:
                 description: The name of the contract
               salesForceOpportunityId:
                 type: string
+                nullable: true
                 description: The id of the sales force opportunity that the contract is
                   associated with
               endDate:
                 type: string
                 nullable: true
                 description: The end date of the contract
+                format: date-time
+              signatureDate:
+                type: string
+                nullable: true
+                description: The signature date of the contract
                 format: date-time
               products:
                 type: array
@@ -1905,13 +2594,19 @@ components:
                                 - value
                             autoUpgrade:
                               type: boolean
+                              nullable: true
                             prorate:
                               type: boolean
+                              nullable: true
                             isRevShare:
                               type: boolean
+                              nullable: true
                             baseAmount:
                               type: number
+                              nullable: true
                               minimum: 0
+                            usageReset:
+                              $ref: "#/components/schemas/ExternalUsageReset"
                           required:
                             - type
                             - tiers
@@ -1926,8 +2621,15 @@ components:
                               minimum: 0
                             chunkSize:
                               type: number
+                              nullable: true
                               minimum: 0
                               exclusiveMinimum: true
+                            usageReset:
+                              $ref: "#/components/schemas/ExternalUsageReset"
+                            baseAmount:
+                              type: number
+                              nullable: true
+                              minimum: 0
                           required:
                             - type
                             - price
@@ -1949,14 +2651,80 @@ components:
                       type: string
                       nullable: true
                       description: The id of the class of the product in NetSuite ERP
+                    commitment:
+                      type: object
+                      nullable: true
+                      properties:
+                        units:
+                          type: number
+                          minimum: 0
+                          description: Units to commit the customer for
+                        price:
+                          type: number
+                          nullable: true
+                          minimum: 0
+                          description: Price to charge the customer for the committed units
+                        scheduling:
+                          type: object
+                          nullable: true
+                          properties:
+                            billingDay:
+                              type: integer
+                              minimum: 1
+                              maximum: 31
+                              default: 1
+                              description: The day of the month that the product is billed
+                            duration:
+                              type: object
+                              properties:
+                                unit:
+                                  type: string
+                                  enum:
+                                    - DAY
+                                    - WEEK
+                                    - MONTH
+                                    - YEAR
+                                  default: MONTH
+                                value:
+                                  type: integer
+                                  minimum: 0
+                                  maximum: 1000
+                              required:
+                                - unit
+                                - value
+                              description: The duration of the product
+                          required:
+                            - duration
+                          description: Scheduling in case of recurring commitment
+                        overageStrategy:
+                          $ref: "#/components/schemas/ExternalOverageStrategy"
+                      required:
+                        - units
+                      description: The commitment of the product
                   required:
                     - displayName
                     - scheduling
                     - pricing
                 description: The products that the contract is associated with
+              productGroups:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ProductGroup"
+                description: Product groups are list of products that can be grouped as a single
+                  line item with shared settings like ERP settings, commitment
+                  settings, etc.
               accountManager:
                 type: string
+                nullable: true
                 description: The name of the account manager of the contract
+              shouldProRateInvoices:
+                type: boolean
+                description: Whether to pro rate the invoices for the contract. If not provided,
+                  it will default to false
+              autoRenewContract:
+                type: boolean
+                description: Whether the contract is set to auto renew. If not provided, it will
+                  be treated as true
               id:
                 type: string
               createdAt:
@@ -1998,12 +2766,18 @@ components:
           description: The name of the contract
         salesForceOpportunityId:
           type: string
+          nullable: true
           description: The id of the sales force opportunity that the contract is
             associated with
         endDate:
           type: string
           nullable: true
           description: The end date of the contract
+          format: date-time
+        signatureDate:
+          type: string
+          nullable: true
+          description: The signature date of the contract
           format: date-time
         products:
           type: array
@@ -2173,13 +2947,19 @@ components:
                           - value
                       autoUpgrade:
                         type: boolean
+                        nullable: true
                       prorate:
                         type: boolean
+                        nullable: true
                       isRevShare:
                         type: boolean
+                        nullable: true
                       baseAmount:
                         type: number
+                        nullable: true
                         minimum: 0
+                      usageReset:
+                        $ref: "#/components/schemas/ExternalUsageReset"
                     required:
                       - type
                       - tiers
@@ -2194,8 +2974,15 @@ components:
                         minimum: 0
                       chunkSize:
                         type: number
+                        nullable: true
                         minimum: 0
                         exclusiveMinimum: true
+                      usageReset:
+                        $ref: "#/components/schemas/ExternalUsageReset"
+                      baseAmount:
+                        type: number
+                        nullable: true
+                        minimum: 0
                     required:
                       - type
                       - price
@@ -2217,14 +3004,80 @@ components:
                 type: string
                 nullable: true
                 description: The id of the class of the product in NetSuite ERP
+              commitment:
+                type: object
+                nullable: true
+                properties:
+                  units:
+                    type: number
+                    minimum: 0
+                    description: Units to commit the customer for
+                  price:
+                    type: number
+                    nullable: true
+                    minimum: 0
+                    description: Price to charge the customer for the committed units
+                  scheduling:
+                    type: object
+                    nullable: true
+                    properties:
+                      billingDay:
+                        type: integer
+                        minimum: 1
+                        maximum: 31
+                        default: 1
+                        description: The day of the month that the product is billed
+                      duration:
+                        type: object
+                        properties:
+                          unit:
+                            type: string
+                            enum:
+                              - DAY
+                              - WEEK
+                              - MONTH
+                              - YEAR
+                            default: MONTH
+                          value:
+                            type: integer
+                            minimum: 0
+                            maximum: 1000
+                        required:
+                          - unit
+                          - value
+                        description: The duration of the product
+                    required:
+                      - duration
+                    description: Scheduling in case of recurring commitment
+                  overageStrategy:
+                    $ref: "#/components/schemas/ExternalOverageStrategy"
+                required:
+                  - units
+                description: The commitment of the product
             required:
               - displayName
               - scheduling
               - pricing
           description: The products that the contract is associated with
+        productGroups:
+          type: array
+          items:
+            $ref: "#/components/schemas/ProductGroup"
+          description: Product groups are list of products that can be grouped as a single
+            line item with shared settings like ERP settings, commitment
+            settings, etc.
         accountManager:
           type: string
+          nullable: true
           description: The name of the account manager of the contract
+        shouldProRateInvoices:
+          type: boolean
+          description: Whether to pro rate the invoices for the contract. If not provided,
+            it will default to false
+        autoRenewContract:
+          type: boolean
+          description: Whether the contract is set to auto renew. If not provided, it will
+            be treated as true
       required:
         - startDate
         - customerId
@@ -2248,12 +3101,18 @@ components:
               description: The name of the contract
             salesForceOpportunityId:
               type: string
+              nullable: true
               description: The id of the sales force opportunity that the contract is
                 associated with
             endDate:
               type: string
               nullable: true
               description: The end date of the contract
+              format: date-time
+            signatureDate:
+              type: string
+              nullable: true
+              description: The signature date of the contract
               format: date-time
             products:
               type: array
@@ -2423,13 +3282,19 @@ components:
                               - value
                           autoUpgrade:
                             type: boolean
+                            nullable: true
                           prorate:
                             type: boolean
+                            nullable: true
                           isRevShare:
                             type: boolean
+                            nullable: true
                           baseAmount:
                             type: number
+                            nullable: true
                             minimum: 0
+                          usageReset:
+                            $ref: "#/components/schemas/ExternalUsageReset"
                         required:
                           - type
                           - tiers
@@ -2444,8 +3309,15 @@ components:
                             minimum: 0
                           chunkSize:
                             type: number
+                            nullable: true
                             minimum: 0
                             exclusiveMinimum: true
+                          usageReset:
+                            $ref: "#/components/schemas/ExternalUsageReset"
+                          baseAmount:
+                            type: number
+                            nullable: true
+                            minimum: 0
                         required:
                           - type
                           - price
@@ -2467,14 +3339,80 @@ components:
                     type: string
                     nullable: true
                     description: The id of the class of the product in NetSuite ERP
+                  commitment:
+                    type: object
+                    nullable: true
+                    properties:
+                      units:
+                        type: number
+                        minimum: 0
+                        description: Units to commit the customer for
+                      price:
+                        type: number
+                        nullable: true
+                        minimum: 0
+                        description: Price to charge the customer for the committed units
+                      scheduling:
+                        type: object
+                        nullable: true
+                        properties:
+                          billingDay:
+                            type: integer
+                            minimum: 1
+                            maximum: 31
+                            default: 1
+                            description: The day of the month that the product is billed
+                          duration:
+                            type: object
+                            properties:
+                              unit:
+                                type: string
+                                enum:
+                                  - DAY
+                                  - WEEK
+                                  - MONTH
+                                  - YEAR
+                                default: MONTH
+                              value:
+                                type: integer
+                                minimum: 0
+                                maximum: 1000
+                            required:
+                              - unit
+                              - value
+                            description: The duration of the product
+                        required:
+                          - duration
+                        description: Scheduling in case of recurring commitment
+                      overageStrategy:
+                        $ref: "#/components/schemas/ExternalOverageStrategy"
+                    required:
+                      - units
+                    description: The commitment of the product
                 required:
                   - displayName
                   - scheduling
                   - pricing
               description: The products that the contract is associated with
+            productGroups:
+              type: array
+              items:
+                $ref: "#/components/schemas/ProductGroup"
+              description: Product groups are list of products that can be grouped as a single
+                line item with shared settings like ERP settings, commitment
+                settings, etc.
             accountManager:
               type: string
+              nullable: true
               description: The name of the account manager of the contract
+            shouldProRateInvoices:
+              type: boolean
+              description: Whether to pro rate the invoices for the contract. If not provided,
+                it will default to false
+            autoRenewContract:
+              type: boolean
+              description: Whether the contract is set to auto renew. If not provided, it will
+                be treated as true
             id:
               type: string
             createdAt:
@@ -3576,6 +4514,7 @@ components:
         - UnchargedEvents
         - TierCrossed
         - CommitmentCrossed
+        - FinalTierExceeded
     WebhookSubscribeRequest:
       type: object
       properties:
@@ -3602,10 +4541,9 @@ components:
                 type: string
               default: []
               description: The aliases of the customer used to match events to the customer.
-            address:
-              $ref: "#/components/schemas/Address"
             contacts:
               type: array
+              nullable: true
               items:
                 $ref: "#/components/schemas/Contact"
               description: The contacts of the customer. Contact marked as primary is the
@@ -3619,6 +4557,24 @@ components:
               type: string
               nullable: true
               description: The ID of the customer in the ERP system
+            address:
+              $ref: "#/components/schemas/Address"
+            salesForceAccountId:
+              type: string
+              nullable: true
+              description: The ID of the customer in the Salesforce system
+            dueDays:
+              type: string
+              nullable: true
+              enum:
+                - END_OF_MONTH
+                - SAME_DAY
+                - 15_DAYS
+                - 30_DAYS
+                - 45_DAYS
+                - 60_DAYS
+                - 90_DAYS
+              description: The due days of the customer
             id:
               type: string
             createdAt:
@@ -3698,6 +4654,415 @@ components:
             $ref: "#/components/schemas/ProductConsumption"
       required:
         - productsConsumptions
+    GetCustomerByIntegrationIdResponse:
+      type: object
+      properties:
+        customer:
+          type: object
+          properties:
+            name:
+              type: string
+              description: The name of the customer
+            aliases:
+              type: array
+              nullable: true
+              items:
+                type: string
+              default: []
+              description: The aliases of the customer used to match events to the customer.
+            contacts:
+              type: array
+              nullable: true
+              items:
+                $ref: "#/components/schemas/Contact"
+              description: The contacts of the customer. Contact marked as primary is the
+                target for invoice sharing.
+            source:
+              $ref: "#/components/schemas/CustomerSource"
+            externalId:
+              type: string
+              description: The external ID of the customer
+            customerErpId:
+              type: string
+              nullable: true
+              description: The ID of the customer in the ERP system
+            address:
+              $ref: "#/components/schemas/Address"
+            salesForceAccountId:
+              type: string
+              nullable: true
+              description: The ID of the customer in the Salesforce system
+            dueDays:
+              type: string
+              nullable: true
+              enum:
+                - END_OF_MONTH
+                - SAME_DAY
+                - 15_DAYS
+                - 30_DAYS
+                - 45_DAYS
+                - 60_DAYS
+                - 90_DAYS
+              description: The due days of the customer
+            id:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+            updatedAt:
+              type: string
+              format: date-time
+          required:
+            - name
+            - id
+            - createdAt
+            - updatedAt
+    GetContractByIntegrationIdResponse:
+      type: object
+      properties:
+        contract:
+          type: object
+          properties:
+            startDate:
+              type: string
+              description: The start date of the contract
+              format: date-time
+            customerId:
+              type: string
+              pattern: ^[0-9a-fA-F]{24}$
+              description: The id of the customer that the contract is associated with
+            name:
+              type: string
+              description: The name of the contract
+            salesForceOpportunityId:
+              type: string
+              nullable: true
+              description: The id of the sales force opportunity that the contract is
+                associated with
+            endDate:
+              type: string
+              nullable: true
+              description: The end date of the contract
+              format: date-time
+            signatureDate:
+              type: string
+              nullable: true
+              description: The signature date of the contract
+              format: date-time
+            products:
+              type: array
+              items:
+                type: object
+                properties:
+                  displayName:
+                    type: string
+                    description: The display name of the product
+                  description:
+                    type: string
+                    nullable: true
+                    description: The description of the product
+                  scheduling:
+                    type: object
+                    properties:
+                      billingDay:
+                        type: integer
+                        minimum: 1
+                        maximum: 31
+                        default: 1
+                        description: The day of the month that the product is billed
+                      duration:
+                        type: object
+                        properties:
+                          unit:
+                            type: string
+                            enum:
+                              - DAY
+                              - WEEK
+                              - MONTH
+                              - YEAR
+                            default: MONTH
+                          value:
+                            type: integer
+                            minimum: 0
+                            maximum: 1000
+                        required:
+                          - unit
+                          - value
+                        description: The duration of the product
+                    required:
+                      - duration
+                    description: The scheduling of the product
+                  pricing:
+                    oneOf:
+                      - type: object
+                        properties:
+                          type:
+                            type: string
+                            enum:
+                              - ONE_TIME
+                          price:
+                            type: number
+                            minimum: 0
+                        required:
+                          - type
+                          - price
+                      - type: object
+                        properties:
+                          type:
+                            type: string
+                            enum:
+                              - CONTRACT_TERMS
+                          price:
+                            type: number
+                            minimum: 0
+                          installments:
+                            type: array
+                            nullable: true
+                            items:
+                              type: object
+                              properties:
+                                installmentDate:
+                                  type: string
+                                  format: date-time
+                                amount:
+                                  type: number
+                                  minimum: 0
+                              required:
+                                - installmentDate
+                                - amount
+                        required:
+                          - type
+                          - price
+                      - type: object
+                        properties:
+                          type:
+                            type: string
+                            enum:
+                              - SUBSCRIPTION
+                          price:
+                            type: number
+                            minimum: 0
+                          subscriptionCadence:
+                            type: object
+                            properties:
+                              unit:
+                                type: string
+                                enum:
+                                  - DAY
+                                  - WEEK
+                                  - MONTH
+                                  - YEAR
+                                default: MONTH
+                              value:
+                                type: integer
+                                minimum: 0
+                                maximum: 1000
+                            required:
+                              - unit
+                              - value
+                        required:
+                          - type
+                          - price
+                          - subscriptionCadence
+                      - type: object
+                        properties:
+                          type:
+                            type: string
+                            enum:
+                              - TIERED
+                          tiers:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                fromInclusive:
+                                  type: number
+                                  minimum: 0
+                                toExclusive:
+                                  type: number
+                                  nullable: true
+                                  minimum: 0
+                                rate:
+                                  type: number
+                                  nullable: true
+                                  minimum: 0
+                                flatFee:
+                                  type: number
+                                  nullable: true
+                                  minimum: 0
+                                packageSize:
+                                  type: number
+                                  nullable: true
+                                  minimum: 0
+                              required:
+                                - fromInclusive
+                          subscriptionCadence:
+                            type: object
+                            nullable: true
+                            properties:
+                              unit:
+                                type: string
+                                enum:
+                                  - DAY
+                                  - WEEK
+                                  - MONTH
+                                  - YEAR
+                                default: MONTH
+                              value:
+                                type: integer
+                                minimum: 0
+                                maximum: 1000
+                            required:
+                              - unit
+                              - value
+                          autoUpgrade:
+                            type: boolean
+                            nullable: true
+                          prorate:
+                            type: boolean
+                            nullable: true
+                          isRevShare:
+                            type: boolean
+                            nullable: true
+                          baseAmount:
+                            type: number
+                            nullable: true
+                            minimum: 0
+                          usageReset:
+                            $ref: "#/components/schemas/ExternalUsageReset"
+                        required:
+                          - type
+                          - tiers
+                      - type: object
+                        properties:
+                          type:
+                            type: string
+                            enum:
+                              - PER_UNIT
+                          price:
+                            type: number
+                            minimum: 0
+                          chunkSize:
+                            type: number
+                            nullable: true
+                            minimum: 0
+                            exclusiveMinimum: true
+                          usageReset:
+                            $ref: "#/components/schemas/ExternalUsageReset"
+                          baseAmount:
+                            type: number
+                            nullable: true
+                            minimum: 0
+                        required:
+                          - type
+                          - price
+                    description: The pricing of the product
+                  catalogProductId:
+                    type: string
+                    nullable: true
+                    description: The id of the a product from the catalog to connect the contract
+                      product to
+                  productErpId:
+                    type: string
+                    nullable: true
+                    description: The id of the product in NetSuite ERP
+                  nsClass:
+                    type: string
+                    nullable: true
+                    description: The class of the product in NetSuite ERP
+                  nsClassId:
+                    type: string
+                    nullable: true
+                    description: The id of the class of the product in NetSuite ERP
+                  commitment:
+                    type: object
+                    nullable: true
+                    properties:
+                      units:
+                        type: number
+                        minimum: 0
+                        description: Units to commit the customer for
+                      price:
+                        type: number
+                        nullable: true
+                        minimum: 0
+                        description: Price to charge the customer for the committed units
+                      scheduling:
+                        type: object
+                        nullable: true
+                        properties:
+                          billingDay:
+                            type: integer
+                            minimum: 1
+                            maximum: 31
+                            default: 1
+                            description: The day of the month that the product is billed
+                          duration:
+                            type: object
+                            properties:
+                              unit:
+                                type: string
+                                enum:
+                                  - DAY
+                                  - WEEK
+                                  - MONTH
+                                  - YEAR
+                                default: MONTH
+                              value:
+                                type: integer
+                                minimum: 0
+                                maximum: 1000
+                            required:
+                              - unit
+                              - value
+                            description: The duration of the product
+                        required:
+                          - duration
+                        description: Scheduling in case of recurring commitment
+                      overageStrategy:
+                        $ref: "#/components/schemas/ExternalOverageStrategy"
+                    required:
+                      - units
+                    description: The commitment of the product
+                required:
+                  - displayName
+                  - scheduling
+                  - pricing
+              description: The products that the contract is associated with
+            productGroups:
+              type: array
+              items:
+                $ref: "#/components/schemas/ProductGroup"
+              description: Product groups are list of products that can be grouped as a single
+                line item with shared settings like ERP settings, commitment
+                settings, etc.
+            accountManager:
+              type: string
+              nullable: true
+              description: The name of the account manager of the contract
+            shouldProRateInvoices:
+              type: boolean
+              description: Whether to pro rate the invoices for the contract. If not provided,
+                it will default to false
+            autoRenewContract:
+              type: boolean
+              description: Whether the contract is set to auto renew. If not provided, it will
+                be treated as true
+            id:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+            updatedAt:
+              type: string
+              format: date-time
+          required:
+            - startDate
+            - customerId
+            - name
+            - id
+            - createdAt
+            - updatedAt
     GetProductConsumptionResponse:
       type: object
       properties:
@@ -3751,6 +5116,20 @@ components:
     Name:
       type: string
     Alias:
+      type: string
+    IntegrationType:
+      type: string
+      enum:
+        - Hubspot
+        - Stripe
+        - NetSuite
+        - Salesforce
+        - QuickBooks
+        - Slack
+        - S3
+        - Vayu
+        - Morning
+    IntegrationId:
       type: string
     ProductId:
       type: string
@@ -4879,6 +6258,74 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/GetCustomerProductsConsumptionsByAliasResponse"
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+        "429":
+          description: Too Many Requests
+        "500":
+          description: Internal Server Error
+  /customers/integration/{integrationType}/{integrationId}:
+    get:
+      tags:
+        - customers
+      operationId: getCustomerByIntegrationId
+      description: Use this endpoint to get a specific customer using its integration
+        provider and identifier.
+      summary: Get customer by integration id
+      security:
+        - BearerAuthorizer: []
+      parameters:
+        - schema:
+            $ref: "#/components/schemas/IntegrationType"
+          required: true
+          in: path
+          name: integrationType
+        - schema:
+            $ref: "#/components/schemas/IntegrationId"
+          required: true
+          in: path
+          name: integrationId
+      responses:
+        "200":
+          $ref: "#/components/responses/GetCustomerByIntegrationIdResponse"
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+        "429":
+          description: Too Many Requests
+        "500":
+          description: Internal Server Error
+  /contracts/integration/{integrationType}/{integrationId}:
+    get:
+      tags:
+        - contracts
+      operationId: getContractByIntegrationId
+      description: Use this endpoint to get a specific contract using its integration
+        provider and identifier.
+      summary: Get contract by integration id
+      security:
+        - BearerAuthorizer: []
+      parameters:
+        - schema:
+            $ref: "#/components/schemas/IntegrationType"
+          required: true
+          in: path
+          name: integrationType
+        - schema:
+            $ref: "#/components/schemas/IntegrationId"
+          required: true
+          in: path
+          name: integrationId
+      responses:
+        "200":
+          $ref: "#/components/responses/GetContractByIntegrationIdResponse"
         "400":
           description: Bad Request
         "401":
