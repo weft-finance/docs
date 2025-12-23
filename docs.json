@@ -46,6 +46,7 @@
               {
                 "group": "Plans & pricing",
                 "pages": [
+                  "documentation/guides/plans-and-pricing/pricing-overview",
                   "documentation/guides/plans-and-pricing/create-plan",
                   "documentation/guides/plans-and-pricing/contract-processing",
                   "documentation/guides/plans-and-pricing/plan-templates-and-contracts",

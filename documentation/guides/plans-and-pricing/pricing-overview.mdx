@@ -1,0 +1,205 @@
+---
+title: 'Plans & pricing overview'
+description: 'Comprehensive guide to creating and managing pricing plans and contracts in Vayu.'
+---
+
+Pricing is managed in the Plans & Pricing section of Vayu. When you create a plan, you have endless options for putting together a respective plan, setting payment schedules, defining contract terms, and more.
+
+Contracts define the customer's plan, pricing, terms, and duration. In Vayu, the contract anchors the products, their price, and any modifications to each product (commitment, base price, billing interval, etc). Each contract can hold an unlimited number of fixed fee product(s) and/or usage-based products.
+
+## How to create a contract
+
+1. Sign into Vayu and navigate to **Plans & Pricing** from the lefthand menu.
+2. View all existing plans or select **+ Create** in the top right to create a new plan.
+3. On the Create Plan page, choose from the following options:
+   - **Get started** → Create a new contract from scratch
+   - **Go to plan builder** → Create a new plan template
+   - Select from popular templates: **Hybrid plans**, **Usage-based plans**, or **Growth-based (PLG)**
+
+### General terms (plan builder)
+
+On the Plan Builder page, configure the following settings:
+
+#### Plan name and duration
+- Name your plan
+- Select plan length from the dropdown:
+  - Any range of months
+  - Evergreen
+
+#### Billing method
+Choose from three billing options:
+
+**Calendar-aligned with proration** – Billing aligns to calendar intervals (e.g., 1st–31st of each month). If a contract starts mid-period, a prorated invoice is issued for the partial period.
+
+<Note>
+Example: Contract starts March 15 → Prorated invoice for Mar 15–31, then regular monthly billing from Apr 1.
+</Note>
+
+**Pro rata** – Billing follows the contract start date (e.g. Mar 15–Apr 14, Apr 15–May 14). Changes or early termination will generate prorated charges for partial usage.
+
+<Note>
+Example: If the contract terminates June 10, then the final invoice is prorated for May 15–June 10.
+</Note>
+
+**No proration** – Invoices will not be adjusted for partial periods. Customers are charged the full amount for the billing interval, regardless of when the contract starts, changes, or ends.
+
+<Note>
+Example: If the contract starts March 20, then the first invoice will still be for the full month of March.
+</Note>
+
+#### Auto-renewal
+Toggle whether you want auto-renewal to be automatic.
+
+Select **Continue** to proceed to the next step.
+
+## Pricing & products
+
+On the Pricing & Products page, you can add the following components to your plan:
+
+### Service fees
+
+Service fees are fixed charges that can be applied to a contract.
+
+1. In the **Create & Add Fixed Fees** section, select **+ Add Fees**.
+2. Choose from four fee types:
+   - **One time fee** – A single charge applied once
+   - **Subscription** – Recurring charges at regular intervals
+   - **Contract terms** – Fees tied to specific contract conditions
+   - **Commission** – Percentage-based fees on transactions
+
+3. Click the **✎ Modify** button to configure:
+   - **Pricing settings** – Set the fee amount
+   - **Schedule** – Define when the fee applies
+   - **Payment** – Configure payment terms
+
+### Usage-based fees
+
+Usage-based fees charge customers based on their actual consumption of products or services.
+
+1. Select **+ Set terms & Pricing**.
+2. Choose a pricing model from the dropdown:
+   - **Tiered** – Different rates for different usage tiers
+   - **Volume** – Rate based on total volume consumed
+   - **Per unit** – Fixed price per unit consumed
+   - **Revenue share** – Percentage of customer revenue
+   - **Tiered subscription** – Subscription with tiered pricing
+
+3. Configure the following fields:
+   - **Select pricing** – Choose your pricing model
+   - **Select product source** – Link to a product in your catalog
+   - **Product name** – Name the product
+
+4. Modify additional settings:
+   - **Item settings** – NS Product ID and/or Product Description
+   - **Schedule** – When the usage-based fee applies
+   - **Data metering & pricing** – Configure metering rules and pricing tiers
+
+### Credits & discounts
+
+Apply credits and discounts at the contract level or product level.
+
+1. In the **Credits & Discounts** section, select **+ Add Promotions**.
+2. Choose from three promotion types:
+   - **Credits - usage fees** – Apply credits toward usage charges
+   - **Percentage discount** – Discount as a percentage of the charge
+   - **Metered credit** – Credits based on metered usage
+
+3. Click **✎ Modify** to configure:
+   - Toggle **product description** to add custom text
+   - Toggle **recurring discount** to apply the discount repeatedly
+
+<Warning>
+When creating a new plan, you must have at least one product added prior to saving.
+</Warning>
+
+## Product modifications
+
+Each product type has unique modification options tailored to its logic. Some modifications are consistent across all product types:
+
+<AccordionGroup>
+  <Accordion title="Issue as a separate invoice">
+    Generate a dedicated invoice for this product, separate from other charges. This ensures the specific product will be billed/invoiced separately from the rest of the products in that contract.
+  </Accordion>
+  
+  <Accordion title="Add product description">
+    Include a custom line-item description on the invoice.
+  </Accordion>
+  
+  <Accordion title="Custom start date">
+    Override the contract start date for this specific product and start billing it on a different date.
+    
+    Example: The contract starts Mar 1, but the product begins Apr 1 → Invoicing for this product will start on Apr 1.
+  </Accordion>
+  
+  <Accordion title="Add discount">
+    Apply a fixed amount or percentage discount to the product.
+    
+    Note: Discount options vary by product type. For example, recurring discounts are available for subscription products.
+  </Accordion>
+</AccordionGroup>
+
+## Pricing flexibility
+
+Vayu offers total flexibility in how you structure your pricing:
+
+- **Fixed fees only** – Charge flat rates for products or services
+- **Usage-based only** – Charge based on consumption
+- **Revenue share based** – Charge a percentage of customer revenue
+- **Hybrid** – Combine usage-based and fixed fees in a single plan
+
+### Adding tiered pricing
+
+When creating a plan with pricing tiers:
+
+1. Click **Items & Pricing** and choose **Tiered Pricing**.
+2. Click **Select product source** to select a product.
+3. Insert the **name** and add a **description** (optional).
+4. Start defining quantities and prices in the pricing tiers table:
+   - In the first row, insert the number that represents the final value within the range for the initial unit under the **'To'** column
+   - In the subsequent row, the initial number under the **'From'** column will automatically adjust
+5. Click **Add Row** until you reach the desired number of tiers.
+
+### Defining grouped products (bundle)
+
+You can group products to add variants and apply fees to the entire group. The defined commitment and base amount will apply to all variants within the group.
+
+1. Create a tiered plan as explained above.
+2. Click the three-dot menu on the right side of the item.
+3. Select **Grouped products**, name the group, and create.
+4. This enables **+ Add Product Variant** and opens a new pricing table within the group.
+
+## Plan templates vs contracts
+
+### Plan templates
+
+Plan templates are reusable pricing structures commonly used for tiered offerings (basic, premium, enterprise). These plans can include fixed fees, usage-based fees, or a combination of both.
+
+- Each plan you create can act as a template for an unlimited number of customers
+- Plans can hold fixed fees and/or usage items
+- Customize templates to your needs, and invoices will be issued accordingly
+
+### Contracts
+
+Contracts hold the commercial terms - products, services, prices & promotions, and the contractual terms of a customer.
+
+- Contracts are created automatically once a plan is assigned to a customer
+- You can leverage data from your CRM or ERP platform to create contracts automatically
+- Create a contract directly by clicking **Assign and save as a contract**
+- Each customer can hold only one active contract
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Assign plan to customer" icon="user-plus" href="/documentation/guides/plans-and-pricing/assign-plan-to-customer">
+    Learn how to assign a pricing plan to a customer
+  </Card>
+  <Card title="Base amount and commitment" icon="handshake" href="/documentation/guides/plans-and-pricing/base-amount-and-commitment">
+    Configure minimum commitments and base amounts
+  </Card>
+  <Card title="Contract lifecycle" icon="rotate" href="/documentation/guides/plans-and-pricing/contract-processing">
+    Manage contract status, revisions, and termination
+  </Card>
+  <Card title="Billing automation" icon="clock" href="/documentation/guides/invoices/billing-and-invoice-automation">
+    Set up automated billing and invoicing
+  </Card>
+</CardGroup>
