@@ -1,0 +1,93 @@
+---
+title: "Fixed Fees"
+---
+
+## **Fixed Fees**
+
+Fixed fees (also called Service Fees) are charges with a set price that are billed on a defined schedule or event, regardless of the amount of usage a customer has accumulated. In Vayu, fixed fees can be billed using four payment models: 
+
+- One-Time Fee
+- Subscription
+- Contract Terms
+- Commission
+
+### **One-Time Fee**
+
+A One-Time Fee is a fixed, single charge, typically used for things like setup, onboarding, implementation, or an upfront service charge (a contract can include multiple one-time fees).
+
+**Modification options on a One-Time Fee Products:**
+
+- **Pricing Settings**
+  - **Credit Purchase – **When enabled, the one-time fee is treated as a prepaid credit purchase (the customer pays upfront to receive credits that can be applied to future charges).
+  - **Product Description – **A custom line-item description shown on the invoice to clarify what the fee is for.
+  - **Add Discount – **Apply a discount to the one-time fee amount by a specified fixed amount or a specified percentage (%).
+- **Schedule**
+  - **Custom Start Date – **Controls _when_ this one-time fee is billed by setting a specific charge date for the fee instance. By default, the fee is billed on the contract start date.
+- **Payment **
+  - **Issue as Separate Invoice – **When enabled, this one-time fee is billed on its own invoice instead of being grouped with other products on the same invoice.
+
+### Subscription Pricing
+
+A Subscription product is a fixed-fee product that generates a recurring charge on a defined billing interval (e.g., monthly, quarterly, yearly) for as long as the contract is active. \
+It is commonly used for ongoing service charges like **platform fees** or **support plans**.
+
+Click on **Modify** when creating the subscription plan so you can edit any default settings that you want. 
+
+**Modification options on a One-Time Fee Products:**
+
+- **Pricing Settings**
+  - **Product Description – **A custom line-item description shown on the invoice to clarify what the fee is for.
+  - **Add Discount **– Apply a discount to the subscription using a specified fixed amount or percentage (%). You can set how many recurring charges the discount applies to, or apply it to every subscription charge for the full duration of the subscription.
+  - **Add Seats – **Adding seats will multiply the price according to the number of seats added. So, if the subscription price is \$100 per month, and you add five seats, the monthly price will be \$500. The number of seats can be adjusted throughout the contract’s lifecycle.
+
+    ![Add Seats](/images/AddSeats.gif)
+- **Schedule**
+  - **Period / Billing Interval – **Period defines the time unit the subscription price applies to (e.g., a monthly price, quarterly price). Billing Interval defines how often Vayu generates the charge/invoice line for the subscription. \
+    Example: If the subscription is \$100 per month (Period = Monthly) and you bill every quarter (Billing Interval = Quarterly), Vayu will generate one charge every 3 months for \$300 (3 × \$100). _By default, Subscriptions are set for a monthly period & monthly billing interval_
+  - **Contract Upfront – **When enabled, Vayu charges for the entire contract term upfront (based on the subscription’s monthly price), overriding the standard period and billing interval behavior.
+  - **Custom Start Date – **Controls when subscription billing begins by setting a specific start date for this product. Commonly used when billing should start after implementation is finalized or after a free trial period. By default, the subscription starts billing on the contract start date.
+- **Payment **
+  - **Issue as Separate Invoice – **When enabled, each subscription charge is billed on its own invoice instead of being grouped with other products on the same invoice.
+
+By default, charges are calculated on a **pro rata** basis according to the number of days the client is _active_ on the platform. By default, payments will be calendar-aligned. 
+
+This can be adjusted in your plan settings by going to **General Terms**, then Select Billing Method: Calendar-Aligned Payments.
+
+#### **_Example_**
+
+In cases where the subscription is calendar-aligned (so the billing cycle resets on a specific date each month), consider a scenario when a customer subscribes monthly, beginning on July 14:
+
+- The first invoice to be generated covers the period between July 14 to July 31 (the final date of the month)
+- The next invoice will cover August 1 through August 31 (the full calendar month)
+- All future invoices will be generated for full calendar months.
+
+#### **_Pro Rata Payment Calculation Example_**
+
+When a subscription starts during the month, the subscription fee will be calculated on a **pro rata (partial) basis **according to the number of days the account has been active.
+
+In the above example, the July 14-31 covers 18 days. If the premium plan is \$50/mo, the cost for the first invoice will be calculated like this:
+
+(\$50/31 days) × 18 days = \$29.03
+
+### **Contract Terms**
+
+A pricing type that represents the contract’s total value. This might be paid upfront on a mutually agreed date for the entire contract period, or paid in installments.
+
+To add advanced installments to contract terms, click **🖉 Modify** as shown below. Select **SCHEDULE**, then **Set advanced installments**.
+
+![Contract Terms](/images/ContractTerms.gif)
+
+There, you can define the amount for each installment.
+
+You can also add a Discount, or adjust payment terms (issuing a separate invoice, upfront/postpaid term).
+
+| Key Terms:  - **Contract Start Date** – The date the contract’s terms take effect (can be different from Signature Date) - **Contract Signature Date** – The date the contract is signed by the customer (can be different from Start Date) - **Contract Term** – The period during which the contract is active |
+| :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+
+### **Commission**
+
+Designate a percentage of the total as a commission in your plan.
+
+Commission adds an extra percentage on top of the final invoice total. It’s typically used to pass through processing fees such as credit card fees, where a fixed percent (for example, 1%) is applied to the entire amount due.
+
+Click on **🖉 Modify** to edit either the NS Product ID or the Product Description, as seen below:
