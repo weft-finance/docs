@@ -32,7 +32,8 @@
               {
                 "group": "Integrations",
                 "pages": [
-                  "documentation/guides/integrations/netsuite"
+                  "documentation/guides/integrations/netsuite",
+                  "documentation/guides/integrations/Quickbooks"
                 ]
               },
               {
