@@ -21,7 +21,7 @@
             ]
           },
           {
-            "group": "Product log",
+            "group": "Product Log",
             "pages": [
               "documentation/change-log/changelog"
             ]
@@ -44,8 +44,11 @@
                 ]
               },
               {
-                "group": "Plans & pricing",
+                "group": "Plans & Pricing",
                 "pages": [
+                  "documentation/guides/plans-and-pricing/pricing-new-overview",
+                  "documentation/guides/plans-and-pricing/fixed-fees",
+                  "documentation/guides/plans-and-pricing/usage-based-fees",
                   "documentation/guides/plans-and-pricing/create-plan",
                   "documentation/guides/plans-and-pricing/contract-processing",
                   "documentation/guides/plans-and-pricing/plan-templates-and-contracts",
