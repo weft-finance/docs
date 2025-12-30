@@ -24,13 +24,13 @@ A One-Time Fee is a fixed, single charge, typically used for things like setup, 
     When enabled, the one-time fee is treated as a prepaid credit purchase (the customer pays upfront to receive credits that can be applied to future charges).
   - **Product Description**\
     A custom line-item description shown on the invoice to clarify what the fee is for.
-  - **Add Discount **\
+  - **Add Discount**\
     Apply a discount to the one-time fee amount by a specified fixed amount or a specified percentage (%).
 - **Schedule**
   - **Custom Start Date**\
     Controls _when_ this one-time fee is billed by setting a specific charge date for the fee instance.\
     By default, the fee is billed on the contract start date.
-- **Payment **
+- **Payment**
   - **Issue as Separate Invoice**\
     When enabled, this one-time fee is billed on its own invoice instead of being grouped with other products on the same invoice.
 
@@ -46,18 +46,19 @@ Click on **Modify** when creating the subscription plan so you can edit any defa
 **Modification options on a One-Time Fee Products:**
 
 - **Pricing Settings**
-  - **Product Description – **A custom line-item description shown on the invoice to clarify what the fee is for.
-  - **Add Discount **– Apply a discount to the subscription using a specified fixed amount or percentage (%). You can set how many recurring charges the discount applies to, or apply it to every subscription charge for the full duration of the subscription.
-  - **Add Seats – **Adding seats will multiply the price according to the number of seats added. So, if the subscription price is \$100 per month, and you add five seats, the monthly price will be \$500. The number of seats can be adjusted throughout the contract’s lifecycle.
+  - **Product Description** – A custom line-item description shown on the invoice to clarify what the fee is for.
+  - **Add Discount** – Apply a discount to the subscription using a specified fixed amount or percentage (%). You can set how many recurring charges the discount applies to, or apply it to every subscription charge for the full duration of the subscription.
+  - **Add Seats** – Adding seats will multiply the price according to the number of seats added. So, if the subscription price is \$100 per month, and you add five seats, the monthly price will be \$500. The number of seats can be adjusted throughout the contract’s lifecycle.
 
     ![Add Seats](/images/AddSeats.gif)
 - **Schedule**
-  - **Period / Billing Interval – **Period defines the time unit the subscription price applies to (e.g., a monthly price, quarterly price). Billing Interval defines how often Vayu generates the charge/invoice line for the subscription. \
-    Example: If the subscription is \$100 per month (Period = Monthly) and you bill every quarter (Billing Interval = Quarterly), Vayu will generate one charge every 3 months for \$300 (3 × \$100). _By default, Subscriptions are set for a monthly period & monthly billing interval_
-  - **Contract Upfront – **When enabled, Vayu charges for the entire contract term upfront (based on the subscription’s monthly price), overriding the standard period and billing interval behavior.
-  - **Custom Start Date – **Controls when subscription billing begins by setting a specific start date for this product. Commonly used when billing should start after implementation is finalized or after a free trial period. By default, the subscription starts billing on the contract start date.
-- **Payment **
-  - **Issue as Separate Invoice – **When enabled, each subscription charge is billed on its own invoice instead of being grouped with other products on the same invoice.
+  - **Period / Billing Interval** – Period defines the time unit the subscription price applies to (e.g., a monthly price, quarterly price). Billing Interval defines how often Vayu generates the charge/invoice line for the subscription.\
+    \
+    **_Example:_** If the subscription is \$100 per month (Period = Monthly) and you bill every quarter (Billing Interval = Quarterly), Vayu will generate one charge every 3 months for \$300 (3 × \$100). _By default, Subscriptions are set for a monthly period & monthly billing interval_
+  - **Contract Upfront** – When enabled, Vayu charges for the entire contract term upfront (based on the subscription’s monthly price), overriding the standard period and billing interval behavior.
+  - **Custom Start Date** – Controls when subscription billing begins by setting a specific start date for this product. Commonly used when billing should start after implementation is finalized or after a free trial period. By default, the subscription starts billing on the contract start date.
+- **Payment**
+  - **Issue as Separate Invoice** – When enabled, each subscription charge is billed on its own invoice instead of being grouped with other products on the same invoice.
 
 ---
 
@@ -65,7 +66,9 @@ Click on **Modify** when creating the subscription plan so you can edit any defa
 
 A pricing type that represents the contract’s total value. This might be paid upfront on a mutually agreed date for the entire contract period, or paid in installments.
 
-To add advanced installments to contract terms, click **🖉 Modify** as shown below. Select **SCHEDULE**, then **Set advanced installments**.
+To add advanced installments to contract terms, click 
+
+**Modify** as shown below. Select **SCHEDULE**, then **Set advanced installments**.
 
 ![Contract Terms](/images/ContractTerms.gif)
 
@@ -82,6 +85,6 @@ Designate a percentage of the total as a commission in your plan.
 
 Commission adds an extra percentage on top of the final invoice total. It’s typically used to pass through processing fees such as credit card fees, where a fixed percent (for example, 2.9%) is applied to the entire amount due.
 
-Click on **🖉 Modify** to edit either the NS Product ID or the Product Description, as seen below:
+Click on **Modify** to edit either the NS Product ID or the Product Description, as seen below:
 
 ![Commissioninvoice](/images/commissioninvoice.png)
