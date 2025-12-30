@@ -8,9 +8,9 @@ Usage-Based Fees cover metered usage, meter resets, and commitments or overages.
 
 | TIER              |       | Price Per Unit |          | Cost           |
 | ----------------- | ----- | -------------- | -------- | -------------- |
-| First 3,000 units | **✖** | \$0.05         | 🟰       | \$150.00       |
-| Next 3,000 units  | **✖** | \$0.04         | 🟰       | \$120.00       |
-| Last 3,000 units  | ✖     | \$0.03         | 🟰       | \$090.00       |
+| First 3,000 units | ✖     | \$0.05         | 🟰       | \$150.00       |
+| Next 3,000 units  | ✖     | \$0.04         | 🟰       | \$120.00       |
+| Last 3,000 units  | **✖** | \$0.03         | 🟰       | \$090.00       |
 |                   |       |                | **_🟰_** | **_\$360.00_** |
 
 ---
@@ -33,9 +33,7 @@ In this example, tiered charges would be calculated as such when consuming 9,000
   You can have different usage metering and billing intervals. For example, you can meter monthly _but_ charge for overage _quarterly._
 </Note>
 
-## \\
-
-**Volume Pricing**
+## **Volume Pricing**
 
 With volume-based pricing, the unit price is defined based on aggregated usage, with customers paying the base fee of their current tier. Discounts to a certain volume of usage will apply retroactively once that threshold is reached.
 
@@ -67,12 +65,13 @@ To adjust a per-unit plan, click **Modify**, and the left-side menu will show yo
 
 ![Bulk Pricing](/images/bulk-pricing.png)
 
-| A **commitment** is the minimum <u>quantity</u> a customer has committed to consume during the plan or a specific reset at a given phase of the contract. The commitment can be either in ‘Units’ or based on a dedicated ‘Amount’ (USD).  **Base amounts** are minimum thresholds to charge regardless of customer usage. They allow you to set a minimum amount to be charged in cases of zero consumption. This is only applicable for metered or usage-based products. |
-| :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+<Note>
+  A **commitment** is the minimum <u>quantity</u> a customer has committed to consume during the plan or a specific reset at a given phase of the contract. The commitment can be either in ‘Units’ or based on a dedicated ‘Amount’ (USD).
 
-## \\
+  **Base amounts** are minimum thresholds to charge regardless of customer usage. They allow you to set a minimum amount to be charged in cases of zero consumption. This is only applicable for metered or usage-based products.
+</Note>
 
-**Tiered Subscription**
+## **Tiered Subscription**
 
 For tiered subscriptions, a flat rate fee will apply based on the consumption in a tier for each billing period. By default, subscriptions will be upfront charges on a _monthly_ basis.
 
