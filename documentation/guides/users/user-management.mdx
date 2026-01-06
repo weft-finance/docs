@@ -1,5 +1,5 @@
 ---
-title: "User Types"
+title: "User Types & Permissions"
 description: "Learn about user types, permissions, and how to manage users in Vayu"
 ---
 
@@ -7,9 +7,9 @@ description: "Learn about user types, permissions, and how to manage users in Va
 
 Vayu supports three user roles, each with different permission levels:
 
-### Admin
+### Admin & Controller
 
-Admins have full access to all features and settings in Vayu. This role is designed for account owners and senior team members who need complete control.
+Admins & Controllers have full access to all features and settings in Vayu. This role is designed for account owners and senior team members who need complete control.
 
 **Key capabilities:**
 
@@ -17,22 +17,11 @@ Admins have full access to all features and settings in Vayu. This role is desig
 - Configure account settings and integrations
 - Manage all users (invite, update roles, remove)
 - Access all reports and revenue data
-- Manage credit ledgers and phase labels
 - Full access to measurements, meters, and events
 
-### Controller
-
-Controllers have comprehensive access to financial and operational features but limited user management capabilities. This role is ideal for finance teams and operations managers.
-
-**Key capabilities:**
-
-- Full access to invoices, customers, plans, and products
-- Configure account settings and integrations
-- View user information (read-only)
-- Access all reports and revenue data (read-only for revenue)
-- Manage credit ledgers
-- Full access to measurements and meters
-- View phase labels and pricing (read-only)
+<Note>
+  Only users with Admin role can invite new users and manage existing users.
+</Note>
 
 ### Developer
 
@@ -46,23 +35,6 @@ Developers have focused access to technical features needed for integration and 
 - Full access to jobs
 - Limited access to other features
 
-## Adding a new user
-
-To invite a new user to your Vayu account:
-
-1. Navigate to **Settings** in the sidebar
-2. Select the **Members** tab
-3. Click **Invite new member**
-4. Enter the user's email address
-5. Select the appropriate role (Admin, Controller, or Developer)
-6. Click **Send invitation**
-
-The user will receive an email invitation with a link to create their account. The invitation link is valid for a limited time.
-
-<Note>
-  Only users with Admin role can invite new users and manage existing users.
-</Note>
-
 ## Permission differences
 
 Here's a detailed comparison of permissions across user roles:
@@ -75,44 +47,8 @@ Here's a detailed comparison of permissions across user roles:
 | **Products**         | Full access | Full access | Full access |
 | **Meters**           | Full access | Full access | Full access |
 | **Measurements**     | Full access | Full access | Full access |
-| **Events**           | Read only   | Read only   | Read only   |
+| **Events**           | Full access | Full access | Read only   |
 | **Reports**          | Full access | Full access | No access   |
 | **Integrations**     | Full access | Full access | No access   |
 | **Users**            | Full access | Read only   | No access   |
-| **Account settings** | Configure   | Configure   | No access   |
-| **Revenue**          | Full access | Read only   | No access   |
-| **Credit ledger**    | Full access | Full access | No access   |
-| **Phase labels**     | Full access | Read only   | Read only   |
-| **Pricing**          | Full access | Read only   | Read only   |
-| **Catalog products** | Full access | Read only   | No access   |
-| **Jobs**             | Full access | Full access | Full access |
-
-### Permission levels explained
-
-- **Full access**: Create, read, update, and delete
-- **Read only**: View information only, no modifications allowed
-- **Configure**: Modify settings and configurations
-- **No access**: Feature is not visible or accessible
-
-## Managing existing users
-
-### Updating user roles
-
-To change a user's role:
-
-1. Go to **Settings** \> **Members**
-2. Find the user in the members table
-3. Click the role dropdown next to their name
-4. Select the new role
-
-The role change takes effect immediately.
-
-## Pending invitations
-
-You can view and manage pending invitations in the **Invitations** section on the Members tab:
-
-- **View status**: See all pending invitations
-- **Resend invitation**: Send the invitation email again
-- **Cancel invitation**: Revoke an invitation before it's accepted
-
-Invitations expire after a set period and will need to be resent if not accepted in time.
+| **Account settings** | Full access | Full access | No access   |
