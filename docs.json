@@ -77,8 +77,9 @@
               {
                 "group": "Users",
                 "pages": [
-                  "documentation/guides/users/adding-users",
-                  "documentation/guides/users/user-management"
+                  "documentation/guides/users/user-management",
+                  "documentation/guides/users/adding-users-1",
+                  "documentation/guides/users/adding-users"
                 ]
               }
             ]
