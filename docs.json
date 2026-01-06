@@ -9,6 +9,15 @@
   },
   "favicon": "/assets/favicon.png",
   "navigation": {
+    "global": {
+      "anchors": [
+        {
+          "anchor": "Website",
+          "icon": "link",
+          "href": "https://withvayu.com/"
+        }
+      ]
+    },
     "tabs": [
       {
         "tab": "Documentation",
@@ -68,6 +77,7 @@
               {
                 "group": "Users",
                 "pages": [
+                  "documentation/guides/users/adding-users",
                   "documentation/guides/users/user-management"
                 ]
               }
@@ -192,16 +202,7 @@
           }
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Website",
-          "href": "https://withvayu.com/",
-          "icon": "link"
-        }
-      ]
-    }
+    ]
   },
   "logo": {
     "light": "/assets/logo/light.svg",
