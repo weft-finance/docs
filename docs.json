@@ -64,6 +64,12 @@
                   "documentation/guides/invoices/billing-and-invoice-automation",
                   "documentation/guides/invoices/customer-portal"
                 ]
+              },
+              {
+                "group": "Users",
+                "pages": [
+                  "documentation/guides/users/user-management"
+                ]
               }
             ]
           }
