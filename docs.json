@@ -41,6 +41,10 @@
               {
                 "group": "Integrations",
                 "pages": [
+                  "documentation/guides/integrations/rillet",
+                  "documentation/guides/integrations/xero",
+                  "documentation/guides/integrations/salesforce",
+                  "documentation/guides/integrations/quickbookx",
                   "documentation/guides/integrations/netsuite"
                 ]
               },

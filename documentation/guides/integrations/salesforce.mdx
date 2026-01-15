@@ -1,0 +1,87 @@
+---
+title: "Salesforce"
+---
+
+# **Salesforce**
+
+The Salesforce integration connects Salesforce CRM data with Vayu’s revenue and billing workflows.
+
+It enables Vayu to ingest customer and deal context from Salesforce and use that data to drive pricing, invoicing, and revenue execution.
+
+Salesforce remains the system of record for CRM entities such as accounts and opportunities.
+
+Vayu serves as the system of record for monetization, billing logic, and revenue workflows.
+
+This integration is designed for teams that manage customers and commercial agreements in Salesforce and require a consistent, auditable path from closed deals to billing activity.
+
+## **Synced Data and System Ownership**
+
+Vayu syncs account and deal-related data from Salesforce and associates it with customers, products, and pricing logic inside Vayu.
+
+Salesforce is authoritative for account identity, opportunity structure, and CRM-managed fields.
+
+Vayu does not write back to Salesforce and does not attempt to replicate CRM functionality.
+
+Only data required to support revenue workflows is ingested, and Salesforce record identifiers are preserved for traceability.
+
+## **Installation**
+
+### **Prerequisites**
+
+- User must have **Salesforce admin-level access:**
+  1. Managed package installation
+  2. Permission grants
+
+Installation is via the Salesforce managed package, done through a direct link that you will get during onboarding (and is not individualized).
+
+First, open the install link (you have the option to use a custom domain).
+
+Choose the scope of the installation, as in installing for a general user or an admin.
+
+## **Setup and Authentication**
+
+The integration is configured from within the Vayu platform.
+
+The Salesforce integration is enabled by installing a Salesforce managed package and completing initial configuration in Vayu. 
+
+<Note>
+  Authentication is handled natively within Salesforce and _does not_ require OAuth credentials.
+</Note>
+
+Unlike other integrations in Vayu, setup is done through the Salesforce sign-in screen and a Custom Domain.
+
+![Image1 1](/images/image1-1.gif)
+
+Admins can get this custom domain by logging into Salesforce, then clicking on **Settings**.
+
+Search for “domain,” then navigate down to **Company Settings** and select “My Domain.”
+
+Once there, copy the **Current My Domain URL**, as seen above.
+
+Next, navigate to the Salesforce login screen. Once there, choose to log in via Use Custom Domain in the bottom right corner of the window.
+
+Then, paste your Custom Domain URL from Salesforce. Hit **Continue**.
+
+Next, you will decide the level of access you want to provide from three choices:
+
+- Install for Admins Only
+- Install for All Users
+- Install for Specific Profiles
+
+Choose the appropriate option and check the box to acknowledge you are installing a “Non-Salesforce Application.”
+
+Press **Install**,.
+
+Next, a final **Approve Third-Party Access** box will appear. There, you will have the _option_ to select **SSL Encryption**.
+
+Finally, select the checkbox next to “**Yes, grant access to these third-party websites**” and press **Continue**.
+
+![Image2](/images/image2.gif)
+
+You will be able to see Vayu included on a list of installed packages.
+
+An administrator connects a Salesforce account and grants access to the Salesforce objects required for account and deal ingestion.
+
+Authentication establishes a secure connection between Salesforce and Vayu.
+
+Once authentication is complete, Vayu immediately begins ingesting eligible records.
