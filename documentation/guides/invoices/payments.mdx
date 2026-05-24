@@ -25,17 +25,37 @@ Mark invoices as paid manually when:
 1. Navigate to **Invoices**
 2. Locate the invoice you want to mark as paid
 3. Click on the invoice to open the detail view
-4. Click **Mark as Paid**
+4. Click "**Mark as Paid"**
 5. Confirm the action
 
 The invoice status will update to **Paid** and the paid date will be recorded.
 
 ### Through the API
 
-Use the payment status endpoint to retrieve and verify invoice payment information:
+Use the [payment status endpoint](https://guide.withvayu.com/api-reference/endpoints/invoices/get-invoice-payment-status) to retrieve and verify invoice payment information:
+
+```shellscript
+curl --request GET \
+  --url https://connect.withvayu.com/invoices/{invoiceId}/payment-status \
+  --header 'Authorization: Bearer <token>'
+```
 
 <ResponseField name="response" type="string">
-  GET /invoices/{invoiceId}/payment-status
+  {
 
-  `The response includes: - billingStatus - Current payment status - amountDue - Outstanding amount - amountPaid - Amount already paid - total - Total invoice amount - dueDate - Payment due date - paidAt - Date payment was received - invoicePdfUrl - Link to invoice PDF ## Automatic payment status updates When using integrated payment systems like Stripe, payment status updates automatically: - **Successful payments** - Invoice status updates to Paid in Vayu automatically - **Failed payments** - Surface in outstanding balances and AR workflows - **No manual intervention needed** - Billing and finance teams see current payment state in real-time This eliminates the need to manually mark invoices as paid when using integrated payment processors. ## Payment tracking Once marked as paid: - The invoice appears in paid invoice filters - The paid date is recorded for reporting - Outstanding balance calculations exclude the invoice - AR aging reports reflect the payment - The invoice is locked from further editing ## Best practices - **Verify payment receipt** - Confirm funds are received before marking as paid - **Document payment method** - Add notes about how payment was received - **Reconcile regularly** - Match marked payments against bank deposits - **Use integrations when possible** - Automated payment tracking reduces manual work and errors`
+    "invoiceId": "\<string\>",
+
+    "amountDue": 123,
+
+    "amountPaid": 123,
+
+    "total": 123,
+
+    "dueDate": "2023-11-07T05:31:56Z",
+
+    "paidAt": "2023-11-07T05:31:56Z",
+
+    "invoicePdfUrl": "\<string\>"
+
+  }
 </ResponseField>
