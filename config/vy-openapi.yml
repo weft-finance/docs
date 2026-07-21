@@ -89,6 +89,18 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/CreateCustomerRelationRequest"
+    CreateCustomFieldRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/CreateCustomFieldRequest"
+    UpdateCustomFieldRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/UpdateCustomFieldRequest"
     LoginRequest:
       required: true
       content:
@@ -123,6 +135,37 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/SendEventsRequest"
+    V2DeleteEventsByRefsRequest:
+      required: true
+      description: A list of event refs to delete. The request deletes the matching
+        events for the authenticated account.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/V2DeleteEventsByRefsRequest"
+    V2EventsDryRunRequest:
+      required: true
+      description: An array of events following the EventInput schema. Up to 1000
+        events or a total payload max size of 256KB
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/V2EventsDryRunRequest"
+    V2SendEventsRequest:
+      required: true
+      description: An array of events following the EventInput schema. Up to 1000
+        events or a total payload max size of 256KB
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/V2SendEventsRequest"
+    V2QueryEventsAggregationRequest:
+      required: true
+      description: Configuration for aggregating events by meters and time grouping.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/V2QueryEventsAggregationRequest"
     GrantCreditsRequest:
       required: true
       content:
@@ -135,6 +178,12 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/DeductCreditsRequest"
+    CreditTopUpRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/CreditTopUpRequest"
     WebhookSubscribeRequest:
       required: true
       description: Subscribe to webhooks and receive event notifications.
@@ -142,6 +191,18 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/WebhookSubscribeRequest"
+    TerminateContractRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/TerminateContractRequest"
+    RefreshContractCreditsRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/RefreshContractCreditsRequest"
     SubmitCloudUsageRequest:
       required: true
       content:
@@ -293,6 +354,54 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/GetCustomerRelationResponse"
+    GetPlanResponse:
+      description: RequestSuccess
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/GetPlanResponse"
+    DeletePlanResponse:
+      description: RequestSuccess
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/DeletePlanResponse"
+    ListPlansResponse:
+      description: RequestSuccess
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ListPlansResponse"
+    CreateCustomFieldResponse:
+      description: RequestSuccess
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/CreateCustomFieldResponse"
+    ListCustomFieldsResponse:
+      description: RequestSuccess
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ListCustomFieldsResponse"
+    GetCustomFieldResponse:
+      description: RequestSuccess
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/GetCustomFieldResponse"
+    UpdateCustomFieldResponse:
+      description: RequestSuccess
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/UpdateCustomFieldResponse"
+    DeleteCustomFieldResponse:
+      description: RequestSuccess
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/DeleteCustomFieldResponse"
     LoginResponse:
       description: RequestSuccess
       content:
@@ -335,6 +444,48 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/DeleteEventResponse"
+    V2DeleteEventsByRefsResponse:
+      description: Contains the events that were removed along with deletion metadata.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/V2DeleteEventsByRefsResponse"
+    V2EventsDryRunResponse:
+      description: Events with their corresponding meter and customer data.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/V2EventsDryRunResponse"
+    V2QueryEventsResponse:
+      description: response contains an array of events
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/V2QueryEventsResponse"
+    V2SendEventsResponse:
+      description: RequestSuccess
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/V2SendEventsResponse"
+    V2GetEventResponse:
+      description: response contains the event matching the provided refId
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/V2GetEventResponse"
+    V2DeleteEventResponse:
+      description: Contains the event that was deleted
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/V2DeleteEventResponse"
+    V2QueryEventsAggregationResponse:
+      description: Aggregated event data points grouped by the specified time period.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/V2QueryEventsAggregationResponse"
     ListCreditLedgerEntriesResponse:
       description: RequestSuccess
       content:
@@ -343,6 +494,18 @@ components:
             $ref: "#/components/schemas/ListCreditLedgerEntriesResponse"
     RequestSuccess:
       description: RequestSuccess
+    CreditTopUpResponse:
+      description: RequestSuccess
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/CreditTopUpResponse"
+    ListCreditProductsResponse:
+      description: RequestSuccess
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ListCreditProductsResponse"
     GetCustomerByNameResponse:
       description: response contains the customer matching the provided name
       content:
@@ -379,6 +542,18 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/ListContractsResponse"
+    TerminateContractResponse:
+      description: RequestSuccess
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/TerminateContractResponse"
+    RefreshContractCreditsResponse:
+      description: RequestSuccess
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/RefreshContractCreditsResponse"
     InvoicePaymentStatusResponse:
       description: Invoice payment status information including payment status,
         amounts, and dates.
@@ -770,6 +945,7 @@ components:
         - Api
         - Salesforce
         - HubSpot
+        - ContractExtraction
       description: The source of the customer
     CustomerCloudProviderSettings:
       type: object
@@ -804,6 +980,30 @@ components:
           type: string
           nullable: true
       description: The address of the customer
+    CustomerExternalIntegration:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - NetSuite
+            - QuickBooks
+            - Morning
+            - Hubspot
+            - Anrok
+            - Snowflake
+            - Connact
+            - Xero
+            - Salesforce
+            - Paddle
+        id:
+          type: string
+        name:
+          type: string
+      required:
+        - type
+        - id
+        - name
     Currency:
       type: string
       nullable: true
@@ -816,6 +1016,9 @@ components:
         - AUD
         - COP
         - BRL
+        - ARS
+        - INR
+        - MXN
       description: The billing currency of the customer
     IntegrationEntityTypes:
       type: string
@@ -834,6 +1037,7 @@ components:
         - String
         - Number
         - Boolean
+        - Enum
       description: 'The type of the value: "String", "Number", or "Boolean"'
     CustomField:
       type: object
@@ -854,6 +1058,7 @@ components:
             - Anrok
             - Connact
             - Xero
+            - Paddle
           description: The integration provider (e.g., "Salesforce", "HubSpot")
         integrationEntityType:
           $ref: "#/components/schemas/IntegrationEntityTypes"
@@ -924,6 +1129,19 @@ components:
           type: string
           nullable: true
           description: The ID of the customer in the Salesforce system
+        externalIntegration:
+          type: array
+          nullable: true
+          items:
+            $ref: "#/components/schemas/CustomerExternalIntegration"
+          description: External integration links for the customer. Each entry links the
+            customer to an external provider entity by its id. Stripe entries
+            are saved on the customer; other providers are linked via the
+            integration registry.
+          example:
+            - type: Stripe
+              id: cus_123
+              name: Acme Inc
         dueDays:
           type: string
           nullable: true
@@ -1021,6 +1239,19 @@ components:
               type: string
               nullable: true
               description: The ID of the customer in the Salesforce system
+            externalIntegration:
+              type: array
+              nullable: true
+              items:
+                $ref: "#/components/schemas/CustomerExternalIntegration"
+              description: External integration links for the customer. Each entry links the
+                customer to an external provider entity by its id. Stripe
+                entries are saved on the customer; other providers are linked
+                via the integration registry.
+              example:
+                - type: Stripe
+                  id: cus_123
+                  name: Acme Inc
             dueDays:
               type: string
               nullable: true
@@ -1133,6 +1364,19 @@ components:
                 type: string
                 nullable: true
                 description: The ID of the customer in the Salesforce system
+              externalIntegration:
+                type: array
+                nullable: true
+                items:
+                  $ref: "#/components/schemas/CustomerExternalIntegration"
+                description: External integration links for the customer. Each entry links the
+                  customer to an external provider entity by its id. Stripe
+                  entries are saved on the customer; other providers are linked
+                  via the integration registry.
+                example:
+                  - type: Stripe
+                    id: cus_123
+                    name: Acme Inc
               dueDays:
                 type: string
                 nullable: true
@@ -1251,6 +1495,19 @@ components:
               type: string
               nullable: true
               description: The ID of the customer in the Salesforce system
+            externalIntegration:
+              type: array
+              nullable: true
+              items:
+                $ref: "#/components/schemas/CustomerExternalIntegration"
+              description: External integration links for the customer. Each entry links the
+                customer to an external provider entity by its id. Stripe
+                entries are saved on the customer; other providers are linked
+                via the integration registry.
+              example:
+                - type: Stripe
+                  id: cus_123
+                  name: Acme Inc
             dueDays:
               type: string
               nullable: true
@@ -1358,6 +1615,19 @@ components:
           type: string
           nullable: true
           description: The ID of the customer in the Salesforce system
+        externalIntegration:
+          type: array
+          nullable: true
+          items:
+            $ref: "#/components/schemas/CustomerExternalIntegration"
+          description: External integration links for the customer. Each entry links the
+            customer to an external provider entity by its id. Stripe entries
+            are saved on the customer; other providers are linked via the
+            integration registry.
+          example:
+            - type: Stripe
+              id: cus_123
+              name: Acme Inc
         dueDays:
           type: string
           nullable: true
@@ -1454,6 +1724,19 @@ components:
               type: string
               nullable: true
               description: The ID of the customer in the Salesforce system
+            externalIntegration:
+              type: array
+              nullable: true
+              items:
+                $ref: "#/components/schemas/CustomerExternalIntegration"
+              description: External integration links for the customer. Each entry links the
+                customer to an external provider entity by its id. Stripe
+                entries are saved on the customer; other providers are linked
+                via the integration registry.
+              example:
+                - type: Stripe
+                  id: cus_123
+                  name: Acme Inc
             dueDays:
               type: string
               nullable: true
@@ -1564,6 +1847,19 @@ components:
               type: string
               nullable: true
               description: The ID of the customer in the Salesforce system
+            externalIntegration:
+              type: array
+              nullable: true
+              items:
+                $ref: "#/components/schemas/CustomerExternalIntegration"
+              description: External integration links for the customer. Each entry links the
+                customer to an external provider entity by its id. Stripe
+                entries are saved on the customer; other providers are linked
+                via the integration registry.
+              example:
+                - type: Stripe
+                  id: cus_123
+                  name: Acme Inc
             dueDays:
               type: string
               nullable: true
@@ -1878,6 +2174,25 @@ components:
       type: integer
       nullable: true
       description: "Usage reset is represented in months and must be one of: 1, 2, 3, 6, 12"
+    ProductExternalIntegration:
+      type: object
+      properties:
+        provider:
+          type: string
+          enum:
+            - Paddle
+          description: The V3 integration provider to link the product to. Currently only
+            Paddle is supported.
+        externalId:
+          type: string
+          description: The id of the matching product in the external integration (e.g.
+            the Paddle product id). The product must already exist in the
+            connected integration; it is fetched and linked when the contract is
+            created so that invoices for this product are exported to that
+            integration.
+      required:
+        - provider
+        - externalId
     ExternalOverageStrategy:
       type: string
       nullable: true
@@ -1910,6 +2225,96 @@ components:
         dimension:
           type: string
       description: Cloud provider settings for the product
+    ExternalCreditGrant:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the credit grant. Used as the invoice line-item label when
+            the grant is charged.
+        creditProductId:
+          type: string
+          pattern: ^[0-9a-fA-F]{24}$
+          description: ID of the credit product whose pool this grant funds. A usage
+            product debits the same pool by listing this ID in
+            consumesCreditProductIds. Discover IDs via GET /credit-products.
+        balanceKind:
+          type: string
+          enum:
+            - MONETARY
+            - UNIT
+          description: "What grantAmount represents: a monetary value in the contract
+            currency (MONETARY) or a quantity of units (UNIT)."
+        grantAmount:
+          type: number
+          minimum: 0
+          description: Amount granted into the pool per grant period — a currency amount
+            when balanceKind is MONETARY (e.g. 500 = $500), or a unit quantity
+            when balanceKind is UNIT.
+        price:
+          type: number
+          nullable: true
+          minimum: 0
+          description: "Amount charged to the customer for this grant, in the contract
+            currency. Required when balanceKind is UNIT (a unit quantity has no
+            currency value of its own) — e.g. grant 1000 units for a price of 20
+            ($20). Optional when balanceKind is MONETARY: if omitted, the grant
+            is sold at face value (price equals grantAmount)."
+        schedule:
+          type: string
+          enum:
+            - ONE_TIME
+            - RECURRING_MONTHLY
+            - RECURRING_QUARTERLY
+            - RECURRING_YEARLY
+          description: "How often the grant is applied: ONE_TIME grants once at contract
+            start; RECURRING_MONTHLY, RECURRING_QUARTERLY and RECURRING_YEARLY
+            re-grant each corresponding period."
+        expirationDate:
+          type: string
+          nullable: true
+          description: Explicit date after which unused granted credits expire. Only
+            supported on ONE_TIME grants. For policy-based expiry on recurring
+            grants, use expirationPolicy instead.
+          format: date-time
+        expirationPolicy:
+          type: string
+          enum:
+            - AT_NEXT_GRANT
+            - NEVER
+            - END_OF_INVOICE
+            - END_OF_RENEWAL_PERIOD
+            - END_OF_CONTRACT
+          description: "Controls when unused credits from a grant period expire.
+            AT_NEXT_GRANT: credits expire at the end of each billing period
+            (default for recurring). NEVER: credits never expire (default for
+            ONE_TIME). END_OF_INVOICE: credits expire at the end of the invoice
+            period. END_OF_RENEWAL_PERIOD: credits expire at the end of the
+            contract renewal period. END_OF_CONTRACT: credits expire when the
+            contract ends. AT_NEXT_GRANT and END_OF_INVOICE are not available
+            for ONE_TIME grants."
+        applyAutomatically:
+          type: boolean
+          description: Whether granted credits are applied to usage automatically.
+            Defaults to true.
+        externalIntegrations:
+          type: array
+          nullable: true
+          items:
+            $ref: "#/components/schemas/ProductExternalIntegration"
+          description: Links the subscription created for a recurring credit grant to
+            matching products in V3 integrations (e.g. Paddle). The grant's
+            inferred product is linked to each external integration after the
+            contract is created, so invoices for the grant are exported to it.
+            At most one entry per provider. Applies only to credit grants on a
+            contract — ignored on credit top-ups. Currently only Paddle is
+            supported.
+      required:
+        - name
+        - creditProductId
+        - balanceKind
+        - grantAmount
+        - schedule
     ProductGroup:
       type: object
       properties:
@@ -2018,9 +2423,17 @@ components:
                         description: An optional discount to apply to this product
                       isCreditPurchase:
                         type: boolean
-                        description: Whether this one-time fee is a credit purchase. When true, the
-                          product is treated as a prepaid credit that the
-                          customer can use later. Defaults to false.
+                        description: "Deprecated. Legacy prepaid-credit marker: sets a fixed Credit
+                          product type and prepayment, but does NOT fund a
+                          credit pool. For the credit pool system, use the
+                          contract-level creditGrants field instead. Defaults to
+                          false."
+                        deprecated: true
+                      issuedSeparately:
+                        type: boolean
+                        description: When true, this product is billed on its own invoice instead of
+                          being combined with other products in the same
+                          contract. Defaults to false.
                     required:
                       - type
                       - price
@@ -2138,6 +2551,11 @@ components:
                           - type
                           - amount
                         description: An optional discount to apply to this product
+                      issuedSeparately:
+                        type: boolean
+                        description: When true, this product is billed on its own invoice instead of
+                          being combined with other products in the same
+                          contract. Defaults to false.
                     required:
                       - type
                       - price
@@ -2286,6 +2704,16 @@ components:
                 type: string
                 nullable: true
                 description: The id of the class of the product in NetSuite ERP
+              externalIntegrations:
+                type: array
+                nullable: true
+                items:
+                  $ref: "#/components/schemas/ProductExternalIntegration"
+                description: Links the product to matching products in V3 integrations (e.g.
+                  Paddle). For each entry, the product is linked to that
+                  external integration after the contract is created, so
+                  invoices for this product are exported to it. At most one
+                  entry per provider. Currently only Paddle is supported.
               commitment:
                 type: object
                 nullable: true
@@ -2358,6 +2786,18 @@ components:
                   ProductGroup.
               cloudProviderSettings:
                 $ref: "#/components/schemas/ProductCloudProviderSettings"
+              consumesCreditProductIds:
+                type: array
+                nullable: true
+                items:
+                  type: string
+                  pattern: ^[0-9a-fA-F]{24}$
+                description: IDs of credit products whose pools are drawn down when this usage
+                  product is invoiced. Each ID matches the creditProductId of a
+                  credit grant on the same contract that funds the pool. Pools
+                  are drawn in the order listed. If omitted, no credits are
+                  applied and the product is billed at full price. Not supported
+                  inside productGroups.
             required:
               - displayName
               - scheduling
@@ -2453,6 +2893,7 @@ components:
       type: string
       enum:
         - InReview
+        - Scheduled
         - Active
         - Inactive
         - Expired
@@ -2474,9 +2915,15 @@ components:
               type: string
               pattern: ^[0-9a-fA-F]{24}$
               description: The id of the customer that the contract is associated with
+            planId:
+              type: string
+              pattern: ^[0-9a-fA-F]{24}$
+              description: The id of an existing plan to attach to this contract. When
+                provided, products/productGroups are ignored and the plan is
+                used as-is. Mutually exclusive with inline product definition.
             name:
               type: string
-              description: The name of the contract
+              description: The name of the contract. Required when planId is not provided.
             salesForceOpportunityId:
               type: string
               nullable: true
@@ -2578,9 +3025,17 @@ components:
                             description: An optional discount to apply to this product
                           isCreditPurchase:
                             type: boolean
-                            description: Whether this one-time fee is a credit purchase. When true, the
-                              product is treated as a prepaid credit that the
-                              customer can use later. Defaults to false.
+                            description: "Deprecated. Legacy prepaid-credit marker: sets a fixed Credit
+                              product type and prepayment, but does NOT fund a
+                              credit pool. For the credit pool system, use the
+                              contract-level creditGrants field instead.
+                              Defaults to false."
+                            deprecated: true
+                          issuedSeparately:
+                            type: boolean
+                            description: When true, this product is billed on its own invoice instead of
+                              being combined with other products in the same
+                              contract. Defaults to false.
                         required:
                           - type
                           - price
@@ -2698,6 +3153,11 @@ components:
                               - type
                               - amount
                             description: An optional discount to apply to this product
+                          issuedSeparately:
+                            type: boolean
+                            description: When true, this product is billed on its own invoice instead of
+                              being combined with other products in the same
+                              contract. Defaults to false.
                         required:
                           - type
                           - price
@@ -2846,6 +3306,16 @@ components:
                     type: string
                     nullable: true
                     description: The id of the class of the product in NetSuite ERP
+                  externalIntegrations:
+                    type: array
+                    nullable: true
+                    items:
+                      $ref: "#/components/schemas/ProductExternalIntegration"
+                    description: Links the product to matching products in V3 integrations (e.g.
+                      Paddle). For each entry, the product is linked to that
+                      external integration after the contract is created, so
+                      invoices for this product are exported to it. At most one
+                      entry per provider. Currently only Paddle is supported.
                   commitment:
                     type: object
                     nullable: true
@@ -2918,11 +3388,32 @@ components:
                       ProductGroup.
                   cloudProviderSettings:
                     $ref: "#/components/schemas/ProductCloudProviderSettings"
+                  consumesCreditProductIds:
+                    type: array
+                    nullable: true
+                    items:
+                      type: string
+                      pattern: ^[0-9a-fA-F]{24}$
+                    description: IDs of credit products whose pools are drawn down when this usage
+                      product is invoiced. Each ID matches the creditProductId
+                      of a credit grant on the same contract that funds the
+                      pool. Pools are drawn in the order listed. If omitted, no
+                      credits are applied and the product is billed at full
+                      price. Not supported inside productGroups.
                 required:
                   - displayName
                   - scheduling
                   - pricing
               description: The products that the contract is associated with
+            creditGrants:
+              type: array
+              nullable: true
+              items:
+                $ref: "#/components/schemas/ExternalCreditGrant"
+              description: Credit grants that fund credit pools for the customer under this
+                contract. Each grant credits a pool identified by its
+                creditProductId; usage products draw down those pools via
+                consumesCreditProductIds.
             productGroups:
               type: array
               items:
@@ -2966,6 +3457,17 @@ components:
                 - description: The currency of the contract. Overrides the customer-level currency
                     for all invoices under this contract. If not provided, the
                     customer currency or account default (USD) is used.
+            isTrial:
+              type: boolean
+              description: "Whether the contract is a trial. All invoices under a trial
+                contract are flagged with isTrial: true. If not provided, it
+                defaults to false."
+            externalId:
+              type: string
+              nullable: true
+              description: A caller-owned external id for the contract. Once set, the contract
+                can be fetched or deleted by passing this value in place of the
+                Vayu id on the /contracts/{contractId} endpoints.
             id:
               type: string
             createdAt:
@@ -2977,7 +3479,6 @@ components:
           required:
             - startDate
             - customerId
-            - name
             - id
             - createdAt
             - updatedAt
@@ -2997,9 +3498,15 @@ components:
               type: string
               pattern: ^[0-9a-fA-F]{24}$
               description: The id of the customer that the contract is associated with
+            planId:
+              type: string
+              pattern: ^[0-9a-fA-F]{24}$
+              description: The id of an existing plan to attach to this contract. When
+                provided, products/productGroups are ignored and the plan is
+                used as-is. Mutually exclusive with inline product definition.
             name:
               type: string
-              description: The name of the contract
+              description: The name of the contract. Required when planId is not provided.
             salesForceOpportunityId:
               type: string
               nullable: true
@@ -3101,9 +3608,17 @@ components:
                             description: An optional discount to apply to this product
                           isCreditPurchase:
                             type: boolean
-                            description: Whether this one-time fee is a credit purchase. When true, the
-                              product is treated as a prepaid credit that the
-                              customer can use later. Defaults to false.
+                            description: "Deprecated. Legacy prepaid-credit marker: sets a fixed Credit
+                              product type and prepayment, but does NOT fund a
+                              credit pool. For the credit pool system, use the
+                              contract-level creditGrants field instead.
+                              Defaults to false."
+                            deprecated: true
+                          issuedSeparately:
+                            type: boolean
+                            description: When true, this product is billed on its own invoice instead of
+                              being combined with other products in the same
+                              contract. Defaults to false.
                         required:
                           - type
                           - price
@@ -3221,6 +3736,11 @@ components:
                               - type
                               - amount
                             description: An optional discount to apply to this product
+                          issuedSeparately:
+                            type: boolean
+                            description: When true, this product is billed on its own invoice instead of
+                              being combined with other products in the same
+                              contract. Defaults to false.
                         required:
                           - type
                           - price
@@ -3369,6 +3889,16 @@ components:
                     type: string
                     nullable: true
                     description: The id of the class of the product in NetSuite ERP
+                  externalIntegrations:
+                    type: array
+                    nullable: true
+                    items:
+                      $ref: "#/components/schemas/ProductExternalIntegration"
+                    description: Links the product to matching products in V3 integrations (e.g.
+                      Paddle). For each entry, the product is linked to that
+                      external integration after the contract is created, so
+                      invoices for this product are exported to it. At most one
+                      entry per provider. Currently only Paddle is supported.
                   commitment:
                     type: object
                     nullable: true
@@ -3441,11 +3971,32 @@ components:
                       ProductGroup.
                   cloudProviderSettings:
                     $ref: "#/components/schemas/ProductCloudProviderSettings"
+                  consumesCreditProductIds:
+                    type: array
+                    nullable: true
+                    items:
+                      type: string
+                      pattern: ^[0-9a-fA-F]{24}$
+                    description: IDs of credit products whose pools are drawn down when this usage
+                      product is invoiced. Each ID matches the creditProductId
+                      of a credit grant on the same contract that funds the
+                      pool. Pools are drawn in the order listed. If omitted, no
+                      credits are applied and the product is billed at full
+                      price. Not supported inside productGroups.
                 required:
                   - displayName
                   - scheduling
                   - pricing
               description: The products that the contract is associated with
+            creditGrants:
+              type: array
+              nullable: true
+              items:
+                $ref: "#/components/schemas/ExternalCreditGrant"
+              description: Credit grants that fund credit pools for the customer under this
+                contract. Each grant credits a pool identified by its
+                creditProductId; usage products draw down those pools via
+                consumesCreditProductIds.
             productGroups:
               type: array
               items:
@@ -3489,6 +4040,17 @@ components:
                 - description: The currency of the contract. Overrides the customer-level currency
                     for all invoices under this contract. If not provided, the
                     customer currency or account default (USD) is used.
+            isTrial:
+              type: boolean
+              description: "Whether the contract is a trial. All invoices under a trial
+                contract are flagged with isTrial: true. If not provided, it
+                defaults to false."
+            externalId:
+              type: string
+              nullable: true
+              description: A caller-owned external id for the contract. Once set, the contract
+                can be fetched or deleted by passing this value in place of the
+                Vayu id on the /contracts/{contractId} endpoints.
             id:
               type: string
             createdAt:
@@ -3502,7 +4064,6 @@ components:
           required:
             - startDate
             - customerId
-            - name
             - id
             - createdAt
             - updatedAt
@@ -3520,9 +4081,15 @@ components:
           type: string
           pattern: ^[0-9a-fA-F]{24}$
           description: The id of the customer that the contract is associated with
+        planId:
+          type: string
+          pattern: ^[0-9a-fA-F]{24}$
+          description: The id of an existing plan to attach to this contract. When
+            provided, products/productGroups are ignored and the plan is used
+            as-is. Mutually exclusive with inline product definition.
         name:
           type: string
-          description: The name of the contract
+          description: The name of the contract. Required when planId is not provided.
         salesForceOpportunityId:
           type: string
           nullable: true
@@ -3624,9 +4191,17 @@ components:
                         description: An optional discount to apply to this product
                       isCreditPurchase:
                         type: boolean
-                        description: Whether this one-time fee is a credit purchase. When true, the
-                          product is treated as a prepaid credit that the
-                          customer can use later. Defaults to false.
+                        description: "Deprecated. Legacy prepaid-credit marker: sets a fixed Credit
+                          product type and prepayment, but does NOT fund a
+                          credit pool. For the credit pool system, use the
+                          contract-level creditGrants field instead. Defaults to
+                          false."
+                        deprecated: true
+                      issuedSeparately:
+                        type: boolean
+                        description: When true, this product is billed on its own invoice instead of
+                          being combined with other products in the same
+                          contract. Defaults to false.
                     required:
                       - type
                       - price
@@ -3744,6 +4319,11 @@ components:
                           - type
                           - amount
                         description: An optional discount to apply to this product
+                      issuedSeparately:
+                        type: boolean
+                        description: When true, this product is billed on its own invoice instead of
+                          being combined with other products in the same
+                          contract. Defaults to false.
                     required:
                       - type
                       - price
@@ -3892,6 +4472,16 @@ components:
                 type: string
                 nullable: true
                 description: The id of the class of the product in NetSuite ERP
+              externalIntegrations:
+                type: array
+                nullable: true
+                items:
+                  $ref: "#/components/schemas/ProductExternalIntegration"
+                description: Links the product to matching products in V3 integrations (e.g.
+                  Paddle). For each entry, the product is linked to that
+                  external integration after the contract is created, so
+                  invoices for this product are exported to it. At most one
+                  entry per provider. Currently only Paddle is supported.
               commitment:
                 type: object
                 nullable: true
@@ -3964,11 +4554,32 @@ components:
                   ProductGroup.
               cloudProviderSettings:
                 $ref: "#/components/schemas/ProductCloudProviderSettings"
+              consumesCreditProductIds:
+                type: array
+                nullable: true
+                items:
+                  type: string
+                  pattern: ^[0-9a-fA-F]{24}$
+                description: IDs of credit products whose pools are drawn down when this usage
+                  product is invoiced. Each ID matches the creditProductId of a
+                  credit grant on the same contract that funds the pool. Pools
+                  are drawn in the order listed. If omitted, no credits are
+                  applied and the product is billed at full price. Not supported
+                  inside productGroups.
             required:
               - displayName
               - scheduling
               - pricing
           description: The products that the contract is associated with
+        creditGrants:
+          type: array
+          nullable: true
+          items:
+            $ref: "#/components/schemas/ExternalCreditGrant"
+          description: Credit grants that fund credit pools for the customer under this
+            contract. Each grant credits a pool identified by its
+            creditProductId; usage products draw down those pools via
+            consumesCreditProductIds.
         productGroups:
           type: array
           items:
@@ -4012,10 +4623,20 @@ components:
             - description: The currency of the contract. Overrides the customer-level currency
                 for all invoices under this contract. If not provided, the
                 customer currency or account default (USD) is used.
+        isTrial:
+          type: boolean
+          description: "Whether the contract is a trial. All invoices under a trial
+            contract are flagged with isTrial: true. If not provided, it
+            defaults to false."
+        externalId:
+          type: string
+          nullable: true
+          description: A caller-owned external id for the contract. Once set, the contract
+            can be fetched or deleted by passing this value in place of the Vayu
+            id on the /contracts/{contractId} endpoints.
       required:
         - startDate
         - customerId
-        - name
     CreateContractResponse:
       type: object
       properties:
@@ -4030,9 +4651,15 @@ components:
               type: string
               pattern: ^[0-9a-fA-F]{24}$
               description: The id of the customer that the contract is associated with
+            planId:
+              type: string
+              pattern: ^[0-9a-fA-F]{24}$
+              description: The id of an existing plan to attach to this contract. When
+                provided, products/productGroups are ignored and the plan is
+                used as-is. Mutually exclusive with inline product definition.
             name:
               type: string
-              description: The name of the contract
+              description: The name of the contract. Required when planId is not provided.
             salesForceOpportunityId:
               type: string
               nullable: true
@@ -4134,9 +4761,17 @@ components:
                             description: An optional discount to apply to this product
                           isCreditPurchase:
                             type: boolean
-                            description: Whether this one-time fee is a credit purchase. When true, the
-                              product is treated as a prepaid credit that the
-                              customer can use later. Defaults to false.
+                            description: "Deprecated. Legacy prepaid-credit marker: sets a fixed Credit
+                              product type and prepayment, but does NOT fund a
+                              credit pool. For the credit pool system, use the
+                              contract-level creditGrants field instead.
+                              Defaults to false."
+                            deprecated: true
+                          issuedSeparately:
+                            type: boolean
+                            description: When true, this product is billed on its own invoice instead of
+                              being combined with other products in the same
+                              contract. Defaults to false.
                         required:
                           - type
                           - price
@@ -4254,6 +4889,11 @@ components:
                               - type
                               - amount
                             description: An optional discount to apply to this product
+                          issuedSeparately:
+                            type: boolean
+                            description: When true, this product is billed on its own invoice instead of
+                              being combined with other products in the same
+                              contract. Defaults to false.
                         required:
                           - type
                           - price
@@ -4402,6 +5042,16 @@ components:
                     type: string
                     nullable: true
                     description: The id of the class of the product in NetSuite ERP
+                  externalIntegrations:
+                    type: array
+                    nullable: true
+                    items:
+                      $ref: "#/components/schemas/ProductExternalIntegration"
+                    description: Links the product to matching products in V3 integrations (e.g.
+                      Paddle). For each entry, the product is linked to that
+                      external integration after the contract is created, so
+                      invoices for this product are exported to it. At most one
+                      entry per provider. Currently only Paddle is supported.
                   commitment:
                     type: object
                     nullable: true
@@ -4474,11 +5124,32 @@ components:
                       ProductGroup.
                   cloudProviderSettings:
                     $ref: "#/components/schemas/ProductCloudProviderSettings"
+                  consumesCreditProductIds:
+                    type: array
+                    nullable: true
+                    items:
+                      type: string
+                      pattern: ^[0-9a-fA-F]{24}$
+                    description: IDs of credit products whose pools are drawn down when this usage
+                      product is invoiced. Each ID matches the creditProductId
+                      of a credit grant on the same contract that funds the
+                      pool. Pools are drawn in the order listed. If omitted, no
+                      credits are applied and the product is billed at full
+                      price. Not supported inside productGroups.
                 required:
                   - displayName
                   - scheduling
                   - pricing
               description: The products that the contract is associated with
+            creditGrants:
+              type: array
+              nullable: true
+              items:
+                $ref: "#/components/schemas/ExternalCreditGrant"
+              description: Credit grants that fund credit pools for the customer under this
+                contract. Each grant credits a pool identified by its
+                creditProductId; usage products draw down those pools via
+                consumesCreditProductIds.
             productGroups:
               type: array
               items:
@@ -4522,6 +5193,17 @@ components:
                 - description: The currency of the contract. Overrides the customer-level currency
                     for all invoices under this contract. If not provided, the
                     customer currency or account default (USD) is used.
+            isTrial:
+              type: boolean
+              description: "Whether the contract is a trial. All invoices under a trial
+                contract are flagged with isTrial: true. If not provided, it
+                defaults to false."
+            externalId:
+              type: string
+              nullable: true
+              description: A caller-owned external id for the contract. Once set, the contract
+                can be fetched or deleted by passing this value in place of the
+                Vayu id on the /contracts/{contractId} endpoints.
             id:
               type: string
             createdAt:
@@ -4533,7 +5215,6 @@ components:
           required:
             - startDate
             - customerId
-            - name
             - id
             - createdAt
             - updatedAt
@@ -4963,6 +5644,9 @@ components:
             amount:
               type: number
               description: The total amount of the invoice
+            isTrial:
+              type: boolean
+              description: Whether the invoice belongs to a trial contract
             id:
               type: string
             createdAt:
@@ -4981,11 +5665,21 @@ components:
             - accountId
             - lineItems
             - amount
+            - isTrial
             - id
             - createdAt
             - updatedAt
       required:
         - invoice
+    CustomerRelationType:
+      type: string
+      enum:
+        - accumulateUsage
+        - accumulateCharges
+        - erpInvoiceSyncOnBehalfParent
+      default: accumulateUsage
+      description: Relation type between parent and child customer. Defaults to
+        accumulateUsage.
     CreateCustomerRelationRequest:
       type: object
       properties:
@@ -4997,9 +5691,12 @@ components:
           type: string
           pattern: ^[0-9a-fA-F]{24}$
           description: Identifier of the child customer in Vayu.
+        relationType:
+          $ref: "#/components/schemas/CustomerRelationType"
       required:
         - vayuParentCustomerId
         - vayuChildCustomerId
+        - relationType
     CreateCustomerRelationResponse:
       type: object
       properties:
@@ -5014,6 +5711,8 @@ components:
               type: string
               pattern: ^[0-9a-fA-F]{24}$
               description: Identifier of the child customer in Vayu.
+            relationType:
+              $ref: "#/components/schemas/CustomerRelationType"
             id:
               type: string
             createdAt:
@@ -5025,6 +5724,7 @@ components:
           required:
             - vayuParentCustomerId
             - vayuChildCustomerId
+            - relationType
             - id
             - createdAt
             - updatedAt
@@ -5044,6 +5744,8 @@ components:
               type: string
               pattern: ^[0-9a-fA-F]{24}$
               description: Identifier of the child customer in Vayu.
+            relationType:
+              $ref: "#/components/schemas/CustomerRelationType"
             id:
               type: string
             createdAt:
@@ -5055,11 +5757,614 @@ components:
           required:
             - vayuParentCustomerId
             - vayuChildCustomerId
+            - relationType
             - id
             - createdAt
             - updatedAt
       required:
         - customerRelation
+    PlanStatus:
+      type: string
+      enum:
+        - Active
+        - Inactive
+        - Error
+      description: The status of the plan. plan statuses are active, inactive
+    BillingInterval:
+      type: string
+      enum:
+        - Monthly
+        - BiMonthly
+        - Quarterly
+        - SixMonths
+        - Yearly
+    UnlimitedDuration:
+      type: number
+      enum:
+        - -1
+    PlanDuration:
+      anyOf:
+        - type: number
+          minimum: 0
+          exclusiveMinimum: true
+        - $ref: "#/components/schemas/UnlimitedDuration"
+    PlanBillingData:
+      type: object
+      properties:
+        billingInterval:
+          $ref: "#/components/schemas/BillingInterval"
+        duration:
+          $ref: "#/components/schemas/PlanDuration"
+        paymentTerm:
+          allOf:
+            - $ref: "#/components/schemas/PaymentTerm"
+            - default: Postpayment
+              description: flag to indicate if the payment is postpayment or prepayment
+        autoRenewal:
+          type: boolean
+          default: false
+        proRated:
+          type: boolean
+          nullable: true
+      required:
+        - billingInterval
+        - duration
+        - paymentTerm
+        - autoRenewal
+      description: The billing data of the plan. The billing data contains the billing
+        interval, the plan duration the payment terms and auto renewal, and the
+        billing method.
+    GetPlanResponse:
+      type: object
+      properties:
+        plan:
+          type: object
+          properties:
+            name:
+              type: string
+              minLength: 1
+              description: The name of the plan
+            status:
+              $ref: "#/components/schemas/PlanStatus"
+            billingData:
+              $ref: "#/components/schemas/PlanBillingData"
+            externalId:
+              type: string
+              nullable: true
+              description: A caller-owned external id for the plan. Once set, the plan can be
+                fetched or deleted by passing this value in place of the Vayu id
+                on the /plans/{planId} endpoints.
+            id:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+            updatedAt:
+              type: string
+              format: date-time
+          required:
+            - name
+            - status
+            - billingData
+            - id
+            - createdAt
+            - updatedAt
+      required:
+        - plan
+    DeletePlanResponse:
+      type: object
+      properties:
+        plan:
+          type: object
+          properties:
+            name:
+              type: string
+              minLength: 1
+              description: The name of the plan
+            status:
+              $ref: "#/components/schemas/PlanStatus"
+            billingData:
+              $ref: "#/components/schemas/PlanBillingData"
+            externalId:
+              type: string
+              nullable: true
+              description: A caller-owned external id for the plan. Once set, the plan can be
+                fetched or deleted by passing this value in place of the Vayu id
+                on the /plans/{planId} endpoints.
+            id:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+            updatedAt:
+              type: string
+              format: date-time
+            deletedAt:
+              type: string
+          required:
+            - name
+            - status
+            - billingData
+            - id
+            - createdAt
+            - updatedAt
+            - deletedAt
+      required:
+        - plan
+    ListPlansResponse:
+      type: object
+      properties:
+        plans:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                minLength: 1
+                description: The name of the plan
+              status:
+                $ref: "#/components/schemas/PlanStatus"
+              billingData:
+                $ref: "#/components/schemas/PlanBillingData"
+              externalId:
+                type: string
+                nullable: true
+                description: A caller-owned external id for the plan. Once set, the plan can be
+                  fetched or deleted by passing this value in place of the Vayu
+                  id on the /plans/{planId} endpoints.
+              id:
+                type: string
+              createdAt:
+                type: string
+                format: date-time
+              updatedAt:
+                type: string
+                format: date-time
+            required:
+              - name
+              - status
+              - billingData
+              - id
+              - createdAt
+              - updatedAt
+        total:
+          type: number
+        hasMore:
+          type: boolean
+        nextCursor:
+          type: string
+      required:
+        - plans
+        - total
+        - hasMore
+    CustomFieldEntities:
+      type: string
+      enum:
+        - Customer
+        - Contract
+        - Invoice
+        - LineItem
+      description: The Vayu entity this field applies to
+    CreateCustomFieldRequest:
+      type: object
+      properties:
+        vayuEntity:
+          $ref: "#/components/schemas/CustomFieldEntities"
+        vayuCustomFieldName:
+          type: string
+          description: The name of the custom field in Vayu
+        valueType:
+          $ref: "#/components/schemas/CustomFieldValueTypes"
+        integrationSource:
+          type: string
+          enum:
+            - NetSuite
+            - QuickBooks
+            - Stripe
+            - Salesforce
+            - Hubspot
+            - Vayu
+            - Slack
+            - S3
+            - Morning
+            - Snowflake
+            - Anrok
+            - Connact
+            - Xero
+            - Paddle
+          description: The integration provider (e.g., "Salesforce", "HubSpot")
+        integrationEntityType:
+          allOf:
+            - $ref: "#/components/schemas/IntegrationEntityTypes"
+            - description: The entity type in the integration
+        fieldPath:
+          type: string
+          description: The path to the field in the integration
+        allowedValues:
+          type: array
+          items:
+            type: string
+          description: Allowed values for Enum type fields
+        defaultValue:
+          type: string
+          description: Default value for Enum type fields. Must be one of allowedValues.
+      required:
+        - vayuEntity
+        - vayuCustomFieldName
+        - valueType
+    CreateCustomFieldResponse:
+      type: object
+      properties:
+        customField:
+          type: object
+          properties:
+            vayuEntity:
+              $ref: "#/components/schemas/CustomFieldEntities"
+            vayuCustomFieldName:
+              type: string
+              description: The name of the custom field in Vayu
+            valueType:
+              $ref: "#/components/schemas/CustomFieldValueTypes"
+            integrationSource:
+              type: string
+              enum:
+                - NetSuite
+                - QuickBooks
+                - Stripe
+                - Salesforce
+                - Hubspot
+                - Vayu
+                - Slack
+                - S3
+                - Morning
+                - Snowflake
+                - Anrok
+                - Connact
+                - Xero
+                - Paddle
+              description: The integration provider (e.g., "Salesforce", "HubSpot")
+            integrationEntityType:
+              allOf:
+                - $ref: "#/components/schemas/IntegrationEntityTypes"
+                - description: The entity type in the integration
+            fieldPath:
+              type: string
+              description: The path to the field in the integration
+            allowedValues:
+              type: array
+              items:
+                type: string
+              description: Allowed values for Enum type fields
+            defaultValue:
+              type: string
+              description: Default value for Enum type fields. Must be one of allowedValues.
+            id:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+            updatedAt:
+              type: string
+              format: date-time
+          required:
+            - vayuEntity
+            - vayuCustomFieldName
+            - valueType
+            - id
+            - createdAt
+            - updatedAt
+      required:
+        - customField
+    ListCustomFieldsResponse:
+      type: object
+      properties:
+        customFields:
+          type: array
+          items:
+            type: object
+            properties:
+              vayuEntity:
+                $ref: "#/components/schemas/CustomFieldEntities"
+              vayuCustomFieldName:
+                type: string
+                description: The name of the custom field in Vayu
+              valueType:
+                $ref: "#/components/schemas/CustomFieldValueTypes"
+              integrationSource:
+                type: string
+                enum:
+                  - NetSuite
+                  - QuickBooks
+                  - Stripe
+                  - Salesforce
+                  - Hubspot
+                  - Vayu
+                  - Slack
+                  - S3
+                  - Morning
+                  - Snowflake
+                  - Anrok
+                  - Connact
+                  - Xero
+                  - Paddle
+                description: The integration provider (e.g., "Salesforce", "HubSpot")
+              integrationEntityType:
+                allOf:
+                  - $ref: "#/components/schemas/IntegrationEntityTypes"
+                  - description: The entity type in the integration
+              fieldPath:
+                type: string
+                description: The path to the field in the integration
+              allowedValues:
+                type: array
+                items:
+                  type: string
+                description: Allowed values for Enum type fields
+              defaultValue:
+                type: string
+                description: Default value for Enum type fields. Must be one of allowedValues.
+              id:
+                type: string
+              createdAt:
+                type: string
+                format: date-time
+              updatedAt:
+                type: string
+                format: date-time
+            required:
+              - vayuEntity
+              - vayuCustomFieldName
+              - valueType
+              - id
+              - createdAt
+              - updatedAt
+        total:
+          type: number
+        hasMore:
+          type: boolean
+        nextCursor:
+          type: string
+      required:
+        - customFields
+        - total
+        - hasMore
+    GetCustomFieldResponse:
+      type: object
+      properties:
+        customField:
+          type: object
+          properties:
+            vayuEntity:
+              $ref: "#/components/schemas/CustomFieldEntities"
+            vayuCustomFieldName:
+              type: string
+              description: The name of the custom field in Vayu
+            valueType:
+              $ref: "#/components/schemas/CustomFieldValueTypes"
+            integrationSource:
+              type: string
+              enum:
+                - NetSuite
+                - QuickBooks
+                - Stripe
+                - Salesforce
+                - Hubspot
+                - Vayu
+                - Slack
+                - S3
+                - Morning
+                - Snowflake
+                - Anrok
+                - Connact
+                - Xero
+                - Paddle
+              description: The integration provider (e.g., "Salesforce", "HubSpot")
+            integrationEntityType:
+              allOf:
+                - $ref: "#/components/schemas/IntegrationEntityTypes"
+                - description: The entity type in the integration
+            fieldPath:
+              type: string
+              description: The path to the field in the integration
+            allowedValues:
+              type: array
+              items:
+                type: string
+              description: Allowed values for Enum type fields
+            defaultValue:
+              type: string
+              description: Default value for Enum type fields. Must be one of allowedValues.
+            id:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+            updatedAt:
+              type: string
+              format: date-time
+          required:
+            - vayuEntity
+            - vayuCustomFieldName
+            - valueType
+            - id
+            - createdAt
+            - updatedAt
+      required:
+        - customField
+    UpdateCustomFieldRequest:
+      type: object
+      properties:
+        vayuEntity:
+          $ref: "#/components/schemas/CustomFieldEntities"
+        vayuCustomFieldName:
+          type: string
+          description: The name of the custom field in Vayu
+        valueType:
+          $ref: "#/components/schemas/CustomFieldValueTypes"
+        integrationSource:
+          type: string
+          enum:
+            - NetSuite
+            - QuickBooks
+            - Stripe
+            - Salesforce
+            - Hubspot
+            - Vayu
+            - Slack
+            - S3
+            - Morning
+            - Snowflake
+            - Anrok
+            - Connact
+            - Xero
+            - Paddle
+          description: The integration provider (e.g., "Salesforce", "HubSpot")
+        integrationEntityType:
+          allOf:
+            - $ref: "#/components/schemas/IntegrationEntityTypes"
+            - description: The entity type in the integration
+        fieldPath:
+          type: string
+          description: The path to the field in the integration
+        allowedValues:
+          type: array
+          items:
+            type: string
+          description: Allowed values for Enum type fields
+        defaultValue:
+          type: string
+          description: Default value for Enum type fields. Must be one of allowedValues.
+      additionalProperties: false
+    UpdateCustomFieldResponse:
+      type: object
+      properties:
+        customField:
+          type: object
+          properties:
+            vayuEntity:
+              $ref: "#/components/schemas/CustomFieldEntities"
+            vayuCustomFieldName:
+              type: string
+              description: The name of the custom field in Vayu
+            valueType:
+              $ref: "#/components/schemas/CustomFieldValueTypes"
+            integrationSource:
+              type: string
+              enum:
+                - NetSuite
+                - QuickBooks
+                - Stripe
+                - Salesforce
+                - Hubspot
+                - Vayu
+                - Slack
+                - S3
+                - Morning
+                - Snowflake
+                - Anrok
+                - Connact
+                - Xero
+                - Paddle
+              description: The integration provider (e.g., "Salesforce", "HubSpot")
+            integrationEntityType:
+              allOf:
+                - $ref: "#/components/schemas/IntegrationEntityTypes"
+                - description: The entity type in the integration
+            fieldPath:
+              type: string
+              description: The path to the field in the integration
+            allowedValues:
+              type: array
+              items:
+                type: string
+              description: Allowed values for Enum type fields
+            defaultValue:
+              type: string
+              description: Default value for Enum type fields. Must be one of allowedValues.
+            id:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+            updatedAt:
+              type: string
+              format: date-time
+          required:
+            - vayuEntity
+            - vayuCustomFieldName
+            - valueType
+            - id
+            - createdAt
+            - updatedAt
+      required:
+        - customField
+    DeleteCustomFieldResponse:
+      type: object
+      properties:
+        customField:
+          type: object
+          properties:
+            vayuEntity:
+              $ref: "#/components/schemas/CustomFieldEntities"
+            vayuCustomFieldName:
+              type: string
+              description: The name of the custom field in Vayu
+            valueType:
+              $ref: "#/components/schemas/CustomFieldValueTypes"
+            integrationSource:
+              type: string
+              enum:
+                - NetSuite
+                - QuickBooks
+                - Stripe
+                - Salesforce
+                - Hubspot
+                - Vayu
+                - Slack
+                - S3
+                - Morning
+                - Snowflake
+                - Anrok
+                - Connact
+                - Xero
+                - Paddle
+              description: The integration provider (e.g., "Salesforce", "HubSpot")
+            integrationEntityType:
+              allOf:
+                - $ref: "#/components/schemas/IntegrationEntityTypes"
+                - description: The entity type in the integration
+            fieldPath:
+              type: string
+              description: The path to the field in the integration
+            allowedValues:
+              type: array
+              items:
+                type: string
+              description: Allowed values for Enum type fields
+            defaultValue:
+              type: string
+              description: Default value for Enum type fields. Must be one of allowedValues.
+            id:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+            updatedAt:
+              type: string
+              format: date-time
+            deletedAt:
+              type: string
+          required:
+            - vayuEntity
+            - vayuCustomFieldName
+            - valueType
+            - id
+            - createdAt
+            - updatedAt
+            - deletedAt
+      required:
+        - customField
     LoginRequest:
       type: object
       properties:
@@ -5253,6 +6558,8 @@ components:
               type: string
             name:
               type: string
+            ackId:
+              type: string
           required:
             - timestamp
             - customerAlias
@@ -5369,6 +6676,18 @@ components:
           maxItems: 1000
       required:
         - events
+    AcknowledgedEvent:
+      allOf:
+        - $ref: "#/components/schemas/Event"
+        - type: object
+          properties:
+            ackId:
+              type: string
+              description: Per-event acknowledgment ID confirming Vayu received this event.
+                Use it to demonstrate the event was sent to Vayu.
+              example: 01J5A3B7K9QRSTUV2WXYZ4DEFG
+          required:
+            - ackId
     InvalidEvent:
       type: object
       properties:
@@ -5387,9 +6706,9 @@ components:
         validEvents:
           type: array
           items:
-            $ref: "#/components/schemas/Event"
+            $ref: "#/components/schemas/AcknowledgedEvent"
           description: An array of events that were successfully processed and sent to the
-            queue.
+            queue, each with its acknowledgment ID.
         invalidEvents:
           type: array
           items:
@@ -5524,6 +6843,485 @@ components:
           description: The event matching the provided refId
       required:
         - event
+    V2DeleteEventsByRefsRequest:
+      type: object
+      properties:
+        refs:
+          type: array
+          items:
+            type: string
+            minLength: 1
+          minItems: 1
+          maxItems: 1000
+      required:
+        - refs
+    V2DeleteEventsByRefsResponse:
+      type: object
+      properties:
+        events:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: The distinctive label assigned to an event, serving as a critical
+                  identifier for categorizing and pricing events within the
+                  system's backend infrastructure.
+                example: api_call
+              timestamp:
+                type: string
+                description: The temporal marker denoting the exact moment of event occurrence.
+                  The timestamp is formatted as an ISO 8601 string and is
+                  expressed in Coordinated Universal Time (UTC). i.e.
+                  YYYY-MM-DDTHH:MM:SS.SSSZ
+                format: date-time
+                example: 2023-09-13T18:25:43.511Z
+              customerAlias:
+                type: string
+                minLength: 1
+                description: A pseudonymous or otherwise obfuscated identifier uniquely assigned
+                  to each customer.
+                example: customer_12345
+              ref:
+                type: string
+                description: A universally unique identifier (UUID) or other form of
+                  high-entropy string serving as an immutable reference for each
+                  event entry.
+                example: 4f6cf35x-2c4y-483z-a0a9-158621f77a21
+              data:
+                type: object
+                nullable: true
+                additionalProperties:
+                  nullable: true
+                description: A schema-less JSON object encapsulating miscellaneous attributes
+                  and metrics associated with the event.
+                example:
+                  key1: processing_duration
+                  key2: api_url
+              id:
+                type: string
+              createdAt:
+                type: string
+                format: date-time
+              updatedAt:
+                type: string
+                format: date-time
+              deletedAt:
+                type: string
+            required:
+              - name
+              - timestamp
+              - customerAlias
+              - ref
+              - id
+              - createdAt
+              - updatedAt
+              - deletedAt
+          description: The events that were deleted
+      required:
+        - events
+    V2EventsDryRunRequest:
+      type: object
+      properties:
+        events:
+          type: array
+          items:
+            $ref: "#/components/schemas/Event"
+          minItems: 1
+          maxItems: 1000
+      required:
+        - events
+    V2EventsDryRunResponse:
+      type: object
+      properties:
+        events:
+          type: array
+          items:
+            $ref: "#/components/schemas/EventsDryRunResponseObject"
+      required:
+        - events
+    V2QueryEventsResponse:
+      type: object
+      properties:
+        events:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: The distinctive label assigned to an event, serving as a critical
+                  identifier for categorizing and pricing events within the
+                  system's backend infrastructure.
+                example: api_call
+              timestamp:
+                type: string
+                description: The temporal marker denoting the exact moment of event occurrence.
+                  The timestamp is formatted as an ISO 8601 string and is
+                  expressed in Coordinated Universal Time (UTC). i.e.
+                  YYYY-MM-DDTHH:MM:SS.SSSZ
+                format: date-time
+                example: 2023-09-13T18:25:43.511Z
+              customerAlias:
+                type: string
+                minLength: 1
+                description: A pseudonymous or otherwise obfuscated identifier uniquely assigned
+                  to each customer.
+                example: customer_12345
+              ref:
+                type: string
+                description: A universally unique identifier (UUID) or other form of
+                  high-entropy string serving as an immutable reference for each
+                  event entry.
+                example: 4f6cf35x-2c4y-483z-a0a9-158621f77a21
+              data:
+                type: object
+                nullable: true
+                additionalProperties:
+                  nullable: true
+                description: A schema-less JSON object encapsulating miscellaneous attributes
+                  and metrics associated with the event.
+                example:
+                  key1: processing_duration
+                  key2: api_url
+              id:
+                type: string
+              createdAt:
+                type: string
+                format: date-time
+              updatedAt:
+                type: string
+                format: date-time
+            required:
+              - name
+              - timestamp
+              - customerAlias
+              - ref
+              - id
+              - createdAt
+              - updatedAt
+        total:
+          type: number
+        hasMore:
+          type: boolean
+        nextCursor:
+          type: string
+      required:
+        - events
+        - total
+        - hasMore
+    V2SendEventsRequest:
+      type: object
+      properties:
+        events:
+          type: array
+          items:
+            $ref: "#/components/schemas/Event"
+          minItems: 1
+          maxItems: 1000
+      required:
+        - events
+    V2SendEventsResponse:
+      type: object
+      properties:
+        validEvents:
+          type: array
+          items:
+            $ref: "#/components/schemas/AcknowledgedEvent"
+          description: An array of events that were successfully processed and sent to the
+            queue, each with its acknowledgment ID.
+        invalidEvents:
+          type: array
+          items:
+            $ref: "#/components/schemas/InvalidEvent"
+          description: An array of events that failed validation and were not sent to the
+            queue. Each object contains the event and the error message.
+      required:
+        - validEvents
+        - invalidEvents
+    V2GetEventResponse:
+      type: object
+      properties:
+        event:
+          type: object
+          properties:
+            name:
+              type: string
+              description: The distinctive label assigned to an event, serving as a critical
+                identifier for categorizing and pricing events within the
+                system's backend infrastructure.
+              example: api_call
+            timestamp:
+              type: string
+              description: The temporal marker denoting the exact moment of event occurrence.
+                The timestamp is formatted as an ISO 8601 string and is
+                expressed in Coordinated Universal Time (UTC). i.e.
+                YYYY-MM-DDTHH:MM:SS.SSSZ
+              format: date-time
+              example: 2023-09-13T18:25:43.511Z
+            customerAlias:
+              type: string
+              minLength: 1
+              description: A pseudonymous or otherwise obfuscated identifier uniquely assigned
+                to each customer.
+              example: customer_12345
+            ref:
+              type: string
+              description: A universally unique identifier (UUID) or other form of
+                high-entropy string serving as an immutable reference for each
+                event entry.
+              example: 4f6cf35x-2c4y-483z-a0a9-158621f77a21
+            data:
+              type: object
+              nullable: true
+              additionalProperties:
+                nullable: true
+              description: A schema-less JSON object encapsulating miscellaneous attributes
+                and metrics associated with the event.
+              example:
+                key1: processing_duration
+                key2: api_url
+            id:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+            updatedAt:
+              type: string
+              format: date-time
+          required:
+            - name
+            - timestamp
+            - customerAlias
+            - ref
+            - id
+            - createdAt
+            - updatedAt
+          description: The event matching the provided refId
+      required:
+        - event
+    V2DeleteEventResponse:
+      type: object
+      properties:
+        event:
+          type: object
+          properties:
+            name:
+              type: string
+              description: The distinctive label assigned to an event, serving as a critical
+                identifier for categorizing and pricing events within the
+                system's backend infrastructure.
+              example: api_call
+            timestamp:
+              type: string
+              description: The temporal marker denoting the exact moment of event occurrence.
+                The timestamp is formatted as an ISO 8601 string and is
+                expressed in Coordinated Universal Time (UTC). i.e.
+                YYYY-MM-DDTHH:MM:SS.SSSZ
+              format: date-time
+              example: 2023-09-13T18:25:43.511Z
+            customerAlias:
+              type: string
+              minLength: 1
+              description: A pseudonymous or otherwise obfuscated identifier uniquely assigned
+                to each customer.
+              example: customer_12345
+            ref:
+              type: string
+              description: A universally unique identifier (UUID) or other form of
+                high-entropy string serving as an immutable reference for each
+                event entry.
+              example: 4f6cf35x-2c4y-483z-a0a9-158621f77a21
+            data:
+              type: object
+              nullable: true
+              additionalProperties:
+                nullable: true
+              description: A schema-less JSON object encapsulating miscellaneous attributes
+                and metrics associated with the event.
+              example:
+                key1: processing_duration
+                key2: api_url
+            id:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+            updatedAt:
+              type: string
+              format: date-time
+            deletedAt:
+              type: string
+          required:
+            - name
+            - timestamp
+            - customerAlias
+            - ref
+            - id
+            - createdAt
+            - updatedAt
+            - deletedAt
+          description: The event matching the provided refId
+      required:
+        - event
+    V2QueryEventsAggregationRequest:
+      type: object
+      properties:
+        customerId:
+          type: string
+        customerIdPattern:
+          type: string
+        period:
+          type: object
+          properties:
+            startTime:
+              type: string
+              nullable: true
+            endTime:
+              type: string
+              nullable: true
+          required:
+            - startTime
+            - endTime
+        meters:
+          type: array
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+              eventName:
+                type: string
+              aggregation:
+                type: object
+                properties:
+                  operator:
+                    $ref: "#/components/schemas/AggregationOperator"
+                  field:
+                    type: string
+                  fieldArithmetic:
+                    type: object
+                    properties:
+                      operator:
+                        type: string
+                        enum:
+                          - "*"
+                          - +
+                          - "-"
+                          - /
+                      field:
+                        type: string
+                    required:
+                      - operator
+                      - field
+                required:
+                  - operator
+              sqlSelect:
+                type: string
+              sqlFullQuery:
+                type: object
+                properties:
+                  sql:
+                    type: string
+                  params:
+                    type: object
+                    additionalProperties:
+                      nullable: true
+                required:
+                  - sql
+                  - params
+              filters:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    field:
+                      type: string
+                    operator:
+                      type: string
+                      enum:
+                        - eq
+                        - neq
+                        - gt
+                        - gte
+                        - lt
+                        - lte
+                        - in
+                    value:
+                      anyOf:
+                        - type: string
+                        - type: number
+                        - type: array
+                          items:
+                            type: string
+                        - type: array
+                          items:
+                            type: number
+                  required:
+                    - field
+                    - operator
+                    - value
+            required:
+              - key
+              - eventName
+          minItems: 1
+        groupBy:
+          type: string
+          enum:
+            - event
+            - day
+            - month
+            - quarter
+            - year
+        fillDates:
+          type: boolean
+      required:
+        - customerId
+        - period
+        - meters
+        - groupBy
+    V2QueryEventsAggregationResponse:
+      type: object
+      properties:
+        dataPoints:
+          type: array
+          items:
+            type: object
+            properties:
+              group:
+                type: string
+              values:
+                type: object
+                additionalProperties:
+                  type: number
+            required:
+              - group
+              - values
+        period:
+          type: object
+          properties:
+            startTime:
+              type: string
+              nullable: true
+            endTime:
+              type: string
+              nullable: true
+          required:
+            - startTime
+            - endTime
+        groupBy:
+          type: string
+          enum:
+            - event
+            - day
+            - month
+            - quarter
+            - year
+      required:
+        - dataPoints
+        - period
+        - groupBy
     BillingCycleStatus:
       type: string
       enum:
@@ -5545,6 +7343,7 @@ components:
         - Snowflake
         - Connact
         - Xero
+        - Paddle
     SyncStatus:
       type: string
       enum:
@@ -5646,12 +7445,70 @@ components:
       required:
         - creditAmount
         - customerId
+    CreditTopUpRequest:
+      type: object
+      properties:
+        customerId:
+          type: string
+          pattern: ^[0-9a-fA-F]{24}$
+          description: The ID of the customer to be billed for the credit top-up.
+        creditGrant:
+          allOf:
+            - $ref: "#/components/schemas/ExternalCreditGrant"
+            - description: The credit grant to bill the customer for — the same shape used for
+                credit grants on a contract (credit product, amount, type and
+                price). Its price is charged on the one-off invoice, and the
+                credits are granted to the customer when that invoice is
+                approved.
+      required:
+        - customerId
+        - creditGrant
+    CreditTopUpResponse:
+      type: object
+      properties:
+        invoiceId:
+          type: string
+          pattern: ^[0-9a-fA-F]{24}$
+          description: The ID of the one-off invoice created for the credit top-up.
+        customerId:
+          type: string
+          pattern: ^[0-9a-fA-F]{24}$
+          description: The ID of the customer the invoice was created for.
+      required:
+        - invoiceId
+        - customerId
+    ExternalCreditProduct:
+      type: object
+      properties:
+        id:
+          type: string
+          pattern: ^[0-9a-fA-F]{24}$
+          description: Unique ID of the credit product. Use it as a product
+            creditGrant.creditProductId to fund its pool, or in a usage
+            product's consumesCreditProductIds to debit it.
+        name:
+          type: string
+          description: Human-readable name of the credit product.
+      required:
+        - id
+        - name
+    ListCreditProductsResponse:
+      type: object
+      properties:
+        creditProducts:
+          type: array
+          items:
+            $ref: "#/components/schemas/ExternalCreditProduct"
+          description: The credit products defined in your account.
+      required:
+        - creditProducts
     NotificationEventType:
       type: string
       enum:
         - AnonymousCustomer
         - Overage
         - UpcomingRenewal
+        - ContractExpired
         - InvoiceApproved
         - CustomerPortalLinkSent
         - NewCustomerWithoutContract
@@ -5659,8 +7516,19 @@ components:
         - UnchargedEvents
         - TierCrossed
         - CommitmentCrossed
+        - CommitmentUsageCrossed
+        - CurrencyCommitmentUsageCrossed
         - FinalTierExceeded
         - InvoicePaymentStatusChanged
+        - InvoiceSendFailed
+        - CreditPoolDepleted
+        - CreditPoolThresholdCrossed
+        - CreditPoolIncreased
+        - PaymentFailed
+        - CustomerCreated
+        - ContractCreated
+        - InvoiceIssueDateArrived
+        - PingTest
     WebhookSubscribeRequest:
       type: object
       properties:
@@ -5668,6 +7536,10 @@ components:
           type: string
         eventType:
           $ref: "#/components/schemas/NotificationEventType"
+        threshold:
+          type: number
+        recurringThreshold:
+          type: number
       required:
         - callbackUrl
         - eventType
@@ -5727,6 +7599,19 @@ components:
               type: string
               nullable: true
               description: The ID of the customer in the Salesforce system
+            externalIntegration:
+              type: array
+              nullable: true
+              items:
+                $ref: "#/components/schemas/CustomerExternalIntegration"
+              description: External integration links for the customer. Each entry links the
+                customer to an external provider entity by its id. Stripe
+                entries are saved on the customer; other providers are linked
+                via the integration registry.
+              example:
+                - type: Stripe
+                  id: cus_123
+                  name: Acme Inc
             dueDays:
               type: string
               nullable: true
@@ -5901,6 +7786,19 @@ components:
               type: string
               nullable: true
               description: The ID of the customer in the Salesforce system
+            externalIntegration:
+              type: array
+              nullable: true
+              items:
+                $ref: "#/components/schemas/CustomerExternalIntegration"
+              description: External integration links for the customer. Each entry links the
+                customer to an external provider entity by its id. Stripe
+                entries are saved on the customer; other providers are linked
+                via the integration registry.
+              example:
+                - type: Stripe
+                  id: cus_123
+                  name: Acme Inc
             dueDays:
               type: string
               nullable: true
@@ -5967,9 +7865,15 @@ components:
               type: string
               pattern: ^[0-9a-fA-F]{24}$
               description: The id of the customer that the contract is associated with
+            planId:
+              type: string
+              pattern: ^[0-9a-fA-F]{24}$
+              description: The id of an existing plan to attach to this contract. When
+                provided, products/productGroups are ignored and the plan is
+                used as-is. Mutually exclusive with inline product definition.
             name:
               type: string
-              description: The name of the contract
+              description: The name of the contract. Required when planId is not provided.
             salesForceOpportunityId:
               type: string
               nullable: true
@@ -6071,9 +7975,17 @@ components:
                             description: An optional discount to apply to this product
                           isCreditPurchase:
                             type: boolean
-                            description: Whether this one-time fee is a credit purchase. When true, the
-                              product is treated as a prepaid credit that the
-                              customer can use later. Defaults to false.
+                            description: "Deprecated. Legacy prepaid-credit marker: sets a fixed Credit
+                              product type and prepayment, but does NOT fund a
+                              credit pool. For the credit pool system, use the
+                              contract-level creditGrants field instead.
+                              Defaults to false."
+                            deprecated: true
+                          issuedSeparately:
+                            type: boolean
+                            description: When true, this product is billed on its own invoice instead of
+                              being combined with other products in the same
+                              contract. Defaults to false.
                         required:
                           - type
                           - price
@@ -6191,6 +8103,11 @@ components:
                               - type
                               - amount
                             description: An optional discount to apply to this product
+                          issuedSeparately:
+                            type: boolean
+                            description: When true, this product is billed on its own invoice instead of
+                              being combined with other products in the same
+                              contract. Defaults to false.
                         required:
                           - type
                           - price
@@ -6339,6 +8256,16 @@ components:
                     type: string
                     nullable: true
                     description: The id of the class of the product in NetSuite ERP
+                  externalIntegrations:
+                    type: array
+                    nullable: true
+                    items:
+                      $ref: "#/components/schemas/ProductExternalIntegration"
+                    description: Links the product to matching products in V3 integrations (e.g.
+                      Paddle). For each entry, the product is linked to that
+                      external integration after the contract is created, so
+                      invoices for this product are exported to it. At most one
+                      entry per provider. Currently only Paddle is supported.
                   commitment:
                     type: object
                     nullable: true
@@ -6411,11 +8338,32 @@ components:
                       ProductGroup.
                   cloudProviderSettings:
                     $ref: "#/components/schemas/ProductCloudProviderSettings"
+                  consumesCreditProductIds:
+                    type: array
+                    nullable: true
+                    items:
+                      type: string
+                      pattern: ^[0-9a-fA-F]{24}$
+                    description: IDs of credit products whose pools are drawn down when this usage
+                      product is invoiced. Each ID matches the creditProductId
+                      of a credit grant on the same contract that funds the
+                      pool. Pools are drawn in the order listed. If omitted, no
+                      credits are applied and the product is billed at full
+                      price. Not supported inside productGroups.
                 required:
                   - displayName
                   - scheduling
                   - pricing
               description: The products that the contract is associated with
+            creditGrants:
+              type: array
+              nullable: true
+              items:
+                $ref: "#/components/schemas/ExternalCreditGrant"
+              description: Credit grants that fund credit pools for the customer under this
+                contract. Each grant credits a pool identified by its
+                creditProductId; usage products draw down those pools via
+                consumesCreditProductIds.
             productGroups:
               type: array
               items:
@@ -6459,6 +8407,17 @@ components:
                 - description: The currency of the contract. Overrides the customer-level currency
                     for all invoices under this contract. If not provided, the
                     customer currency or account default (USD) is used.
+            isTrial:
+              type: boolean
+              description: "Whether the contract is a trial. All invoices under a trial
+                contract are flagged with isTrial: true. If not provided, it
+                defaults to false."
+            externalId:
+              type: string
+              nullable: true
+              description: A caller-owned external id for the contract. Once set, the contract
+                can be fetched or deleted by passing this value in place of the
+                Vayu id on the /contracts/{contractId} endpoints.
             id:
               type: string
             createdAt:
@@ -6470,7 +8429,6 @@ components:
           required:
             - startDate
             - customerId
-            - name
             - id
             - createdAt
             - updatedAt
@@ -6490,9 +8448,15 @@ components:
                 type: string
                 pattern: ^[0-9a-fA-F]{24}$
                 description: The id of the customer that the contract is associated with
+              planId:
+                type: string
+                pattern: ^[0-9a-fA-F]{24}$
+                description: The id of an existing plan to attach to this contract. When
+                  provided, products/productGroups are ignored and the plan is
+                  used as-is. Mutually exclusive with inline product definition.
               name:
                 type: string
-                description: The name of the contract
+                description: The name of the contract. Required when planId is not provided.
               salesForceOpportunityId:
                 type: string
                 nullable: true
@@ -6594,9 +8558,17 @@ components:
                               description: An optional discount to apply to this product
                             isCreditPurchase:
                               type: boolean
-                              description: Whether this one-time fee is a credit purchase. When true, the
-                                product is treated as a prepaid credit that the
-                                customer can use later. Defaults to false.
+                              description: "Deprecated. Legacy prepaid-credit marker: sets a fixed Credit
+                                product type and prepayment, but does NOT fund a
+                                credit pool. For the credit pool system, use the
+                                contract-level creditGrants field instead.
+                                Defaults to false."
+                              deprecated: true
+                            issuedSeparately:
+                              type: boolean
+                              description: When true, this product is billed on its own invoice instead of
+                                being combined with other products in the same
+                                contract. Defaults to false.
                           required:
                             - type
                             - price
@@ -6714,6 +8686,11 @@ components:
                                 - type
                                 - amount
                               description: An optional discount to apply to this product
+                            issuedSeparately:
+                              type: boolean
+                              description: When true, this product is billed on its own invoice instead of
+                                being combined with other products in the same
+                                contract. Defaults to false.
                           required:
                             - type
                             - price
@@ -6862,6 +8839,17 @@ components:
                       type: string
                       nullable: true
                       description: The id of the class of the product in NetSuite ERP
+                    externalIntegrations:
+                      type: array
+                      nullable: true
+                      items:
+                        $ref: "#/components/schemas/ProductExternalIntegration"
+                      description: Links the product to matching products in V3 integrations (e.g.
+                        Paddle). For each entry, the product is linked to that
+                        external integration after the contract is created, so
+                        invoices for this product are exported to it. At most
+                        one entry per provider. Currently only Paddle is
+                        supported.
                     commitment:
                       type: object
                       nullable: true
@@ -6934,11 +8922,32 @@ components:
                         a ProductGroup.
                     cloudProviderSettings:
                       $ref: "#/components/schemas/ProductCloudProviderSettings"
+                    consumesCreditProductIds:
+                      type: array
+                      nullable: true
+                      items:
+                        type: string
+                        pattern: ^[0-9a-fA-F]{24}$
+                      description: IDs of credit products whose pools are drawn down when this usage
+                        product is invoiced. Each ID matches the creditProductId
+                        of a credit grant on the same contract that funds the
+                        pool. Pools are drawn in the order listed. If omitted,
+                        no credits are applied and the product is billed at full
+                        price. Not supported inside productGroups.
                   required:
                     - displayName
                     - scheduling
                     - pricing
                 description: The products that the contract is associated with
+              creditGrants:
+                type: array
+                nullable: true
+                items:
+                  $ref: "#/components/schemas/ExternalCreditGrant"
+                description: Credit grants that fund credit pools for the customer under this
+                  contract. Each grant credits a pool identified by its
+                  creditProductId; usage products draw down those pools via
+                  consumesCreditProductIds.
               productGroups:
                 type: array
                 items:
@@ -6982,6 +8991,17 @@ components:
                   - description: The currency of the contract. Overrides the customer-level currency
                       for all invoices under this contract. If not provided, the
                       customer currency or account default (USD) is used.
+              isTrial:
+                type: boolean
+                description: "Whether the contract is a trial. All invoices under a trial
+                  contract are flagged with isTrial: true. If not provided, it
+                  defaults to false."
+              externalId:
+                type: string
+                nullable: true
+                description: A caller-owned external id for the contract. Once set, the contract
+                  can be fetched or deleted by passing this value in place of
+                  the Vayu id on the /contracts/{contractId} endpoints.
               id:
                 type: string
               createdAt:
@@ -6993,7 +9013,6 @@ components:
             required:
               - startDate
               - customerId
-              - name
               - id
               - createdAt
               - updatedAt
@@ -7007,6 +9026,60 @@ components:
         - contracts
         - total
         - hasMore
+    TerminateContractRequest:
+      type: object
+      properties:
+        terminationDate:
+          type: string
+          description: The date on which the contract should be terminated. If omitted,
+            the contract is terminated immediately.
+          format: date-time
+    TerminateContractResponse:
+      type: object
+      properties:
+        contractId:
+          type: string
+          pattern: ^[0-9a-fA-F]{24}$
+          description: The identifier of the terminated contract
+      required:
+        - contractId
+    RefreshContractCreditsRequest:
+      type: object
+      properties:
+        grants:
+          type: array
+          items:
+            type: object
+            properties:
+              grantProductId:
+                type: string
+                pattern: ^[0-9a-fA-F]{24}$
+                description: The credit product (credit type) id identifying the grant to
+                  refresh. Every grant product on the contract for this credit
+                  product is set to non-prorated in the new phase.
+              newPrice:
+                type: number
+                minimum: 0
+                description: The grant's new price in the refreshed phase. If omitted, the
+                  current price is kept. If this credit product matches more
+                  than one grant product on the contract, a price cannot be
+                  applied unambiguously and the request is rejected.
+            required:
+              - grantProductId
+          description: The credit grants to refresh. Each refreshed grant is set to
+            non-prorated (and optionally re-priced), while every other credit
+            grant on the contract is set to prorated. If omitted, all credit
+            grants on the contract are refreshed (set to non-prorated) and none
+            are prorated.
+    RefreshContractCreditsResponse:
+      type: object
+      properties:
+        contractId:
+          type: string
+          pattern: ^[0-9a-fA-F]{24}$
+          description: The identifier of the contract whose credit grants were refreshed
+      required:
+        - contractId
     InvoicePaymentStatusResponse:
       type: object
       properties:
@@ -7100,6 +9173,9 @@ components:
               amount:
                 type: number
                 description: The total amount of the invoice
+              isTrial:
+                type: boolean
+                description: Whether the invoice belongs to a trial contract
               id:
                 type: string
               createdAt:
@@ -7118,6 +9194,7 @@ components:
               - accountId
               - lineItems
               - amount
+              - isTrial
               - id
               - createdAt
               - updatedAt
@@ -7275,6 +9352,12 @@ components:
     CustomerRelationId:
       type: string
       pattern: ^[0-9a-fA-F]{24}$
+    PlanId:
+      type: string
+      pattern: ^[0-9a-fA-F]{24}$
+    CustomFieldId:
+      type: string
+      pattern: ^[0-9a-fA-F]{24}$
     StartTime:
       type: string
       format: date-time
@@ -7295,24 +9378,16 @@ components:
       type: string
     Alias:
       type: string
-    IntegrationType:
-      type: string
-      enum:
-        - Hubspot
-        - Stripe
-        - NetSuite
-        - Salesforce
-        - QuickBooks
-        - Slack
-        - S3
-        - Vayu
-        - Morning
-        - Anrok
-        - Snowflake
-        - Connact
-        - Xero
     IntegrationId:
       type: string
+    CustomerExternalId:
+      type: string
+    IssuedAfter:
+      type: string
+      nullable: true
+    IssuedBefore:
+      type: string
+      nullable: true
     ProductId:
       type: string
 paths:
@@ -8100,8 +10175,9 @@ paths:
       tags:
         - contracts
       operationId: listContracts
-      description: List contracts for the account. Optionally filter by customerId to
-        retrieve contracts for a specific customer.
+      description: List contracts for the account. Optionally filter by customerId or
+        customerExternalId to retrieve contracts for a specific customer
+        (provide at most one, not both).
       summary: List contracts
       security:
         - BearerAuthorizer: []
@@ -8121,6 +10197,11 @@ paths:
           required: false
           in: query
           name: customerId
+        - schema:
+            $ref: "#/components/schemas/CustomerExternalId"
+          required: false
+          in: query
+          name: customerExternalId
       responses:
         "200":
           $ref: "#/components/responses/ListContractsResponse"
@@ -8431,6 +10512,376 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/GetCustomerRelationResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationErrorResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+        "429":
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RateLimitErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+  /plans/{planId}:
+    get:
+      tags:
+        - plans
+      operationId: getPlan
+      description: Get a Plan by id.
+      summary: Get Plan
+      security:
+        - BearerAuthorizer: []
+      parameters:
+        - schema:
+            $ref: "#/components/schemas/PlanId"
+          required: true
+          in: path
+          name: planId
+      responses:
+        "200":
+          $ref: "#/components/responses/GetPlanResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationErrorResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+        "429":
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RateLimitErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+    delete:
+      tags:
+        - plans
+      operationId: deletePlan
+      description: Delete a Plan by id.
+      summary: Delete Plan
+      security:
+        - BearerAuthorizer: []
+      parameters:
+        - schema:
+            $ref: "#/components/schemas/PlanId"
+          required: true
+          in: path
+          name: planId
+      responses:
+        "200":
+          $ref: "#/components/responses/DeletePlanResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationErrorResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+        "429":
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RateLimitErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+  /plans:
+    get:
+      tags:
+        - plans
+      operationId: listPlans
+      description: Get a list of Plans.
+      summary: List Plans
+      security:
+        - BearerAuthorizer: []
+      parameters:
+        - schema:
+            $ref: "#/components/schemas/Limit"
+          required: false
+          in: query
+          name: limit
+        - schema:
+            $ref: "#/components/schemas/Cursor"
+          required: false
+          in: query
+          name: cursor
+      responses:
+        "200":
+          $ref: "#/components/responses/ListPlansResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationErrorResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
+        "429":
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RateLimitErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+  /customFields:
+    post:
+      tags:
+        - custom-fields
+      operationId: createCustomField
+      description: Create a new Custom field.
+      summary: Create Custom field
+      security:
+        - BearerAuthorizer: []
+      requestBody:
+        $ref: "#/components/requestBodies/CreateCustomFieldRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/CreateCustomFieldResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationErrorResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
+        "429":
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RateLimitErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+    get:
+      tags:
+        - custom-fields
+      operationId: listCustomFields
+      description: Get a list of Custom fields.
+      summary: List Custom fields
+      security:
+        - BearerAuthorizer: []
+      parameters:
+        - schema:
+            $ref: "#/components/schemas/Limit"
+          required: false
+          in: query
+          name: limit
+        - schema:
+            $ref: "#/components/schemas/Cursor"
+          required: false
+          in: query
+          name: cursor
+      responses:
+        "200":
+          $ref: "#/components/responses/ListCustomFieldsResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationErrorResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
+        "429":
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RateLimitErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+  /customFields/{customFieldId}:
+    get:
+      tags:
+        - custom-fields
+      operationId: getCustomField
+      description: Get a Custom field by id.
+      summary: Get Custom field
+      security:
+        - BearerAuthorizer: []
+      parameters:
+        - schema:
+            $ref: "#/components/schemas/CustomFieldId"
+          required: true
+          in: path
+          name: customFieldId
+      responses:
+        "200":
+          $ref: "#/components/responses/GetCustomFieldResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationErrorResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+        "429":
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RateLimitErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+    put:
+      tags:
+        - custom-fields
+      operationId: updateCustomField
+      description: Update a Custom field by id.
+      summary: Update Custom field
+      security:
+        - BearerAuthorizer: []
+      requestBody:
+        $ref: "#/components/requestBodies/UpdateCustomFieldRequest"
+      parameters:
+        - schema:
+            $ref: "#/components/schemas/CustomFieldId"
+          required: true
+          in: path
+          name: customFieldId
+      responses:
+        "200":
+          $ref: "#/components/responses/UpdateCustomFieldResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationErrorResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+        "429":
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RateLimitErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+    delete:
+      tags:
+        - custom-fields
+      operationId: deleteCustomField
+      description: Delete a Custom field by id.
+      summary: Delete Custom field
+      security:
+        - BearerAuthorizer: []
+      parameters:
+        - schema:
+            $ref: "#/components/schemas/CustomFieldId"
+          required: true
+          in: path
+          name: customFieldId
+      responses:
+        "200":
+          $ref: "#/components/responses/DeleteCustomFieldResponse"
         "400":
           description: Bad Request
           content:
@@ -8797,6 +11248,339 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+  /v2/events/delete-by-refs:
+    post:
+      tags:
+        - events
+      operationId: v2DeleteEventsByRefs
+      description: Delete multiple events, identified by ref, in a single request (v2).
+      summary: Delete events by refs (v2)
+      security:
+        - BearerAuthorizer: []
+      requestBody:
+        $ref: "#/components/requestBodies/V2DeleteEventsByRefsRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/V2DeleteEventsByRefsResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationErrorResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+        "429":
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RateLimitErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+  /v2/events/dry-run:
+    post:
+      tags:
+        - events
+      operationId: v2SendEventsDryRun
+      description: "Submit a batch of events for testing via the events-service. NOTE:
+        this is a dry run and will not store the events."
+      summary: Submit a batch of events for testing (v2)
+      security:
+        - BearerAuthorizer: []
+      requestBody:
+        $ref: "#/components/requestBodies/V2EventsDryRunRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/V2EventsDryRunResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationErrorResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
+        "413":
+          description: Request Entity Too Large
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RequestTooLongErrorResponse"
+        "429":
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RateLimitErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+  /v2/events:
+    get:
+      tags:
+        - events
+      operationId: v2QueryEvents
+      description: Fetch events occurring within a specified timestamp range via the
+        events-service (ClickHouse-backed).
+      summary: Query events by timestamp period and optional event name (v2)
+      security:
+        - BearerAuthorizer: []
+      parameters:
+        - schema:
+            $ref: "#/components/schemas/StartTime"
+          required: true
+          in: query
+          name: startTime
+        - schema:
+            $ref: "#/components/schemas/EndTime"
+          required: true
+          in: query
+          name: endTime
+        - schema:
+            $ref: "#/components/schemas/EventName"
+          required: false
+          in: query
+          name: eventName
+        - schema:
+            $ref: "#/components/schemas/CustomerAlias"
+          required: false
+          in: query
+          name: customerAlias
+        - schema:
+            $ref: "#/components/schemas/Limit"
+          required: false
+          in: query
+          name: limit
+        - schema:
+            $ref: "#/components/schemas/Cursor"
+          required: false
+          in: query
+          name: cursor
+      responses:
+        "200":
+          $ref: "#/components/responses/V2QueryEventsResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationErrorResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
+        "429":
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RateLimitErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+    post:
+      tags:
+        - events
+      operationId: v2SendEvents
+      description: Submit a batch of events for ingestion via the events-service.
+      summary: Submit a batch of events for ingestion (v2)
+      security:
+        - BearerAuthorizer: []
+      requestBody:
+        $ref: "#/components/requestBodies/V2SendEventsRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/V2SendEventsResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationErrorResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
+        "413":
+          description: Request Entity Too Large
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RequestTooLongErrorResponse"
+        "429":
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RateLimitErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+  /v2/events/{refId}:
+    get:
+      tags:
+        - events
+      operationId: v2GetEventByRefId
+      description: Use this endpoint to get a specific event using its reference ID (v2).
+      summary: Get event by refId (v2)
+      security:
+        - BearerAuthorizer: []
+      parameters:
+        - schema:
+            $ref: "#/components/schemas/RefId"
+          required: true
+          in: path
+          name: refId
+      responses:
+        "200":
+          $ref: "#/components/responses/V2GetEventResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationErrorResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+        "429":
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RateLimitErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+    delete:
+      tags:
+        - events
+      operationId: v2DeleteEventByRefId
+      description: Use this endpoint to remove a specific event using its reference ID (v2).
+      summary: Delete an event by refId (v2)
+      security:
+        - BearerAuthorizer: []
+      parameters:
+        - schema:
+            $ref: "#/components/schemas/RefId"
+          required: true
+          in: path
+          name: refId
+      responses:
+        "200":
+          $ref: "#/components/responses/V2DeleteEventResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationErrorResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorResponse"
+        "429":
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RateLimitErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+  /v2/events/aggregation:
+    post:
+      tags:
+        - events
+      operationId: v2QueryEventsAggregation
+      description: Aggregate events by meters and time grouping via the events-service.
+      summary: Aggregate events (v2)
+      security:
+        - BearerAuthorizer: []
+      requestBody:
+        $ref: "#/components/requestBodies/V2QueryEventsAggregationRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/V2QueryEventsAggregationResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationErrorResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
+        "429":
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RateLimitErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
   /credits:
     get:
       tags:
@@ -8909,6 +11693,88 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/RequestSuccess"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationErrorResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
+        "429":
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RateLimitErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+  /credits/top-up:
+    post:
+      tags:
+        - credits
+      operationId: creditTopUp
+      description: >-
+        This endpoint creates a one-off invoice that bills a customer for a
+        credit grant.
+            Submit the customer ID and the credit grant (credit product, amount, type and price) in the request
+            body — the same credit grant shape used when defining grants on a contract. The grant's price is
+            charged on the invoice, and the credits are granted to the customer when the invoice is approved.
+      summary: Create a one-off invoice to top up a customer with credits
+      security:
+        - BearerAuthorizer: []
+      requestBody:
+        $ref: "#/components/requestBodies/CreditTopUpRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/CreditTopUpResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationErrorResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
+        "429":
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RateLimitErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+  /credit-products:
+    get:
+      tags:
+        - credit-products
+      operationId: listCreditProducts
+      description: Retrieve the credit products defined in your account. Use a credit
+        product ID to fund a credit pool (a product creditGrant.creditProductId)
+        or to debit one (a usage product consumesCreditProductIds). Distinct
+        from the credit ledger (GET /credits).
+      summary: List credit products
+      security:
+        - BearerAuthorizer: []
+      responses:
+        "200":
+          $ref: "#/components/responses/ListCreditProductsResponse"
         "400":
           description: Bad Request
           content:
@@ -9182,7 +12048,7 @@ paths:
         - BearerAuthorizer: []
       parameters:
         - schema:
-            $ref: "#/components/schemas/IntegrationType"
+            $ref: "#/components/schemas/IntegrationProviders"
           required: true
           in: path
           name: integrationType
@@ -9236,7 +12102,7 @@ paths:
         - BearerAuthorizer: []
       parameters:
         - schema:
-            $ref: "#/components/schemas/IntegrationType"
+            $ref: "#/components/schemas/IntegrationProviders"
           required: true
           in: path
           name: integrationType
@@ -9266,6 +12132,109 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/NotFoundErrorResponse"
+        "429":
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RateLimitErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+  /contracts/{contractId}/terminate:
+    post:
+      tags:
+        - contracts
+      operationId: terminateContract
+      description: >-
+        Use this endpoint to terminate a contract.
+            Provide a terminationDate in the request body to schedule the termination for a specific date,
+            or omit it to terminate the contract immediately.
+            The contract's status is set to PendingTermination and its end date is updated accordingly.
+      summary: Terminate a contract
+      security:
+        - BearerAuthorizer: []
+      requestBody:
+        $ref: "#/components/requestBodies/TerminateContractRequest"
+      parameters:
+        - schema:
+            $ref: "#/components/schemas/ContractId"
+          required: true
+          in: path
+          name: contractId
+      responses:
+        "200":
+          $ref: "#/components/responses/TerminateContractResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationErrorResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
+        "429":
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RateLimitErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+  /contracts/{contractId}/credits/refresh:
+    post:
+      tags:
+        - contracts
+      operationId: refreshContractCredits
+      description: >-
+        Use this endpoint to refresh the credit grants on a contract by creating
+        a new contract phase
+            (a contract revision) that takes effect immediately.
+
+            Provide a list of credit grants to refresh in the request body — each is identified by its credit product
+            (credit type) id and is set to non-prorated in the new phase, optionally with a new price. Every other credit
+            grant on the contract is set to prorated. If the grants list is omitted, all credit grants on the contract are
+            refreshed (set to non-prorated).
+
+            If a supplied credit product matches more than one grant product on the contract and a newPrice is provided,
+            the request is rejected because the price cannot be applied unambiguously.
+      summary: Refresh the credit grants on a contract
+      security:
+        - BearerAuthorizer: []
+      requestBody:
+        $ref: "#/components/requestBodies/RefreshContractCreditsRequest"
+      parameters:
+        - schema:
+            $ref: "#/components/schemas/ContractId"
+          required: true
+          in: path
+          name: contractId
+      responses:
+        "200":
+          $ref: "#/components/responses/RefreshContractCreditsResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationErrorResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorResponse"
         "429":
           description: Too Many Requests
           content:
@@ -9348,6 +12317,21 @@ paths:
           required: false
           in: query
           name: customerId
+        - schema:
+            $ref: "#/components/schemas/InvoiceBillingStatus"
+          required: false
+          in: query
+          name: billingStatus
+        - schema:
+            $ref: "#/components/schemas/IssuedAfter"
+          required: false
+          in: query
+          name: issuedAfter
+        - schema:
+            $ref: "#/components/schemas/IssuedBefore"
+          required: false
+          in: query
+          name: issuedBefore
       responses:
         "200":
           $ref: "#/components/responses/ListInvoicesResponse"
