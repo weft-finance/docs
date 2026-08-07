@@ -28,3 +28,24 @@ You can sync Vayu-entered subsidiaries with those listed in an integrated ERP su
 Choose from a dropdown list of subsidiaries from either side of the integration, press the linking icon between them, and the two entities will sync.
 
 To un-sync two entities, press the link icon again.
+
+## Delete a subsidiary
+
+You can remove a subsidiary that is no longer needed from the Subsidiaries Management section.
+
+To delete a subsidiary:
+
+1. Select the subsidiary you want to remove from the list.
+2. Select **Delete selected subsidiary**.
+3. In the confirmation dialog, select **Yes, delete** to confirm.
+
+<Warning>
+  Deletion is final and cannot be reversed.
+</Warning>
+
+### Restrictions
+
+To preserve data integrity, Vayu prevents deletion in the following cases:
+
+- **Primary subsidiary**: The primary subsidiary on your account cannot be deleted. The **Delete selected subsidiary** option is hidden for the primary subsidiary.
+- **Customers assigned**: A subsidiary that has customers assigned to it cannot be deleted. Reassign or remove those customers first, then try again.
