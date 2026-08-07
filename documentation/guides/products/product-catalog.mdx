@@ -1,0 +1,254 @@
+---
+title: Product Catalog
+description: Manage your product catalog in Vayu to streamline pricing and billing
+---
+
+# Product Catalog
+
+The Product Catalog in Vayu serves as a centralized repository for all your billable products and services. Use it to define reusable product templates that can be referenced across multiple contracts and customers, ensuring consistency in pricing and billing.
+
+## Overview
+
+Catalog products act as templates that define the core attributes of your products and services. When you create a contract, you can reference these catalog products instead of defining product details from scratch each time. This approach provides several benefits:
+
+- **Consistency**: Ensure the same product is billed identically across all customers
+- **Efficiency**: Quickly add products to contracts without re-entering details
+- **Centralized management**: Update product information in one place
+- **Integration support**: Sync products with ERP systems like NetSuite, QuickBooks, and Xero
+- **Usage metering**: Define usage-based products that track consumption
+
+## Key concepts
+
+### Catalog products vs. contract products
+
+Understanding the distinction between catalog products and contract products is essential:
+
+- **Catalog products**: Reusable templates stored in your product catalog. They define the product name, description, and external identifiers but not pricing or scheduling.
+- **Contract products**: Specific instances of products added to customer contracts. They reference catalog products and include pricing models, billing schedules, and customer-specific configurations.
+
+When you add a product to a contract, you reference a catalog product via its `catalogProductId` and then define the pricing and scheduling for that specific customer.
+
+### Usage-based products
+
+For usage-based pricing models (tiered, per-unit), catalog products are required. The catalog product serves as the anchor for usage metering, allowing Vayu to track consumption and calculate charges based on actual usage.
+
+## Creating catalog products
+
+You can create catalog products through the Vayu UI or API.
+
+### Through the UI
+
+1. Navigate to **Products** in the left-hand navigation
+2. Click **+ Create New**
+3. Enter the product details:
+   - **Name**: The display name for the product
+   - **Description**: Optional description of what the product includes
+   - **External ID**: Optional identifier for syncing with external systems (ERP, CRM)
+4. Click **Save**
+
+### Through the API
+
+Use the [Create Catalog Product](/api-reference/endpoints/catalog-products/create-catalog-product) endpoint to programmatically create products:
+
+```bash
+curl -X POST https://connect.withvayu.com/catalogProducts \
+  -H "Authorization: Bearer YOUR_API_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "API Usage",
+    "description": "Pay-per-call API access",
+    "externalId": "api-usage-001"
+  }'
+```
+
+The response includes the generated `catalogProductId` that you'll use when adding this product to contracts.
+
+## Managing catalog products
+
+### Viewing catalog products
+
+**In the UI**: Navigate to **Products** to see a list of all catalog products in your account.
+
+**Via API**: Use the [List Catalog Products](/api-reference/endpoints/catalog-products/list-catalog-products) endpoint:
+
+```bash
+curl -X GET https://connect.withvayu.com/catalogProducts \
+  -H "Authorization: Bearer YOUR_API_TOKEN"
+```
+
+### Updating catalog products
+
+**In the UI**: Click on a product from the products list, make your changes, and save.
+
+**Via API**: Use the [Update Catalog Product](/api-reference/endpoints/catalog-products/update-catalog-product) endpoint:
+
+```bash
+curl -X PUT https://connect.withvayu.com/catalogProducts/{catalogProductId} \
+  -H "Authorization: Bearer YOUR_API_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Updated Product Name",
+    "description": "Updated description"
+  }'
+```
+
+### Deleting catalog products
+
+**Via API**: Use the [Delete Catalog Product](/api-reference/endpoints/catalog-products/delete-catalog-product) endpoint:
+
+```bash
+curl -X DELETE https://connect.withvayu.com/catalogProducts/{catalogProductId} \
+  -H "Authorization: Bearer YOUR_API_TOKEN"
+```
+
+<Warning>
+Deleting a catalog product does not affect existing contracts that reference it. However, you won't be able to add the deleted product to new contracts.
+</Warning>
+
+## Using catalog products in contracts
+
+Once you've created catalog products, you can reference them when building contracts.
+
+### Adding products to contracts
+
+When creating or editing a contract, you'll add products that reference your catalog products. The catalog product provides the base definition, while the contract product adds pricing and scheduling:
+
+```json
+{
+  "displayName": "API Usage",
+  "catalogProductId": "64a1b2c3d4e5f6789012345a",
+  "scheduling": {
+    "billingDay": 1,
+    "duration": {
+      "unit": "MONTH",
+      "value": 1
+    }
+  },
+  "pricing": {
+    "type": "PER_UNIT",
+    "price": 0.01,
+    "chunkSize": 1
+  }
+}
+```
+
+For detailed information on product structures, pricing models, and scheduling options, see [Product Structure](/api-reference/pages/product-structure).
+
+## Integration with ERP systems
+
+Catalog products support synchronization with external systems through the `externalId` field. This enables seamless integration with:
+
+- **NetSuite**: Sync products to NetSuite items for revenue recognition
+- **QuickBooks**: Map Vayu products to QuickBooks products/services
+- **Xero**: Link products to Xero items for accounting
+- **Salesforce**: Connect products to Salesforce product catalog
+- **HubSpot**: Sync products with HubSpot product library
+
+When setting up integrations, you can map Vayu catalog products to corresponding products in your ERP system using the external ID or through the integration UI.
+
+For integration-specific details, see:
+- [NetSuite Integration](/documentation/guides/integrations/netsuite)
+- [QuickBooks Integration](/documentation/guides/integrations/quickbookx)
+- [Xero Integration](/documentation/guides/integrations/xero)
+- [Salesforce Integration](/documentation/guides/integrations/salesforce)
+- [HubSpot Integration](/documentation/guides/integrations/hubspot)
+
+## Role-based access control
+
+Vayu provides granular role-based access control (RBAC) for catalog products. You can configure permissions to control which users can:
+
+- View catalog products
+- Create new catalog products
+- Edit existing catalog products
+- Delete catalog products
+
+To configure product permissions, navigate to **Settings** > **User Management** and adjust role permissions accordingly.
+
+## Best practices
+
+### Naming conventions
+
+Use clear, descriptive names for your catalog products that make them easy to identify:
+
+- ✅ "API Calls - Standard Tier"
+- ✅ "Cloud Storage - Per GB"
+- ✅ "Professional Services - Hourly"
+- ❌ "Product 1"
+- ❌ "SKU-12345"
+
+### External IDs
+
+Maintain consistent external IDs that match your ERP or billing system:
+
+- Use the same identifier format across all systems
+- Include the external ID when creating products to enable future integrations
+- Document your ID conventions for team reference
+
+### Product organization
+
+Group related products logically:
+
+- Create separate products for different pricing tiers
+- Use descriptions to clarify what's included
+- Maintain a product catalog document for internal reference
+
+### Usage-based products
+
+For products with usage-based pricing:
+
+- Always create a catalog product first
+- Use descriptive names that indicate the metering unit (e.g., "API Calls", "Storage GB")
+- Document the usage metric being tracked
+
+## Common use cases
+
+### SaaS subscription tiers
+
+Create catalog products for each subscription tier:
+
+```json
+{
+  "name": "Starter Plan",
+  "description": "Basic features for small teams",
+  "externalId": "plan-starter"
+}
+```
+
+```json
+{
+  "name": "Professional Plan",
+  "description": "Advanced features for growing businesses",
+  "externalId": "plan-professional"
+}
+```
+
+### Usage-based services
+
+Define catalog products for metered services:
+
+```json
+{
+  "name": "API Requests",
+  "description": "Pay-per-request API access",
+  "externalId": "api-requests"
+}
+```
+
+### Professional services
+
+Create products for time-based or project-based services:
+
+```json
+{
+  "name": "Implementation Services",
+  "description": "One-time setup and configuration",
+  "externalId": "services-implementation"
+}
+```
+
+## Related resources
+
+- [Product Structure](/api-reference/pages/product-structure) - Detailed product configuration options
+- [Create Plan](/documentation/guides/plans-and-pricing/create-plan) - Building pricing plans with products
+- [Usage-Based Fees](/documentation/guides/plans-and-pricing/usage-based-fees) - Configuring usage-based pricing
+- [API Reference: Catalog Products](/api-reference/endpoints/catalog-products/list-catalog-products) - Complete API documentation

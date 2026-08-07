@@ -79,6 +79,12 @@
                 ]
               },
               {
+                "group": "Products",
+                "pages": [
+                  "documentation/guides/products/product-catalog"
+                ]
+              },
+              {
                 "group": "Plans & Pricing",
                 "icon": "file-invoice",
                 "pages": [
