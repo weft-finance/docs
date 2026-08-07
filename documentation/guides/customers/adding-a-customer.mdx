@@ -43,6 +43,21 @@ The Configuration section defines system identifiers and billing-related behavio
 
 Fields such as External ID, CRM ID, NS Customer ID, and QB ERP ID are used to synchronize customer records with external systems and accounting platforms. These identifiers allow mapping between Vayu and integrated systems.
 
+## **Identity Resolution**
+
+Vayu functions as a central identity hub through **customer identity resolution**, aggregating and mapping customer identifiers from multiple external systems into a unified customer record.
+
+As your organization uses different platforms—CRM systems like Salesforce or HubSpot, ERP systems like NetSuite or QuickBooks, and internal databases—each system typically assigns its own unique identifier to the same customer. Vayu resolves these disparate identities by maintaining mappings across all these systems through the External & Integration Identifier fields.
+
+This identity resolution capability allows you to:
+
+- Maintain a single source of truth for customer data while preserving system-specific identifiers
+- Synchronize billing and customer information bidirectionally across platforms
+- Query and reference customers using identifiers from any connected system
+- Prevent duplicate customer records when integrating multiple data sources
+
+By centralizing identity resolution, Vayu ensures that customer data remains consistent and accessible regardless of which system originally created or manages the customer relationship.
+
 ### **Account Configuration**
 
 Within this section, you assign the customer to a **Subsidiary**, define the default **Overage behavior**, and select a **Customer Type**. These values influence how billing and contracts are applied to the account.
