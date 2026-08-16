@@ -116,6 +116,32 @@ To allow Vayu to override the NetSuite number, enter your NetSuite settings. Go 
 >
 > While [<u>NetSuite warns</u>](https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/bridgehead_4340447524.html) that its next automatic number generation will then follow the higher of the number it generated or the one manually entered, this should not be an issue as the Allow Override setting will let Vayu automatically input its own numbers.
 
+#### Link invoices to Sales Orders
+
+If a contract in Vayu is already synced to NetSuite as a Sales Order, you can have Vayu link each new invoice back to that Sales Order in NetSuite. When linked, NetSuite automatically populates the invoice's `Created From` field with the Sales Order and sets the `orderLine` reference on every line item, so revenue, fulfillment, and billing stay tied to a single transaction in NetSuite.
+
+**When to use it**
+
+Turn this on if you:
+
+- Sync Vayu contracts to NetSuite as Sales Orders, and
+- Want each invoice to roll up to its originating Sales Order for reporting, revenue recognition, or fulfillment workflows in NetSuite.
+
+If a contract has no synced NetSuite Sales Order, Vayu falls back to creating a standalone invoice in NetSuite — no action needed.
+
+**How to configure it**
+
+In the NetSuite configuration panel, open the **Invoices** section and choose one of:
+
+- ⦿ **Link invoice to its Sales Order in NetSuite** — enables the linked sync.
+- ⦿ **Do not link invoice to Sales Order** — keeps invoices standalone (default).
+
+The setting applies to all invoices synced after you save the configuration. Existing NetSuite invoices are not modified retroactively.
+
+<Note>
+  This option requires that the invoice's contract is already synced to NetSuite as a Sales Order. To sync a contract as a Sales Order, open the contract's ellipse menu (●●●), select **Sync**, then **Sync Invoice as Sales Order**.
+</Note>
+
 ### Credit Memos
 
 Finally, choose whether or not you want to automatically sync credit memos when you create a new credit ledger.
