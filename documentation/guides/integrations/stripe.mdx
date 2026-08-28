@@ -142,6 +142,36 @@ Finally, choose how to sync approved invoices:
 - Automatically sync invoices upon approval (recommended)
 - Do not sync automatically
 
+## Payment failure notifications
+
+When Stripe auto-collect is enabled, Vayu attempts to charge the customer's stored payment method on the invoice due date. If the charge fails — for example, due to an expired card, insufficient funds, or a declined transaction — Vayu surfaces the failure as a task in the **Notification Center** so your team can review and take action.
+
+### When you'll see a Stripe collect invoice task
+
+A **Stripe collect invoice** task appears in the Notification Center after a failed auto-collection attempt. Each task is scoped to a single invoice and includes the invoice number and customer name in its title, for example:
+
+> Stripe collect invoice INV-1042 for Acme Inc.
+
+Tasks are only created for invoices that are both:
+
+- **Due** — the invoice has reached or passed its due date.
+- **Approved** — the invoice's review status is `Approved`.
+
+Invoices that are not yet due or not approved are skipped automatically and re-evaluated on their next due date check, so the Notification Center stays focused on invoices that actually need attention.
+
+### Reviewing and resolving a failed collection
+
+1. Open the **Notification Center** from the top navigation.
+2. Locate the **Stripe collect invoice** task for the affected invoice.
+3. Open the linked invoice to review the Stripe error and the customer's payment method on file.
+4. Resolve the underlying issue — typically by asking the customer to update their card in Stripe, or by retrying collection from the invoice.
+
+Once the invoice is paid in Stripe, Vayu marks it as **Paid** automatically through the standard payment status sync.
+
+### Relationship to dunning
+
+Payment failure tasks are independent of [dunning reminders](/documentation/guides/invoices/dunning). Dunning continues to send scheduled reminders to the customer based on your configured schedule, while the Notification Center task gives your internal team a working queue of failed charges to investigate.
+
 ### **Payment status updates back to Vayu**
 
 After a payment attempt:
