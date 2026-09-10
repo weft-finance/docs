@@ -174,3 +174,68 @@ resp, _ = http.DefaultClient.Do(req)
 <Note>
 Access tokens expire after **1 hour**. If using a raw HTTP client, re-call `/login` when you receive a `401` response. The SDKs handle this automatically.
 </Note>
+
+## Scopes
+
+An API Token carries a set of scopes, and any access token you obtain from `POST /login` inherits them. Every endpoint requires a scope, and a request is only authorized if your token's scopes cover it.
+
+### Scope grammar
+
+A scope takes one of four forms:
+
+| Form | Grants |
+|---|---|
+| `vayu.<domain>.read` | Read access to one domain |
+| `vayu.<domain>.write` | Write access to one domain |
+| `vayu.<domain>.*` | Both read and write access to one domain |
+| `vayu.*` | Full access — every domain, read and write |
+
+Matching is strict. `vayu.*` covers every request. `vayu.<domain>.*` covers both read and write on that domain. `vayu.<domain>.read` covers only read operations on that domain, and `vayu.<domain>.write` covers only write operations — a `write` scope does **not** imply `read`. Scopes are independent grants, so an ingest-only token can carry `vayu.events.write` alone, with no read access at all.
+
+In the Vayu dashboard, you either leave the "Full access" switch on — the default — or turn it off and tick Read and/or Write per domain: for a single domain, for a whole group (Billing, Catalog, Usage, Other), or for all domains at once. Read and Write are independent ticks and at least one must be ticked; a domain with both ticked is stored as `vayu.<domain>.*`.
+
+`vayu.*` (full access) is what a token gets when the "Full access" switch is on. Every API Token created before scopes existed also behaves as full access.
+
+### Scope domains
+
+| Scope domain | Covers | Group |
+|---|---|---|
+| `customers` | Customer records, lookups by external id, name or integration, and customer relations | Billing |
+| `contracts` | Contract creation, listing, lookup, termination, credit refresh, and lookup by integration | Billing |
+| `invoices` | Invoice lookup, listing, and payment status | Billing |
+| `credits` | Credit ledger entries, grants, deductions, and top-ups | Billing |
+| `credit-products` | Listing of credit purchase products | Billing |
+| `plans` | Plan listing, lookup, and deletion | Catalog |
+| `catalog-products` | Catalog product creation, listing, lookup, update, and deletion | Catalog |
+| `custom-fields` | Custom field definition creation, listing, lookup, update, and deletion | Catalog |
+| `events` | Event ingestion and querying, including aggregation and dry-run validation | Usage |
+| `measurements` | Measurement creation, listing, lookup, and deletion | Usage |
+| `meters` | Meter listing, lookup, update, and deletion | Usage |
+| `product-consumptions` | Product consumption lookup by product id | Usage |
+| `cloud-usage-submission` | Submission of cloud marketplace usage records | Usage |
+| `webhooks` | Webhook subscription management | Other |
+
+### Which scope an endpoint needs
+
+As a rule, `GET` endpoints need `<domain>.read` and every other method (`POST`, `PATCH`, `PUT`, `DELETE`) needs `<domain>.write`. The one exception is `POST /v2/events/aggregation`, which needs `vayu.events.read` since it only queries data.
+
+If you generate clients from Vayu's OpenAPI specification, each operation carries an `x-required-scope` extension naming the exact scope it needs.
+
+### Denied requests
+
+A request whose token lacks the required scope is rejected with a `403` and a `permission_error`:
+
+```json
+{
+  "type": "permission_error",
+  "code": "insufficient_scope",
+  "message": "Token lacks required scope vayu.invoices.write",
+  "requiredScope": "vayu.invoices.write"
+}
+```
+
+See [Errors](/api-reference/pages/errors) for the full error response format.
+
+### Changing scopes
+
+Scopes are fixed at creation and can't be edited on an existing token. To change them, create a new API Token in the Vayu dashboard with the scopes you want, then revoke the old one.
