@@ -28,6 +28,7 @@ All Vayu API errors return a JSON body with a consistent structure. Use `type` f
 |---|---|
 | `invalid_request_error` | Problem with the request itself (bad input, not found, conflict) |
 | `authentication_error` | Missing or invalid access token |
+| `permission_error` | Token doesn't carry the scope the endpoint requires |
 | `rate_limit_error` | Too many requests |
 | `api_error` | Unexpected server-side error |
 
@@ -40,6 +41,7 @@ All Vayu API errors return a JSON body with a consistent structure. Use `type` f
 | `validation_failed` | 400 | `invalid_request_error` | Multiple fields failed validation |
 | `bad_request` | 400 | `invalid_request_error` | Malformed JSON or other request-level error |
 | `authentication_failed` | 401 | `authentication_error` | Missing or expired access token |
+| `insufficient_scope` | 403 | `permission_error` | Token doesn't carry the scope the endpoint requires — the response includes an extra `requiredScope` field naming the missing scope |
 | `resource_not_found` | 404 | `invalid_request_error` | Requested resource does not exist |
 | `resource_already_exists` | 409 | `invalid_request_error` | Duplicate — e.g. customer with this `externalId` already exists |
 | `request_too_large` | 413 | `invalid_request_error` | Payload exceeds the 256 KB limit |
